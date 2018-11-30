@@ -2,8 +2,8 @@
 
 Application settings:
 
-** INSTALL POSTGRESQL **
-** CHANGE database Configuration file in config/database.yml with YOUR CREDENTIALS **
+**INSTALL POSTGRESQL**
+**CHANGE database Configuration file in `config/database.yml` with YOUR CREDENTIALS**
 
 * Ruby version
   - 2.5.1
@@ -11,7 +11,7 @@ Application settings:
   - 5.2.1
 
 * System dependencies
-  * rspec-rails - Testing framework.
+  * rspec-rails - Testing framework. [Rspec](https://github.com/rspec/rspec-rails)
   * factory_girl_rails - Factory pattern for building objects
   * shoulda_matchers - Provides RSpec with additional matchers.
   * database_cleaner - Gem to clean our test database to ensure a clean state in each test suite.
@@ -52,5 +52,3 @@ Application settings:
   ```shell
     bundle exec rspec spec/ -fd --order rand
   ```
-
-* ...
