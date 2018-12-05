@@ -52,3 +52,39 @@ Application settings:
   ```shell
     bundle exec rspec spec/ -fd --order rand
   ```
+
+## Basic commands
+### generate model (model name in capital letter)
+```shell
+  rails g model NameModel attribute1:type attribute2:type ...
+```
+* this will create a model, migration, factory for model and model test file.
+* example
+```shell
+  rails g model Blog name:string status:boolean due_date:date days:integer
+```
+
+### run migration to create table in database or update existing tables
+```shell
+  rails db:migrate
+```
+
+### rollback migration
+```shell
+rails db:rollback
+```
+
+### generate controller with cli (model name in plural) and optional actions (index, show, new, update, destroy)
+```shell
+rails g controller Blogs index show
+```
+
+### access to rails console
+```shell
+rails c
+```
+
+### run server
+```shell
+rails server
+```
