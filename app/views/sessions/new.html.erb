@@ -1,0 +1,25 @@
+<% provide(:title, 'Login') %>
+<%= form_for(:session, url: {action: "create"}, method: :post) do |f| %>
+      <div class="row">
+        <div class="col-12">
+          <%= label :email, "Email:" %>
+          <%= email_field :session, :email , class: 'form-control', required: 'true' %>
+        </div>
+        <div class="col-12">
+          <%= label :password, "Contraseña: " %>
+          <%= password_field :session, :password,  class: 'form-control', required: 'true', min: '0' %>
+        </div>
+      </div>
+      <%= f.label :remember_me, class: "checkbox inline" do %>
+        <%= f.check_box :remember_me %>
+        <span>Recordar sesión</span>
+      <% end %>
+      </br>
+      <div class="row">
+        <div class="col-md-3">
+          <button id="save" class="btn save-button" name="button" type="submit" >Entrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
