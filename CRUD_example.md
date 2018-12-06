@@ -5,6 +5,7 @@
 rails db:create
 ```
 
+# MODEL
 ## 1. Model creation
 I recommend to create an empty migration and put all constraints manually.
 ** b. create empty migration and put attribute validations, associations, etc
@@ -67,8 +68,7 @@ generate data.
 
 ## 3. Implement TDD for model
 * I suggest to implement TDD to validate models, controllers and views, but that
-depends on each one.
-** build test object, where blob_example is the object created
+depends on each one. first build test object, where blob_example is the object created
 ```ruby
 subject(:blob_example) do
   # Returns a blob instance that's not saved
@@ -179,4 +179,65 @@ class Blob < ApplicationRecord
     inclusion: { in: [true, false] } # validate presence for booleans
 
 end
+```
+
+# CONTROLLER
+## generate controller
+* There are two ways to generate a controller, the first one is using the
+command line and the second (I recommed use this) is create manually each
+controller. The reason is because the generator command creates other files,
+such as helpers, scss and coffee files specific to the controller and we do not
+need them. To generate the controller using the command, you must to put the
+model in plural and optionally add what actions are required.
+
+```shell
+rails g controller Blogs index new create show update destroy
+```
+
+If you decided to create manually each controller, you just need to create the
+controller in:
+```shell
+app/controllers/
+```
+
+then add the corresponding controller test file in:
+```shell
+spec/controllers/
+```
+
+and finally the view folder in
+```shell
+app/views/
+```
+
+## Test controller methods
+* For controllers it is recommendable to group each action and its tests, as the
+following example for the index method
+
+```ruby
+RSpec.describe BlogsController do
+  describe "GET index" do
+    it "assigns @blogs" do
+      blog = Blog.create
+      get :index
+      expect(assigns(:blogs)).to eq([blog])
+    end
+
+    it "renders the index template" do
+      get :index
+      expect(response).to render_template("index")
+    end
+
+    it "has 200 status code" do
+      get :index
+      expect(response).to have_http_status(:ok)
+    end
+  end
+end
+```
+
+## Add routes
+* Remember to add the corresponding routes for each method of controllers in:
+```shell
+config/routes.db
 ```
