@@ -1,0 +1,16 @@
+th, td {
+	padding-bottom: 6px !important;
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+	padding-top: 6px !important;
+}
+
+.list-group-item {
+	padding-bottom: 8px !important;
+	padding-top: 8px !important;
+}
+
+.btn-sm {
+	height: 30px !important;
+}
+

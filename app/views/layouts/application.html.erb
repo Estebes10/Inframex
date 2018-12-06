@@ -2,6 +2,8 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -21,9 +23,10 @@
               <strong><%= t message_type %>: </strong><%= message %>
             </div>
         <% end %>
-        </div>
+      </div>
     <% end %>
     <%= yield %>
     <%= debug(params) if Rails.env.development? %>
   </body>
+  <%= render 'layouts/footer' %>
 </html>

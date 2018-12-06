@@ -1,0 +1,21 @@
+// ---------------------------------------------------------
+// @Responsive Suffix Generator
+// ---------------------------------------------------------
+
+// Mixin used to generate responsive suffixes for classes (i.e. m-10@sm+).
+
+@import "../../../settings/breakpoints";
+@import "./mediaQueryCondition";
+
+@mixin generateResponsive() {
+  @each $breakpoint in $breakpoints {
+    $breakpointAlias     : nth($breakpoint, 1) !global;
+    $breakpointCondition : nth($breakpoint, 2);
+
+    @include mediaQueryCondition($breakpointAlias) {
+      @content;
+    }
+
+    $breakpointAlias: null !global;
+  }
+}
