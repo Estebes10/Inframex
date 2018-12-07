@@ -1,0 +1,50 @@
+<% if @expenses.blank? %>
+<div class="row">
+    <div class="col-md-10">
+        <h2 class="display-4">Gastos</h2>
+        <p class="lead">Actualmente no se encuentra nigún gasto dentro de la plataforma.</p>
+    </div>
+</div>
+
+<% else %>
+
+<div class="row">
+    <div class="col-md-10">
+        <h2 class="display-4">Gastos</h2>
+        <p class="lead">Aqu&iacute; encontrarás a todos los gastos que están dentro de la plataforma</p>
+    </div>
+</div>
+
+
+<table class="table table-hover" role="datatable">
+    <thead>
+    <tr class="tableHead">
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Subcategoría</th>
+        <th>Fecha</th>
+        <th>Cantidad</th>
+        <th>Unidad</th>
+        <th>Precio Unitario</th>
+        <th>Total</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @expenses.each do |a| %>
+    <tr>
+      <td><%= a.name-%></td>
+      <td><%= a.category.name-%></td>
+      <td><%= a.subcategory.name-%></td>
+      <td><%= a.date-%></td>
+      <td><%= a.quantity-%></td>
+      <td><%= a.unity-%></td>
+      <td><%= a.unit_price-%></td>
+      <td><%= a.total-%></td>
+      <td><%= a.status-%></td>
+    </tr>
+
+    <% end %>
+    </tbody>
+</table>
+<%end%>
