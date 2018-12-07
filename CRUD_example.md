@@ -241,3 +241,167 @@ end
 ```shell
 config/routes.db
 ```
+
+* There many options to implement a specific path, two common ways are:
+** Using resources and specifying which method will be used.
+```ruby
+resources :blogs, only: %I[index]
+```
+
+** Generate paths for each method, using URL, controller and action parameters.
+```ruby
+get '/blogs', to: 'blogs#index'
+```
+
+## Test rounting
+* To test routes, we can consider if the path is routeable and if there is an
+action associated to it. e.g for: ```spec/routes/blogs_routing_spec.rb```.
+```ruby
+require "rails_helper"
+
+RSpec.describe 'routes for blogs', :type => :routing do
+
+  context 'for index method' do
+    it "should route to /blogs" do
+      expect(:get => "/blogs").to be_routable
+    end
+
+    it "routes /blogs to blogs controller" do
+      expect(get("/blogs")).to route_to("blogs#index")
+    end
+  end
+
+end
+```
+
+## View test
+* For views, we can test string matches for each template body and if the view
+can infers the controller path and its corresponding action.
+```ruby
+require 'rails_helper'
+
+RSpec.describe 'blogs/index.html.erb', type: :view do
+
+  context 'with 2 blogs' do
+    before(:each) do
+      assign(:blogs, [
+        FactoryBot.create(:blog, name: 'Bitacora B1'),
+        FactoryBot.create(:blog, name: 'Bitacora B2')
+      ])
+    end
+
+    it 'displays both blogs' do
+      render
+
+      # Test if the name of both objects are rendered
+      expect(rendered).to match /Bitacora B1/
+      expect(rendered).to match /Bitacora B2/
+    end
+
+    it 'infers the controller path' do
+      expect(controller.request.path_parameters[:controller]).to eq('blogs')
+      expect(controller.controller_path).to eq('blogs')
+    end
+
+    it 'infers the controller action' do
+      expect(controller.request.path_parameters[:action]).to eq('index')
+    end
+  end
+
+end
+```
+
+## Integration test
+* Rspec uses Capybara to test a complete functionality in the application.
+you just need to create a new file in ```spec/features/```, this is the name to
+describe integration test in Rspec.
+** This is a test example for login.
+```ruby
+# spec/features/visitor_signs_up_spec.rb
+require 'spec_helper'
+
+feature 'Visitor signs up' do
+  scenario 'with valid email and password' do
+    sign_up_with 'valid@example.com', 'password'
+
+    expect(page).to have_content('Sign out')
+  end
+
+  scenario 'with invalid email' do
+    sign_up_with 'invalid_email', 'password'
+
+    expect(page).to have_content('Sign in')
+  end
+
+  scenario 'with blank password' do
+    sign_up_with 'valid@example.com', ''
+
+    expect(page).to have_content('Sign in')
+  end
+
+  def sign_up_with(email, password)
+    visit sign_up_path
+    fill_in 'Email', with: email
+    fill_in 'Password', with: password
+    click_button 'Sign up'
+  end
+end
+```
+
+** This is a more complete test
+```ruby
+feature "Signing in" do
+  background do
+    User.make(email: 'user@example.com', password: 'caplin')
+  end
+
+  scenario "Signing in with correct credentials" do
+    visit '/sessions/new'
+    within("#session") do
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Password', with: 'caplin'
+    end
+    click_button 'Sign in'
+    expect(page).to have_content 'Success'
+  end
+
+  given(:other_user) { User.make(email: 'other@example.com', password: 'rous') }
+
+  scenario "Signing in as another user" do
+    visit '/sessions/new'
+    within("#session") do
+      fill_in 'Email', with: other_user.email
+      fill_in 'Password', with: other_user.password
+    end
+    click_button 'Sign in'
+    expect(page).to have_content 'Invalid email or password'
+  end
+end
+```
+
+** Example to create one record (Blog)
+```ruby
+require 'rails_helper.rb'
+
+feature 'Creating Blog' do  
+  scenario 'can create a blog' do
+    # 1. go to root where will be button to add a new blog:
+    visit '/blogs'
+    # 2. click on Agregar bitácora button
+    click_link 'Agregar bitácora'
+    # 3. Fill form - add name, description and date
+    fill_in 'name', with: 'Bitacora B32'
+    fill_in 'description', with: 'Ejemplo'
+    fill_in 'blog_date', with: '22 de Noviembre de 2018'
+    # 4. Click on submit form button
+    click_button 'Guardar'
+    # 5. Then we should be redirected to show page with blog details (blog name, description, images, etc.)
+    expect(page).to have_content('Bitacora B32 guardada correctamente')
+  end
+end
+```
+* To read more about how to implement integration tests with Rspec and Capybara,
+go to the following pages [Official Capybara site](https://www.rubydoc.info/github/jnicklas/capybara/master)
+or [Rspec Feature spec](https://relishapp.com/rspec/rspec-rails/v/3-8/docs/feature-specs/feature-spec).
+and [this one](https://robots.thoughtbot.com/rspec-integration-tests-with-capybara#integration-test-with-rspec-and-capybara)
+shows and example of how to implement helpers for tests.
