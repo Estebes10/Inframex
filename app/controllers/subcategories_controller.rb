@@ -24,6 +24,7 @@ class SubcategoriesController < ApplicationController
   end
 
   def update
+    @subcategory = Subcategory.find(params[:id])
     if @subcategory.update_attributes(:name)
       #flash[:success] = ' Subategoría modificado correctamente'
       redirect_to action: 'index'

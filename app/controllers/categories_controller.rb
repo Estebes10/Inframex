@@ -24,6 +24,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
+    @category = Category.find(params[:id])
     if @category.update_attributes(:name)
       #flash[:success] = ' Categoría modificado correctamente'
       redirect_to action: 'index'
