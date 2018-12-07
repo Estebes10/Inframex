@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # CSS Framework
 gem 'bootstrap', '~> 4.1.3'
+gem 'popper_js', '~> 1.14'
 # Javascript framework used in bootstrap
 gem 'jquery-rails'
 # Use ActiveStorage variant
