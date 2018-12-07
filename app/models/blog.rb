@@ -1,4 +1,4 @@
-class Blob < ApplicationRecord
+class Blog < ApplicationRecord
 
   # Associations
   #has_many :pictures
@@ -17,7 +17,7 @@ class Blob < ApplicationRecord
     presence:   true,
     length:     { maximum: 1024 }
 
-  validates :blob_date,
+  validates :blog_date,
     presence:   true
 
   validates :status,

@@ -15,11 +15,25 @@ ActiveRecord::Schema.define(version: 2018_12_06_003528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "blobs", force: :cascade do |t|
+  create_table "blogs", force: :cascade do |t|
     t.string "name", limit: 256, null: false
     t.string "description", limit: 1024, null: false
     t.boolean "status", default: true, null: false
-    t.date "blob_date", null: false
+    t.date "blog_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "lastName"
+    t.string "password"
+    t.date "birthday"
+    t.string "email"
+    t.string "phone"
+    t.boolean "status", default: true
+    t.string "password_digest"
+    t.string "remember_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,0 +1,40 @@
+<h1> Registro de bitácoras por proyecto</h1>
+
+<div class="container">
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#Bitácora</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha de creación</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <% @blogs.each do |blog| %>
+      <tbody>
+        <tr>
+          <th scope="row"> <%= blog.id %> </th>
+          <td><%= blog.name %></td>
+          <td> <%= blog.description %></td>
+          <% if blog.status %>
+          <td> En espera </td>
+          <% else %>
+          <td> Aprobada </td>
+          <% end %>
+          <td><%= blog.blog_date %></td>
+          <td><a href="#" class="btn btn-info"> Ver </a></td>
+          <% if blog.status %>
+          <td><a href="#" class="btn btn-success"> Aprobar </a></td>
+          <% else %>
+          <td><a href="#" class="btn btn-warning"> Desaprobar </a></td>
+          <% end %>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>
