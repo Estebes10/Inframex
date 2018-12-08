@@ -267,8 +267,3 @@ const GREYS = {
   'grey-800' : '#565a5c',
   'grey-900' : '#313435',
 };
-
-export {
-  COLORS,
-  GREYS,
-};

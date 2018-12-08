@@ -1,6 +1,4 @@
-import '../stylesheets/template/index.scss';
-
-import './popover';
-import './sidebar';
-import './datepicker';
-import './utils';
+//= require ./popover/index
+//= require ./sidebar/index
+//= require ./datepicker/index
+//= require ./utils/index

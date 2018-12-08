@@ -1,6 +1,4 @@
-import * as $ from 'jquery';
-
-export default (function () {
-  $('.start-date').datepicker();
-  $('.end-date').datepicker();
-}())
+$(function () {
+  // $('.start-date').datepicker();
+  // $('.end-date').datepicker();
+}());
