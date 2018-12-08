@@ -1,0 +1,11 @@
+<h1> Aqui es la vista para agregar una nueva bitácora</h1>
+
+<%if @blog.errors.any? %>
+     <%@blog.errors.messages.each do|msg| %>
+          <div class="alert alert-danger">
+            <%= msg %>
+          </div>
+     <%end%>
+<%end%>
+
+<%= render partial: "form" %>
