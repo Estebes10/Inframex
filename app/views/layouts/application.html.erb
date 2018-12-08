@@ -12,22 +12,69 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <% if not flash.empty? %>
-      <div id="flashInfo" class="container">
-        <% flash.each do |message_type, message| %>
-          <br>
-            <div class="alert alert-<%= message_type %> alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <strong><%= t message_type %>: </strong><%= message %>
-            </div>
-        <% end %>
-      </div>
-    <% end %>
-    <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
+  <body class="app">
+  <!-- @TOC -->
+  <!-- =================================================== -->
+  <!--
+    + @Page Loader
+    + @App Content
+        - #Left Sidebar
+            > $Sidebar Header
+            > $Sidebar Menu
+        - #Main
+            > $Topbar
+            > $App Screen Content
+  -->
+
+  <!-- @Page Loader -->
+  <!-- =================================================== -->
+  <%= render 'layouts/loader' %>
+
+  <!-- @App Content -->
+  <!-- =================================================== -->
+  <div>
+    <!-- #Left Sidebar ==================== -->
+    <%= render 'layouts/sidebar' %>
+
+    <!-- #Main ============================ -->
+    <div class="page-container">
+      <!-- ### $Topbar ### -->
+      <%= render 'layouts/topbar' %>
+
+      <!-- ### $App Screen Content ### -->
+      <main class='main-content bgc-grey-100 pT-20'>
+        <div id='mainContent'>
+          <div class="row gap-20">
+            <% if not flash.empty? %>
+              <div id="flashInfo" class="container">
+                <% flash.each do |message_type, message| %>
+                  <br>
+                  <div class="alert alert-<%= message_type %> alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong><%= t message_type %>: </strong><%= message %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+            <%# views content %>
+            <%= yield %>
+            <% if Rails.env.development? %>
+              <div class="col-md-10 offset-md-1">
+                <!-- #debug params ==================== -->
+                <div class="bd bgc-white p-20">
+                  <%= debug(params) %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </main>
+
+      <!-- ### $App Screen Footer ### -->
+      <%= render 'layouts/footer' %>
+    </div>
+  </div>
   </body>
-  <%= render 'layouts/footer' %>
 </html>
