@@ -19,11 +19,12 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = ' Éxito al crear el usuario'
+      flash.now[:success] = ' Éxito al crear el usuario'
       redirect_to action: 'index'
     else
-      flash[:error] = ' Error al crear el usuario'
-      render action: 'new'
+      flash.now[:danger] = ' Error al crear el usuario'
+      render action: 'index'
+      # render action: 'new'
     end
   end
 

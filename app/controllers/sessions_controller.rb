@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       # flash[:success] = 'Bienvenido, sesión iniciada'
       redirect_to users_url
     else
-      flash[:danger] = 'Datos de usuario incorrectos'
+      flash.now[:danger] = 'Datos de usuario incorrectos'
       render 'new'
     end
   end

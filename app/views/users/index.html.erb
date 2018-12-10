@@ -6,15 +6,18 @@
       <div class="bgc-secondary c-white layer w-100 p-15">
         <h5 class="pull-right">Usuarios
           <button type="button" class="btn btn-outline-light float-right btn-sm" id="modal-trigger"
-                  data-toggle="modal" data-target="#nuevoProductoModal">
+                  data-toggle="modal" data-target="#">
             <i class="ti-user"></i>
             Roles
           </button>
-          <button type="button" class="btn btn-outline-light float-right btn-sm mR-5" id="modal-trigger"
-                  data-toggle="modal" data-target="#nuevoProductoModal">
-            <i class="ti-plus"></i>
-            Registrar Usuario
-          </button>
+          <a id="modal-trigger"
+            href="<%= new_user_path %>" data-remote="true"
+            data-toggle="modal" data-target="#user-modal">
+            <button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+              <i class="ti-plus"></i>
+              Registrar Usuario
+            </button>
+          </a>
         </h5>
       </div>
       <div class="layer w-100 p-20 text-center">
@@ -37,4 +40,7 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="user-modal" role="dialog" aria-labelledby="user-label" aria-hidden="true">
 </div>
