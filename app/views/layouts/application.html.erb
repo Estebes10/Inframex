@@ -12,6 +12,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <%= render 'layouts/loader' %>
   <% if logged_in? %>
   <%# Main app (logged-in) layout%>
 
@@ -31,7 +32,7 @@
 
       <!-- @Page Loader -->
       <!-- =================================================== -->
-      <%= render 'layouts/loader' %>
+
 
       <!-- @App Content -->
       <!-- =================================================== -->
