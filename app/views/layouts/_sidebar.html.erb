@@ -1,0 +1,105 @@
+<div class="sidebar">
+  <div class="sidebar-inner">
+    <!-- ### $Sidebar Header ### -->
+    <div class="sidebar-logo">
+      <div class="peers ai-c fxw-nw">
+        <div class="peer peer-greed">
+          <a class="sidebar-link td-n" href="#">
+            <div class="peers ai-c fxw-nw">
+              <div class="peer">
+                <div class="logo">
+                  <%= image_tag "logo2.png", :style => "height: 65px; width: 65px;" %>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="peer">
+          <div class="mobile-toggle sidebar-toggle">
+            <a href="" class="td-n">
+              <i class="ti-arrow-circle-left"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ### $Sidebar Menu ### -->
+    <ul class="sidebar-menu scrollable pos-r">
+      <li class="nav-item">
+        <a class='sidebar-link' href="#">
+                <span class="icon-holder">
+                  <i class="c-blue-500 ti-email"></i>
+                </span>
+          <span class="title">Proyectos</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle" href="javascript:void(0);">
+                  <span class="icon-holder">
+                    <i class="c-blue-500 ti-user"></i>
+                  </span>
+          <span class="title">Usuarios</span>
+          <span class="arrow">
+                    <i class="ti-angle-right"></i>
+                  </span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <%= link_to "Buscar", users_url , class: "sidebar-link"%>
+          </li>
+          <li>
+            <a class='sidebar-link' href="#">Nuevo</a>
+          </li>
+          <li>
+            <a class='sidebar-link' href="#">Roles</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle" href="javascript:void(0);">
+                  <span class="icon-holder">
+                    <i class="c-blue-500 ti-clipboard"></i>
+                  </span>
+          <span class="title">Catálogos</span>
+          <span class="arrow">
+                    <i class="ti-angle-right"></i>
+                  </span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class='sidebar-link' href="#">Buscar</a>
+          </li>
+          <li>
+            <a class='sidebar-link' href="#">Nuevo</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class='sidebar-link' href="#">
+                <span class="icon-holder">
+                  <i class="c-blue-500 ti-stats-up"></i>
+                </span>
+          <span class="title">Reportes</span>
+        </a>
+      </li>
+      <hr>
+      <li class="nav-item">
+        <a class='sidebar-link' href="#">
+                <span class="icon-holder">
+                  <i class="c-black ti-user"></i>
+                </span>
+          <span class="title">Perfil</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class='sidebar-link' href="logout">
+                <span class="icon-holder">
+                  <i class="c-black ti-power-off"></i>
+                </span>
+          <span class="title">Cerrar Sesión</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
