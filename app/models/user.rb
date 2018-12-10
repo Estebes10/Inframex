@@ -7,12 +7,24 @@ class User < ApplicationRecord
   before_save{email.downcase!}
   attr_accessor :remember_token
 
-  validates :name, presence: {with: true, message: "no puede estar vacío"}, length: {maximum: 128, message: "no puede ser mayor a 128 caracteres"}
-  validates :lastName, presence: {with: true, message: "no puede estar vacío"}, length: {maximum: 128, message: "no puede ser mayor a 128 caracteres"}
-  validates :password,  presence: {with: true, message: "no puede estar vacío", on: :create}, length: {minimum: 6, maximum: 64, on: :create}
+  validates :name,
+            presence: {with: true, message: "no puede estar vacío"},
+            length: {maximum: 128, message: "no puede ser mayor a 128 caracteres"}
+  validates :lastName,
+            presence: {with: true, message: "no puede estar vacío"},
+            length: {maximum: 128, message: "no puede ser mayor a 128 caracteres"}
+  validates :password,
+            presence: {with: true, message: "no puede estar vacío", on: :create},
+            length: {minimum: 6, maximum: 64, on: :create}
   validate :birthday_valid
-  validates :email, uniqueness: true, presence: {with: true, message: "no puede estar vacío"}, format: {with: VALID_EMAIL_REGEX, :message=>"formato de correo incorrecto"}, length: {maximum: 128, message: "no puede ser mayor a 128 caracteres"}
-  validates :phone, allow_blank: true, length: {maximum: 20, message: "no puede ser mayor a 20 caracteres"}
+  validates :email,
+            uniqueness: true,
+            presence: {with: true, message: "no puede estar vacío"},
+            format: {with: VALID_EMAIL_REGEX, :message=>"formato de correo incorrecto"},
+            length: {maximum: 128, message: "no puede ser mayor a 128 caracteres"}
+  validates :phone,
+            allow_blank: true,
+            length: {maximum: 20, message: "no puede ser mayor a 20 caracteres"}
   # validates :role_id, presence: true
   validates :status, inclusion: { in: [ true, false ] }
 
