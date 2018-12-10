@@ -13,6 +13,10 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+# Particles gem
+gem 'particles-js-rails', '~> 2.0'
+# Themify gem
+gem 'themify-icons-rails' , github: 'scratch-soft/themify-icons-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
@@ -28,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # CSS Framework
 gem 'bootstrap', '~> 4.1.3'
+gem 'popper_js', '~> 1.14'
 # Javascript framework used in bootstrap
 gem 'jquery-rails'
 # Use ActiveStorage variant
