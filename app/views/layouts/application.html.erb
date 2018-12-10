@@ -49,7 +49,6 @@
           <main class='main-content bgc-grey-100 pT-20'>
             <div id='mainContent'>
               <div class="row gap-20">
-                <%= render 'layouts/errors' %>
                 <%# views content %>
                 <%= yield %>
                 <% if Rails.env.development? %>
@@ -72,6 +71,7 @@
   <% else %>
     <%= yield %>
   <% end %>
+  <%= render 'layouts/errors' %>
 
   <%= yield :javascript_includes %>
 </html>

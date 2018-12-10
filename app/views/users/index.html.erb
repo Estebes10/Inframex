@@ -1,2 +1,40 @@
 <% provide(:title, 'Usuarios') %>
-<h3>Users index</h3>
+<div class="masonry-item col-md-6">
+  <!-- #Todo ==================== -->
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-700 c-white layer w-100 p-15">
+        <h5 class="pull-right">Usuarios
+          <button type="button" class="btn btn-outline-light float-right btn-sm" id="modal-trigger"
+                  data-toggle="modal" data-target="#nuevoProductoModal">
+            <i class="ti-user"></i>
+            Roles
+          </button>
+          <button type="button" class="btn btn-outline-light float-right btn-sm mR-5" id="modal-trigger"
+                  data-toggle="modal" data-target="#nuevoProductoModal">
+            <i class="ti-plus"></i>
+            Registrar Usuario
+          </button>
+        </h5>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <div class="form-group row">
+          <label class="col-sm-4" for="sel1">Selecciona Rol:</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="sel1">
+              <option>Administrador</option>
+              <option>Supervisor</option>
+              <option>Cliente</option>
+            </select>
+            <br>
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-outline-primary">
+              Consultar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

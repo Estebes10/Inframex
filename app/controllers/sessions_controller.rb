@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       log_in @user
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      flash[:success] = 'Bienvenido, sesión iniciada'
+      # flash[:success] = 'Bienvenido, sesión iniciada'
       redirect_to users_url
     else
       flash[:danger] = 'Datos de usuario incorrectos'
