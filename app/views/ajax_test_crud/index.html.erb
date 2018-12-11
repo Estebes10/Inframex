@@ -10,13 +10,14 @@
             <i class="ti-user"></i>
             Roles
           </button>
-          <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-                        id="new-user-button"">
-                        <i class="ti-plus"></i>
-                        Registrar Usuario
-                      </button>'.html_safe,
-                      new_user_path
-          %>
+          <a id="modal-trigger"
+            href="<%= new_user_path %>" data-remote="true"
+            data-toggle="modal" data-target="#user-modal">
+            <button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+              <i class="ti-plus"></i>
+              Registrar Usuario
+            </button>
+          </a>
         </h5>
       </div>
       <div class="layer w-100 p-20 text-center">
@@ -41,17 +42,5 @@
   </div>
 </div>
 
-<div class="masonry-item col-md-6">
-  <!-- #Todo ==================== -->
-  <div class="bd bgc-white">
-    <div class="layers">
-      <div class="bgc-secondary c-white layer w-100 p-15">
-        <h5 class="pull-right">Resultado de Consulta de Usuarios
-        </h5>
-      </div>
-      <div class="layer w-100 p-20 text-center">
-
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="user-modal" role="dialog" aria-labelledby="user-label" aria-hidden="true">
 </div>

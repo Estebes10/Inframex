@@ -6,10 +6,14 @@ class UsersController < ApplicationController
   end
 
   def show
+    @readonly = true
+    @create = false
     @user = User.find(params[:id])
   end
 
   def new
+    @readonly = false
+    @create = true
     # @roles = Role.all
     @user = User.new
   end
@@ -19,16 +23,17 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash.now[:success] = ' Éxito al crear el usuario'
-      redirect_to action: 'index'
+      flash[:success] = ' Éxito al crear el usuario'
+      redirect_to @user
     else
       flash.now[:danger] = ' Error al crear el usuario'
-      render action: 'index'
-      # render action: 'new'
+      render action: 'new'
     end
   end
 
   def edit
+    @readonly = false
+    @create = false
     @user = User.find(params[:id])
     # @roles = Role.all
   end
@@ -37,7 +42,7 @@ class UsersController < ApplicationController
     # @roles = Role.all
     if @user.update_attributes(user_params)
       flash[:success] = ' Usuario modificado correctamente'
-      redirect_to show_user_url(@user)
+      redirect_to user_url(@user)
     else
       flash[:error] = ' Error al modificar usuario'
       render :edit
