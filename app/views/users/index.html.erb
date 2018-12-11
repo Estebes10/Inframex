@@ -1,5 +1,5 @@
 <% provide(:title, 'Usuarios') %>
-<div class="masonry-item col-md-6">
+<div class="masonry-item col-md-10 offset-md-1">
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
@@ -19,37 +19,49 @@
         %>
       </div>
       <div class="layer w-100 p-20 text-center">
-        <div class="form-group row">
-          <label class="col-sm-4" for="sel1">Selecciona Rol:</label>
-          <div class="col-sm-4">
-            <select class="form-control" id="sel1">
-              <option>Administrador</option>
-              <option>Supervisor</option>
-              <option>Cliente</option>
-            </select>
-            <br>
-          </div>
-          <div class="col-sm-4">
-            <button type="button" class="btn btn-outline-primary">
-              Consultar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        <table class="table table-hover" id="users-datatable" role="datatable">
+          <thead>
+          <tr class="tableHead">
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Rol</th>
+            <th>Estatus</th>
+            <th>Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @users.each do |a| %>
+            <tr>
+              <td><%= link_to a.name, {:action => 'show', :id => a.id} -%></td>
+              <td><%= a.lastName-%></td>
+              <!--Se podría poner un mailto con link en el mail  -->
+              <td><%= a.email-%></td>
+              <td><%= a.phone-%></td>
+              <td><%#= if a.role.present? then  a.role.name end-%></td>
+              <!-- Where status is -->
+              <td>
+                <label class="switch">
+                  <input class="activate-switch status-user" id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
+                         data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
+                         <%= if (a.status)
+                               "checked"
+                             end %>>
+                  <span class="slider round"></span>
+                </label>
+              </td>
 
-<div class="masonry-item col-md-6">
-  <!-- #Todo ==================== -->
-  <div class="bd bgc-white">
-    <div class="layers">
-      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-        <h5 class="float-left">Resultado de Consulta de Usuarios
-        </h5>
-      </div>
-      <div class="layer w-100 p-20 text-center">
+              <td>
 
+                <%= link_to raw("<button type=\"button\" class=\"btn btn-outline-warning btn-circle\"><i class=\"ti-pencil icon-white\" aria-hidden=\"true\"></i></button>").html_safe, {action: :edit, :id => a.id } %>
+
+                <%= link_to raw("<button type=\"button\" class=\"btn btn-outline-danger btn-circle\" data-user-id=\"#{a.id}\"><i class=\"ti-trash\" aria-hidden=\"true\"></i></button>").html_safe, destroy_user_path(a.id), method: :delete %>
+            </tr>
+
+          <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

@@ -35,6 +35,7 @@ gem 'bootstrap', '~> 4.1.3'
 gem 'popper_js', '~> 1.14'
 # Javascript framework used in bootstrap
 gem 'jquery-rails'
+gem 'jquery-datatables'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

@@ -17,6 +17,7 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
+//= require datatables
 //= require particles
 //= require template/index
 //= require_tree .
