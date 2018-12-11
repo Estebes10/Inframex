@@ -3,16 +3,20 @@
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
-      <div class="bgc-secondary c-white layer w-100 p-15">
-        <h5 class="pull-right">Usuario - <%= @user.name + " " + @user.lastName %>
-          <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-                        id="new-user-button"">
-                        <i class="ti-pencil"></i>
-                        Editar Usuario
-                      </button>'.html_safe,
-                      edit_user_path(@user)
-          %>
-        </h5>
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                      <i class="ti-arrow-left"></i>
+                    </button>'.html_safe,
+                    users_path
+        %>
+        <h5 class="float-left pL-15">Usuario - <%= @user.name + " " + @user.lastName %></h5>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                      id="new-user-button"">
+                      <i class="ti-pencil"></i>
+                      Editar Usuario
+                    </button>'.html_safe,
+                    edit_user_path(@user)
+        %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <%= render "form" %>

@@ -5,9 +5,11 @@
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <div class="row">
-          <div class="col-md-12">
-            <p>Los campos marcados con '*' son obligatorios.</p>
-          </div>
+          <% if !@readonly %>
+            <div class="col-md-12">
+              <p>Los campos marcados con '*' son obligatorios.</p>
+            </div>
+          <% end %>
           <div class="col-md-6 mT-15">
             <%= f.label :name, "* Nombre del usuario:" %>
             <%= f.text_field :name,
