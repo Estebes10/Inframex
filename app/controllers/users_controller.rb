@@ -21,13 +21,15 @@ class UsersController < ApplicationController
   def create
     # @roles = Role.all
     @user = User.new(user_params)
-
     if @user.save
       flash[:success] = ' Éxito al crear el usuario'
       redirect_to @user
     else
       flash.now[:danger] = ' Error al crear el usuario'
-      render action: 'new'
+      @readonly = false
+      @create = true
+      # @roles = Role.all
+      render :action => 'new'
     end
   end
 

@@ -1,5 +1,6 @@
-<%= form_for @user, html: {class: "md-form"} do |f| %>
+<%= form_for(@user) do |f| %>
   <%= render 'layouts/errors_form', object: @user %>
+  <%= @url %>
   <div class="modal-body">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
@@ -7,7 +8,6 @@
           <div class="col-md-12">
             <p>Los campos marcados con '*' son obligatorios.</p>
           </div>
-
           <div class="col-md-6 mT-15">
             <%= f.label :name, "* Nombre del usuario:" %>
             <%= f.text_field :name,
@@ -94,7 +94,7 @@
     <div id="form-footer">
       <hr>
       <button type="button" class="btn btn-outline-danger">Cancelar</button>
-      <%= f.submit "Guardar", class: 'btn save-button' %>
+      <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
     </div>
   <% end %>
 <% end %>

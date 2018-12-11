@@ -8,5 +8,4 @@ Rails.application.routes.draw do
 
   # users
   resources :users
-  patch 'users/:id', to: 'users#update', as: :update_user
 end
