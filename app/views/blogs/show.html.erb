@@ -1,5 +1,5 @@
 <% provide(:title, 'Bitácora') %>
-<div class="masonry-item col-md-10 offset-md-1">
+<div class="masonry-item col-md-6">
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
@@ -13,22 +13,21 @@
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-blog-button2">
                       <i class="ti-pencil"></i>
-                      Editar Bitácora
                     </button>'.html_safe,
                     edit_blog_path(@blog)
         %>
-        <%= link_to raw("<button type=\"button\" class=\"btn btn-outline-danger float-right delete-blog btn-sm mR-5\"
+
+        <%= link_to raw("<button type=\"button\" class=\"btn btn-danger float-right delete-blog btn-sm mR-5\"
                   data-blog-id=\"#{@blog.id}\">
                   <i class=\"ti-trash\" aria-hidden=\"true\"></i>
-                  Eliminar
-                 </button>").html_safe, destroy_blog_path(@blog.id), method: :delete %>
+                 </button>").html_safe, destroy_blog_path(@blog.id), method: :delete, :remote => @blog.jobs.count > 0%>
+
       </div>
       <div class="layer w-100 p-20 text-center">
         <%= render "form" %>
       </div>
-
-      <div class="layer w-100 p-20 text-center">
-        Aquí van los jobs
-      </div>
     </div>
   </div>
+</div>
+
+<%= render "jobs/index"%>

@@ -66,4 +66,8 @@ RSpec.describe Blog, type: :model do
 
   it 'belongs to project'
 
+  it 'has many jobs' do
+    should have_many(:jobs)
+  end
+
 end

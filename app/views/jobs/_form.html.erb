@@ -1,0 +1,32 @@
+
+<%= form_for [@blog, @job], html: {class: "md-form"} do |f| %>
+  <%= render 'layouts/errors_form', object: @job %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Los campos marcados con '*' son obligatorios.</p>
+          </div>
+
+          <div class="col-md-6 mT-15">
+            <%= f.label :name, "* Nombre del trabajo:" %>
+            <%= f.text_field :name,
+                             class:"form-control",
+                             required: 'true',
+                             placeholder: "e.g. Pintar pared...",
+                             readonly: @readonly %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if !@readonly %>
+    <div id="form-footer-job">
+      <hr>
+      <a href="<%= blog_path(@blog)%>" class="btn btn-outline-danger"> Cancelar </a>
+      <%= f.submit "Guardar", class: 'btn save-button' %>
+    </div>
+  <% end %>
+<% end %>

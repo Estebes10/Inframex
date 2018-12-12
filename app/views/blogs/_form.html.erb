@@ -5,12 +5,16 @@
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <div class="row">
-          <div class="col-md-12">
-            <p>Los campos marcados con '*' son obligatorios.</p>
-          </div>
+          <% if !@readonly %>
+            <div class="col-md-12">
+              <p>Los campos marcados con '*' son obligatorios.</p>
+            </div>
+          <% end %>
 
           <div class="col-md-6 mT-15">
-            <%= f.label :name, "* Nombre de la bitácora:" %>
+            <% if !@readonly %>
+              <%= f.label :name, "* Nombre de la bitácora:" %>
+            <% end %>
             <%= f.text_field :name,
                              class:"form-control",
                              required: 'true',
@@ -19,7 +23,9 @@
           </div>
 
           <div class="col-md-6 mT-15">
-            <%= f.label :description, "* Descripción: " %>
+            <% if !@readonly %>
+              <%= f.label :description, "* Descripción: " %>
+            <% end %>
             <%= f.text_area :description,
                              class: 'form-control',
                              required: 'true',
@@ -29,7 +35,9 @@
           </div>
 
           <div class="col-md-6 mT-15">
-            <%= f.label :blog_date, "* Fecha de la bitácora: " %>
+            <% if !@readonly %>
+              <%= f.label :blog_date, "* Fecha de la bitácora: " %>
+            <% end %>
             <%= f.date_field :blog_date,
                              class: 'form-control',
                              required: 'true', start_year: 2000,

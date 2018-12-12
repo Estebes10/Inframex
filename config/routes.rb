@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :users
 
   # blogs
-  resources :blogs, except: :destroy
+  resources :blogs, except: :destroy do
+    resources :jobs
+  end
   delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
 end

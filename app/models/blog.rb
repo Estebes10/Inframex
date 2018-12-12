@@ -7,6 +7,8 @@ class Blog < ApplicationRecord
 
   #has_many :expenses
 
+  has_many :jobs
+
   # Attributes validation
   validates :name,
     uniqueness: true,
