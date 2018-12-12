@@ -2,15 +2,14 @@
 <div class="masonry-item col-md-12">
   <div class="bd bgc-white">
     <div class="layers">
-      <div class="bgc-secondary c-white layer w-100 p-15">
-        <h5 class="pull-right">Gastos
-          <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left pL-15">Gastos</h5>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
                       <i class="ti-plus"></i>
                       Registrar Gasto
                     </button>'.html_safe,
-                      new_expense_path
-          %>
-        </h5>
+                    new_expense_path
+        %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <% if @expenses.blank? %>

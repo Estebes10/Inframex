@@ -10,7 +10,7 @@ document.addEventListener('turbolinks:load',() => {
                     }
                 },
                 "color": {
-                    "value": "#ffffff"
+                    "value": "#7f7c7d"
                 },
                 "shape": {
                     "type": "circle",
@@ -50,7 +50,7 @@ document.addEventListener('turbolinks:load',() => {
                 "line_linked": {
                     "enable": true,
                     "distance": 150,
-                    "color": "#ffffff",
+                    "color": "#7f7c7d",
                     "opacity": 0.4,
                     "width": 2
                 },
