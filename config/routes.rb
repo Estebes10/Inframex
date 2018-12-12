@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :blogs, only: %I[index new create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # sessions
   root 'sessions#new'
@@ -9,4 +8,8 @@ Rails.application.routes.draw do
 
   # users
   resources :users
+
+  # blogs
+  resources :blogs, except: :destroy
+  delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
 end

@@ -1,11 +1,14 @@
-<h1> Aqui es la vista para agregar una nueva bitácora</h1>
-
-<%if @blog.errors.any? %>
-     <%@blog.errors.messages.each do|msg| %>
-          <div class="alert alert-danger">
-            <%= msg %>
-          </div>
-     <%end%>
-<%end%>
-
-<%= render partial: "form" %>
+<% provide(:title, 'Nueva Bitácora') %>
+<div class="masonry-item col-md-10 offset-md-1">
+  <!-- #Todo ==================== -->
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-secondary c-white layer w-100 p-15">
+        <h5 class="pull-right">Nuevo Bitácora</h5>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <%= render "form" %>
+      </div>
+    </div>
+  </div>
+</div>

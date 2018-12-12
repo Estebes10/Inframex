@@ -1,23 +1,49 @@
-<h2> Formulario de bitácora</h2>
 
-<%= form_for :blog, :html => {:class => "form-horizontal center"}, url: blogs_path do |f| %>
-  <div class="form-group">
-    <%= f.label :name, class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= f.text_field :name, class: 'form-control', placeholder: 'Bitácora B2'%>
+<%= form_for @blog, html: {class: "md-form"} do |f| %>
+  <%= render 'layouts/errors_form', object: @blog %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Los campos marcados con '*' son obligatorios.</p>
+          </div>
+
+          <div class="col-md-6 mT-15">
+            <%= f.label :name, "* Nombre de la bitácora:" %>
+            <%= f.text_field :name,
+                             class:"form-control",
+                             required: 'true',
+                             placeholder: "e.g. Bitácora B12",
+                             readonly: @readonly %>
+          </div>
+
+          <div class="col-md-6 mT-15">
+            <%= f.label :description, "* Descripción: " %>
+            <%= f.text_area :description,
+                             class: 'form-control',
+                             required: 'true',
+                             :maxlength => 1024,
+                             placeholder: "e.g. En la siguiente bitácora se registran...",
+                             readonly: @readonly %>
+          </div>
+
+          <div class="col-md-6 mT-15">
+            <%= f.label :blog_date, "* Fecha de la bitácora: " %>
+            <%= f.date_field :blog_date,
+                             class: 'form-control',
+                             required: 'true', start_year: 2000,
+                             readonly: @readonly %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :description, class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= f.text_area :description, class: 'form-control', placeholder: 'La siguiente bitácora muestra los avances...' %>
+  <% if !@readonly %>
+    <div id="form-footer-blog">
+      <hr>
+      <button type="button" class="btn btn-outline-danger">Cancelar</button>
+      <%= f.submit "Guardar", class: 'btn save-button' %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :blog_date, class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= f.date_field :blog_date, "data-provide" => 'datepicker' %>
-    </div>
-  </div>
-  <%= f.submit class: "btn btn-default btn-primary"%> <a href="<%= blogs_path %>" class="btn btn-danger"> Cancelar </a>
+  <% end %>
 <% end %>

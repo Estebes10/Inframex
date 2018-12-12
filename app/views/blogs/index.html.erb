@@ -1,64 +1,73 @@
-<div class="row">
-    <div class="col-md-10">
-        <h2 class="display-4">Registro de bitácoras</h2>
-        <p class="lead">Aquí estaran registradas todas las bitácoras de este proyecto</p>
+<% provide(:title, 'Bitácoras') %>
+<div class="masonry-item col-md-12">
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-secondary c-white layer w-100 p-15">
+        <h5 class="pull-right">Registro de bitácoras
+          <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                        id="new-blog-button"">
+                        <i class="ti-plus"></i>
+                        Registrar nueva bitácora
+                      </button>'.html_safe,
+                      new_blog_path
+          %>
+        </h5>
+      </div>
+
+      <% if @blogs.blank? %>
+
+        <div class="row">
+            <div class="col-md-10">
+                <p class="lead">Actualmente no se encuentra registrada ninguna bitácora para este proyecto.</p>
+            </div>
+        </div>
+
+      <% else %>
+
+        <div class="container">
+          <div class="row">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#Bitácora</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Fecha de creación</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <% @blogs.each do |blog| %>
+              <tbody>
+                <tr>
+                  <th scope="row"> <%= blog.id %> </th>
+                  <td><%= blog.name %></td>
+                  <td> <%= blog.description %></td>
+                  <% if blog.status %>
+                  <td> En espera </td>
+                  <% else %>
+                  <td> Aprobada </td>
+                  <% end %>
+                  <td><%= blog.blog_date %></td>
+                  <td>
+                    <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                      <i class="ti-eye icon-white" aria-hidden="true"></i>
+                      </button>').html_safe, {action: :show, :id => blog.id } %>
+                  </td>
+                  <% if blog.status %>
+                  <td><a href="#" class="btn btn-success"> Aprobar </a></td>
+                  <% else %>
+                  <td><a href="#" class="btn btn-warning"> Desaprobar </a></td>
+                  <% end %>
+                </tr>
+              </tbody>
+              <% end %>
+            </table>
+          </div>
+        </div>
+
+      <%end%>
     </div>
+  </div>
 </div>
-
-<% if @blogs.blank? %>
-
-  <div class="row">
-      <div class="col-md-10">
-          <p class="lead">Actualmente no se encuentra registrada ninguna bitácora para este proyecto.</p>
-      </div>
-  </div>
-
-<% else %>
-
-  <div class="row">
-      <div class="col-md-10">
-          <a href="<%= new_blog_path %>" class="btn btn-primary"> Agregar nueva bitácora </a>
-      </div>
-  </div>
-  </br>
-
-  <div class="container">
-    <div class="row">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#Bitácora</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Fecha de creación</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <% @blogs.each do |blog| %>
-        <tbody>
-          <tr>
-            <th scope="row"> <%= blog.id %> </th>
-            <td><%= blog.name %></td>
-            <td> <%= blog.description %></td>
-            <% if blog.status %>
-            <td> En espera </td>
-            <% else %>
-            <td> Aprobada </td>
-            <% end %>
-            <td><%= blog.blog_date %></td>
-            <td><a href="#" class="btn btn-info"> Ver </a></td>
-            <% if blog.status %>
-            <td><a href="#" class="btn btn-success"> Aprobar </a></td>
-            <% else %>
-            <td><a href="#" class="btn btn-warning"> Desaprobar </a></td>
-            <% end %>
-          </tr>
-        </tbody>
-        <% end %>
-      </table>
-    </div>
-  </div>
-
-<%end%>

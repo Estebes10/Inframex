@@ -17,8 +17,11 @@ RSpec.describe 'blogs/new.html.erb', type: :view do
       status: true,
       blog_date: Date.today
     )
+    #blog = FactoryBot.build(:blog)
 
+    #render 'blogs/form', :blog => blog
     render :partial => 'blogs/form.html.erb', :locals => {:blog => blog}
+    #expect(response).to render_template(:partial => '_form')
 
     expect(rendered).to match /Formulario de bitácora/
   end
