@@ -1,15 +1,77 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Inframex</title>
+    <title><%= full_title(yield(:title)) %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'login', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <%= render 'layouts/loader' %>
+  <% if logged_in? %>
+  <%# Main app (logged-in) layout%>
+
+    <body class="app">
+      <!-- @TOC -->
+      <!-- =================================================== -->
+      <!--
+        + @Page Loader
+        + @App Content
+            - #Left Sidebar
+                > $Sidebar Header
+                > $Sidebar Menu
+            - #Main
+                > $Topbar
+                > $App Screen Content
+      -->
+
+      <!-- @Page Loader -->
+      <!-- =================================================== -->
+
+
+      <!-- @App Content -->
+      <!-- =================================================== -->
+      <div>
+        <!-- #Left Sidebar ==================== -->
+        <%= render 'layouts/sidebar' %>
+
+        <!-- #Main ============================ -->
+        <div class="page-container">
+          <!-- ### $Topbar ### -->
+          <%= render 'layouts/topbar' %>
+
+          <!-- ### $App Screen Content ### -->
+          <main class='main-content bgc-grey-100 pT-20'>
+            <div id='mainContent'>
+              <div class="row gap-20">
+                <%# views content %>
+                <%= yield %>
+                <% if Rails.env.development? %>
+                  <div class="col-md-10 offset-md-1">
+                    <!-- #debug params ==================== -->
+                    <div class="bd bgc-white p-20">
+                      <%= debug(params) %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </main>
+
+          <!-- ### $App Screen Footer ### -->
+          <%= render 'layouts/footer' %>
+        </div>
+      </div>
+    </body>
+  <% else %>
     <%= yield %>
-  </body>
+  <% end %>
+  <%= render 'layouts/errors' %>
+
+  <%= yield :javascript_includes %>
 </html>

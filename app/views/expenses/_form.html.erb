@@ -1,0 +1,71 @@
+<%= form_for @expense, url: @url, html: {class: "md-form"} do |f| %>
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Los campos marcados con '*' son obligatorios.</p>
+          </div>
+
+          <div class="col-md-12 mT-15">
+            <%= f.label :name, "* Nombre del gasto:" %>
+            <%= f.text_field :name, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto" %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <label>* Categoría del gasto: </label>
+            <select class="form-control" name="expense[category_id]">
+              <option value="">Seleccione una categoría</option>
+              <% @categories.each do |a| %>
+                <option value=<%= a.id %>><%= a.name-%></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="col-md-12 mT-15">
+            <label>* Subcategoría del gasto: </label>
+            <select class="form-control" name="expense[subcategory_id]">
+              <option value="">Seleccione una subcategoría</option>
+              <% @subcategories.each do |a| %>
+                <option value=<%= a.id %>><%= a.name-%></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :date, "* Fecha: " %>
+            <%= f.date_field :date,
+                             class: 'form-control',
+                             required: 'true', start_year: 1900%>
+          </div>
+          <div class="col-md-12 mT-15">
+              <%= f.label :quantity, "Cantidad:" %>
+              <%= f.number_field :quantity, class: 'form-control', step: 0.5, required: true %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :unity, "* Unidad:" %>
+            <%= f.text_field :unity, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto" %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :unit_price, "* Precio por Unidad:" %>
+            <%= f.text_field :unit_price, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto" %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <label>Estado en el sistema:</label>
+            <div class="row">
+              <div class="col-md-2 col-sm-2" align="center">
+                <label class="switch">
+                  <%= f.check_box :status %>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  <div id="form-footer">
+    <hr>
+    <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, expense_index_path %>
+    <%= f.submit "Guardar", class: 'btn save-button' %>
+  </div>
+<% end %>
