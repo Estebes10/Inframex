@@ -1,5 +1,5 @@
 $(function () {
-    $( document ).ready(function() {
+    $( document ).on('ready turbolinks:load', function() {
         // ------------------------------------------------------
         // @Window Resize
         // ------------------------------------------------------

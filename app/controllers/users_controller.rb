@@ -57,6 +57,15 @@ class UsersController < ApplicationController
     redirect_to action: 'index'
   end
 
+  def activate
+    @users = User.find(params[:id])
+    if @users.update_attribute(:status, params[:data])
+      #flash[:success].now = ' Estatus modificado exitosamente'
+    else
+      #flash[:Error].now = ' Error al modificar el usuario'
+    end
+  end
+
   def user_params
     params.require(:user).permit(
         :name,
@@ -68,21 +77,6 @@ class UsersController < ApplicationController
         :status,
         :phone
     )
-  end
-
-  def destroy
-    # @user = User.find(params[:id]).destroy
-    flash[:success] = ' Se ha eliminado el usuario correctamente'
-    redirect_to action: 'index'
-  end
-
-  def activate
-    @users = User.find(params[:id])
-    if @users.update_attribute(:status, params[:data])
-      #flash[:success].now = ' Estatus modificado exitosamente'
-    else
-      #flash[:Error].now = ' Error al modificar el usuario'
-    end
   end
 
   def set_user

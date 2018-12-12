@@ -11,6 +11,6 @@
 //= require datatables/extensions/Buttons/buttons.print
 //= require datatables/extensions/Buttons/buttons.bootstrap4
 
-$(document).ready(function() {
+$( document ).on('ready turbolinks:load', function() {
     $('#users-datatable').DataTable();
-} );
+});

@@ -1,6 +1,5 @@
 $(function () {
-    $( document ).ready(function() {
-        console.log("popover");
+    $( document ).on('ready turbolinks:load', function() {
       // ------------------------------------------------------
       // @Popover
       // ------------------------------------------------------
