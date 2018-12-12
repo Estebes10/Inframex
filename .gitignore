@@ -35,3 +35,4 @@
 
 # Ignore database.yml
 config/database.yml
+/config/database.yml
