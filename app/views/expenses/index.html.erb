@@ -19,14 +19,15 @@
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
-              <th>Categoría</th>
+              <th>Proveedor</th>
               <th>Subcategoría</th>
               <th>Fecha</th>
               <th>Cantidad</th>
               <th>Unidad</th>
               <th>Precio Unitario</th>
               <th>Total</th>
-              <th>Status</th>
+              <th>Aprobado</th>
+              <th>Facturado</th>
               <th>Acciones</th>
             </tr>
             </thead>
@@ -34,7 +35,7 @@
             <% @expenses.each do |a| %>
               <tr>
                 <td><%= a.name-%></td>
-                <td><%= a.category.name-%></td>
+                <td><%= a.supplier.name-%></td>
                 <td><%= a.subcategory.name-%></td>
                 <td><%= a.date-%></td>
                 <td><%= a.quantity-%></td>
@@ -45,6 +46,14 @@
                   <input class="activate-switch status-user" id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
                          data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
                          <%= if (a.status)
+                               "checked"
+                             end %>>
+                  <span class="slider round"></span>
+                </label></td>
+                <td><label class="switch">
+                  <input class="activate-switch status-user" id="status_ticket-<%= "#{controller.controller_name}-#{a.id}" %>"
+                         data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
+                         <%= if (a.status_ticket)
                                "checked"
                              end %>>
                   <span class="slider round"></span>

@@ -38,5 +38,8 @@ Rails.application.routes.draw do
 
   # users
   resources :users
+
+  # suppliers
+  resources :suppliers
   
 end

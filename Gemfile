@@ -15,6 +15,9 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Particles gem
 gem 'particles-js-rails', '~> 2.0'
+#Autofill
+gem 'jquery-ui-rails'
+
 # Themify gem
 gem 'themify-icons-rails' , github: 'scratch-soft/themify-icons-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
