@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
       redirect_to action: 'index'
     else
       #flash[:error] = ' Error al modificar categoría'
-      render :edit
+      render action: 'edit'
     end
   end
 

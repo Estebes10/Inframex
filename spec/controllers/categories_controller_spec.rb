@@ -37,12 +37,12 @@ RSpec.describe CategoriesController, type: :controller do
 
     context 'when user has permissions' do
       it "renders the new template" do
-        get :new
+        get :new, xhr: true, format: :js
         expect(response).to render_template(:new)
       end
 
       it "returns http success" do
-        get :new
+      post :index, xhr: true, format: :js
         expect(response).to have_http_status(:success)
       end
 
@@ -113,7 +113,8 @@ RSpec.describe CategoriesController, type: :controller do
       before(:each) do
         post(
             :create,
-            params: not_valid_attributes
+            params: not_valid_attributes,
+            format: :js
         )
       end
 
@@ -122,7 +123,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       it 'renders new template' do
-        expect(response).to render_template("new")
+        expect(response).to render_template('new')
       end
 
       it 'must display an error message' do
@@ -144,7 +145,9 @@ RSpec.describe CategoriesController, type: :controller do
         before(:each) do
           get(
               :edit,
-              params: { id: @category_example }
+              params: { id: @category_example },
+              xhr: true,
+              format: :js
           )
         end
 
@@ -153,7 +156,7 @@ RSpec.describe CategoriesController, type: :controller do
         end
 
         it 'renders the show template' do
-          expect(response).to render_template(:edit)
+          expect(response).to render_template('edit')
         end
 
         it 'return http found code' do
@@ -247,7 +250,8 @@ RSpec.describe CategoriesController, type: :controller do
       before(:each) do
         put(
             :update,
-            params: {:id => @category_example_update.to_param, :category => not_valid_attributes}
+            params: {:id => @category_example_update.to_param, :category => not_valid_attributes},
+            format: :js
         )
       end
 
