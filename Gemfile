@@ -66,6 +66,11 @@ end
 group :test  do
   # Gem for cleaning the test database to ensure a clean state in each test suite.
   gem 'database_cleaner'
+
+  gem 'rails-controller-testing'
+
+  # Test web applications by simulating how a real user would interact with the app
+  gem 'capybara'
 end
 
 group :development do

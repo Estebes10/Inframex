@@ -6,7 +6,6 @@ class Expense < ApplicationRecord
             presence:   {with: true, message: "no puede estar vacío"}
 
   validates :name,
-            uniqueness: {with: true, message: "no puede ser repetido"},
             presence:   {with: true, message: "no puede estar vacío"},
             length:     { maximum: 256, message: "demasiado largo" }
 
@@ -33,6 +32,10 @@ class Expense < ApplicationRecord
   validates :quantity,
             presence: {with: true, message: "no puede estar vacío"},
             numericality:{with: true, only_integer: true, greater_than: 0, message: "debe ser mayor a 0" }
+
+  validates :supplier_name,
+            presence: {with: true, message: "no puede estar vacío"},
+            length:   { maximum: 256, message: "demasiado largo" }
 
   def supplier_name
     supplier.try(:name)

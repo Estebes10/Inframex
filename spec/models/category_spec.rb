@@ -34,9 +34,4 @@ RSpec.describe Category, type: :model do
     expect(category_example).not_to be_valid
   end
 
-  # Set of tests to validate associations
-  it 'has many expenses' do
-    should have_many(:expenses)
-  end
-
 end
