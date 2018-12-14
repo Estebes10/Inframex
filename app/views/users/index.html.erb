@@ -43,11 +43,15 @@
               <!-- Where status is -->
               <td>
                 <label class="switch">
-                  <input class="activate-switch status-user" id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
-                         data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
-                         <%= if (a.status)
-                               "checked"
-                             end %>>
+                  <input class="activate-switch status-user"
+                     id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
+                     data-id="<%= "#{a.id}" %>"
+                     data-field="status"
+                     name="<%= controller.controller_name %>"
+                     type="checkbox"
+                     <%= if (a.status)
+                           "checked"
+                         end %>>
                   <span class="slider round"></span>
                 </label>
               </td>

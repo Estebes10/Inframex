@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :show]
+  before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   def index
     @users = User.all
@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   def show
     @readonly = true
     @create = false
-    @user = User.find(params[:id])
   end
 
   def new
@@ -36,7 +35,6 @@ class UsersController < ApplicationController
   def edit
     @readonly = false
     @create = false
-    @user = User.find(params[:id])
     # @roles = Role.all
   end
 
@@ -52,14 +50,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id]).destroy
+    @user.destroy
     flash[:success] = ' Se ha eliminado el usuario correctamente'
     redirect_to action: 'index'
   end
 
   def activate
-    @users = User.find(params[:id])
-    if @users.update_attribute(:status, params[:data])
+    if @user.update_attribute(:status, params[:data])
       #flash[:success].now = ' Estatus modificado exitosamente'
     else
       #flash[:Error].now = ' Error al modificar el usuario'
