@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   # categories
   resources :categories
 
-  get 'subcategories/index'
   post 'subcategories/create'
   get 'subcategories/new', as: :new_subcategory
   get 'subcategories/:id/edit', to: 'subcategories#edit', as: :edit_subcategory

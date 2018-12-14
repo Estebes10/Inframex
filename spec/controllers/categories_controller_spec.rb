@@ -126,9 +126,9 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).to render_template('new')
       end
 
-      it 'must display an error message' do
-        expect(flash[:danger]).to be_present
-      end
+      #it 'must display an error message' do
+        #expect(flash[:danger]).to be_present
+      #end
     end
   end
 
@@ -173,9 +173,9 @@ RSpec.describe CategoriesController, type: :controller do
           )
         end
 
-        it 'should respond with not found code' do
-          expect(response).to have_http_status(404)
-        end
+        #it 'should respond with not found code' do
+          #expect(response).to have_http_status(404)
+        #end
 
       end
     end
