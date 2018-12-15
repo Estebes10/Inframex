@@ -65,9 +65,9 @@ RSpec.describe UsersController, type: :controller do
           )
         end
 
-        # it 'should respond with not found code' do
-          # expect(response).to have_http_status(404)
-        # end
+        it 'should respond with not found code' do
+          expect(response).to have_http_status(404)
+        end
         #it { should respond_with_status(:not_found) }
       end
     end
@@ -227,9 +227,9 @@ RSpec.describe UsersController, type: :controller do
           )
         end
 
-        # it 'should respond with not found code' do
-          # expect(response).to have_http_status(404)
-        # end
+        it 'should respond with not found code' do
+          expect(response).to have_http_status(404)
+        end
         #it { should respond_with_status(:not_found) }
       end
     end

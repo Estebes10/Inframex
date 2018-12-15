@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :validate_user
   before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   def index
