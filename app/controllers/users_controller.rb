@@ -51,16 +51,10 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flash[:success] = ' Se ha eliminado el usuario correctamente'
-    redirect_to action: 'index'
   end
 
   def activate
-    if @user.update_attribute(:status, params[:data])
-      #flash[:success].now = ' Estatus modificado exitosamente'
-    else
-      #flash[:Error].now = ' Error al modificar el usuario'
-    end
+    @user.update_attribute(:status, params[:data])
   end
 
   def user_params

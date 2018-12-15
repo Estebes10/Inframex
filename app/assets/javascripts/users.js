@@ -3,36 +3,54 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 $( document ).on('ready turbolinks:load', function() {
-    $('button.delete-user').click(function(e) {
+    $('#users-datatable').DataTable();
+
+    $('#users-datatable tbody').on('click', 'button.delete-user', function (e) {
+        console.log("you activate the event");
         e.preventDefault(e);
+        var deleteButton = $(this);
         var userId = $(this).attr("data-user-id");
-        deleteUser(userId);
+        deleteUser(userId, deleteButton);
         return false;
     });
 });
 
-function deleteUser(userId) {
+function deleteUser(userId, deleteButton) {
     console.log(userId);
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar al usuario?",
         type: "warning",
         showCancelButton: true,
-        closeOnConfirm: false,
+        closeOnConfirm: true,
         confirmButtonText: "Sí, ¡Borrar usario!",
         confirmButtonColor: "#ec6c62"
     }, function() {
+        spinner.classList.remove('fadeOut');
         $.ajax({
             url: "/users/" + userId,
             type: "DELETE"
         }).then(function (isConfirm) {
-            if (isConfirm) {
-                location.reload(); // reload page after closing
-                swal("¡Eliminado!", "El usario se ha eliminado correctamente!");
-            }
+            spinner.classList.add('fadeOut');
+            console.log("borrado");
+            swal({
+                title: "¡Eliminado!",
+                text: "El usario se ha eliminado correctamente",
+                type: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            deleteButton.closest('tr').fadeOut();
         })
         .catch(function(data) {
-            swal("Oops", "¡No se pudo borrar el usuario!");
+            spinner.classList.add('fadeOut');
+            swal({
+                title: "Oops",
+                text: "¡No se pudo eliminar el usuario!",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            console.log("no borrado");
         });
     });
 }

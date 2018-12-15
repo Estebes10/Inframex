@@ -19,7 +19,7 @@
         %>
       </div>
       <div class="layer w-100 p-20 text-center">
-        <table class="table table-hover" id="users-datatable" role="datatable">
+        <table class="table table-hover datatable" id="users-datatable" role="datatable">
           <thead>
           <tr class="tableHead">
             <th>Nombre</th>
@@ -46,7 +46,6 @@
                   <input class="activate-switch status-user"
                      id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
                      data-id="<%= "#{a.id}" %>"
-                     data-field="status"
                      name="<%= controller.controller_name %>"
                      type="checkbox"
                      <%= if (a.status)
@@ -62,10 +61,10 @@
                     <i class="ti-pencil icon-white" aria-hidden="true"></i>
                   </button>').html_safe, {action: :edit, :id => a.id } %>
 
-                <%= link_to raw("<button type=\"button\" class=\"btn btn-outline-danger btn-circle delete-user\"
-                  data-user-id=\"#{a.id}\">
-                  <i class=\"ti-trash\" aria-hidden=\"true\"></i>
-                 </button>").html_safe, destroy_user_path(a.id), method: :delete %>
+                 <button type="button" class="btn btn-outline-danger btn-circle delete-user"
+                    data-user-id="<%= a.id %>">
+                    <i class="ti-trash" aria-hidden="true"></i>
+                 </button>
             </tr>
 
           <% end %>

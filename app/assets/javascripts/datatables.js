@@ -10,7 +10,3 @@
 //= require datatables/extensions/Buttons/buttons.html5
 //= require datatables/extensions/Buttons/buttons.print
 //= require datatables/extensions/Buttons/buttons.bootstrap4
-
-$( document ).on('ready turbolinks:load', function() {
-    $('#users-datatable').DataTable();
-});
