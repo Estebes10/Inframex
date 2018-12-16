@@ -281,7 +281,6 @@ RSpec.describe ExpensesController, type: :controller do
       it 'does not update the attributes' do
         # compare if the record saved is the same that valid attributes
         expect(@expense_example_update.name).not_to eq(not_valid_attributes[:name])
-        expect(@expense_example_update.date).not_to eq(not_valid_attributes[:date])
         expect(@expense_example_update.unity).not_to eq(not_valid_attributes[:unity])
         expect(@expense_example_update.unit_price).not_to eq(not_valid_attributes[:unit_price])
         expect(@expense_example_update.total).not_to eq(not_valid_attributes[:total])
@@ -324,7 +323,7 @@ RSpec.describe ExpensesController, type: :controller do
 
       it "redirects to the posts list" do
         delete :destroy, params: {:id => @expense_example_delete.to_param.to_param}
-        expect(response).to redirect_to(expense_index_path)
+        expect(response).to redirect_to(expenses_path)
       end
 
       #it 'must display a success message' do

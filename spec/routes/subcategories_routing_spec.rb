@@ -13,8 +13,8 @@ RSpec.describe 'routes for subcategories', :type => :routing do
   end
 
   context 'for create action' do
-    it 'should route to /subcategories/create' do
-      expect(:post => 'subcategories/create').to be_routable
+    it 'should route to /subcategories' do
+      expect(:post => '/subcategories').to be_routable
     end
 
     it 'routes /subcategories to subcategories controller' do

@@ -8,7 +8,7 @@ RSpec.describe 'routes for categories', :type => :routing do
     end
 
     it 'routes /categories to categories controller' do
-      expect(get('//categories/index')).to route_to('categories#index')
+      expect(get('/categories')).to route_to('categories#index')
     end
   end
 
@@ -23,8 +23,8 @@ RSpec.describe 'routes for categories', :type => :routing do
   end
 
   context 'for create action' do
-    it 'should route to /categories/create' do
-      expect(:post => 'categories/create').to be_routable
+    it 'should route to /categories' do
+      expect(:post => '/categories').to be_routable
     end
 
     it 'routes /categories to categories controller' do

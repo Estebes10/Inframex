@@ -1,33 +1,23 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get 'categories/index', as: :category_index
-  post 'categories/create'
-  get 'categories/new', as: :new_category
-  get 'categories/:id/edit', to: 'categories#edit', as: :edit_category
-  put 'categories/:id', to: 'categories#update', as: :update_category
-  delete 'categories/:id', to: 'categories#destroy', as: :destroy_category
 
   # categories
-  resources :categories
-
-  post 'subcategories/create'
-  get 'subcategories/new', as: :new_subcategory
-  get 'subcategories/:id/edit', to: 'subcategories#edit', as: :edit_subcategory
-  put 'subcategories/:id', to: 'subcategories#update', as: :update_subcategory
-  delete 'subcategories/:id', to: 'subcategories#destroy', as: :destroy_subcategory
+  resources :categories, except: :destroy do
+    resources :categories
+  end
+  delete 'categories/:id', to: 'categories#destroy', as: :destroy_category
 
   # subcategories
-  resources :subcategories
-
-  get 'expenses/index', as: :expense_index
-  post 'expenses/create'
-  get 'expenses/new', as: :new_expense
-  get 'expenses/:id/edit', to: 'expenses#edit', as: :edit_expense
-  put 'expenses/:id', to: 'expenses#update', as: :update_expense
-  delete 'expenses/:id', to: 'expenses#destroy', as: :destroy_expense
+  resources :subcategories, except: :destroy do
+    resources :subcategories
+  end
+  delete 'subcategories/:id', to: 'subcategories#destroy', as: :destroy_subcategory
 
   # expenses
-  resources :expenses
+  resources :expenses, except: :destroy do
+    resources :expenses
+  end
+  delete 'expenses/:id', to: 'expenses#destroy', as: :destroy_expense
 
   # sessions
   root 'sessions#new'

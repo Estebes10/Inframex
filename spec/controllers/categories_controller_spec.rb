@@ -91,7 +91,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       it 'redirects to index view' do
-        expect(response).to redirect_to(category_index_path)
+        expect(response).to redirect_to(categories_path)
       end
 
       #it 'must display a success message' do
@@ -225,7 +225,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       it 'redirects to category view' do
-        expect(response).to redirect_to(category_index_path)
+        expect(response).to redirect_to(categories_path)
       end
 
       #it 'must display a success message' do
@@ -291,7 +291,7 @@ RSpec.describe CategoriesController, type: :controller do
 
       it "redirects to the categories index" do
         delete :destroy, params: {:id => @category_example_delete.to_param.to_param}
-        expect(response).to redirect_to(category_index_path)
+        expect(response).to redirect_to(categories_path)
       end
 
       #it 'must display a success message' do

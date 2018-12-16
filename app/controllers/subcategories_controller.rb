@@ -11,7 +11,7 @@ class SubcategoriesController < ApplicationController
 
     if @subcategory.save
       flash[:success] = ' Éxito al crear la subcategoría'
-      redirect_to category_index_path
+      redirect_to categories_path
     else
       flash[:error] = ' Error al crear la subcategoría'
       render action: 'new'
@@ -24,7 +24,7 @@ class SubcategoriesController < ApplicationController
   def update
     if @subcategory.update_attributes(subcategory_param)
       flash[:success] = ' Subcategoría modificado correctamente'
-      redirect_to category_index_path
+      redirect_to categories_path
     else
       flash[:error] = ' Error al modificar subcategoría'
       render :edit
@@ -34,10 +34,10 @@ class SubcategoriesController < ApplicationController
   def destroy
     if @subcategory.destroy
       flash[:success] = ' Se ha eliminado la subcategoría correctamente'
-      redirect_to category_index_path
+      redirect_to categories_path
     else
       flash[:error] = ' No se ha podido eliminar la subcategoría'
-      redirect_to category_index_path
+      redirect_to categories_path
     end
   end
 

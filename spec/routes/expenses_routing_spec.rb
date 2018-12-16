@@ -13,8 +13,8 @@ RSpec.describe 'routes for expenses', :type => :routing do
   end
 
   context 'for create action' do
-    it 'should route to /expenses/create' do
-      expect(:post => 'expenses/create').to be_routable
+    it 'should route to /expenses' do
+      expect(:post => '/expenses').to be_routable
     end
 
     it 'routes /expenses to expenses controller' do
