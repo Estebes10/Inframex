@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_223524) do
+ActiveRecord::Schema.define(version: 2018_12_13_004416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.bigint "subcategory_id", null: false
+    t.string "name", limit: 256, null: false
+    t.date "date", null: false
+    t.integer "quantity", null: false
+    t.string "unity", null: false
+    t.decimal "unit_price", precision: 15, scale: 4, null: false
+    t.decimal "total", precision: 15, scale: 4, null: false
+    t.bigint "supplier_id", null: false
+    t.boolean "status", default: false, null: false
+    t.boolean "status_ticket", default: false, null: false
+    t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
+    t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -29,4 +56,6 @@ ActiveRecord::Schema.define(version: 2018_12_05_223524) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "expenses", "subcategories"
+  add_foreign_key "expenses", "suppliers"
 end

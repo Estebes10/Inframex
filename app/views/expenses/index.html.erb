@@ -1,0 +1,79 @@
+<% provide(:title, 'Gastos') %>
+<div class="masonry-item col-md-12">
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left pL-15">Gastos</h5>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+                      <i class="ti-plus"></i>
+                      Registrar Gasto
+                    </button>'.html_safe,
+                    new_expense_path
+        %>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <% if @expenses.blank? %>
+          <h5> Actualmente no se encuentra ningún gasto registrado en el sistema</h5>
+        <% else %>
+          <table class="table table-hover" id="users-datatable" role="datatable">
+            <thead>
+            <tr class="tableHead">
+              <th>Nombre</th>
+              <th>Proveedor</th>
+              <th>Subcategoría</th>
+              <th>Fecha</th>
+              <th>Cantidad</th>
+              <th>Unidad</th>
+              <th>Precio Unitario</th>
+              <th>Total</th>
+              <th>Aprobado</th>
+              <th>Facturado</th>
+              <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @expenses.each do |a| %>
+              <tr>
+                <td><%= a.name-%></td>
+                <td><%= a.supplier.name-%></td>
+                <td><%= a.subcategory.name-%></td>
+                <td><%= a.date-%></td>
+                <td><%= a.quantity-%></td>
+                <td><%= a.unity-%></td>
+                <td><%= a.unit_price-%></td>
+                <td><%= a.total-%></td>
+                <td><label class="switch">
+                  <input class="activate-switch status-user" id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
+                         data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
+                         <%= if (a.status)
+                               "checked"
+                             end %>>
+                  <span class="slider round"></span>
+                </label></td>
+                <td><label class="switch">
+                  <input class="activate-switch status-user" id="status_ticket-<%= "#{controller.controller_name}-#{a.id}" %>"
+                         data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
+                         <%= if (a.status_ticket)
+                               "checked"
+                             end %>>
+                  <span class="slider round"></span>
+                </label></td>
+                <td>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                  <i class="ti-pencil" aria-hidden="true"></i>
+                 </button>').html_safe, edit_expense_path(a.id)%>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
+                  <i class="ti-trash" aria-hidden="true"></i>
+                 </button>').html_safe, destroy_expense_path(a.id), method: :delete %>
+                </td>
+              </tr>
+
+            <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
