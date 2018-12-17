@@ -1,61 +1,55 @@
-<div class="masonry-item col-md-6">
-  <div class="bd bgc-white">
-    <div class="layers">
-      <div class="bgc-secondary c-white layer w-100 p-15">
-        <h5 class="pull-right">Registro de trabajos
-          <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-                        id="new-job-button"">
-                        <i class="ti-plus"></i>
-                        Agregar trabajo
-                      </button>'.html_safe,
-                      new_blog_job_path(@blog)
-          %>
-        </h5>
-      </div>
-
-      <% if @blog.jobs.blank? %>
-
-        <div class="row">
-            <div class="col-md-10">
-                <p class="lead">Actualmente no hay registros de trabajos en esta bitácora</p>
-            </div>
-        </div>
-
-      <% else %>
-
-        <div class="container">
-          <div class="row">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#ID trabajo</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <% @blog.jobs.each do |job| %>
-              <tbody>
-                <tr>
-                  <th scope="row"> <%= job.id %> </th>
-                  <td><%= job.name %></td>
-                  <td>
-                    <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
-                      <i class="ti-pencil icon-white" aria-hidden="true"></i>
-                      </button>').html_safe, edit_blog_job_path(blog_id: @blog, id: job)%>
-
-                    <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
-                      <i class="ti-trash icon-white" aria-hidden="true"></i>
-                      </button>').html_safe, blog_job_path(blog_id: @blog, id: job), method: :delete %>
-                  </td>
-                </tr>
-              </tbody>
-              <% end %>
-            </table>
-          </div>
-        </div>
-
-      <%end%>
-    </div>
-  </div>
+<div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+  <h5 class="float-left">Registro realizados</h5>
+    <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                  id="new-job-button">
+                  <i class="ti-plus"></i>
+                  Agregar trabajo
+                </button>'.html_safe,
+                new_blog_job_path(@blog)
+    %>
 </div>
+
+<% if @blog.jobs.blank? %>
+
+  <div class="row">
+      <div class="col-md-10">
+          <p class="lead">Actualmente no hay registros de trabajos en esta bitácora</p>
+      </div>
+  </div>
+
+<% else %>
+
+  <div class="layer w-100 p-20">
+    <table class="table table-hover datatable" id="jobs-datatable" role="datatable">
+      <thead>
+        <tr>
+          <th scope="col">Número</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Concepto</th>
+          <th scope="col">Cantidad de avance</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <% @blog.jobs.each do |job| %>
+      <tbody>
+        <tr>
+          <th scope="row"> <%= job.id %> </th>
+          <td><%= job.name %></td>
+          <td></td>
+          <td></td>
+          <td>
+            <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+              <i class="ti-pencil icon-white" aria-hidden="true"></i>
+              </button>').html_safe, edit_blog_job_path(blog_id: @blog, id: job)%>
+
+            <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
+              <i class="ti-trash icon-white" aria-hidden="true"></i>
+              </button>').html_safe, blog_job_path(blog_id: @blog, id: job), method: :delete %>
+          </td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
+  </div>
+
+<%end%>

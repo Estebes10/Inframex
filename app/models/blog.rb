@@ -16,10 +16,9 @@ class Blog < ApplicationRecord
     length:     { maximum: 256 }
 
   validates :description,
-    presence:   true,
     length:     { maximum: 1024 }
 
-  validates :blog_date,
+  validates :date,
     presence:   true
 
   validates :status,

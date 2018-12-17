@@ -1,18 +1,20 @@
 class BlogsController < ApplicationController
 
   def index
-    @blogs = Blog.order(:blog_date)
+    @blogs = Blog.order(:date)
   end
 
   def show
     @readonly = true
     @create = false
+    @required_str = ""
     @blog = Blog.find(params[:id])
   end
 
   def new
     @readonly = false
     @create = true
+    @required_str = "* "
     @blog = Blog.new
   end
 
@@ -33,6 +35,7 @@ class BlogsController < ApplicationController
   def edit
     @readonly = false
     @create = false
+    @required_str = "* "
     @blog = Blog.find(params[:id])
   end
 
@@ -71,7 +74,7 @@ class BlogsController < ApplicationController
   private
 
   def blog_params
-    params.require(:blog).permit(:name, :description, :blog_date)
+    params.require(:blog).permit(:name, :description, :date, :comments, :status)
   end
 
 end

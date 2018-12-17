@@ -1,9 +1,9 @@
 <% provide(:title, 'Bitácoras') %>
-<div class="masonry-item col-md-12">
+<div class="masonry-item col-md-10 offset-md-1">
   <div class="bd bgc-white">
     <div class="layers">
-      <div class="bgc-secondary c-white layer w-100 p-15">
-        <h5 class="pull-right">Registro de bitácoras
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left">Registro de bitácoras</h5>
           <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="new-blog-button"">
                         <i class="ti-plus"></i>
@@ -11,7 +11,6 @@
                       </button>'.html_safe,
                       new_blog_path
           %>
-        </h5>
       </div>
 
       <% if @blogs.blank? %>
@@ -24,47 +23,57 @@
 
       <% else %>
 
-        <div class="container">
-          <div class="row">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#Bitácora</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Estado</th>
-                  <th scope="col">Fecha de creación</th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <% @blogs.each do |blog| %>
-              <tbody>
-                <tr>
-                  <th scope="row"> <%= blog.id %> </th>
-                  <td><%= blog.name %></td>
-                  <td> <%= blog.description %></td>
-                  <% if blog.status %>
-                  <td> En espera </td>
-                  <% else %>
-                  <td> Aprobada </td>
-                  <% end %>
-                  <td><%= blog.blog_date %></td>
-                  <td>
-                    <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
-                      <i class="ti-eye icon-white" aria-hidden="true"></i>
+        <div class="layer w-100 p-20 text-center">
+          <table class="table table-hover datatable" id="blogs-datatable" role="datatable">
+            <thead>
+              <tr>
+                <th scope="col">Número</th>
+                <th scope="col">Fecha de creación</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado de Aprobación</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <% @blogs.each do |blog| %>
+            <tbody>
+              <tr>
+                <td><%= blog.id %></td>
+                <td><%= blog.date %></td>
+                <td><%= blog.name %></td>
+                <td> <%= blog.description %></td>
+                <td>
+                  <label class="switch">
+                    <input class="activate-switch status-blog"
+                           id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
+                           data-id="<%= "#{blog.id}" %>"
+                           name="<%= controller.controller_name %>"
+                           type="checkbox"
+                           <%= if (blog.status)
+                                 "checked"
+                               end %>>
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+                <td>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                        <i class="ti-eye icon-white" aria-hidden="true"></i>
                       </button>').html_safe, {action: :show, :id => blog.id } %>
-                  </td>
-                  <% if blog.status %>
-                  <td><a href="#" class="btn btn-success"> Aprobar </a></td>
-                  <% else %>
-                  <td><a href="#" class="btn btn-warning"> Desaprobar </a></td>
-                  <% end %>
-                </tr>
-              </tbody>
-              <% end %>
-            </table>
-          </div>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                        <i class="ti-pencil icon-white" aria-hidden="true"></i>
+                      </button>').html_safe, {action: :edit, :id => blog.id } %>
+
+                  <button type="button" class="btn btn-outline-danger btn-circle delete-blog"
+                          data-blog-id="<%= blog.id %>">
+                    <i class="ti-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
+
+
+              </tr>
+            </tbody>
+            <% end %>
+          </table>
         </div>
 
       <%end%>

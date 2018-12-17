@@ -1,5 +1,5 @@
 <% provide(:title, 'Bitácora') %>
-<div class="masonry-item col-md-6">
+<div class="masonry-item col-md-5">
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
@@ -9,7 +9,7 @@
                     </button>'.html_safe,
                     blogs_path
         %>
-        <h5 class="float-left pL-15">Bitácora - <%= @blog.name + " - " + @blog.blog_date.to_s %></h5>
+        <h5 class="float-left pL-15">Bitácora - <%= @blog.name + " - " + @blog.date.strftime("%d/%m/%Y") %></h5>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-blog-button2">
                       <i class="ti-pencil"></i>
@@ -17,7 +17,7 @@
                     edit_blog_path(@blog)
         %>
 
-        <%= link_to raw("<button type=\"button\" class=\"btn btn-danger float-right delete-blog btn-sm mR-5\"
+        <%= link_to raw("<button type=\"button\" class=\"btn btn-outline-light float-right delete-blog btn-sm mR-5\"
                   data-blog-id=\"#{@blog.id}\">
                   <i class=\"ti-trash\" aria-hidden=\"true\"></i>
                  </button>").html_safe, destroy_blog_path(@blog.id), method: :delete, :remote => @blog.jobs.count > 0%>
@@ -30,4 +30,38 @@
   </div>
 </div>
 
-<%= render "jobs/index"%>
+<div class="col-md-7">
+  <div class="row gap-20">
+
+    <div class="masonry-item col-md-12">
+      <div class="bd bgc-white">
+        <div class="layers">
+          <%= render "jobs/index"%>
+        </div>
+      </div>
+    </div>
+
+    <div class="masonry-item col-md-12">
+      <div class="bd bgc-white">
+        <div class="layers">
+          <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+            <h5 class="float-left">Archivos</h5>
+            <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                    id="new-job-button">
+              <i class="ti-plus"></i>
+              Agregar archivo
+            </button>
+          </div>
+          <div class="layer w-100 p-20">
+            <div class="row">
+              <div class="col-md-10">
+                <p class="lead">Actualmente no hay registros de archivos en esta bitácora</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,5 +1,5 @@
 <% provide(:title, 'Editar Bitácora') %>
-<div class="masonry-item col-md-10 offset-md-1">
+<div class="masonry-item col-md-8 offset-md-2">
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
@@ -9,7 +9,7 @@
                     </button>'.html_safe,
                     blog_path(@blog)
         %>
-        <h5 class="float-left pL-15">Editar Bitácora - <%= @blog.name + " " + @blog.blog_date.to_s %></h5>
+        <h5 class="float-left pL-15">Editar Bitácora - <%= @blog.name + " - " + @blog.date.strftime("%d/%m/%Y") %></h5>
       </div>
       <div class="layer w-100 p-20 text-center">
         <%= render "form" %>

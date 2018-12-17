@@ -1,56 +1,57 @@
-
 <%= form_for @blog, html: {class: "md-form"} do |f| %>
   <%= render 'layouts/errors_form', object: @blog %>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-lg-10 offset-lg-1">
         <div class="row">
           <% if !@readonly %>
-            <div class="col-md-12">
+            <div class="col-md-12 mD-15">
               <p>Los campos marcados con '*' son obligatorios.</p>
             </div>
           <% end %>
-
-          <div class="col-md-6 mT-15">
-            <% if !@readonly %>
-              <%= f.label :name, "* Nombre de la bitácora:" %>
-            <% end %>
+          <div class="col-md-12">
+            <%= f.label :date, "#{@required_str}Fecha de la bitácora: " %>
+            <%= f.date_field :date,
+                             class: 'form-control',
+                             required: 'true', start_year: 2000,
+                             readonly: @readonly %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :name, "#{@required_str}Nombre de la bitácora:" %>
             <%= f.text_field :name,
                              class:"form-control",
                              required: 'true',
                              placeholder: "e.g. Bitácora B12",
                              readonly: @readonly %>
           </div>
-
-          <div class="col-md-6 mT-15">
-            <% if !@readonly %>
-              <%= f.label :description, "* Descripción: " %>
-            <% end %>
+          <div class="col-md-12 mT-15">
+            <%= f.label :description, "Descripción: " %>
             <%= f.text_area :description,
                              class: 'form-control',
-                             required: 'true',
                              :maxlength => 1024,
                              placeholder: "e.g. En la siguiente bitácora se registran...",
+                             rows: 3,
                              readonly: @readonly %>
           </div>
-
-          <div class="col-md-6 mT-15">
-            <% if !@readonly %>
-              <%= f.label :blog_date, "* Fecha de la bitácora: " %>
-            <% end %>
-            <%= f.date_field :blog_date,
-                             class: 'form-control',
-                             required: 'true', start_year: 2000,
-                             readonly: @readonly %>
+          <div class="col-md-12 mT-15">
+            <%= f.label :comments, "Comentarios: " %>
+            <%= f.text_area :comments,
+                            class: 'form-control',
+                            :maxlength => 1024,
+                            placeholder: "e.g. El día de hoy ocurrió...",
+                            rows: 3,
+                            readonly: @readonly %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <label class="switch">
+              Estado de Aprobación: <br>
+              <% @readonly ? @var = "return false;" : @var = ""%>
+              <%= f.check_box :status, onclick: @var %>
+              <span class="slider round"></span>
+            </label>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
   <% if !@readonly %>
     <div id="form-footer-blog">
       <hr>
-      <button type="button" class="btn btn-outline-danger">Cancelar</button>
+      <%= link_to 'Cancelar', :back, class: 'btn btn-outline-danger' %>
       <%= f.submit "Guardar", class: 'btn save-button' %>
     </div>
   <% end %>
