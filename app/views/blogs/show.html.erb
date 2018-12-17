@@ -16,11 +16,10 @@
                     </button>'.html_safe,
                     edit_blog_path(@blog)
         %>
-
-        <%= link_to raw("<button type=\"button\" class=\"btn btn-outline-light float-right delete-blog btn-sm mR-5\"
-                  data-blog-id=\"#{@blog.id}\">
-                  <i class=\"ti-trash\" aria-hidden=\"true\"></i>
-                 </button>").html_safe, destroy_blog_path(@blog.id), method: :delete, :remote => @blog.jobs.count > 0%>
+        <button type="button" class="btn btn-outline-light float-right delete-blog btn-sm mR-5"
+                data-blog-id="<%= @blog.id %>">
+          <i class="ti-trash" aria-hidden="true"></i>
+        </button>
 
       </div>
       <div class="layer w-100 p-20 text-center">

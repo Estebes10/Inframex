@@ -1,5 +1,5 @@
 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-  <h5 class="float-left">Registro realizados</h5>
+  <h5 class="float-left">Trabajos realizados</h5>
     <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                   id="new-job-button">
                   <i class="ti-plus"></i>
@@ -26,7 +26,8 @@
           <th scope="col">Número</th>
           <th scope="col">Nombre</th>
           <th scope="col">Concepto</th>
-          <th scope="col">Cantidad de avance</th>
+          <th scope="col">Cantidad Avance</th>
+          <th scope="col">Unidad</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
@@ -35,16 +36,18 @@
         <tr>
           <th scope="row"> <%= job.id %> </th>
           <td><%= job.name %></td>
-          <td></td>
-          <td></td>
+          <td>_1_</td>
+          <td>_50_</td>
+          <td>_m2_</td>
           <td>
             <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
               <i class="ti-pencil icon-white" aria-hidden="true"></i>
               </button>').html_safe, edit_blog_job_path(blog_id: @blog, id: job)%>
 
-            <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
-              <i class="ti-trash icon-white" aria-hidden="true"></i>
-              </button>').html_safe, blog_job_path(blog_id: @blog, id: job), method: :delete %>
+            <button type="button" class="btn btn-outline-danger btn-circle delete-job"
+                    data-job-id="<%= job.id %>" data-blog-id="<%= @blog.id %>">
+              <i class="ti-trash" aria-hidden="true"></i>
+            </button>
           </td>
         </tr>
       </tbody>

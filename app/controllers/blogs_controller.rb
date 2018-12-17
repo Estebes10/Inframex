@@ -53,13 +53,18 @@ class BlogsController < ApplicationController
 
   def destroy
     @blog = Blog.find(params[:id])
-    if @blog.destroy
-      flash[:success] = ' Se ha eliminado la bitácora correctamente'
-      redirect_to action: :index
-    else
-      flash[:error] = ' No se ha podido eliminar la bitácora'
-      render :show
+    if @blog.jobs.count > 0
+      # remove all jobs
+      @blog.jobs.destroy_all
     end
+    @blog.destroy
+    # if @blog.destroy
+    #   flash[:success] = ' Se ha eliminado la bitácora correctamente'
+    #   redirect_to action: :index
+    # else
+    #   flash[:error] = ' No se ha podido eliminar la bitácora'
+    #   render :show
+    # end
   end
 
   def activate

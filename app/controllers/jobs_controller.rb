@@ -48,13 +48,7 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    if @job.destroy
-      flash[:success] = ' Se ha eliminado el trabajo correctamente'
-      redirect_to blog_url(@job)
-    else
-      flash[:error] = ' No se ha podido eliminar el trabajo'
-      redirect_to blog_url(@job)
-    end
+    @job.destroy
   end
 
   private
