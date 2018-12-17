@@ -9,6 +9,7 @@ class ExpensesController < ApplicationController
 
   def new
     @expense = Expense.new
+    @mode_edit = false
   end
 
   def create
@@ -26,6 +27,7 @@ class ExpensesController < ApplicationController
   end
 
   def edit
+    @mode_edit = true
   end
 
   def update

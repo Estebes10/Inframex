@@ -1,4 +1,4 @@
-<%= form_for @expense, url: @url, html: {class: "md-form"} do |f| %>
+<%= form_for @expense do |f| %>
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <div class="row">
@@ -20,7 +20,7 @@
             <%= f.label :subcategory_id, "Subcategoría del gasto:" %>
             <select name="expense[subcategory_id]" class="form-control">
               <% if @mode_edit %>
-                <option value="<%= @expense.subcategory_id %>" selected disabled> <%= Subcategory.find(@expense.subcategory_id).name %></option>
+                <option value="<%= @expense.subcategory_id %>" selected disabled> <%= @expense.subcategory.name %></option>
               <% else %>
                 <option value="" selected disabled> Seleccione una subcategoría </option>
               <% end %>
