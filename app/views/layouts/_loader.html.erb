@@ -1,18 +1,11 @@
-<!--loader with white background-->
-<!--<div id='loader'>-->
-<!--  <div class="spinner"></div>-->
-<!--</div>-->
-
 <!--loader over layout-->
 <div class="spinner" id="spinner"></div>
 
 <script>
     $( document ).ready(function() {
         const spinner = document.getElementById('spinner');
-        // const loader = document.getElementById('loader');
         setTimeout(() => {
             spinner.classList.add('fadeOut');
-            // loader.classList.add('fadeOut');
         }, 1000);
     });
 </script>

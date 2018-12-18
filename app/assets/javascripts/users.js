@@ -3,7 +3,11 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 $( document ).on('ready turbolinks:load', function() {
-    $('#users-datatable').DataTable();
+    $('#users-datatable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    });
 
     $('#users-datatable tbody').on('click', 'button.delete-user', function (e) {
         console.log("you activate the event");

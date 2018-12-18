@@ -58,6 +58,8 @@ class UsersController < ApplicationController
     @user.update_attribute(:status, params[:data])
   end
 
+  private
+
   def user_params
     params.require(:user).permit(
         :name,

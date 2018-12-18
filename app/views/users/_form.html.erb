@@ -95,7 +95,7 @@
   <% if !@readonly %>
     <div id="form-footer">
       <hr>
-      <button type="button" class="btn btn-outline-danger">Cancelar</button>
+      <%= link_to 'Cancelar', :back, class: 'btn btn-outline-danger' %>
       <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
     </div>
   <% end %>
