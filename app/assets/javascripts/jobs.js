@@ -1,17 +1,21 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#jobs-datatable').DataTable();
+    $('#jobs-datatable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    });
 
     $('#jobs-datatable tbody').on('click', 'button.delete-job', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
         var jobId = $(this).attr("data-job-id");
         var blogId = $(this).attr("data-blog-id");
-        deleteBlog(jobId, blogId, deleteButton);
+        deleteJob(jobId, blogId, deleteButton);
         return false;
     });
 });
 
-function deleteBlog(jobId, blogId, deleteButton) {
+function deleteJob(jobId, blogId, deleteButton) {
     console.log(jobId);
     swal({
         title: "¿Estás Seguro?",

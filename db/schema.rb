@@ -52,16 +52,28 @@ ActiveRecord::Schema.define(version: 2018_12_17_191718) do
   end
 
   create_table "subcategories", force: :cascade do |t|
+    t.bigint "supplier_id", null: false
+    t.boolean "status", default: false, null: false
+    t.boolean "status_ticket", default: false, null: false
+    t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
+    t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+  end
+
+  create_table "suppliers", force: :cascade do |t|
     t.string "name", limit: 256, null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "lastName"
-    t.string "password"
+    t.string "name", limit: 128, null: false
+    t.string "lastName", limit: 128, null: false
+    t.string "password", limit: 64
     t.date "birthday"
-    t.string "email"
-    t.string "phone"
+    t.string "email", limit: 128, null: false
+    t.string "phone", limit: 20
     t.boolean "status", default: true
     t.string "password_digest"
     t.string "remember_digest"

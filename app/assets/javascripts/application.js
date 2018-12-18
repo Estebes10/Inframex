@@ -14,9 +14,13 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery3
+//= require jquery-ui
 //= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
+//= require datatables
+//= require sweetalert
 //= require particles
+//= require bootstrap-datepicker
 //= require template/index
 //= require_tree .

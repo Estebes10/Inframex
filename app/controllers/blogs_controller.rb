@@ -16,17 +16,20 @@ class BlogsController < ApplicationController
     @create = true
     @required_str = "* "
     @blog = Blog.new
+    @blog.date = Time.now
+    @blog.status = false
   end
 
   def create
     @blog = Blog.new(blog_params)
     if @blog.save
       flash[:success] = ' Éxito al crear la bitácora'
-      redirect_to action: :index
+      redirect_to @blog
     else
       flash.now[:danger] = ' Error al crear la bitácora'
       @readonly = false
       @create = true
+      @required_str = "* "
       # @roles = Role.all
       render action: :new
     end
@@ -47,8 +50,20 @@ class BlogsController < ApplicationController
       redirect_to blog_url(@blog)
     else
       flash[:error] = ' Error al modificar la bitácora'
+      @readonly = false
+      @create = false
+      @required_str = "* "
       render :edit
     end
+  end
+
+  def destroy_ajax
+    @blog = Blog.find(params[:id])
+    if @blog.jobs.count > 0
+      # remove all jobs
+      @blog.jobs.destroy_all
+    end
+    @blog.destroy
   end
 
   def destroy
@@ -57,23 +72,18 @@ class BlogsController < ApplicationController
       # remove all jobs
       @blog.jobs.destroy_all
     end
-    @blog.destroy
-    # if @blog.destroy
-    #   flash[:success] = ' Se ha eliminado la bitácora correctamente'
-    #   redirect_to action: :index
-    # else
-    #   flash[:error] = ' No se ha podido eliminar la bitácora'
-    #   render :show
-    # end
+    if @blog.destroy
+      flash[:success] = ' Se ha eliminado la bitácora correctamente'
+      redirect_to action: :index
+    else
+      flash[:error] = ' No se ha podido eliminar la bitácora'
+      render :show
+    end
   end
 
   def activate
     @blog = Blog.find(params[:id])
-    if @blog.update_attribute(:status, params[:data])
-      #flash[:success].now = ' Estatus modificado exitosamente'
-    else
-      #flash[:Error].now = ' Error al modificar el usuario'
-    end
+    @blog.update_attribute(:status, params[:data])
   end
 
   private

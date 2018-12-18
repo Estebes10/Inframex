@@ -3,4 +3,12 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include UsersHelper
   include ExceptionHandler
+
+  # Confirms a logged-in user.
+  def validate_user
+    unless logged_in?
+      store_location
+      redirect_to login_url
+    end
+  end
 end
