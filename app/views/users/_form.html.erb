@@ -1,0 +1,102 @@
+<%= form_for(@user) do |f| %>
+  <%= render 'layouts/errors_form', object: @user %>
+  <%= @url %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="row">
+          <% if !@readonly %>
+            <div class="col-md-12">
+              <p>Los campos marcados con '*' son obligatorios.</p>
+            </div>
+          <% end %>
+          <div class="col-md-6 mT-15">
+            <%= f.label :name, "* Nombre del usuario:" %>
+            <%= f.text_field :name,
+                             class:"form-control",
+                             required: 'true',
+                             placeholder: "e.g. Juan",
+                             readonly: @readonly%>
+          </div>
+          <div class="col-md-6 mT-15">
+            <%= f.label :name, "* Apellido: " %>
+            <%= f.text_field :lastName,
+                             class: 'form-control',
+                             required: 'true',
+                             :maxlength => 50,
+                             placeholder: "e.g. Gama Moreno",
+                             readonly: @readonly %>
+          </div>
+
+          <div class="col-md-6 mT-15">
+            <%= f.label :birthday, "* Fecha de nacimiento: " %>
+            <%= f.date_field :birthday,
+                             class: 'form-control',
+                             required: 'true', start_year: 1900,
+                             readonly: @readonly %>
+          </div>
+          <div class="col-md-6 mT-15">
+            <%= f.label :phone, "* Teléfono: " %>
+            <%= f.text_field :phone,
+                             class: 'form-control',
+                             required: 'true',
+                             :maxlength => 10,
+                             placeholder: "e.g. 1234567",
+                             readonly: @readonly %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mT-15">
+            <%= f.label :email, "* Correo electrónico: " %>
+            <%= f.email_field :email,
+                              class: 'form-control',
+                              required: 'true',
+                              placeholder: "e.g. gama@mail.com",
+                              readonly: @readonly %>
+          </div>
+        </div>
+
+        <div class="row">
+          <% if @create %>
+            <div class="col-md-6 mT-15">
+              <%= f.label :password, "* Contraseña" %>
+              <%= f.password_field :password,
+                                   class: 'form-control',
+                                   :minlength => 6,
+                                   :maxlength => 64,
+                                   required: 'true',
+                                   readonly: @readonly %>
+            </div>
+            <div class="col-md-6 mT-15">
+              <%= f.label :password_confirmation, "* Confirmación de contraseña" %>
+              <%= f.password_field :password_confirmation,
+                                   class: 'form-control',
+                                   required: 'true',
+                                   readonly: @readonly %>
+            </div>
+          <% end %>
+          <div class="col-md-6 mT-15">
+            <label for = "user_status">Estado en el sistema:</label>
+            <div class="row">
+              <div class="col-md-2 col-sm-2" align="center">
+                <label class="switch">
+                  <% @readonly ? @var = "return false;" : @var = ""%>
+                  <%= f.check_box :status, onclick: @var %>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if !@readonly %>
+    <div id="form-footer">
+      <hr>
+      <%= link_to 'Cancelar', :back, class: 'btn btn-outline-danger' %>
+      <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
+    </div>
+  <% end %>
+<% end %>

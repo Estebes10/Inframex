@@ -49,7 +49,7 @@
             <%= link_to "Buscar", users_url , class: "sidebar-link"%>
           </li>
           <li>
-            <a class='sidebar-link' href="#">Nuevo</a>
+            <%= link_to "Nuevo", new_user_url , class: "sidebar-link"%>
           </li>
           <li>
             <a class='sidebar-link' href="#">Roles</a>
@@ -93,12 +93,12 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class='sidebar-link' href="logout">
-                <span class="icon-holder">
-                  <i class="c-black ti-power-off"></i>
-                </span>
+        <%= link_to raw('
+          <span class="icon-holder">
+            <i class="c-black ti-power-off"></i>
+          </span>
           <span class="title">Cerrar Sesión</span>
-        </a>
+        ').html_safe, logout_path, class: "sidebar-link" %>
       </li>
     </ul>
   </div>

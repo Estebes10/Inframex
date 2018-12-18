@@ -43,12 +43,12 @@ ActiveRecord::Schema.define(version: 2018_12_13_004416) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "lastName"
-    t.string "password"
+    t.string "name", limit: 128, null: false
+    t.string "lastName", limit: 128, null: false
+    t.string "password", limit: 64
     t.date "birthday"
-    t.string "email"
-    t.string "phone"
+    t.string "email", limit: 128, null: false
+    t.string "phone", limit: 20
     t.boolean "status", default: true
     t.string "password_digest"
     t.string "remember_digest"

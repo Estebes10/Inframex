@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get  'logout', to: 'sessions#destroy', as:'logout'
 
   # users
+  post 'users/activate', to: 'users#activate', as: :activate_user
+  delete 'users/:id', to: 'users#destroy', as: :destroy_user
   resources :users
 
   # suppliers

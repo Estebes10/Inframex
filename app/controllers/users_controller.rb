@@ -1,15 +1,19 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :show]
+  before_action :validate_user
+  before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find(params[:id])
+    @readonly = true
+    @create = false
   end
 
   def new
+    @readonly = false
+    @create = true
     # @roles = Role.all
     @user = User.new
   end
@@ -17,18 +21,21 @@ class UsersController < ApplicationController
   def create
     # @roles = Role.all
     @user = User.new(user_params)
-
     if @user.save
       flash[:success] = ' Éxito al crear el usuario'
-      redirect_to action: 'index'
+      redirect_to @user
     else
-      flash[:error] = ' Error al crear el usuario'
-      render action: 'new'
+      flash.now[:danger] = ' Error al crear el usuario'
+      @readonly = false
+      @create = true
+      # @roles = Role.all
+      render :action => 'new'
     end
   end
 
   def edit
-    @user = User.find(params[:id])
+    @readonly = false
+    @create = false
     # @roles = Role.all
   end
 
@@ -36,7 +43,7 @@ class UsersController < ApplicationController
     # @roles = Role.all
     if @user.update_attributes(user_params)
       flash[:success] = ' Usuario modificado correctamente'
-      redirect_to show_user_url(@user)
+      redirect_to user_url(@user)
     else
       flash[:error] = ' Error al modificar usuario'
       render :edit
@@ -44,10 +51,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id]).destroy
-    flash[:success] = ' Se ha eliminado el usuario correctamente'
-    redirect_to action: 'index'
+    @user.destroy
   end
+
+  def activate
+    @user.update_attribute(:status, params[:data])
+  end
+
+  private
 
   def user_params
     params.require(:user).permit(
