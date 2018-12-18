@@ -1,6 +1,7 @@
 class Expense < ApplicationRecord
   belongs_to :supplier
   belongs_to :subcategory
+  #belongs_to :concept
 
   validates :subcategory_id,
             presence:   {with: true, message: "no puede estar vacío"}

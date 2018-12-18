@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   end
   delete 'expenses/:id', to: 'expenses#destroy', as: :destroy_expense
 
+  # concepts
+  resources :concepts, except: :destroy do
+    resources :concepts
+  end
+  delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
+
   # sessions
   root 'sessions#new'
   get  'login',  to: 'sessions#new',     as:'login'

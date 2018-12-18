@@ -1,0 +1,80 @@
+<% provide(:title, 'Conceptos') %>
+<div class="masonry-item col-md-12">
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left pL-15">Conceptos</h5>
+        <a id="modal-trigger"
+           href="<%= new_concept_path %>">
+          <button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+            <i class="ti-plus"></i>
+            Registrar Concepto
+          </button>
+        </a>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <%= @categories.each do |c| %>
+          <div class="masonry-item col-md-12">
+            <div class="bd bgc-white">
+              <div class="layers">
+                <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15 bgcH-blue-grey-900" style="cursor: pointer;" data-toggle="collapse" data-target="#<%= c.name %>col">
+                  <h5 class="float-left pL-15"><%= c.name %></h5>
+                </div>
+                <div class="layer w-100 p-20 text-center collapse" id="<%= c.name %>col">
+                    <table class="table table-hover" id="users-datatable" role="datatable">
+                      <thead>
+                      <tr class="tableHead">
+                        <th>Clave</th>
+                        <th>Categoría</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Unidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <%= Concept.where(category_id: c).each do |concept| %>
+                        <tr>
+                          <td><%= concept.code-%></td>
+                          <td><%= concept.category.name-%></td>
+                          <td><%= concept.description-%></td>
+                          <td><%= concept.quantity-%></td>
+                          <td><%= concept.unity-%></td>
+                          <td><%= concept.unit_price-%></td>
+                          <td><%= concept.total-%></td>
+                          <td>
+                            <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                                  <i class="ti-eye icon-white" aria-hidden="true"></i>
+                                  </button>').html_safe, {action: :show, :id => concept.id } %>
+                            <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                                  <i class="ti-pencil" aria-hidden="true"></i>
+                                 </button>').html_safe, edit_concept_path(concept.id)%>
+                            <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
+                                  <i class="ti-trash" aria-hidden="true"></i>
+                                 </button>').html_safe, destroy_concept_path(concept.id), method: :delete %>
+                          </td>
+                        </tr>
+                      <% end %>
+                      <tr class="bgc-blue-grey-900">
+                        <td class="c-white"><strong>Total de <%= c.name %></strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="c-white"><strong><%= Concept.where(:category_id => c).sum(:total) %></strong></td>
+                        <td></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
