@@ -16,7 +16,6 @@ $( document ).on('ready turbolinks:load', function() {
 });
 
 function deleteJob(jobId, blogId, deleteButton) {
-    console.log(jobId);
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar el trabajo?",
@@ -48,7 +47,6 @@ function deleteJob(jobId, blogId, deleteButton) {
                 timer: 1500,
                 showConfirmButton: false
             });
-            console.log("no borrado");
         });
     });
 }

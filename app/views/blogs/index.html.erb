@@ -35,8 +35,8 @@
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
-            <% @blogs.each do |blog| %>
             <tbody>
+            <% @blogs.each do |blog| %>
               <tr>
                 <td><%= blog.id %></td>
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>
@@ -71,8 +71,8 @@
 
 
               </tr>
-            </tbody>
             <% end %>
+            </tbody>
           </table>
         </div>
 

@@ -33,8 +33,8 @@
           <th scope="col">Acciones</th>
         </tr>
       </thead>
-      <% @blog.jobs.each do |job| %>
       <tbody>
+      <% @blog.jobs.each do |job| %>
         <tr>
           <th scope="row"> <%= job.id %> </th>
           <td><%= job.name %></td>
@@ -52,8 +52,8 @@
             </button>
           </td>
         </tr>
-      </tbody>
       <% end %>
+      </tbody>
     </table>
   </div>
 

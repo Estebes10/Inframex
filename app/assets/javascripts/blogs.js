@@ -22,7 +22,6 @@ $( document ).on('ready turbolinks:load', function() {
 });
 
 function deleteBlogAjax(blogId, deleteButton) {
-    console.log(blogId);
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar la bitácora? Se borrarán todos los trabajos y archivos asignados.",
@@ -38,7 +37,6 @@ function deleteBlogAjax(blogId, deleteButton) {
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');
-            console.log("borrado");
             swal({
                 title: "¡Eliminada!",
                 text: "La bitácora se ha eliminado correctamente",
@@ -55,13 +53,11 @@ function deleteBlogAjax(blogId, deleteButton) {
                 timer: 1500,
                 showConfirmButton: false
             });
-            console.log("no borrado");
         });
     });
 }
 
 function deleteBlog(blogId) {
-    console.log(blogId);
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar la bitácora? Se borrarán todos los trabajos y archivos asignados.",

@@ -1,11 +1,8 @@
 $( document ).on('ready turbolinks:load', function() {
     $('.activate-switch').click(function() {
-        console.log(jQuery.fn.jquery);
-        console.log("activate-switch");
         var data_id = $(this).attr('data-id');
         var controller = $(this).attr('name');
         var switch_value = $(this).prop('checked');
-        console.log(switch_value);
         swal({
             title: "¿Estás Seguro?",
             text: "¿Estás seguro de querer cambiar el estatus?",
