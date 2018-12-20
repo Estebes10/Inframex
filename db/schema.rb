@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_13_004416) do
+ActiveRecord::Schema.define(version: 2018_12_19_213524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name", limit: 256, null: false
+  end
+
+  create_table "concepts", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.string "code", limit: 6, null: false
+    t.string "description", limit: 1024, null: false
+    t.integer "quantity", null: false
+    t.string "unity", null: false
+    t.decimal "unit_price", precision: 15, scale: 4, null: false
+    t.decimal "total", precision: 15, scale: 4, null: false
+    t.index ["category_id"], name: "index_concepts_on_category_id"
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -34,12 +45,33 @@ ActiveRecord::Schema.define(version: 2018_12_13_004416) do
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+    t.string "code", limit: 32
+    t.string "address", limit: 256
+    t.date "start_date"
+    t.date "due_date"
+    t.string "client", limit: 256
+    t.boolean "status", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subcategories", force: :cascade do |t|
     t.string "name", limit: 256, null: false
   end
 
   create_table "suppliers", force: :cascade do |t|
     t.string "name", limit: 256, null: false
+  end
+
+  create_table "user_projects", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_user_projects_on_project_id"
+    t.index ["user_id"], name: "index_user_projects_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,6 +88,9 @@ ActiveRecord::Schema.define(version: 2018_12_13_004416) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "concepts", "categories"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
+  add_foreign_key "user_projects", "projects"
+  add_foreign_key "user_projects", "users"
 end

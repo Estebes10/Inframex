@@ -88,8 +88,10 @@ RSpec.describe User, type: :model do
    expect(user_example).not_to be_valid
  end
 
-  # Set of tests to validate associations
-  it 'belongs to role'
+  describe "Associations" do
+    it "belongs to role"
 
-  it 'has many projects'
+    it { should have_many(:projects) }
+  end
+
 end
