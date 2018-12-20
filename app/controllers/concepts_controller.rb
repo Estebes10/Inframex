@@ -1,5 +1,5 @@
 class ConceptsController < ApplicationController
-  before_action :set_concept, only: [:edit, :update, :destroy]
+  before_action :set_concept, only: [:show, :edit, :update, :destroy]
   before_action :set_categories, only: [:new, :index, :edit]
 
   def index
@@ -8,7 +8,6 @@ class ConceptsController < ApplicationController
   def show
     @read_only = true
     @mode_edit = false
-    @concept = Concept.find(params[:id])
   end
 
   def new
