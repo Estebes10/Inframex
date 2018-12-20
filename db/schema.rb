@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_17_202331) do
+ActiveRecord::Schema.define(version: 2018_12_20_032410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_202331) do
     t.bigint "category_id", null: false
     t.string "code", limit: 6, null: false
     t.string "description", limit: 1024, null: false
-    t.integer "quantity", null: false
+    t.decimal "quantity", null: false
     t.string "unity", null: false
     t.decimal "unit_price", precision: 15, scale: 4, null: false
     t.decimal "total", precision: 15, scale: 4, null: false
@@ -34,13 +34,15 @@ ActiveRecord::Schema.define(version: 2018_12_17_202331) do
     t.bigint "subcategory_id", null: false
     t.string "name", limit: 256, null: false
     t.date "date", null: false
-    t.integer "quantity", null: false
+    t.decimal "quantity", null: false
     t.string "unity", null: false
     t.decimal "unit_price", precision: 15, scale: 4, null: false
     t.decimal "total", precision: 15, scale: 4, null: false
     t.bigint "supplier_id", null: false
     t.boolean "status", default: false, null: false
     t.boolean "status_ticket", default: false, null: false
+    t.bigint "concept_id", null: false
+    t.index ["concept_id"], name: "index_expenses_on_concept_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
   end
@@ -68,6 +70,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_202331) do
   end
 
   add_foreign_key "concepts", "categories"
+  add_foreign_key "expenses", "concepts"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
 end

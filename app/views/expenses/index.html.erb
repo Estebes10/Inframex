@@ -20,6 +20,7 @@
             <tr class="tableHead">
               <th>Nombre</th>
               <th>Proveedor</th>
+              <th>Concepto</th>
               <th>Subcategoría</th>
               <th>Fecha</th>
               <th>Cantidad</th>
@@ -36,6 +37,7 @@
               <tr>
                 <td><%= a.name-%></td>
                 <td><%= a.supplier.name-%></td>
+                <td><%= link_to a.concept.code, {:controller => :concepts, :action => :show, :id => a.concept.id} %></td>
                 <td><%= a.subcategory.name-%></td>
                 <td><%= a.date-%></td>
                 <td><%= a.quantity-%></td>
@@ -64,7 +66,7 @@
                  </button>').html_safe, edit_expense_path(a.id)%>
                   <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
                   <i class="ti-trash" aria-hidden="true"></i>
-                 </button>').html_safe, destroy_expense_path(a.id), method: :delete %>
+                 </button>').html_safe, {action: :destroy, :id => a.id }, method: :delete %>
                 </td>
               </tr>
 

@@ -8,21 +8,27 @@
 
         <div class="col-md-6 mT-15">
           <%= f.label :code, "* Clave:" %>
-          <%= f.text_field :code, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto", :maxlength => 6, readonly: @readonly %>
+          <%= f.text_field :code, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto", :maxlength => 6, readonly: @read_only %>
         </div>
 
         <div class="col-md-6 mT-15">
           <%= f.label :category_id, "* Categoría del gasto:" %>
+          <% if @read_only %>
+            <select class="form-control" disabled>
+                <option selected disabled> <%= @concept.category.name %></option>
+            </select>
+          <% else %>
             <select name="concept[category_id]" class="form-control">
               <% if @mode_edit %>
                 <option value="<%= @concept.category_id %>" selected disabled> <%= @concept.category.name %></option>
               <% else %>
                 <option value="" selected disabled> Seleccione una categoría </option>
+              <% end %>
                 <% @categories.each do |a| %>
                   <option value=<%= a.id %>><%= a.name-%></option>
                 <% end %>
-              <% end %>
             </select>
+           <% end %>
         </div>
         <div class="col-md-6 mT-15">
           <%= f.label :description, "* Descripción: " %>
@@ -31,27 +37,29 @@
                           :maxlength => 1024,
                           placeholder: "e.g. Cambiar esto",
                           rows: 3,
-                          readonly: @readonly%>
+                          readonly: @read_only%>
         </div>
         <div class="col-md-6 mT-15">
           <%= f.label :quantity, "Cantidad:" %>
-          <%= f.text_field :quantity, class: 'form-control', required: 'true', placeholder: "e.g. Cambiar esto", readonly: @readonly %>
+          <%= f.text_field :quantity, class: 'form-control', required: 'true', placeholder: "e.g. Cambiar esto", readonly: @read_only %>
         </div>
         <div class="col-md-6 mT-15">
           <%= f.label :unity, "* Unidad:" %>
-          <%= f.text_field :unity, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto", readonly: @readonly %>
+          <%= f.text_field :unity, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto", readonly: @read_only %>
         </div>
         <div class="col-md-6 mT-15">
           <%= f.label :unit_price, "* Precio por Unidad:" %>
-          <%= f.text_field :unit_price, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto", readonly: @readonly %>
+          <%= f.text_field :unit_price, class:"form-control", required: 'true', placeholder: "e.g. Cambiar esto", readonly: @read_only %>
         </div>
 
       </div>
     </div>
   </div>
-  <div id="form-footer">
-    <hr>
-    <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, concepts_path %>
-    <%= f.submit "Guardar", class: 'btn save-button' %>
-  </div>
+  <% if !@read_only %>
+    <div id="form-footer">
+      <hr>
+      <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, concepts_path %>
+      <%= f.submit "Guardar", class: 'btn save-button' %>
+    </div>
+  <% end %>
 <% end %>

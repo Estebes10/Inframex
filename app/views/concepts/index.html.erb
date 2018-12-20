@@ -13,7 +13,7 @@
         </a>
       </div>
       <div class="layer w-100 p-20 text-center">
-        <%= @categories.each do |c| %>
+        <% @categories.each do |c| %>
           <div class="masonry-item col-md-12">
             <div class="bd bgc-white">
               <div class="layers">
@@ -35,7 +35,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <%= Concept.where(category_id: c).each do |concept| %>
+                      <% Concept.where(category_id: c).each do |concept| %>
                         <tr>
                           <td><%= concept.code-%></td>
                           <td><%= concept.category.name-%></td>
@@ -53,7 +53,7 @@
                                  </button>').html_safe, edit_concept_path(concept.id)%>
                             <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
                                   <i class="ti-trash" aria-hidden="true"></i>
-                                 </button>').html_safe, destroy_concept_path(concept.id), method: :delete %>
+                                 </button>').html_safe, {action: :destroy, :id => concept.id }, method: :delete %>
                           </td>
                         </tr>
                       <% end %>

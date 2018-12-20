@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
 
   before_action :set_expense, only: [:edit, :update, :destroy]
-  before_action :set_categories_and_subcategories, only: [:new, :edit]
+  before_action :set_categories_subcategories_and_concepts, only: [:new, :edit]
 
   def index
     @expenses = Expense.all
@@ -55,15 +55,28 @@ class ExpensesController < ApplicationController
   private
 
   def expenses_params
-    params.require(:expense).permit!
+    params.require(:expense).permit(
+        :subcategory_id,
+        :concept_id,
+        :name,
+        :date,
+        :unity,
+        :unit_price,
+        :total,
+        :status,
+        :status_ticket,
+        :quantity,
+        :supplier_name
+    )
   end
 
   def set_expense
     @expense = Expense.find(params[:id])
   end
 
-  def set_categories_and_subcategories
+  def set_categories_subcategories_and_concepts
     @categories = Category.all
     @subcategories = Subcategory.all
+    @concepts = Concept.all
   end
 end

@@ -1,7 +1,10 @@
 class Expense < ApplicationRecord
   belongs_to :supplier
   belongs_to :subcategory
-  #belongs_to :concept
+  belongs_to :concept
+
+  before_create :calculate_total
+  before_update :calculate_total
 
   validates :subcategory_id,
             presence:   {with: true, message: "no puede estar vacío"}
@@ -18,11 +21,11 @@ class Expense < ApplicationRecord
 
   validates :unit_price,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality: {with: true, only_integer: false }
+            numericality: {with: true, only_integer: false, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
 
   validates :total,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality: {with: true, only_integer: false }
+            numericality: {with: true, only_integer: false }, :on => [:create ,:update]
 
   validates :status,
             inclusion: { in: [true, false] }
@@ -32,7 +35,7 @@ class Expense < ApplicationRecord
 
   validates :quantity,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality:{with: true, only_integer: true, greater_than: 0, message: "debe ser mayor a 0" }
+            numericality:{with: true, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
 
   validates :supplier_name,
             presence: {with: true, message: "no puede estar vacío"},
@@ -45,5 +48,12 @@ class Expense < ApplicationRecord
   def supplier_name=(name)
     self.supplier = Supplier.find_or_create_by(name: name) if name.present?
   end
+
+  private
+
+  def calculate_total
+    self.total = self.quantity * self.unit_price
+  end
+
 
 end

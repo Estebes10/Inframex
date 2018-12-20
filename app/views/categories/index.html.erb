@@ -38,7 +38,7 @@
                   </a>
                   <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
                   <i class="ti-trash" aria-hidden="true"></i>
-                 </button>').html_safe, destroy_category_path(a.id), method: :delete %>
+                 </button>').html_safe, {action: :destroy, :id => a.id }, method: :delete %>
                 </td>
               </tr>
 
@@ -91,7 +91,7 @@
                   </a>
                   <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
                   <i class="ti-trash" aria-hidden="true"></i>
-                 </button>').html_safe, destroy_subcategory_path(b.id), method: :delete %>
+                 </button>').html_safe,  {:controller => :subcategories, :action => :destroy, :id => b.id}, method: :delete %>
                 </td>
               </tr>
 

@@ -6,7 +6,8 @@ class ConceptsController < ApplicationController
   end
 
   def show
-    @readonly = true
+    @read_only = true
+    @mode_edit = false
     @concept = Concept.find(params[:id])
   end
 
@@ -18,8 +19,6 @@ class ConceptsController < ApplicationController
 
   def create
     @concept = Concept.new(concepts_params)
-    totalval = @concept.quantity * @concept.unit_price
-    @concept.total = totalval
 
     if @concept.save
       flash[:success] = ' Éxito al crear concepto'
@@ -36,8 +35,6 @@ class ConceptsController < ApplicationController
   end
 
   def update
-    totalval = @concept.quantity * @concept.unit_price
-    @concept.total = totalval
     if @concept.update_attributes(concepts_params)
       flash[:success] = ' Concepto modificado correctamente'
       redirect_to action: 'index'

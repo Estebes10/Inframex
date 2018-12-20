@@ -2,28 +2,16 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # categories
-  resources :categories, except: :destroy do
-    resources :categories
-  end
-  delete 'categories/:id', to: 'categories#destroy', as: :destroy_category
+  resources :categories
 
   # subcategories
-  resources :subcategories, except: :destroy do
-    resources :subcategories
-  end
-  delete 'subcategories/:id', to: 'subcategories#destroy', as: :destroy_subcategory
+  resources :subcategories
 
   # expenses
-  resources :expenses, except: :destroy do
-    resources :expenses
-  end
-  delete 'expenses/:id', to: 'expenses#destroy', as: :destroy_expense
+  resources :expenses
 
   # concepts
-  resources :concepts, except: :destroy do
-    resources :concepts
-  end
-  delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
+  resources :concepts
 
   # sessions
   root 'sessions#new'

@@ -17,6 +17,20 @@
           </div>
 
           <div class="col-md-6 mT-15">
+            <%= f.label :concept_id, "* Clave del concepto:" %>
+            <select name="expense[concept_id]" class="form-control">
+              <% if @mode_edit %>
+                <option value="<%= @expense.concept_id %>" selected disabled> <%= @expense.concept.code %></option>
+              <% else %>
+                <option value="" selected disabled> Seleccione un concepto </option>
+              <% end %>
+              <% @concepts.each do |a| %>
+                <option value=<%= a.id %>><%= a.code %> - <%= a.category.name %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="col-md-6 mT-15">
             <%= f.label :subcategory_id, "Subcategoría del gasto:" %>
             <select name="expense[subcategory_id]" class="form-control">
               <% if @mode_edit %>
@@ -25,7 +39,7 @@
                 <option value="" selected disabled> Seleccione una subcategoría </option>
               <% end %>
               <% @subcategories.each do |a| %>
-                <option value=<%= a.id %>><%= a.name-%></option>
+                <option value=<%= a.id %>><%= a.name %></option>
               <% end %>
             </select>
           </div>
