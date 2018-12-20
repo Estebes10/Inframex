@@ -1,15 +1,21 @@
 class ExpensesController < ApplicationController
 
-  before_action :set_expense, only: [:edit, :update, :destroy]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy]
   before_action :set_categories_subcategories_and_concepts, only: [:new, :edit]
 
   def index
     @expenses = Expense.all
   end
 
+  def show
+    @read_only = true
+    @mode_edit = false
+  end
+
   def new
     @expense = Expense.new
     @mode_edit = false
+    @read_only = false
   end
 
   def create
@@ -28,6 +34,7 @@ class ExpensesController < ApplicationController
 
   def edit
     @mode_edit = true
+    @read_only = false
   end
 
   def update
