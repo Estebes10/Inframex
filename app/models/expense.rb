@@ -3,8 +3,7 @@ class Expense < ApplicationRecord
   belongs_to :subcategory
   belongs_to :concept
 
-  before_create :calculate_total
-  before_update :calculate_total
+  before_validation :calculate_total
 
   validates :subcategory_id,
             presence:   {with: true, message: "no puede estar vacío"}

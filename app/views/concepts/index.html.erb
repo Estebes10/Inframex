@@ -35,7 +35,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <% Concept.where(category_id: c).each do |concept| %>
+                      <% Concept.where(category_id: c).order(:code).each do |concept| %>
                         <tr>
                           <td><%= concept.code-%></td>
                           <td><%= concept.category.name-%></td>
