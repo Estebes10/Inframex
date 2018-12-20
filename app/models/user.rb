@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  # belongs_to :role
+  belongs_to :role
 
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 

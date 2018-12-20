@@ -5,13 +5,15 @@
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left">Usuarios</h5>
-        <button type="button" class="btn btn-outline-light float-right btn-sm" id="modal-trigger"
-                data-toggle="modal" data-target="#">
-          <i class="ti-user"></i>
-          Roles
-        </button>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm" id="modal-trigger"
+                      data-toggle="modal" data-target="#">
+                      <i class="ti-user"></i>
+                      Roles
+                    </button>'.html_safe,
+                    roles_path
+        %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-                      id="new-user-button"">
+                      id="new-user-button">
                       <i class="ti-plus"></i>
                       Registrar Usuario
                     </button>'.html_safe,
@@ -39,7 +41,7 @@
               <!--Se podría poner un mailto con link en el mail  -->
               <td><%= a.email-%></td>
               <td><%= a.phone-%></td>
-              <td><%#= if a.role.present? then  a.role.name end-%></td>
+              <td><%= if a.role.present? then a.role.name end -%></td>
               <!-- Where status is -->
               <td>
                 <label class="switch">
