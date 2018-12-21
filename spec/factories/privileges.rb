@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :privilege do
-    name { "" }
-    desctiption { "" }
-    #module { "" }
+    sequence(:name)  { |n| "Privilege #{n}" }
+    description { "Privilegio de prueba" }
+    module_name { "Privilege module"}
     str_id { "MyString" }
   end
 end

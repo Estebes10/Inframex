@@ -1,4 +1,7 @@
 class RolesController < ApplicationController
+
+  before_action :set_role, only: [:show, :edit, :destroy]
+
   def index
     @roles = Role.all
     @role = Role.new
@@ -20,15 +23,13 @@ class RolesController < ApplicationController
   end
 
   def show
-    set_role
   end
 
   def edit
-    set_role
   end
 
   def update
-    if set_role.update_attributes(role_params)
+    if @role.update_attributes(role_params)
       flash[:success] = " Nombre de Rol actualizado"
       redirect_to roles_path
     else
@@ -38,7 +39,6 @@ class RolesController < ApplicationController
   end
 
   def destroy
-    set_role
     if(@role.users.count == 0)
       @role.privileges.destroy_all
       @role.destroy
@@ -49,6 +49,7 @@ class RolesController < ApplicationController
   end
 
   private
+
   def set_role
     @role = Role.find(params[:id])
   end
