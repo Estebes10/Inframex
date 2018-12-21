@@ -1,10 +1,7 @@
-console.log("---0---");
 $(function () {
-    $( document ).ready(function() {
-        console.log("---1---");
+    $( document ).on('ready turbolinks:load', function() {
         // Sidebar links
         $('.sidebar .sidebar-menu li a').on('click', function () {
-            console.log("---2---");
             const $this = $(this);
 
             if ($this.parent().hasClass('open')) {
@@ -60,7 +57,6 @@ $(function () {
 
         // ٍSidebar Toggle
         $('.sidebar-toggle').on('click', e => {
-            console.log("---3---");
             $('.app').toggleClass('is-collapsed');
             e.preventDefault();
         });
@@ -71,7 +67,6 @@ $(function () {
          * masonry layout widths and gutters.
          */
         $('#sidebar-toggle').click(e => {
-            console.log("---4---");
             e.preventDefault();
             setTimeout(() => {
                 window.dispatchEvent(window.EVENT);

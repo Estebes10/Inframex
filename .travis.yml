@@ -2,7 +2,8 @@ language: ruby
 rvm:
   - 2.5.1
 before_script:
-  - rake db:setup
+  - bundle install
+  - rake db:reset
 script:
   - rake db:test:prepare
   - bundle exec rspec spec/ -fd --order rand

@@ -88,8 +88,8 @@ class ExpensesController < ApplicationController
 
   def select_objects
     @expense = Expense.find(params[:id])
-    @concept_id = @expense.concept.code
-    @subcategory_id = @expense.subcategory.name
+    @concept_id = @expense.concept_id
+    @subcategory_id = @expense.subcategory_id
     puts(@concept_id)
     puts(@subcategory_id)
   end

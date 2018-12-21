@@ -7,6 +7,7 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/rails'
 
 # configure shoulda matchers to use rspec as the test framework and full matcher libraries for rails
 Shoulda::Matchers.configure do |config|
@@ -15,6 +16,8 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -71,6 +74,8 @@ RSpec.configure do |config|
 
   # add `FactoryBot` methods
   config.include FactoryBot::Syntax::Methods
+
+  config.include ControllerSpecHelper, :type => :controller
 
   # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
   config.before(:suite) do

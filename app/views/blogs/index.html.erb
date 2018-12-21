@@ -1,0 +1,82 @@
+<% provide(:title, 'Bitácoras') %>
+<div class="masonry-item col-md-10 offset-md-1">
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left">Registro de bitácoras</h5>
+          <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                        id="new-blog-button"">
+                        <i class="ti-plus"></i>
+                        Registrar nueva bitácora
+                      </button>'.html_safe,
+                      new_blog_path
+          %>
+      </div>
+
+      <% if @blogs.blank? %>
+
+        <div class="row">
+            <div class="col-md-10">
+                <p class="lead">Actualmente no se encuentra registrada ninguna bitácora para este proyecto.</p>
+            </div>
+        </div>
+
+      <% else %>
+
+        <div class="layer w-100 p-20 text-center">
+          <table class="table table-hover datatable" id="blogs-datatable" role="datatable">
+            <thead>
+              <tr>
+                <th scope="col">Número</th>
+                <th scope="col">Fecha de creación</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado de Aprobación</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @blogs.each do |blog| %>
+              <tr>
+                <td><%= blog.id %></td>
+                <td><%= blog.date.strftime("%d/%m/%Y") %></td>
+                <td><%= blog.name %></td>
+                <td> <%= blog.description %></td>
+                <td>
+                  <label class="switch">
+                    <input class="activate-switch status-blog"
+                           id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
+                           data-id="<%= "#{blog.id}" %>"
+                           name="<%= controller.controller_name %>"
+                           type="checkbox"
+                           <%= if (blog.status)
+                                 "checked"
+                               end %>>
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+                <td>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                        <i class="ti-eye icon-white" aria-hidden="true"></i>
+                      </button>').html_safe, {action: :show, :id => blog.id } %>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                        <i class="ti-pencil icon-white" aria-hidden="true"></i>
+                      </button>').html_safe, {action: :edit, :id => blog.id } %>
+
+                  <button type="button" class="btn btn-outline-danger btn-circle delete-blog-ajax"
+                          data-blog-id="<%= blog.id %>">
+                    <i class="ti-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
+
+
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+      <%end%>
+    </div>
+  </div>
+</div>

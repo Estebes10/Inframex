@@ -1,0 +1,61 @@
+<%= form_for @blog do |f| %>
+  <%= render 'layouts/errors_form', object: @blog %>
+        <div class="row">
+          <% if !@readonly %>
+            <div class="col-md-12 mD-15">
+              <p>Los campos marcados con '*' son obligatorios.</p>
+            </div>
+          <% end %>
+          <div class="col-md-12">
+            <%= f.label :date, "#{@required_str}Fecha de la bitácora: " %>
+            <%= f.text_field :date,
+                             class: 'form-control datepicker',
+                             'data-behaviour' => 'datepicker',
+                             required: 'true', start_year: 2010,
+                             :value => @blog.date.strftime('%d/%m/%Y'),
+                             readonly: @readonly %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :name, "#{@required_str}Nombre de la bitácora:" %>
+            <%= f.text_field :name,
+                             class:"form-control",
+                             required: 'true',
+                             placeholder: "e.g. Bitácora B12",
+                             readonly: @readonly %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :description, "Descripción: " %>
+            <%= f.text_area :description,
+                             class: 'form-control',
+                             :maxlength => 1024,
+                             placeholder: "e.g. En la siguiente bitácora se registran...",
+                             rows: 3,
+                             readonly: @readonly %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :comments, "Comentarios: " %>
+            <%= f.text_area :comments,
+                            class: 'form-control',
+                            :maxlength => 1024,
+                            placeholder: "e.g. El día de hoy ocurrió...",
+                            rows: 3,
+                            readonly: @readonly %>
+          </div>
+          <div class="col-md-12 mT-15">
+            <%= f.label :status, "Estado de Aprobación: " %>
+            <br>
+            <label class="switch">
+              <% @readonly ? @var = "return false;" : @var = ""%>
+              <%= f.check_box :status, onclick: @var %>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+  <% if !@readonly %>
+    <div id="form-footer-blog">
+      <hr>
+      <%= link_to 'Cancelar', :back, class: 'btn btn-outline-danger' %>
+      <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
+    </div>
+  <% end %>
+<% end %>

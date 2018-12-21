@@ -38,6 +38,10 @@ gem 'bootstrap', '~> 4.1.3'
 gem 'popper_js', '~> 1.14'
 # Javascript framework used in bootstrap
 gem 'jquery-rails'
+gem 'jquery-datatables'
+gem 'sweetalert-rails'
+# date input styles
+gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.1.1'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -85,3 +89,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Please add the following to your Gemfile to avoid polling for changes:
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?

@@ -31,3 +31,12 @@
 
 en:
   hello: "Hello world"
+  date:
+    datepicker:
+      default: "dd/mm/yyyy"
+      long: "dd MM, yyyy"
+      short: "%-d de %b"
+      name_number_day: "%A %d"
+    formats:
+      default: ! '%d/%m/%Y'
+      long: ! '%d %B, %Y'

@@ -20,9 +20,21 @@ Rails.application.routes.draw do
   get  'logout', to: 'sessions#destroy', as:'logout'
 
   # users
+  post 'users/activate', to: 'users#activate', as: :activate_user
+  delete 'users/:id', to: 'users#destroy', as: :destroy_user
   resources :users
+
+  # blogs
+  resources :blogs, except: :destroy do
+    resources :jobs
+  end
+  delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
+  delete 'blogs/:id/ajax', to: 'blogs#destroy_ajax', as: :destroy_ajax_blog
+  post 'blogs/activate', to: 'blogs#activate', as: :activate_blog
 
   # suppliers
   resources :suppliers
-  
+
+  resources :projects
+
 end
