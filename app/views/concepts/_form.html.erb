@@ -18,7 +18,7 @@
                 <option selected disabled> <%= @concept.category.name %></option>
             </select>
           <% else %>
-            <select name="concept[category_id]" class="form-control">
+            <select name="concept[category_id]" class="form-control" required>
               <% if @mode_edit %>
                 <option value="<%= @concept.category_id %>" selected disabled> <%= @concept.category.name %></option>
               <% else %>
@@ -37,6 +37,7 @@
                           :maxlength => 1024,
                           placeholder: "e.g. Cambiar esto",
                           rows: 3,
+                          required: true,
                           readonly: @read_only%>
         </div>
         <div class="col-md-6 mT-15">

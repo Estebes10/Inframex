@@ -23,7 +23,7 @@
                 <option selected disabled> <%= @expense.concept.code %></option>
               </select>
             <% else %>
-              <select name="expense[concept_id]" class="form-control">
+              <select name="expense[concept_id]" class="form-control" required>
                 <% if @mode_edit %>
                   <option value="<%= @expense.concept_id %>" selected disabled> <%= @expense.concept.code %></option>
                 <% else %>
@@ -43,7 +43,7 @@
                 <option selected disabled> <%= @expense.subcategory.name %></option>
               </select>
             <% else %>
-              <select name="expense[subcategory_id]" class="form-control">
+              <select name="expense[subcategory_id]" class="form-control" required>
                 <% if @mode_edit %>
                   <option value="<%= @expense.subcategory_id %>" selected disabled> <%= @expense.subcategory.name %></option>
                 <% else %>
