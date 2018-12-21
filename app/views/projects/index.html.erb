@@ -39,6 +39,11 @@
                     <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                           <i class="ti-eye icon-white" aria-hidden="true"></i>
                           </button>').html_safe, {action: :show, :id => project.id } %>
+
+                    <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                        <i class="ti-pencil icon-white" aria-hidden="true"></i>
+                      </button>').html_safe, {action: :edit, :id => project.id } %>
+
                     <button type="button" class="btn btn-outline-danger btn-circle delete-project"
                        data-project-id="<%= project.id %>">
                        <i class="ti-trash" aria-hidden="true"></i>
