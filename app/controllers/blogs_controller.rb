@@ -1,4 +1,6 @@
 class BlogsController < ApplicationController
+  before_action :validate_user
+  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate]
 
   def index
     @blogs = Blog.order(:date)
@@ -8,7 +10,6 @@ class BlogsController < ApplicationController
     @readonly = true
     @create = false
     @required_str = ""
-    @blog = Blog.find(params[:id])
   end
 
   def new
@@ -30,7 +31,6 @@ class BlogsController < ApplicationController
       @readonly = false
       @create = true
       @required_str = "* "
-      # @roles = Role.all
       render action: :new
     end
   end
@@ -39,12 +39,9 @@ class BlogsController < ApplicationController
     @readonly = false
     @create = false
     @required_str = "* "
-    @blog = Blog.find(params[:id])
   end
 
   def update
-    # @roles = Role.all
-    @blog = Blog.find(params[:id])
     if @blog.update_attributes(blog_params)
       flash[:success] = ' Bitácora modificada correctamente'
       redirect_to blog_url(@blog)
@@ -58,7 +55,6 @@ class BlogsController < ApplicationController
   end
 
   def destroy_ajax
-    @blog = Blog.find(params[:id])
     if @blog.jobs.count > 0
       # remove all jobs
       @blog.jobs.destroy_all
@@ -67,7 +63,6 @@ class BlogsController < ApplicationController
   end
 
   def destroy
-    @blog = Blog.find(params[:id])
     if @blog.jobs.count > 0
       # remove all jobs
       @blog.jobs.destroy_all
@@ -82,7 +77,6 @@ class BlogsController < ApplicationController
   end
 
   def activate
-    @blog = Blog.find(params[:id])
     @blog.update_attribute(:status, params[:data])
   end
 
@@ -90,6 +84,10 @@ class BlogsController < ApplicationController
 
   def blog_params
     params.require(:blog).permit(:name, :description, :date, :comments, :status)
+  end
+
+  def set_blog
+    @blog = Blog.find(params[:id])
   end
 
 end
