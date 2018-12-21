@@ -1,6 +1,6 @@
 class ConceptsController < ApplicationController
   before_action :set_concept, only: [:show, :edit, :update, :destroy]
-  before_action :set_categories, only: [:new, :index, :edit]
+  before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
   end
@@ -8,12 +8,14 @@ class ConceptsController < ApplicationController
   def show
     @read_only = true
     @mode_edit = false
+    @required_str = ""
   end
 
   def new
     @concept = Concept.new
     @mode_edit = false
     @read_only = false
+    @required_str = "* "
   end
 
   def create
@@ -21,7 +23,7 @@ class ConceptsController < ApplicationController
 
     if @concept.save
       flash[:success] = ' Éxito al crear concepto'
-      redirect_to action: 'index'
+      redirect_to @concept
     else
       flash[:error] = ' Error al crear concepto'
       render action: 'new'
@@ -31,6 +33,7 @@ class ConceptsController < ApplicationController
   def edit
     @mode_edit = true
     @read_only = false
+    @required_str = "* "
   end
 
   def update
@@ -69,10 +72,11 @@ class ConceptsController < ApplicationController
 
   def set_concept
     @concept = Concept.find(params[:id])
+    @category_id = @concept.category_id
   end
 
   def set_categories
-    @categories = Category.order(:name)
+    @categories = Category.order(:name).all
   end
 
 end

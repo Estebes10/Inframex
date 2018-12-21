@@ -1,7 +1,9 @@
 class ExpensesController < ApplicationController
 
+  before_action :select_objects, only: [:show, :edit]
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
-  before_action :set_categories_subcategories_and_concepts, only: [:new, :edit]
+  before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
+
 
   def index
     @expenses = Expense.all
@@ -10,12 +12,14 @@ class ExpensesController < ApplicationController
   def show
     @read_only = true
     @mode_edit = false
+    @required_str = ""
   end
 
   def new
     @expense = Expense.new
     @mode_edit = false
     @read_only = false
+    @required_str = "* "
   end
 
   def create
@@ -35,6 +39,7 @@ class ExpensesController < ApplicationController
   def edit
     @mode_edit = true
     @read_only = false
+    @required_str = "* "
   end
 
   def update
@@ -81,9 +86,17 @@ class ExpensesController < ApplicationController
     @expense = Expense.find(params[:id])
   end
 
+  def select_objects
+    @expense = Expense.find(params[:id])
+    @concept_id = @expense.concept.code
+    @subcategory_id = @expense.subcategory.name
+    puts(@concept_id)
+    puts(@subcategory_id)
+  end
+
   def set_categories_subcategories_and_concepts
-    @categories = Category.all
-    @subcategories = Subcategory.all
-    @concepts = Concept.all
+    @categories = Category.order(:name).all
+    @subcategories = Subcategory.order(:name).all
+    @concepts = Concept.order(:code).all
   end
 end
