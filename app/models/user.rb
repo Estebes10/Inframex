@@ -2,6 +2,11 @@ class User < ApplicationRecord
   has_secure_password
   # belongs_to :role
 
+  # associations
+  # associations
+  has_many :user_projects
+  has_many :projects, through: :user_projects
+
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   before_save{email.downcase!}

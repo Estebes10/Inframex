@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
-
+RSpec.describe ProjectsController, type: :controller do
   describe 'GET index' do
 
     before(:each) do
@@ -10,10 +9,10 @@ RSpec.describe UsersController, type: :controller do
 
     context 'when user has permissions' do
 
-      it "assigns @users" do
-        users = User.all
+      it "assigns @projects" do
+        projects = Project.order(:id)
         get :index
-        expect(assigns(:users)).to eq(users)
+        expect(assigns(:projects)).to eq(projects)
       end
 
       it "renders the index template" do
@@ -43,18 +42,18 @@ RSpec.describe UsersController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
-          @user_example = FactoryBot.create(:user)
+          @project_example = FactoryBot.create(:project)
         end
 
         before(:each) do
           get(
             :show,
-            params: { id: @user_example.id }
+            params: { id: @project_example.id }
           )
         end
 
-        it 'assigns @user' do
-          expect(assigns(:user)).to eq(@user_example)
+        it 'assigns @project' do
+          expect(assigns(:project)).to eq(@project_example)
         end
 
         it 'renders the show template' do
@@ -105,7 +104,7 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to have_http_status(:success)
       end
 
-      it { should route(:get, '/users/new').to(action: :new) }
+      it { should route(:get, '/projects/new').to(action: :new) }
     end
 
     context 'when user has not permissions' do
@@ -123,13 +122,12 @@ RSpec.describe UsersController, type: :controller do
 
       let(:valid_attributes) do
         {
-          user: {
-            name:     'Lionel',
-            lastName: 'Messi',
-            password: 'contrasena',
-            email:    'messi10@example.com',
-            birthday: Date.today - 30.years,
-            phone:    '4428428989'
+          project: {
+            name:    Faker::App.name,
+            code:    Faker::Lorem.characters(30),
+            address: Faker::Address.full_address,
+            client:  Faker::Company.name,
+            status:  false
           }
         }
       end
@@ -142,16 +140,20 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'creates a new record' do
-        expect(assigns(:user)).to be_persisted
+        expect(assigns(:project)).to be_persisted
       end
 
-      it 'saves an instance of user and assigns to user variable' do
-        expect(assigns(:user)).to be_a(User)
+      it 'saves an instance of project and assigns to project variable' do
+        expect(assigns(:project)).to be_a(Project)
       end
 
       it 'saves the given values' do
         # compare if the record saved is the same that valid attributes
-        expect(assigns(:user).name).to eq(valid_attributes[:user][:name])
+        expect(assigns(:project).name).to eq(valid_attributes[:project][:name])
+        expect(assigns(:project).code).to eq(valid_attributes[:project][:code])
+        expect(assigns(:project).status).to eq(valid_attributes[:project][:status])
+        expect(assigns(:project).address).to eq(valid_attributes[:project][:address])
+        expect(assigns(:project).client).to eq(valid_attributes[:project][:client])
       end
 
       it 'returns an http success code' do
@@ -159,12 +161,12 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'redirects to index view' do
-        @u = assigns(:user)
-        expect(response).to redirect_to(user_url(@u))
+        @u = assigns(:project)
+        expect(response).to redirect_to(project_url(@u))
       end
 
       it 'must display a success message' do
-        expect(flash[:success]).to match(/ Éxito al crear el usuario*/)
+        expect(flash[:success]).to match(/ Éxito al crear el proyecto*/)
         expect(flash[:success]).to be_present
       end
     end
@@ -173,10 +175,10 @@ RSpec.describe UsersController, type: :controller do
 
       let(:not_valid_attributes) do
         {
-          user: {
-            name:        nil,
-            lastName: 'Ejemplo de bitácora de prueba',
-            blog_date:   Date.today,
+          project: {
+            name:       nil,
+            code:      'Ejemplo de bitácora de prueba',
+            address:   Date.today,
           }
         }
       end
@@ -188,8 +190,8 @@ RSpec.describe UsersController, type: :controller do
         )
       end
 
-      it 'does not save an instance of user' do
-        expect(response).not_to be_a_new(User)
+      it 'does not save an instance of project' do
+        expect(response).not_to be_a_new(Project)
       end
 
       it 'renders new template' do
@@ -213,18 +215,18 @@ RSpec.describe UsersController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
-          @user_example = FactoryBot.create(:user)
+          @project_example = FactoryBot.create(:project)
         end
 
         before(:each) do
           get(
             :edit,
-            params: { id: @user_example }
+            params: { id: @project_example }
           )
         end
 
-        it 'assigns @user' do
-          expect(assigns(:user)).to eq(@user_example)
+        it 'assigns @project' do
+          expect(assigns(:project)).to eq(@project_example)
         end
 
         it 'renders the show template' do
@@ -266,49 +268,47 @@ RSpec.describe UsersController, type: :controller do
     context 'with valid attributes' do
 
       before(:each) do
-        @user_example_update = FactoryBot.create(:user)
+        @project_example_update = FactoryBot.create(:project)
       end
 
       let(:valid_attributes) do
         {
-            name:      Faker::Name.first_name,
-            lastName:   Faker::Name.last_name,
-            birthday:   Date.today - 40.years,
+            name:      Faker::App.name,
+            address:   Faker::Address.full_address,
         }
       end
 
       before(:each) do
         put(
           :update,
-          params: {:id => @user_example_update.to_param, :user => valid_attributes}
+          params: {:id => @project_example_update.to_param, :project => valid_attributes}
         )
       end
 
       it 'creates a new record' do
-        expect(assigns(:user)).to be_persisted
+        expect(assigns(:project)).to be_persisted
       end
 
-      it 'saves an instance of user and assigns to user variable' do
-        expect(assigns(:user)).to be_a(User)
+      it 'saves an instance of project and assigns to project variable' do
+        expect(assigns(:project)).to be_a(Project)
       end
 
       it 'update the attributes' do
         # compare if the record saved is the same that valid attributes
-        expect(assigns(:user).name).to eq(valid_attributes[:name])
-        expect(assigns(:user).lastName).to eq(valid_attributes[:lastName])
-        expect(assigns(:user).birthday).to eq(valid_attributes[:birthday])
+        expect(assigns(:project).name).to eq(valid_attributes[:name])
+        expect(assigns(:project).address).to eq(valid_attributes[:address])
       end
 
       it 'returns an http success code' do
         expect(response).to have_http_status(302)
       end
 
-      it 'redirects to user view' do
-        expect(response).to redirect_to(user_url(@user_example_update))
+      it 'redirects to project view' do
+        expect(response).to redirect_to(project_url(@project_example_update))
       end
 
       it 'must display a success message' do
-        expect(flash[:success]).to match(/ Usuario modificado correctamente*/)
+        expect(flash[:success]).to match(/ Proyecto modificado correctamente*/)
         expect(flash[:success]).to be_present
       end
     end
@@ -316,34 +316,32 @@ RSpec.describe UsersController, type: :controller do
     context 'with invalid attributes' do
 
       before(:each) do
-        @user_example_update = FactoryBot.create(:user, name: 'update test')
+        @project_example_update = FactoryBot.create(:project, name: 'update test')
       end
 
       # send string to blog date
       let(:not_valid_attributes) do
         {
-            name:     'No debería cambiar este nombre por la fecha no valida',
-            lastName: 'Ejemplo de bitácora de prueba',
-            birthday: 'Fecha no válida',
+            name: 'No debería cambiar este nombre por el código no valido',
+            code: nil,
         }
       end
 
       before(:each) do
         put(
           :update,
-          params: {:id => @user_example_update.to_param, :user => not_valid_attributes}
+          params: {:id => @project_example_update.to_param, :project => not_valid_attributes}
         )
       end
 
       it 'does not update the attributes' do
         # compare if the record saved is the same that valid attributes
-        expect(@user_example_update.name).not_to eq(not_valid_attributes[:name])
-        expect(@user_example_update.lastName).not_to eq(not_valid_attributes[:lastName])
-        expect(@user_example_update.birthday).not_to eq(not_valid_attributes[:birthday])
+        expect(@project_example_update.name).not_to eq(not_valid_attributes[:name])
+        expect(@project_example_update.code).not_to eq(not_valid_attributes[:code])
       end
 
-      it 'does not save an instance of user' do
-        expect(response).not_to be_a_new(User)
+      it 'does not save an instance of project' do
+        expect(response).not_to be_a_new(Project)
       end
 
     end
@@ -356,24 +354,24 @@ RSpec.describe UsersController, type: :controller do
     end
 
     before(:each) do
-      @user_example_delete = FactoryBot.create(:user, name: 'delete test')
+      @project_example_delete = FactoryBot.create(:project, name: 'delete test')
     end
 
     context 'when user has permissions' do
 
-      it "destroys the requested user" do
+      it "destroys the requested project" do
         expect do
-          delete :destroy, params: {:id => @user_example_delete.to_param}
-        end.to change(User, :count).by(-1)
+          delete :destroy, params: {:id => @project_example_delete.to_param}
+        end.to change(Project, :count).by(-1)
       end
 
-      it "must not redirect to the users index" do
-        delete :destroy, params: {:id => @user_example_delete.to_param}
-        expect(response).not_to redirect_to(users_url)
+      it "must not redirect to the projects index" do
+        delete :destroy, params: {:id => @project_example_delete.to_param}
+        expect(response).not_to redirect_to(projects_url)
       end
 
       it 'must not display a success message' do
-        delete :destroy, params: {:id => @user_example_delete.to_param}
+        delete :destroy, params: {:id => @project_example_delete.to_param}
         expect(flash[:success]).not_to be_present
       end
     end
@@ -382,4 +380,5 @@ RSpec.describe UsersController, type: :controller do
       it 'show unauthorized message'
     end
   end
+
 end

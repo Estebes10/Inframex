@@ -40,5 +40,7 @@ Rails.application.routes.draw do
 
   # suppliers
   resources :suppliers
-  
+
+  resources :projects
+
 end
