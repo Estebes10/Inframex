@@ -19,7 +19,7 @@
                              readonly: @readonly%>
           </div>
           <div class="col-md-6 mT-15">
-            <%= f.label :code, "* Code: " %>
+            <%= f.label :code, "* Clave: " %>
             <%= f.text_field :code,
                              class: 'form-control',
                              required: 'true',
@@ -33,17 +33,18 @@
             <%= f.date_field :start_date,
                              class: 'form-control',
                              start_year: 2015,
+                             required: true,
                              readonly: @readonly %>
           </div>
           <div class="col-md-6 mT-15">
-            <%= f.label :due_date, "* Fecha de entrega: " %>
+            <%= f.label :due_date, "Fecha de entrega: " %>
             <%= f.date_field :due_date,
                              class: 'form-control',
                              start_year: 2015,
                              readonly: @readonly %>
           </div>
           <div class="col-md-6 mT-15">
-            <%= f.label :client, "* Cliente: " %>
+            <%= f.label :client, "Cliente: " %>
             <%= f.text_field :client,
                              class: 'form-control',
                              placeholder: "e.g. Ing. Salomón Olivera",
@@ -51,7 +52,7 @@
           </div>
 
           <div class="col-md-6 mT-15">
-            <%= f.label :address, "* Dirección del proyecto: " %>
+            <%= f.label :address, "Dirección del proyecto: " %>
             <%= f.text_area :address,
                               class: 'form-control',
                               placeholder: "e.g. Epigmenio González 500, San Pablo, 76130 Santiago de Querétaro, Qro",
