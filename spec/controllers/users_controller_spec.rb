@@ -1,9 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+
   describe 'GET index' do
 
+    before(:each) do
+      sign_in()
+    end
+
     context 'when user has permissions' do
+
       it "assigns @users" do
         users = User.all
         get :index
@@ -27,6 +33,10 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET show' do
+
+    before(:each) do
+      sign_in
+    end
 
     context 'when user has permissions' do
 
@@ -68,7 +78,7 @@ RSpec.describe UsersController, type: :controller do
         it 'should respond with not found code' do
           expect(response).to have_http_status(404)
         end
-        #it { should respond_with_status(:not_found) }
+
       end
     end
 
@@ -79,6 +89,10 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET new' do
+
+    before(:each) do
+      sign_in
+    end
 
     context 'when user has permissions' do
       it "renders the new template" do
@@ -100,6 +114,10 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'POST create' do
+
+    before(:each) do
+      sign_in
+    end
 
     context 'with valid attributes' do
 
@@ -142,8 +160,6 @@ RSpec.describe UsersController, type: :controller do
 
       it 'redirects to index view' do
         @u = assigns(:user)
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to redirect_to(user_url(@u))
       end
 
@@ -177,8 +193,6 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'renders new template' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template("new")
       end
 
@@ -189,6 +203,10 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET edit' do
+
+    before(:each) do
+      sign_in
+    end
 
     context 'when user has permissions' do
 
@@ -230,7 +248,6 @@ RSpec.describe UsersController, type: :controller do
         it 'should respond with not found code' do
           expect(response).to have_http_status(404)
         end
-        #it { should respond_with_status(:not_found) }
       end
     end
 
@@ -241,6 +258,10 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'PATCH update' do
+
+    before(:each) do
+      sign_in
+    end
 
     context 'with valid attributes' do
 
@@ -283,8 +304,6 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'redirects to user view' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to redirect_to(user_url(@user_example_update))
       end
 
@@ -327,20 +346,14 @@ RSpec.describe UsersController, type: :controller do
         expect(response).not_to be_a_new(User)
       end
 
-      #it 'renders new template' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
-        #expect(response).to render_template("edit")
-      #end
-
-      #it 'must display an error message' do
-      #  expect(flash[:error]).to be_present
-      #  expect(flash[:error]).to match(/ Error al modificar usuario*/)
-      #end
     end
   end
 
   describe "DELETE destroy" do
+
+    before(:each) do
+      sign_in
+    end
 
     before(:each) do
       @user_example_delete = FactoryBot.create(:user, name: 'delete test')
