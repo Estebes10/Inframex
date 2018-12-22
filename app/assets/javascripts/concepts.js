@@ -1,52 +1,41 @@
-jQuery(function() {
-    return $('#expense_supplier_name').autocomplete({
-        source: $('#expense_supplier_name').data('autocomplete-source')
-    });
-});
-
-// Expenses
+// Concepts
 $( document ).on('ready turbolinks:load', function() {
-    $('#expenses-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
 
-    $('#expenses-datatable tbody').on('click', 'button.delete-expense-ajax', function (e) {
+    $('#concepts-datatable tbody').on('click', 'button.delete-concept-ajax', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
-        var expenseId = $(this).attr("data-expense-id");
-        deleteExpenseAjax(expenseId, deleteButton);
+        var conceptId = $(this).attr("data-concept-id");
+        deleteConceptAjax(conceptId, deleteButton);
         return false;
     });
 
-    $('button.delete-expense').click(function(e) {
+    $('button.delete-concept').click(function(e) {
         e.preventDefault(e);
-        var expenseId = $(this).attr("data-expense-id");
-        deleteExpense(expenseId);
+        var conceptId = $(this).attr("data-concept-id");
+        deleteConcept(conceptId);
         return false;
     });
 });
 
-function deleteExpenseAjax(expenseId, deleteButton) {
+function deleteConceptAjax(conceptId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
-        text: "¿Estás seguro de querer borrar este gasto?",
+        text: "¿Estás seguro de querer borrar este concepto?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
-        confirmButtonText: "Sí, ¡Borrar gasto!",
+        confirmButtonText: "Sí, ¡Borrar concepto!",
         confirmButtonColor: "#ec6c62"
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/expenses/" + expenseId+ "/ajax",
+            url: "/concepts/" + conceptId+ "/ajax",
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');
             swal({
                 title: "¡Eliminada!",
-                text: "El gasto se ha eliminado correctamente",
+                text: "El concepto se ha eliminado correctamente",
                 type: "success",
                 timer: 1500,
                 showConfirmButton: false
@@ -56,7 +45,7 @@ function deleteExpenseAjax(expenseId, deleteButton) {
             spinner.classList.add('fadeOut');
             swal({
                 title: "Oops",
-                text: "¡No se pudo eliminar el gasto!",
+                text: "¡No se pudo eliminar el concepto!",
                 timer: 1500,
                 showConfirmButton: false
             });
@@ -64,18 +53,18 @@ function deleteExpenseAjax(expenseId, deleteButton) {
     });
 }
 
-function deleteExpense(expenseId) {
+function deleteConcept(conceptId) {
     swal({
         title: "¿Estás Seguro?",
-        text: "¿Estás seguro de querer borrar este gasto?",
+        text: "¿Estás seguro de querer borrar este concepto?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
-        confirmButtonText: "Sí, ¡Borrar gasto!",
+        confirmButtonText: "Sí, ¡Borrar concepto!",
         confirmButtonColor: "#ec6c62"
     }, function() {
         $.ajax({
-            url: "/expenses/" + expenseId,
+            url: "/concepts/" + conceptId,
             type: "DELETE"
         })
     });

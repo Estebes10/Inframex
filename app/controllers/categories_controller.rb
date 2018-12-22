@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
 
-  before_action :set_category, only: [:edit, :update, :destroy]
+  before_action :set_category, only: [:edit, :update, :destroy_ajax]
 
   def index
     @categories = Category.all.order(:name)
@@ -36,14 +36,12 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def destroy
-    if @category.destroy
-      flash[:success] = ' Se ha eliminado la categoría correctamente'
-      redirect_to action: 'index'
-    else
-      flash[:error] = ' No se ha podido eliminar la categoría'
-      redirect_to action: 'index'
+  def destroy_ajax
+    if @category.concepts.count > 0
+      #remove all concepts
+      @category.concepts.destroy_all
     end
+    @category.destroy
   end
 
   private

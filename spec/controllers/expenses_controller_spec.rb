@@ -27,6 +27,43 @@ RSpec.describe ExpensesController, type: :controller do
     end
   end
 
+  describe 'GET show' do
+
+    context 'when user has permissions' do
+
+      context 'and record exists' do
+
+        before(:each) do
+          @expense_example = FactoryBot.create(:expense)
+        end
+
+        before(:each) do
+          get(
+              :show,
+              params: { id: @expense_example.id }
+          )
+        end
+
+        it 'assigns @expense_example' do
+          expect(assigns(:expense)).to eq(@expense_example)
+        end
+
+        it 'renders the show template' do
+          expect(response).to render_template(:show)
+        end
+
+        it 'return http found code' do
+          expect(response).to have_http_status(:ok)
+        end
+      end
+    end
+
+    context 'when user has not permissions' do
+      it 'must to redirect to another pages'
+      it 'must to display unauthorized '
+    end
+  end
+
   describe 'GET new' do
 
     context 'when user has permissions' do
@@ -225,12 +262,10 @@ RSpec.describe ExpensesController, type: :controller do
         expect(assigns(:expense).date).to eq(valid_attributes[:date])
         expect(assigns(:expense).unity).to eq(valid_attributes[:unity])
         expect(assigns(:expense).unit_price).to eq(valid_attributes[:unit_price])
-        expect(assigns(:expense).total).to eq(valid_attributes[:total])
         expect(assigns(:expense).quantity).to eq(valid_attributes[:quantity])
         expect(assigns(:expense).status).to eq(valid_attributes[:status])
         expect(assigns(:expense).status_ticket).to eq(valid_attributes[:status_ticket])
         expect(assigns(:expense).subcategory_id).to eq(valid_attributes[:subcategory_id])
-        expect(assigns(:expense).supplier_id).to eq(valid_attributes[:supplier_id])
       end
 
       it 'returns an http success code' do

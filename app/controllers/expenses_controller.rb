@@ -1,15 +1,25 @@
 class ExpensesController < ApplicationController
 
-  before_action :set_expense, only: [:edit, :update, :destroy]
-  before_action :set_categories_and_subcategories, only: [:new, :edit]
+  before_action :select_objects, only: [:show, :edit]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :destroy_ajax, :activate, :activate_ticket]
+  before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
+
 
   def index
     @expenses = Expense.all
   end
 
+  def show
+    @read_only = true
+    @mode_edit = false
+    @required_str = ""
+  end
+
   def new
     @expense = Expense.new
     @mode_edit = false
+    @read_only = false
+    @required_str = "* "
   end
 
   def create
@@ -28,6 +38,8 @@ class ExpensesController < ApplicationController
 
   def edit
     @mode_edit = true
+    @read_only = false
+    @required_str = "* "
   end
 
   def update
@@ -42,6 +54,10 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def destroy_ajax
+    @expense.destroy
+  end
+
   def destroy
     if @expense.destroy
       flash[:success] = ' Se ha eliminado gasto correctamente'
@@ -52,18 +68,45 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def activate
+    @expense.update_attribute(:status, params[:data])
+  end
+
+  def activate_ticket
+    @expense.update_attribute(:status_ticket, params[:data])
+  end
+
   private
 
   def expenses_params
-    params.require(:expense).permit!
+    params.require(:expense).permit(
+        :subcategory_id,
+        :concept_id,
+        :name,
+        :date,
+        :unity,
+        :unit_price,
+        :total,
+        :status,
+        :status_ticket,
+        :quantity,
+        :supplier_name
+    )
   end
 
   def set_expense
     @expense = Expense.find(params[:id])
   end
 
-  def set_categories_and_subcategories
-    @categories = Category.all
-    @subcategories = Subcategory.all
+  def select_objects
+    @expense = Expense.find(params[:id])
+    @concept_id = @expense.concept_id
+    @subcategory_id = @expense.subcategory_id
+  end
+
+  def set_categories_subcategories_and_concepts
+    @categories = Category.order(:name).all
+    @subcategories = Subcategory.order(:name).all
+    @concepts = Concept.order(:code).all
   end
 end

@@ -31,25 +31,13 @@ RSpec.describe Expense, type: :model do
   end
 
   it 'is not valid without unit_price' do
-    expense_example.unit_price = nil
-
-    expect(expense_example).not_to be_valid
-  end
-
-  it 'is not valid without quantity' do
-    expense_example.quantity = nil
+    expense_example.unit_price = -0.53
 
     expect(expense_example).not_to be_valid
   end
 
   # Set of tests to validate attribute length
   it 'is not valid if the name contains more than 256 characters' do
-    expense_example.name = 'a' * 257
-
-    expect(expense_example).not_to be_valid
-  end
-
-  it 'is not valid if the unity contains more than 256 characters' do
     expense_example.name = 'a' * 257
 
     expect(expense_example).not_to be_valid

@@ -22,7 +22,7 @@ $( document ).on('ready turbolinks:load', function() {
                     spinner.classList.add('fadeOut');
                     swal({
                         title: "¡Confirmado!",
-                        text: "El estatus se ha cambiado con exito",
+                        text: "El estatus se ha cambiado con éxito",
                         type: "success",
                         timer: 1500,
                         showConfirmButton: false
