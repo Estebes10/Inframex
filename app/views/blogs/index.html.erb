@@ -45,12 +45,14 @@
                   <label class="switch">
                     <input class="activate-switch status-blog"
                            id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
+                           project-id="<%= "#{@project.id}" %>"
                            data-id="<%= "#{blog.id}" %>"
                            name="<%= controller.controller_name %>"
                            type="checkbox"
                            <%= if (blog.status)
                                  "checked"
                                end %>>
+                    <!-- name="projects/"#{@project.id}" %>/blogs/" -->
                     <span class="slider round"></span>
                   </label>
                 </td>
@@ -63,7 +65,7 @@
                       </button>').html_safe, {controller: :blogs, action: :edit, :id => blog.id, :project_id => @project.id} %>
 
                   <button type="button" class="btn btn-outline-danger btn-circle delete-blog-ajax"
-                          data-blog-id="<%= blog.id %>">
+                          data-blog-id="<%= blog.id %>" data-project-id="<%= @project.id %>">
                     <i class="ti-trash" aria-hidden="true"></i>
                   </button>
                 </td>

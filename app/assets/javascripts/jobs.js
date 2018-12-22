@@ -10,12 +10,13 @@ $( document ).on('ready turbolinks:load', function() {
         var deleteButton = $(this);
         var jobId = $(this).attr("data-job-id");
         var blogId = $(this).attr("data-blog-id");
-        deleteJob(jobId, blogId, deleteButton);
+        var projectId = $(this).attr("data-project-id");
+        deleteJob(jobId, blogId, projectId, deleteButton);
         return false;
     });
 });
 
-function deleteJob(jobId, blogId, deleteButton) {
+function deleteJob(jobId, blogId, projectId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar el trabajo?",
@@ -27,7 +28,7 @@ function deleteJob(jobId, blogId, deleteButton) {
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/blogs/" + blogId  + "/jobs/" + jobId,
+            url: "/projects/" + projectId + "/blogs/" + blogId  + "/jobs/" + jobId,
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');

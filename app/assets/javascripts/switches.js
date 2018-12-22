@@ -2,6 +2,7 @@ $( document ).on('ready turbolinks:load', function() {
     $('.activate-switch').click(function() {
         var data_id = $(this).attr('data-id');
         var controller = $(this).attr('name');
+        //var project_id = $(this).attr('project-id') ? $(this).attr('project-id') : null;
         var switch_value = $(this).prop('checked');
         swal({
             title: "¿Estás Seguro?",
@@ -17,6 +18,7 @@ $( document ).on('ready turbolinks:load', function() {
                 $.ajax({
                     method: "POST",
                     url: '/' + controller + '/activate',
+                    //data: {data: switch_value, id: data_id, project_id: project_id}
                     data: {data: switch_value, id: data_id}
                 }).then(() => {
                     spinner.classList.add('fadeOut');

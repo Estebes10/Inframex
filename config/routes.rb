@@ -35,10 +35,11 @@ Rails.application.routes.draw do
     resources :blogs, except: :destroy do
       resources :jobs
     end
+
+    delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
+    delete 'blogs/:id/ajax', to: 'blogs#destroy_ajax', as: :destroy_ajax_blog
+    post 'blogs/activate', to: 'blogs#activate', as: :activate_blog
   end
-  delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
-  delete 'blogs/:id/ajax', to: 'blogs#destroy_ajax', as: :destroy_ajax_blog
-  post 'blogs/activate', to: 'blogs#activate', as: :activate_blog
 
   # suppliers
   resources :suppliers

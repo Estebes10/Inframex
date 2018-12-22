@@ -47,7 +47,9 @@
               </button>').html_safe, edit_project_blog_job_path(project_id: @project, blog_id: @blog, id: job)%>
 
             <button type="button" class="btn btn-outline-danger btn-circle delete-job"
-                    data-job-id="<%= job.id %>" data-blog-id="<%= @blog.id %>">
+                    data-job-id="<%= job.id %>"
+                    data-blog-id="<%= @blog.id %>"
+                    data-project-id="<%= @project.id %>">
               <i class="ti-trash" aria-hidden="true"></i>
             </button>
           </td>
