@@ -1,5 +1,5 @@
 class ConceptsController < ApplicationController
-  before_action :set_concept, only: [:show, :edit, :update, :destroy]
+  before_action :set_concept, only: [:show, :edit, :update, :destroy, :destroy_ajax]
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
@@ -46,7 +46,19 @@ class ConceptsController < ApplicationController
     end
   end
 
+  def destroy_ajax
+    if @concept.expenses.count > 0
+      #remove all expenses
+      @concept.expenses.destroy_all
+    end
+    @concept.destroy
+  end
+
   def destroy
+    if @concept.expenses.count > 0
+      #remove all expenses
+      @concept.expenses.destroy_all
+    end
     if @concept.destroy
       flash[:success] = ' Se ha eliminado concepto correctamente'
       redirect_to action: 'index'

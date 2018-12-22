@@ -9,6 +9,15 @@
                     concepts_path
         %>
         <h5 class="float-left pL-15">Concepto <% @concept.code %></h5>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+                      <i class="ti-pencil"></i>
+                    </button>'.html_safe,
+                    edit_concept_path(@concept)
+        %>
+        <button type="button" class="btn btn-outline-light float-right delete-concept btn-sm mR-5"
+                data-concept-id="<%= @concept.id %>">
+          <i class="ti-trash" aria-hidden="true"></i>
+        </button>
       </div>
       <div class="layer w-100 p-20 text-center">
         <%= render "form" %>

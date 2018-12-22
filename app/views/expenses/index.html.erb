@@ -61,9 +61,10 @@
                   <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                   <i class="ti-pencil" aria-hidden="true"></i>
                  </button>').html_safe, edit_expense_path(a.id)%>
-                  <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
-                  <i class="ti-trash" aria-hidden="true"></i>
-                 </button>').html_safe, {action: :destroy, :id => a.id }, method: :delete %>
+                  <button type="button" class="btn btn-outline-danger btn-circle delete-expense-ajax"
+                          data-expense-id="<%= a.id %>">
+                    <i class="ti-trash" aria-hidden="true"></i>
+                  </button>
                 </td>
               </tr>
 

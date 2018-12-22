@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
 
   before_action :select_objects, only: [:show, :edit]
-  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :destroy_ajax]
   before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
 
 
@@ -52,6 +52,10 @@ class ExpensesController < ApplicationController
       flash[:error] = ' Error al modificar gasto'
       render :edit
     end
+  end
+
+  def destroy_ajax
+    @expense.destroy
   end
 
   def destroy

@@ -9,6 +9,15 @@
                 expenses_path
                 %>
                 <h5 class="float-left pL-15">Gasto <% @expense.name %></h5>
+              <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+                      <i class="ti-pencil"></i>
+                    </button>'.html_safe,
+                          edit_expense_path(@expense)
+              %>
+              <button type="button" class="btn btn-outline-light float-right delete-expense btn-sm mR-5"
+                      data-expense-id="<%= @expense.id %>">
+                <i class="ti-trash" aria-hidden="true"></i>
+              </button>
             </div>
             <div class="layer w-100 p-20 text-center">
                 <%= render "form" %>

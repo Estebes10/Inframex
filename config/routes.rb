@@ -3,15 +3,21 @@ Rails.application.routes.draw do
 
   # categories
   resources :categories
+  delete 'categories/:id/ajax', to: 'categories#destroy_ajax', as: :destroy_ajax_category
 
   # subcategories
   resources :subcategories
+  delete 'subcategories/:id/ajax', to: 'subcategories#destroy_ajax', as: :destroy_ajax_subcategory
 
   # expenses
   resources :expenses
+  delete 'expenses/:id', to: 'expenses#destroy', as: :destroy_expense
+  delete 'expenses/:id/ajax', to: 'expenses#destroy_ajax', as: :destroy_ajax_expense
 
   # concepts
   resources :concepts
+  delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
+  delete 'concepts/:id/ajax', to: 'concepts#destroy_ajax', as: :destroy_ajax_concept
 
   # sessions
   root 'sessions#new'
