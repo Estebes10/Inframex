@@ -9,5 +9,6 @@ FactoryBot.define do
     email    {Faker::Internet.email}
     phone    {Faker::PhoneNumber.cell_phone}
     status   {true}
+    association(:role)
   end
 end

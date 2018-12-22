@@ -77,6 +77,30 @@ ActiveRecord::Schema.define(version: 2018_12_20_032410) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "privileges", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+    t.text "description"
+    t.string "module_name", limit: 256, null: false
+    t.string "str_id", limit: 256, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roleprivileges", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "role_id"
+    t.bigint "privilege_id"
+    t.index ["privilege_id"], name: "index_roleprivileges_on_privilege_id"
+    t.index ["role_id"], name: "index_roleprivileges_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subcategories", force: :cascade do |t|
     t.string "name", limit: 256, null: false
   end
@@ -106,6 +130,8 @@ ActiveRecord::Schema.define(version: 2018_12_20_032410) do
     t.string "remember_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "concepts", "categories"
@@ -115,4 +141,7 @@ ActiveRecord::Schema.define(version: 2018_12_20_032410) do
   add_foreign_key "jobs", "blogs"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"
+  add_foreign_key "roleprivileges", "privileges"
+  add_foreign_key "roleprivileges", "roles"
+  add_foreign_key "users", "roles"
 end

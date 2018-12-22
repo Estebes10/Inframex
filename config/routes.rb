@@ -45,4 +45,11 @@ Rails.application.routes.draw do
 
   resources :projects
 
+  # roles
+  resources :roles
+
+  # roleprivileges
+  get  '/roleprivileges/:idRole/new',  to: 'roleprivileges#new', as: :new_roleprivileges
+  post '/roleprivileges/:idRole/new',  to: 'roleprivileges#create', as: :create_roleprivileges
+  delete '/role/:idRole/privilege/:idPrivilege',  to: 'roleprivileges#destroy', as: :delete_roleprivileges
 end

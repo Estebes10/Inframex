@@ -1,49 +1,49 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#users-datatable').DataTable({
+    $('#roleprivileges-datatable').DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
         }
     });
 
-    $('#users-datatable tbody').on('click', 'button.delete-user', function (e) {
+    $('#roleprivileges-datatable tbody').on('click', 'button.delete-roleprivilege', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
-        var userId = $(this).attr("data-user-id");
-        deleteUser(userId, deleteButton);
+        var roleprivilegeId = $(this).attr("data-roleprivilege-id");
+        var roleId = $(this).attr("data-role-id");
+        deleteRoleprivilege(roleprivilegeId, roleId, deleteButton);
         return false;
     });
 });
 
-function deleteUser(userId, deleteButton) {
+function deleteRoleprivilege(roleprivilegeId, roleId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
-        text: "¿Estás seguro de querer borrar al usuario?",
+        text: "¿Estás seguro de querer quitar el privilegio?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
-        confirmButtonText: "Sí, ¡Borrar usario!",
+        confirmButtonText: "Sí, ¡Quitar privilegio!",
         confirmButtonColor: "#ec6c62"
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/users/" + userId,
+            url: "/role/" + roleId  + "/privilege/" + roleprivilegeId,
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');
             swal({
                 title: "¡Eliminado!",
-                text: "El usuario se ha eliminado correctamente",
+                text: "El privilegio se ha quitado correctamente",
                 type: "success",
                 timer: 1500,
                 showConfirmButton: false
             });
             deleteButton.closest('tr').fadeOut();
-        })
-        .catch(function(data) {
+        }).catch(function(data) {
             spinner.classList.add('fadeOut');
             swal({
                 title: "Oops",
-                text: "¡No se pudo eliminar el usuario!",
+                text: "¡No se pudo quitar el privilegio!",
                 timer: 1500,
                 showConfirmButton: false
             });
