@@ -31,8 +31,10 @@ Rails.application.routes.draw do
   resources :users
 
   # blogs
-  resources :blogs, except: :destroy do
-    resources :jobs
+  resources :projects do
+    resources :blogs, except: :destroy do
+      resources :jobs
+    end
   end
   delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
   delete 'blogs/:id/ajax', to: 'blogs#destroy_ajax', as: :destroy_ajax_blog
@@ -41,6 +43,6 @@ Rails.application.routes.draw do
   # suppliers
   resources :suppliers
 
-  resources :projects
+  #resources :projects
 
 end

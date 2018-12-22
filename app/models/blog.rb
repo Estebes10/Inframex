@@ -3,7 +3,7 @@ class Blog < ApplicationRecord
   # Associations
   #has_many :pictures
 
-  #belongs_to :project
+  belongs_to :project
 
   #has_many :expenses
 

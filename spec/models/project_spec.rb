@@ -58,7 +58,9 @@ RSpec.describe Project, type: :model do
   end
 
   describe "Associations" do
-    it 'has many blogs'
+    it 'has many blogs' do
+      should have_many(:blogs)
+    end
 
     it 'has many concepts'
 

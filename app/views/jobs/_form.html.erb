@@ -1,5 +1,5 @@
 
-<%= form_for [@blog, @job] do |f| %>
+<%= form_for [@project, @blog, @job] do |f| %>
   <%= render 'layouts/errors_form', object: @job %>
   <div class="modal-body">
     <div class="row">
@@ -25,7 +25,7 @@
   <% if !@readonly %>
     <div id="form-footer-job">
       <hr>
-      <a href="<%= blog_path(@blog)%>" class="btn btn-outline-danger"> Cancelar </a>
+      <a href="<%= project_blog_path(@project, @blog)%>" class="btn btn-outline-danger"> Cancelar </a>
       <%= f.submit "Guardar", class: 'btn save-button' %>
     </div>
   <% end %>

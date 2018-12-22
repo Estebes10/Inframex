@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
 
+  before_action :set_project
   before_action :set_blog
   before_action :set_job, only: [:show, :update, :edit, :destroy]
 
@@ -22,7 +23,7 @@ class JobsController < ApplicationController
     @job = @blog.jobs.new(job_params)
     if @job.save
       flash[:success] = ' Éxito al crear el trabajo'
-      redirect_to blog_url(@blog)
+      redirect_to project_blog_url(project_id: @project, id: @blog)
     else
       flash.now[:danger] = ' Error al crear el trabajo'
       @readonly = false
@@ -40,7 +41,7 @@ class JobsController < ApplicationController
   def update
     if @job.update_attributes(job_params)
       flash[:success] = ' Trabajo modificada correctamente'
-      redirect_to blog_url(@blog)
+      redirect_to project_blog_url(project_id: @project, id: @blog)
     else
       flash[:error] = ' Error al modificar el trabajo'
       render :edit
@@ -57,8 +58,13 @@ class JobsController < ApplicationController
     params.require(:job).permit(:name)
   end
 
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
+
   def set_blog
-    @blog = Blog.find(params[:blog_id])
+    @blog = @project.blogs.find_by!(id: params[:blog_id]) if @project
+    #@blog = Blog.find(params[:blog_id])
   end
 
   # find current job

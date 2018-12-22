@@ -7,14 +7,14 @@
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
-                    blogs_path
+                    project_path(id: @project)
         %>
         <h5 class="float-left pL-15">Bitácora - <%= @blog.name + " - " + @blog.date.strftime("%d/%m/%Y") %></h5>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-blog-button2">
                       <i class="ti-pencil"></i>
                     </button>'.html_safe,
-                    edit_blog_path(@blog)
+                    edit_project_blog_path(project_id: @project, id: @blog)
         %>
         <button type="button" class="btn btn-outline-light float-right delete-blog btn-sm mR-5"
                 data-blog-id="<%= @blog.id %>">

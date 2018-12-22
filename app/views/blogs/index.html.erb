@@ -1,5 +1,4 @@
-<% provide(:title, 'Bitácoras') %>
-<div class="masonry-item col-md-10 offset-md-1">
+<div class="masonry-item col-md-12">
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
@@ -9,11 +8,11 @@
                         <i class="ti-plus"></i>
                         Registrar nueva bitácora
                       </button>'.html_safe,
-                      new_blog_path
+                      new_project_blog_path(@project)
           %>
       </div>
 
-      <% if @blogs.blank? %>
+      <% if @project.blogs.blank? %>
 
         <div class="row">
             <div class="col-md-10">
@@ -36,7 +35,7 @@
               </tr>
             </thead>
             <tbody>
-            <% @blogs.each do |blog| %>
+            <% @project.blogs.each do |blog| %>
               <tr>
                 <td><%= blog.id %></td>
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>
@@ -58,10 +57,10 @@
                 <td>
                   <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                         <i class="ti-eye icon-white" aria-hidden="true"></i>
-                      </button>').html_safe, {action: :show, :id => blog.id } %>
+                      </button>').html_safe, {controller: :blogs, action: :show, :id => blog.id, :project_id => @project.id} %>
                   <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                         <i class="ti-pencil icon-white" aria-hidden="true"></i>
-                      </button>').html_safe, {action: :edit, :id => blog.id } %>
+                      </button>').html_safe, {controller: :blogs, action: :edit, :id => blog.id, :project_id => @project.id} %>
 
                   <button type="button" class="btn btn-outline-danger btn-circle delete-blog-ajax"
                           data-blog-id="<%= blog.id %>">

@@ -15,7 +15,7 @@ RSpec.describe 'blogs/new.html.erb', type: :view do
       name: 'Bitacora 23',
       description: 'una prueba',
       status: true,
-      blog_date: Date.today
+      date: Date.today
     )
     #blog = FactoryBot.build(:blog)
 

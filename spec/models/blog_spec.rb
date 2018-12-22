@@ -19,10 +19,10 @@ RSpec.describe Blog, type: :model do
     expect(blog_example).not_to be_valid
   end
 
-  it 'is not valid without a description' do
+  it 'is valid without a description' do
     blog_example.description = nil
 
-    expect(blog_example).not_to be_valid
+    expect(blog_example).to be_valid
   end
 
   it 'is not valid without a status' do
@@ -32,7 +32,7 @@ RSpec.describe Blog, type: :model do
   end
 
   it 'is not valid without a date' do
-    blog_example.blog_date = nil
+    blog_example.date = nil
 
     expect(blog_example).not_to be_valid
   end
@@ -64,7 +64,9 @@ RSpec.describe Blog, type: :model do
 
   it 'has many pictures'
 
-  it 'belongs to project'
+  it 'belongs to project' do
+    should belong_to(:project)
+  end
 
   it 'has many jobs' do
     should have_many(:jobs)
