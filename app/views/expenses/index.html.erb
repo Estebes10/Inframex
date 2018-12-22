@@ -38,22 +38,31 @@
                 <td><%= a.subcategory.name-%></td>
                 <td><%= a.date-%></td>
                 <td><%= a.total-%></td>
-                <td><label class="switch">
-                  <input class="activate-switch status-user" id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
-                         data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
+                <td>
+                  <label class="switch">
+                  <input class="activate-switch status-expense" id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
+                         data-id="<%= "#{a.id}" %>"
+                         name="<%= controller.controller_name %>"
+                         type="checkbox"
                          <%= if (a.status)
                                "checked"
                              end %>>
-                  <span class="slider round"></span>
-                </label></td>
-                <td><label class="switch">
-                  <input class="activate-switch status-user" id="status_ticket-<%= "#{controller.controller_name}-#{a.id}" %>"
-                         data-number="<%= "#{a.id}" %>" name="<%= controller.controller_name %>" type="checkbox"
-                         <%= if (a.status_ticket)
-                               "checked"
-                             end %>>
-                  <span class="slider round"></span>
-                </label></td>
+                   <span class="slider round"></span>
+                  </label>
+                </td>
+                <td>
+                  <label class="switch">
+                    <input class="activate-switch status-ticket-expense"
+                           id="status_ticket-<%= "#{controller.controller_name}-#{a.id}" %>"
+                           data-id="<%= "#{a.id}" %>"
+                           name="<%= "#{controller.controller_name}ticket" %>"
+                           type="checkbox"
+                           <%= if (a.status_ticket)
+                                 "checked"
+                               end %>>
+                    <span class="slider round"></span>
+                  </label>
+                </td>
                 <td>
                   <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                                   <i class="ti-eye icon-white" aria-hidden="true"></i>

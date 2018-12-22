@@ -50,23 +50,27 @@
             <%= f.label :unit_price, "#{@required_str}Precio por Unidad:" %>
             <%= f.text_field :unit_price, class:"form-control", required: 'true', placeholder: "e.g. 45.00", readonly: @read_only %>
           </div>
+
           <div class="col-md-6 mT-15">
-            <label>Aprobado:</label>
+            <label for = "user_status">Aprobado:</label>
             <div class="row">
               <div class="col-md-2 col-sm-2" align="center">
                 <label class="switch">
-                  <%= f.check_box :status, readonly: @read_only%>
+                  <% @read_only ? @var = "return false;" : @var = ""%>
+                  <%= f.check_box :status, onclick: @var %>
                   <span class="slider round"></span>
                 </label>
               </div>
             </div>
           </div>
+
           <div class="col-md-6 mT-15">
             <label>Facturado:</label>
             <div class="row">
               <div class="col-md-2 col-sm-2" align="center">
                 <label class="switch">
-                  <%= f.check_box :status_ticket, readonly: @read_only %>
+                  <% @read_only ? @var = "return false;" : @var = ""%>
+                  <%= f.check_box :status_ticket, onclick: @var %>
                   <span class="slider round"></span>
                 </label>
               </div>
@@ -80,7 +84,7 @@
   <% if !@read_only %>
   <div id="form-footer">
     <hr>
-    <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, expenses_path %>
+    <%= link_to 'Cancelar', :back, class: 'btn btn-outline-danger' %>
     <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
   </div>
   <% end %>

@@ -48,7 +48,7 @@
   <% if !@read_only %>
     <div id="form-footer">
       <hr>
-      <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, concepts_path %>
+      <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, :back %>
       <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
     </div>
   <% end %>

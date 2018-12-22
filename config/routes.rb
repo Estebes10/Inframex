@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :expenses
   delete 'expenses/:id', to: 'expenses#destroy', as: :destroy_expense
   delete 'expenses/:id/ajax', to: 'expenses#destroy_ajax', as: :destroy_ajax_expense
+  post 'expenses/activate', to: 'expenses#activate', as: :activate_expense
+  post 'expensesticket/activate', to: 'expenses#activate_ticket', as: :activate_expense_ticket
 
   # concepts
   resources :concepts

@@ -1,10 +1,5 @@
 // Concepts
 $( document ).on('ready turbolinks:load', function() {
-    $('#concepts-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
 
     $('#concepts-datatable tbody').on('click', 'button.delete-concept-ajax', function (e) {
         e.preventDefault(e);
@@ -25,11 +20,11 @@ $( document ).on('ready turbolinks:load', function() {
 function deleteConceptAjax(conceptId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
-        text: "¿Estás seguro de querer borrar este gasto?",
+        text: "¿Estás seguro de querer borrar este concepto?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
-        confirmButtonText: "Sí, ¡Borrar gasto!",
+        confirmButtonText: "Sí, ¡Borrar concepto!",
         confirmButtonColor: "#ec6c62"
     }, function() {
         spinner.classList.remove('fadeOut');
@@ -40,7 +35,7 @@ function deleteConceptAjax(conceptId, deleteButton) {
             spinner.classList.add('fadeOut');
             swal({
                 title: "¡Eliminada!",
-                text: "El gasto se ha eliminado correctamente",
+                text: "El concepto se ha eliminado correctamente",
                 type: "success",
                 timer: 1500,
                 showConfirmButton: false
@@ -50,7 +45,7 @@ function deleteConceptAjax(conceptId, deleteButton) {
             spinner.classList.add('fadeOut');
             swal({
                 title: "Oops",
-                text: "¡No se pudo eliminar el gasto!",
+                text: "¡No se pudo eliminar el concepto!",
                 timer: 1500,
                 showConfirmButton: false
             });
@@ -61,11 +56,11 @@ function deleteConceptAjax(conceptId, deleteButton) {
 function deleteConcept(conceptId) {
     swal({
         title: "¿Estás Seguro?",
-        text: "¿Estás seguro de querer borrar este gasto?",
+        text: "¿Estás seguro de querer borrar este concepto?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
-        confirmButtonText: "Sí, ¡Borrar gasto!",
+        confirmButtonText: "Sí, ¡Borrar concepto!",
         confirmButtonColor: "#ec6c62"
     }, function() {
         $.ajax({

@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
 
   before_action :select_objects, only: [:show, :edit]
-  before_action :set_expense, only: [:show, :edit, :update, :destroy, :destroy_ajax]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :destroy_ajax, :activate, :activate_ticket]
   before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
 
 
@@ -68,6 +68,14 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def activate
+    @expense.update_attribute(:status, params[:data])
+  end
+
+  def activate_ticket
+    @expense.update_attribute(:status_ticket, params[:data])
+  end
+
   private
 
   def expenses_params
@@ -94,8 +102,6 @@ class ExpensesController < ApplicationController
     @expense = Expense.find(params[:id])
     @concept_id = @expense.concept_id
     @subcategory_id = @expense.subcategory_id
-    puts(@concept_id)
-    puts(@subcategory_id)
   end
 
   def set_categories_subcategories_and_concepts
