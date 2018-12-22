@@ -3,6 +3,6 @@ FactoryBot.define do
     sequence(:name)  { |n| "Privilege #{n}" }
     description { "Privilegio de prueba" }
     module_name { "Privilege module"}
-    str_id { "MyString" }
+    sequence(:str_id)  { |n| "Code #{n}" }
   end
 end
