@@ -1,7 +1,7 @@
 <%= form_tag(create_roleprivileges_path(@role), method: "post", remote: true, html: { style: "display:inline;" }) do %>
   <div class="modal-body">
     <% if(@privileges.count > 0) %>
-      <table class="table table-hover">
+      <table class="table table-hover" id="privileges-datatable" role="datatable">
         <thead>
           <tr>
             <th>Módulo</th>

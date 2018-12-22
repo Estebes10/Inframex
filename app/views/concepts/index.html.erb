@@ -17,11 +17,11 @@
           <div class="masonry-item col-md-12">
             <div class="bd bgc-white">
               <div class="layers">
-                <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15 bgcH-blue-grey-900" style="cursor: pointer;" data-toggle="collapse" data-target="#<%= c.name %>col">
+                <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15 bgcH-blue-grey-900" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse-<%= c.id %>">
                   <h5 class="float-left pL-15"><%= c.name %></h5>
                 </div>
-                <div class="layer w-100 p-20 text-center collapse" id="<%= c.name %>col">
-                    <table class="table table-hover" id="concepts-datatable" role="datatable">
+                <div class="layer w-100 p-20 text-center collapse" id="collapse-<%= c.id %>">
+                    <table class="table table-hover datatable" id="concepts-datatable" role="datatable">
                       <thead>
                       <tr class="tableHead">
                         <th>Clave</th>
@@ -35,7 +35,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <% Concept.where(category_id: c).order(:code).each do |concept| %>
+                      <% c.concepts.order(:code).each do |concept| %>
                         <tr>
                           <td><%= concept.code-%></td>
                           <td><%= concept.category.name-%></td>
@@ -58,17 +58,19 @@
                           </td>
                         </tr>
                       <% end %>
-                      <tr class="bgc-blue-grey-900">
-                        <td class="c-white"><strong>Total de <%= c.name %></strong></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="c-white"><strong><%= Concept.where(:category_id => c).sum(:total) %></strong></td>
-                        <td></td>
-                      </tr>
                       </tbody>
+                      <tfooter>
+                        <tr class="bgc-blue-grey-900">
+                          <td class="c-white"><strong>Total de <%= c.name %></strong></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="c-white"><strong><%= c.concepts.sum(:total) %></strong></td>
+                          <td></td>
+                        </tr>
+                      </tfooter>
                     </table>
                 </div>
               </div>
