@@ -5,7 +5,7 @@
                   <i class="ti-plus"></i>
                   Agregar trabajo
                 </button>'.html_safe,
-                new_blog_job_path(@blog)
+                new_project_blog_job_path(@project, @blog)
     %>
 </div>
 
@@ -22,7 +22,7 @@
 <% else %>
 
   <div class="layer w-100 p-20">
-    <table class="table table-hover datatable" id="jobs-datatable" role="datatable">
+    <table class="table table-hover" id="jobs-datatable" role="datatable">
       <thead>
         <tr>
           <th scope="col">Número</th>
@@ -44,10 +44,12 @@
           <td>
             <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
               <i class="ti-pencil icon-white" aria-hidden="true"></i>
-              </button>').html_safe, edit_blog_job_path(blog_id: @blog, id: job)%>
+              </button>').html_safe, edit_project_blog_job_path(project_id: @project, blog_id: @blog, id: job)%>
 
             <button type="button" class="btn btn-outline-danger btn-circle delete-job"
-                    data-job-id="<%= job.id %>" data-blog-id="<%= @blog.id %>">
+                    data-job-id="<%= job.id %>"
+                    data-blog-id="<%= @blog.id %>"
+                    data-project-id="<%= @project.id %>">
               <i class="ti-trash" aria-hidden="true"></i>
             </button>
           </td>

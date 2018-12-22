@@ -1,0 +1,28 @@
+<% provide(:title, 'Ver Gasto') %>
+<div class="masonry-item col-md-12">
+    <div class="bd bgc-white">
+        <div class="layers">
+            <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+                <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                <i class="ti-arrow-left"></i>
+            </button>'.html_safe,
+                            expenses_url
+                %>
+                <h5 class="float-left pL-15">Gasto <% @expense.name %></h5>
+              <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+                      <i class="ti-pencil"></i>
+                    </button>'.html_safe,
+                          edit_expense_path(@expense)
+              %>
+              <button type="button" class="btn btn-outline-light float-right delete-expense btn-sm mR-5"
+                      data-expense-id="<%= @expense.id %>">
+                <i class="ti-trash" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="layer w-100 p-20 text-center">
+                <%= render "form" %>
+            </div>
+
+        </div>
+    </div>
+</div>

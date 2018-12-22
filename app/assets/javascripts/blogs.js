@@ -9,19 +9,21 @@ $( document ).on('ready turbolinks:load', function() {
         e.preventDefault(e);
         var deleteButton = $(this);
         var blogId = $(this).attr("data-blog-id");
-        deleteBlogAjax(blogId, deleteButton);
+        var projectId = $(this).attr("data-project-id");
+        deleteBlogAjax(blogId, projectId, deleteButton);
         return false;
     });
 
     $('button.delete-blog').click(function(e) {
         e.preventDefault(e);
         var blogId = $(this).attr("data-blog-id");
-        deleteBlog(blogId);
+        var projectId = $(this).attr("data-project-id");
+        deleteBlog(blogId, projectId);
         return false;
     });
 });
 
-function deleteBlogAjax(blogId, deleteButton) {
+function deleteBlogAjax(blogId, projectId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar la bitácora? Se borrarán todos los trabajos y archivos asignados.",
@@ -33,7 +35,7 @@ function deleteBlogAjax(blogId, deleteButton) {
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/blogs/" + blogId + "/ajax",
+            url: "/projects/" + projectId + "/blogs/" + blogId + "/ajax",
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');
@@ -57,7 +59,7 @@ function deleteBlogAjax(blogId, deleteButton) {
     });
 }
 
-function deleteBlog(blogId) {
+function deleteBlog(blogId, projectId) {
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar la bitácora? Se borrarán todos los trabajos y archivos asignados.",
@@ -68,7 +70,7 @@ function deleteBlog(blogId) {
         confirmButtonColor: "#ec6c62"
     }, function() {
         $.ajax({
-            url: "/blogs/" + blogId,
+            url: "/projects/" + projectId + "/blogs/" + blogId,
             type: "DELETE"
         })
     });

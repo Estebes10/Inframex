@@ -1,6 +1,6 @@
 class SubcategoriesController < ApplicationController
 
-  before_action :set_subcategory, only: [:edit, :update, :destroy]
+  before_action :set_subcategory, only: [:edit, :update, :destroy_ajax]
 
   def new
     @subcategory = Subcategory.new
@@ -31,14 +31,12 @@ class SubcategoriesController < ApplicationController
     end
   end
 
-  def destroy
-    if @subcategory.destroy
-      flash[:success] = ' Se ha eliminado la subcategoría correctamente'
-      redirect_to categories_path
-    else
-      flash[:error] = ' No se ha podido eliminar la subcategoría'
-      redirect_to categories_path
+  def destroy_ajax
+    if @subcategory.expenses.count > 0
+      #remove all expenses
+      @subcategory.expenses.destroy_all
     end
+    @subcategory.destroy
   end
 
   private

@@ -1,9 +1,10 @@
 class BlogsController < ApplicationController
   before_action :validate_user
+  before_action :set_project
   before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate]
 
   def index
-    @blogs = Blog.order(:date)
+    @blogs = @project.blogs.order(:date)
   end
 
   def show
@@ -16,16 +17,16 @@ class BlogsController < ApplicationController
     @readonly = false
     @create = true
     @required_str = "* "
-    @blog = Blog.new
+    @blog = @project.blogs.new
     @blog.date = Time.now
     @blog.status = false
   end
 
   def create
-    @blog = Blog.new(blog_params)
+    @blog = @project.blogs.new(blog_params)
     if @blog.save
       flash[:success] = ' Éxito al crear la bitácora'
-      redirect_to @blog
+      redirect_to project_url(@project)
     else
       flash.now[:danger] = ' Error al crear la bitácora'
       @readonly = false
@@ -44,7 +45,7 @@ class BlogsController < ApplicationController
   def update
     if @blog.update_attributes(blog_params)
       flash[:success] = ' Bitácora modificada correctamente'
-      redirect_to blog_url(@blog)
+      redirect_to project_blog_url(project_id: @project, id: @blog)
     else
       flash[:error] = ' Error al modificar la bitácora'
       @readonly = false
@@ -87,7 +88,11 @@ class BlogsController < ApplicationController
   end
 
   def set_blog
-    @blog = Blog.find(params[:id])
+    @blog = @project.blogs.find_by!(id: params[:id]) if @project
+  end
+
+  def set_project
+    @project = Project.find(params[:project_id])
   end
 
 end

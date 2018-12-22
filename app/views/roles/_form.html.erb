@@ -1,0 +1,12 @@
+<%= form_for @role, html: { style: "display:inline;" } do |f| %>
+  <div class="modal-body">
+    <div class="input-field">
+      <%= f.label :name, "Nombre del rol: " %>
+      <%= f.text_field :name, class: 'form-control', required: true, :maxlength => 30, placeholder: "e.g. Supervisor" %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+    <button type="submit " name="save" value="ready" class="btn btn-primary">Guardar</button>
+  </div>
+<% end %>

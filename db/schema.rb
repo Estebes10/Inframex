@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_19_213524) do
+ActiveRecord::Schema.define(version: 2018_12_22_021343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2018_12_19_213524) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "comments"
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_blogs_on_project_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -33,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_12_19_213524) do
     t.bigint "category_id", null: false
     t.string "code", limit: 6, null: false
     t.string "description", limit: 1024, null: false
-    t.integer "quantity", null: false
+    t.decimal "quantity", null: false
     t.string "unity", null: false
     t.decimal "unit_price", precision: 15, scale: 4, null: false
     t.decimal "total", precision: 15, scale: 4, null: false
@@ -41,31 +43,18 @@ ActiveRecord::Schema.define(version: 2018_12_19_213524) do
   end
 
   create_table "expenses", force: :cascade do |t|
-    t.bigint "category_id", null: false
     t.bigint "subcategory_id", null: false
     t.string "name", limit: 256, null: false
     t.date "date", null: false
-    t.integer "quantity", null: false
+    t.decimal "quantity", null: false
     t.string "unity", null: false
     t.decimal "unit_price", precision: 15, scale: 4, null: false
     t.decimal "total", precision: 15, scale: 4, null: false
-    t.boolean "status", default: true, null: false
-    t.index ["category_id"], name: "index_expenses_on_category_id"
-    t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
-  end
-
-  create_table "jobs", force: :cascade do |t|
-    t.string "name", limit: 256, null: false
-    t.bigint "blog_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["blog_id"], name: "index_jobs_on_blog_id"
-  end
-
-  create_table "subcategories", force: :cascade do |t|
     t.bigint "supplier_id", null: false
     t.boolean "status", default: false, null: false
     t.boolean "status_ticket", default: false, null: false
+    t.bigint "concept_id", null: false
+    t.index ["concept_id"], name: "index_expenses_on_concept_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
   end
@@ -81,7 +70,7 @@ ActiveRecord::Schema.define(version: 2018_12_19_213524) do
   create_table "privileges", force: :cascade do |t|
     t.string "name", limit: 256, null: false
     t.text "description"
-    t.string "module", limit: 256, null: false
+    t.string "module_name", limit: 256, null: false
     t.string "str_id", limit: 256, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -132,12 +121,12 @@ ActiveRecord::Schema.define(version: 2018_12_19_213524) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "lastName"
-    t.string "password"
+    t.string "name", limit: 128, null: false
+    t.string "lastName", limit: 128, null: false
+    t.string "password", limit: 64
     t.date "birthday"
-    t.string "email"
-    t.string "phone"
+    t.string "email", limit: 128, null: false
+    t.string "phone", limit: 20
     t.boolean "status", default: true
     t.string "password_digest"
     t.string "remember_digest"
@@ -147,7 +136,9 @@ ActiveRecord::Schema.define(version: 2018_12_19_213524) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "blogs", "projects"
   add_foreign_key "concepts", "categories"
+  add_foreign_key "expenses", "concepts"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
   add_foreign_key "jobs", "blogs"

@@ -1,0 +1,61 @@
+<% provide(:title, 'Roles') %>
+<div class="masonry-item col-md-10 offset-md-1">
+  <!-- #Todo ==================== -->
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left">Roles</h5>
+        <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+          id="new-role-button" data-toggle="modal" data-target="#new-role-modal">
+          <i class="ti-plus"></i>
+          Crear Rol
+        </button>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <table class="table table-hover" id="roles-datatable" role="datatable">
+          <thead>
+          <tr class="tableHead">
+            <th>Nombre</th>
+            <th>Número de privilegios</th>
+            <th>Cambiar Nombre</th>
+            <th>Privilegios</th>
+            <th>Eliminar Rol</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @roles.each do |role| %>
+            <tr>
+              <td><%= role.name %></td>
+              <td><%= role.privileges.count %></td>
+              <td>
+                <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                                   <i class="ti-pencil"></i>
+                                 </button>'),
+                            edit_role_url(role), data: {remote: 'true'} %>
+              </td>
+              <td>
+                <%= link_to raw('<button id="show-role-button" type="button" class="btn btn-outline-primary btn-circle">
+                                  <i class="ti-list"></i>
+                                 </button>'),
+                            role_url(role) %>
+              </td>
+              <td>
+                <button id="delete-role-button" type="button"
+                        class="btn btn-outline-danger btn-circle delete-role"
+                        data-role-id="<%= role.id %>">
+                  <i class="ti-trash"></i>
+                </button>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="edit-role-modal-target"></div>
+<div id="new-role-modal-target">
+  <%= render "new" %>
+</div>

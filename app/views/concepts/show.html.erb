@@ -1,0 +1,28 @@
+<% provide(:title, 'Ver Concepto') %>
+<div class="masonry-item col-md-12">
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                      <i class="ti-arrow-left"></i>
+                    </button>'.html_safe,
+                    concepts_path
+        %>
+        <h5 class="float-left pL-15">Concepto <% @concept.code %></h5>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+                      <i class="ti-pencil"></i>
+                    </button>'.html_safe,
+                    edit_concept_path(@concept)
+        %>
+        <button type="button" class="btn btn-outline-light float-right delete-concept btn-sm mR-5"
+                data-concept-id="<%= @concept.id %>">
+          <i class="ti-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <%= render "form" %>
+      </div>
+
+    </div>
+  </div>
+</div>

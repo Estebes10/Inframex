@@ -4,6 +4,10 @@ RSpec.describe BlogsController, type: :controller do
 
   describe 'GET index' do
 
+    before(:each) do
+      sign_in()
+    end
+
     context 'when user has permissions' do
       it "assigns @blogs" do
         blogs = Blog.order(:blog_date)
@@ -28,6 +32,10 @@ RSpec.describe BlogsController, type: :controller do
   end
 
   describe 'GET show' do
+
+    before(:each) do
+      sign_in()
+    end
 
     context 'when user has permissions' do
 
@@ -81,6 +89,10 @@ RSpec.describe BlogsController, type: :controller do
 
   describe 'GET new' do
 
+    before(:each) do
+      sign_in()
+    end
+
     context 'when user has permissions' do
       it "renders the new template" do
         get :new
@@ -101,6 +113,10 @@ RSpec.describe BlogsController, type: :controller do
   end
 
   describe 'POST create' do
+
+    before(:each) do
+      sign_in()
+    end
 
     context 'with valid attributes' do
 
@@ -187,6 +203,10 @@ RSpec.describe BlogsController, type: :controller do
 
   describe 'GET edit' do
 
+    before(:each) do
+      sign_in()
+    end
+
     context 'when user has permissions' do
 
       context 'and record exists' do
@@ -239,6 +259,10 @@ RSpec.describe BlogsController, type: :controller do
 
   describe 'PATCH update' do
 
+    before(:each) do
+      sign_in()
+    end
+
     context 'with valid attributes' do
 
       before(:each) do
@@ -249,7 +273,7 @@ RSpec.describe BlogsController, type: :controller do
         {
             name:        Faker::Lorem.characters(100),
             description: 'Ejemplo de bitácora de prueba',
-            blog_date:   Date.today,
+            date:        Date.today,
         }
       end
 
@@ -272,7 +296,7 @@ RSpec.describe BlogsController, type: :controller do
         # compare if the record saved is the same that valid attributes
         expect(assigns(:blog).name).to eq(valid_attributes[:name])
         expect(assigns(:blog).description).to eq(valid_attributes[:description])
-        expect(assigns(:blog).blog_date).to eq(valid_attributes[:blog_date])
+        expect(assigns(:blog).date).to eq(valid_attributes[:date])
       end
 
       it 'returns an http success code' do
@@ -302,7 +326,7 @@ RSpec.describe BlogsController, type: :controller do
         {
             name:        'No debería cambiar este nombre por la fecha no valida',
             description: 'Ejemplo de bitácora de prueba',
-            blog_date:   'Fecha no válida',
+            date:        'Fecha no válida',
         }
       end
 
@@ -317,7 +341,7 @@ RSpec.describe BlogsController, type: :controller do
         # compare if the record saved is the same that valid attributes
         expect(@blog_example_update.name).not_to eq(not_valid_attributes[:name])
         expect(@blog_example_update.description).not_to eq(not_valid_attributes[:description])
-        expect(@blog_example_update.blog_date).not_to eq(not_valid_attributes[:blog_date])
+        expect(@blog_example_update.date).not_to eq(not_valid_attributes[:date])
       end
 
       it 'does not save an instance of blog' do
@@ -338,6 +362,10 @@ RSpec.describe BlogsController, type: :controller do
   end
 
   describe "DELETE destroy" do
+
+    before(:each) do
+      sign_in()
+    end
 
     before(:each) do
       @blog_example_delete = FactoryBot.create(:blog, name: 'delete test')

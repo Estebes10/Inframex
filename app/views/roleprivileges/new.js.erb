@@ -1,0 +1,8 @@
+$("#privileges-modal-target").html("<%= escape_javascript(render 'new') %>")
+$('#privileges-modal').modal('show');
+
+$('#privileges-datatable').DataTable({
+    "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+    }
+});

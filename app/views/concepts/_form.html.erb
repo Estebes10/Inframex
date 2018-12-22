@@ -1,0 +1,55 @@
+<%= form_for @concept do |f| %>
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="row">
+        <% if !@read_only %>
+          <div class="col-md-12">
+            <p>Los campos marcados con '*' son obligatorios. </p>
+          </div>
+        <% end %>
+
+        <div class="col-md-6 mT-15">
+          <%= f.label :code, "#{@required_str}Clave:" %>
+          <%= f.text_field :code, class:"form-control", required: 'true', placeholder: "e.g. PRE001", :maxlength => 6, readonly: @read_only %>
+        </div>
+
+        <div class="col-md-6 mT-15">
+          <%= f.label :category_id, "#{@required_str}Categoría del gasto:" %>
+          <%= f.select(:category_id, options_for_select(@categories.map{|s|[s.name, s.id]}, @category_id),
+                         {:include_blank => 'Seleccione una categoría'},
+                         {:class => 'form-control', :required => 'true', :disabled => @read_only}) %>
+        </div>
+        <div class="col-md-6 mT-15">
+          <%= f.label :category_id, "#{@required_str}Descripción:" %>
+          <%= f.text_area :description,
+                          class: 'form-control',
+                          :maxlength => 1024,
+                          placeholder: "e.g. Limpieza de terreno retirando basura y deshierbe fuera de la obra",
+                          rows: 3,
+                          required: true,
+                          readonly: @read_only%>
+        </div>
+        <div class="col-md-6 mT-15">
+          <%= f.label :category_id, "#{@required_str}Cantidad:" %>
+          <%= f.text_field :quantity, class: 'form-control', required: 'true', placeholder: "e.g. 225.00", readonly: @read_only %>
+        </div>
+        <div class="col-md-6 mT-15">
+          <%= f.label :category_id, "#{@required_str}Unidad:" %>
+          <%= f.text_field :unity, class:"form-control", required: 'true', placeholder: "e.g. m2", readonly: @read_only %>
+        </div>
+        <div class="col-md-6 mT-15">
+          <%= f.label :category_id, "#{@required_str}Precio por Unidad:" %>
+          <%= f.text_field :unit_price, class:"form-control", required: 'true', placeholder: "e.g. 204.44", readonly: @read_only %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <% if !@read_only %>
+    <div id="form-footer">
+      <hr>
+      <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, :back %>
+      <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
+    </div>
+  <% end %>
+<% end %>
