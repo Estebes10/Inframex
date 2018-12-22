@@ -32,7 +32,7 @@ function deleteUser(userId, deleteButton) {
             spinner.classList.add('fadeOut');
             swal({
                 title: "¡Eliminado!",
-                text: "El usario se ha eliminado correctamente",
+                text: "El usuario se ha eliminado correctamente",
                 type: "success",
                 timer: 1500,
                 showConfirmButton: false

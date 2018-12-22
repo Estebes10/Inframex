@@ -2,6 +2,19 @@ require "rails_helper"
 
 RSpec.describe 'routes for expenses', :type => :routing do
 
+  context 'for show action' do
+    it 'should route to /expenses/:id' do
+      expect(:get => '/expenses/:id').to be_routable
+    end
+
+    it 'routes /expenses/:id to expenses controller' do
+      expect(get("/expenses/:id")).to route_to(
+                                               :controller => "expenses",
+                                               :action => "show",
+                                               :id => ":id"
+                                           )
+    end
+  end
   context 'for new action' do
     it 'should route to /expenses/new' do
       expect(:get => '/expenses/new').to be_routable

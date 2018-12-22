@@ -17,7 +17,7 @@
         <% if @categories.blank? %>
           <h5> Actualmente no se encuentra ninguna categoría registrada en el sistema</h5>
         <% else %>
-          <table class="table table-hover" id="users-datatable" role="datatable">
+          <table class="table table-hover" id="categories-datatable" role="datatable">
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
@@ -36,9 +36,10 @@
                       <i class="ti-pencil icon-white" aria-hidden="true"></i>
                     </button>
                   </a>
-                  <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
-                  <i class="ti-trash" aria-hidden="true"></i>
-                 </button>').html_safe, destroy_category_path(a.id), method: :delete %>
+                  <button type="button" class="btn btn-outline-danger btn-circle delete-category-ajax"
+                          data-category-id="<%= a.id %>">
+                    <i class="ti-trash" aria-hidden="true"></i>
+                  </button>
                 </td>
               </tr>
 
@@ -70,7 +71,7 @@
         <% if @subcategories.blank? %>
           <h5> Actualmente no se encuentra ninguna subcategoría registrada en el sistema</h5>
         <% else %>
-          <table class="table table-hover" id="users-datatable" role="datatable">
+          <table class="table table-hover" id="subcategories-datatable" role="datatable">
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
@@ -89,9 +90,10 @@
                       <i class="ti-pencil icon-white" aria-hidden="true"></i>
                     </button>
                   </a>
-                  <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
-                  <i class="ti-trash" aria-hidden="true"></i>
-                 </button>').html_safe, destroy_subcategory_path(b.id), method: :delete %>
+                  <button type="button" class="btn btn-outline-danger btn-circle delete-subcategory-ajax"
+                          data-subcategory-id="<%= b.id %>">
+                    <i class="ti-trash" aria-hidden="true"></i>
+                  </button>
                 </td>
               </tr>
 

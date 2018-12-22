@@ -2,22 +2,24 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # categories
-  resources :categories, except: :destroy do
-    resources :categories
-  end
-  delete 'categories/:id', to: 'categories#destroy', as: :destroy_category
+  resources :categories
+  delete 'categories/:id/ajax', to: 'categories#destroy_ajax', as: :destroy_ajax_category
 
   # subcategories
-  resources :subcategories, except: :destroy do
-    resources :subcategories
-  end
-  delete 'subcategories/:id', to: 'subcategories#destroy', as: :destroy_subcategory
+  resources :subcategories
+  delete 'subcategories/:id/ajax', to: 'subcategories#destroy_ajax', as: :destroy_ajax_subcategory
 
   # expenses
-  resources :expenses, except: :destroy do
-    resources :expenses
-  end
+  resources :expenses
   delete 'expenses/:id', to: 'expenses#destroy', as: :destroy_expense
+  delete 'expenses/:id/ajax', to: 'expenses#destroy_ajax', as: :destroy_ajax_expense
+  post 'expenses/activate', to: 'expenses#activate', as: :activate_expense
+  post 'expensesticket/activate', to: 'expenses#activate_ticket', as: :activate_expense_ticket
+
+  # concepts
+  resources :concepts
+  delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
+  delete 'concepts/:id/ajax', to: 'concepts#destroy_ajax', as: :destroy_ajax_concept
 
   # sessions
   root 'sessions#new'
@@ -46,4 +48,11 @@ Rails.application.routes.draw do
 
   #resources :projects
 
+  # roles
+  resources :roles
+
+  # roleprivileges
+  get  '/roleprivileges/:idRole/new',  to: 'roleprivileges#new', as: :new_roleprivileges
+  post '/roleprivileges/:idRole/new',  to: 'roleprivileges#create', as: :create_roleprivileges
+  delete '/role/:idRole/privilege/:idPrivilege',  to: 'roleprivileges#destroy', as: :delete_roleprivileges
 end

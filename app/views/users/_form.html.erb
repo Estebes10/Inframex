@@ -88,6 +88,13 @@
               </div>
             </div>
           </div>
+          <div class="col-md-6 mT-15">
+            <label for = "user_status">Rol de usuario:</label>
+            <%= f.select(:role_id, options_for_select(@roles.map{|s|[s.name, s.id]}, @role_id),
+                         {:include_blank => 'Seleccione un rol'},
+                         {:class => 'form-control', :required => 'true', :disabled => @readonly}) %>
+
+          </div>
         </div>
       </div>
     </div>

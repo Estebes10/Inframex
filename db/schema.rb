@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_22_021343) do
+ActiveRecord::Schema.define(version: 2018_12_20_032410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,17 +31,30 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
     t.string "name", limit: 256, null: false
   end
 
+  create_table "concepts", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.string "code", limit: 6, null: false
+    t.string "description", limit: 1024, null: false
+    t.decimal "quantity", null: false
+    t.string "unity", null: false
+    t.decimal "unit_price", precision: 15, scale: 4, null: false
+    t.decimal "total", precision: 15, scale: 4, null: false
+    t.index ["category_id"], name: "index_concepts_on_category_id"
+  end
+
   create_table "expenses", force: :cascade do |t|
     t.bigint "subcategory_id", null: false
     t.string "name", limit: 256, null: false
     t.date "date", null: false
-    t.integer "quantity", null: false
+    t.decimal "quantity", null: false
     t.string "unity", null: false
     t.decimal "unit_price", precision: 15, scale: 4, null: false
     t.decimal "total", precision: 15, scale: 4, null: false
     t.bigint "supplier_id", null: false
     t.boolean "status", default: false, null: false
     t.boolean "status_ticket", default: false, null: false
+    t.bigint "concept_id", null: false
+    t.index ["concept_id"], name: "index_expenses_on_concept_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
   end
@@ -62,6 +75,30 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
     t.date "due_date"
     t.string "client", limit: 256
     t.boolean "status", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "privileges", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+    t.text "description"
+    t.string "module_name", limit: 256, null: false
+    t.string "str_id", limit: 256, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roleprivileges", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "role_id"
+    t.bigint "privilege_id"
+    t.index ["privilege_id"], name: "index_roleprivileges_on_privilege_id"
+    t.index ["role_id"], name: "index_roleprivileges_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -98,9 +135,14 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
   end
 
   add_foreign_key "blogs", "projects"
+  add_foreign_key "concepts", "categories"
+  add_foreign_key "expenses", "concepts"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
   add_foreign_key "jobs", "blogs"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"
+  add_foreign_key "roleprivileges", "privileges"
+  add_foreign_key "roleprivileges", "roles"
+  add_foreign_key "users", "roles"
 end

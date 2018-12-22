@@ -1,0 +1,44 @@
+<%= form_tag(create_roleprivileges_path(@role), method: "post", remote: true, html: { style: "display:inline;" }) do %>
+  <div class="modal-body">
+    <% if(@privileges.count > 0) %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Módulo</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Elegir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @privileges.each do |p| %>
+            <tr>
+              <td>
+                <%= p.module_name %>
+              </td>
+              <td>
+                <%= p.name %>
+              </td>
+              <td>
+                <%= p.description %>
+              </td>
+              <td class="text-center">
+                <input class="form-check-input" type="checkbox" name="privilege[]" id="<%= p.id %>" value="<%= p.id %>">
+              </td>
+            </tr>
+        <% end %>
+          </tbody>
+        </table>
+    <% else %>
+        <p>Ya han sido asignados todos los privilegios a este rol.</p>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <% if(@privileges.count > 0) %>
+      <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+      <button type="submit" name="save" value="ready" class="btn btn-primary">Guardar</button>
+    <% else %>
+      <button type="button" class="btn cancel-button-modal" data-dismiss="modal">Aceptar</button>
+    <% end %>
+  </div>
+<% end %>
