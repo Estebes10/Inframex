@@ -165,3 +165,13 @@ if !User.find_by(email: 'super@admin.com')
                                  role_id: 1
                              })
 end
+
+Subcategory.create(name: 'Indirectos')
+Subcategory.create(name: 'Mano de obra')
+Subcategory.create(name: 'Materiales')
+
+Category.create(name: 'Albañileria')
+Category.create(name: 'Pintura')
+Category.create(name: 'Electricidad')
+Category.create(name: 'Gas')
+Category.create(name: 'Plomería')

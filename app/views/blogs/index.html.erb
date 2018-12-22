@@ -47,12 +47,11 @@
                            id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
                            project-id="<%= "#{@project.id}" %>"
                            data-id="<%= "#{blog.id}" %>"
-                           name="<%= controller.controller_name %>"
+                           name="projects/<%= "#{@project.id}" %>/blogs/"
                            type="checkbox"
                            <%= if (blog.status)
                                  "checked"
                                end %>>
-                    <!-- name="projects/"#{@project.id}" %>/blogs/" -->
                     <span class="slider round"></span>
                   </label>
                 </td>

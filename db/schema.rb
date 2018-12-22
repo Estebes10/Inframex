@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_20_032410) do
+ActiveRecord::Schema.define(version: 2018_12_22_021343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 2018_12_20_032410) do
     t.index ["blog_id"], name: "index_jobs_on_blog_id"
   end
 
+  create_table "privileges", force: :cascade do |t|
+    t.string "name", limit: 256, null: false
+    t.text "description"
+    t.string "module_name", limit: 256, null: false
+    t.string "str_id", limit: 256, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", limit: 256, null: false
     t.string "code", limit: 32
@@ -75,15 +84,6 @@ ActiveRecord::Schema.define(version: 2018_12_20_032410) do
     t.date "due_date"
     t.string "client", limit: 256
     t.boolean "status", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "privileges", force: :cascade do |t|
-    t.string "name", limit: 256, null: false
-    t.text "description"
-    t.string "module_name", limit: 256, null: false
-    t.string "str_id", limit: 256, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -132,6 +132,8 @@ ActiveRecord::Schema.define(version: 2018_12_20_032410) do
     t.string "remember_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "blogs", "projects"
@@ -140,9 +142,9 @@ ActiveRecord::Schema.define(version: 2018_12_20_032410) do
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
   add_foreign_key "jobs", "blogs"
-  add_foreign_key "user_projects", "projects"
-  add_foreign_key "user_projects", "users"
   add_foreign_key "roleprivileges", "privileges"
   add_foreign_key "roleprivileges", "roles"
+  add_foreign_key "user_projects", "projects"
+  add_foreign_key "user_projects", "users"
   add_foreign_key "users", "roles"
 end
