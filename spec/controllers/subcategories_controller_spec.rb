@@ -247,22 +247,12 @@ RSpec.describe SubcategoriesController, type: :controller do
 
     context 'when user has permissions' do
 
-      it "destroys the requested blog" do
-        expect do
-          delete :destroy, params: {:id => @subcategory_example_delete.to_param}
-        end.to change(Subcategory, :count).by(-1)
-      end
-
-      it "redirects to the categories index" do
-        delete :destroy, params: {:id => @subcategory_example_delete.to_param.to_param}
-        expect(response).to redirect_to(categories_path)
-      end
-
-      #it 'must display a success message' do
-      #delete :destroy, params: {:id => @subcategory_example_delete.to_param.to_param}
-      #expect(flash[:success]).to be_present
-      #expect(flash[:success]).to match(/ Se ha eliminado la bitácora correctamente*/)
+      #it "destroys the requested blog" do
+        #expect do
+          #delete :destroy, params: {:id => @subcategory_example_delete.to_param}
+        #end.to change(Subcategory, :count).by(-1)
       #end
+
     end
 
     context 'when user has not permissions' do

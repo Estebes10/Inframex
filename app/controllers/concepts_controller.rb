@@ -1,4 +1,5 @@
 class ConceptsController < ApplicationController
+  before_action :set_project
   before_action :set_concept, only: [:show, :edit, :update, :destroy, :destroy_ajax]
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
@@ -12,18 +13,18 @@ class ConceptsController < ApplicationController
   end
 
   def new
-    @concept = Concept.new
+    @concept = @project.concepts.new
     @mode_edit = false
     @read_only = false
     @required_str = "* "
   end
 
   def create
-    @concept = Concept.new(concepts_params)
+    @concept = @project.concepts.new(concepts_params)
 
     if @concept.save
       flash[:success] = ' Éxito al crear concepto'
-      redirect_to @concept
+      redirect_to project_url(@project)
     else
       flash[:error] = ' Error al crear concepto'
       render action: 'new'
@@ -39,7 +40,7 @@ class ConceptsController < ApplicationController
   def update
     if @concept.update_attributes(concepts_params)
       flash[:success] = ' Concepto modificado correctamente'
-      redirect_to action: 'index'
+      redirect_to project_url(@project)
     else
       flash[:error] = ' Error al modificar concepto'
       render :edit
@@ -61,10 +62,10 @@ class ConceptsController < ApplicationController
     end
     if @concept.destroy
       flash[:success] = ' Se ha eliminado concepto correctamente'
-      redirect_to action: 'index'
+      redirect_to project_url(@project)
     else
       flash[:error] = ' No se ha podido eliminar el concepto'
-      redirect_to action: 'index'
+      redirect_to project_url(@project)
     end
   end
 
@@ -83,12 +84,16 @@ class ConceptsController < ApplicationController
   end
 
   def set_concept
-    @concept = Concept.find(params[:id])
+    @concept = @project.concepts.find_by!(id: params[:id]) if @project
     @category_id = @concept.category_id
   end
 
   def set_categories
     @categories = Category.order(:name).all
+  end
+
+  def set_project
+    @project = Project.find(params[:project_id])
   end
 
 end

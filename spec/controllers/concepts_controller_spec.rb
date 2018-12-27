@@ -3,11 +3,6 @@ require 'rails_helper'
 RSpec.describe ConceptsController, type: :controller do
   describe 'GET index' do
     context 'when user has permissions' do
-      it "assigns @@categories" do
-        categories = Category.order(:name)
-        get :index
-        expect(assigns(:categories)).to eq(categories)
-      end
 
       it "renders the index template" do
         get :index

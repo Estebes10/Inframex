@@ -16,10 +16,6 @@ Rails.application.routes.draw do
   post 'expenses/activate', to: 'expenses#activate', as: :activate_expense
   post 'expensesticket/activate', to: 'expenses#activate_ticket', as: :activate_expense_ticket
 
-  # concepts
-  resources :concepts
-  delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
-  delete 'concepts/:id/ajax', to: 'concepts#destroy_ajax', as: :destroy_ajax_concept
 
   # sessions
   root 'sessions#new'
@@ -37,7 +33,11 @@ Rails.application.routes.draw do
     resources :blogs, except: :destroy do
       resources :jobs
     end
+    # concepts
+    resources :concepts, except: :destroy
 
+    delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
+    delete 'concepts/:id/ajax', to: 'concepts#destroy_ajax', as: :destroy_ajax_concept
     delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
     delete 'blogs/:id/ajax', to: 'blogs#destroy_ajax', as: :destroy_ajax_blog
     post 'blogs/activate', to: 'blogs#activate', as: :activate_blog

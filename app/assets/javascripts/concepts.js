@@ -5,19 +5,21 @@ $( document ).on('ready turbolinks:load', function() {
         e.preventDefault(e);
         var deleteButton = $(this);
         var conceptId = $(this).attr("data-concept-id");
-        deleteConceptAjax(conceptId, deleteButton);
+        var projectId = $(this).attr("data-project-id");
+        deleteConceptAjax(conceptId, projectId, deleteButton);
         return false;
     });
 
     $('button.delete-concept').click(function(e) {
         e.preventDefault(e);
         var conceptId = $(this).attr("data-concept-id");
-        deleteConcept(conceptId);
+        var projectId = $(this).attr("data-project-id");
+        deleteConcept(conceptId, projectId);
         return false;
     });
 });
 
-function deleteConceptAjax(conceptId, deleteButton) {
+function deleteConceptAjax(conceptId, projectId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar este concepto?",
@@ -29,7 +31,7 @@ function deleteConceptAjax(conceptId, deleteButton) {
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/concepts/" + conceptId+ "/ajax",
+            url: "/projects/" + projectId + "/concepts/" + conceptId+ "/ajax",
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');
@@ -53,7 +55,7 @@ function deleteConceptAjax(conceptId, deleteButton) {
     });
 }
 
-function deleteConcept(conceptId) {
+function deleteConcept(conceptId, projectId) {
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar este concepto?",
@@ -64,7 +66,7 @@ function deleteConcept(conceptId) {
         confirmButtonColor: "#ec6c62"
     }, function() {
         $.ajax({
-            url: "/concepts/" + conceptId,
+            url: "/projects/" + projectId + "/concepts/" + conceptId,
             type: "DELETE"
         })
     });

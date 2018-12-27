@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_22_021343) do
+ActiveRecord::Schema.define(version: 2018_12_27_044109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,9 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
     t.string "unity", null: false
     t.decimal "unit_price", precision: 15, scale: 4, null: false
     t.decimal "total", precision: 15, scale: 4, null: false
+    t.bigint "project_id"
     t.index ["category_id"], name: "index_concepts_on_category_id"
+    t.index ["project_id"], name: "index_concepts_on_project_id"
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -54,7 +56,9 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
     t.boolean "status", default: false, null: false
     t.boolean "status_ticket", default: false, null: false
     t.bigint "concept_id", null: false
+    t.bigint "project_id"
     t.index ["concept_id"], name: "index_expenses_on_concept_id"
+    t.index ["project_id"], name: "index_expenses_on_project_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
   end
@@ -121,12 +125,12 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", limit: 128, null: false
-    t.string "lastName", limit: 128, null: false
-    t.string "password", limit: 64
+    t.string "name"
+    t.string "lastName"
+    t.string "password"
     t.date "birthday"
-    t.string "email", limit: 128, null: false
-    t.string "phone", limit: 20
+    t.string "email"
+    t.string "phone"
     t.boolean "status", default: true
     t.string "password_digest"
     t.string "remember_digest"
@@ -138,7 +142,9 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
 
   add_foreign_key "blogs", "projects"
   add_foreign_key "concepts", "categories"
+  add_foreign_key "concepts", "projects"
   add_foreign_key "expenses", "concepts"
+  add_foreign_key "expenses", "projects"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
   add_foreign_key "jobs", "blogs"

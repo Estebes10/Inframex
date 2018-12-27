@@ -6,16 +6,16 @@
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
-                    concepts_path
+                    project_path(@project)
         %>
         <h5 class="float-left pL-15">Concepto <% @concept.code %></h5>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
                       <i class="ti-pencil"></i>
                     </button>'.html_safe,
-                    edit_concept_path(@concept)
+                    {controller: :concepts, action: :edit, :id => @concept.id, :project_id => @project.id}
         %>
         <button type="button" class="btn btn-outline-light float-right delete-concept btn-sm mR-5"
-                data-concept-id="<%= @concept.id %>">
+                data-concept-id="<%= @concept.id %>" data-project-id="<%= @project.id %>">
           <i class="ti-trash" aria-hidden="true"></i>
         </button>
       </div>

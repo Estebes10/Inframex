@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :concept do
     association(:category)
+    association(:project)
     code             {Faker::Name.initials(6)}
     description      {Faker::Lorem.paragraph}
     quantity         {Faker::Number.decimal(3,2)}

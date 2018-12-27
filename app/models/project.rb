@@ -4,6 +4,7 @@ class Project < ApplicationRecord
   has_many :users, through: :user_projects
 
   has_many :blogs
+  has_many :concepts
 
   validates :name,
     presence: {
