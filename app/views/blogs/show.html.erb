@@ -1,5 +1,5 @@
 <% provide(:title, 'Bitácora') %>
-<div class="masonry-item col-md-5">
+<div class="masonry-item col-md-4">
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
@@ -9,7 +9,7 @@
                     </button>'.html_safe,
                     project_path(id: @project)
         %>
-        <h5 class="float-left pL-15">Bitácora - <%= @blog.name + " - " + @blog.date.strftime("%d/%m/%Y") %></h5>
+        <h5 class="float-left pL-15">Bitácora - <%= @blog.name %></h5>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-blog-button2">
                       <i class="ti-pencil"></i>
@@ -29,8 +29,15 @@
   </div>
 </div>
 
-<div class="col-md-7">
+<div class="col-md-8">
   <div class="row gap-20">
+    <div class="masonry-item col-md-12">
+      <div class="bd bgc-white">
+        <div class="layers">
+          <%= render "expenses/index"%>
+        </div>
+      </div>
+    </div>
 
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">

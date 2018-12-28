@@ -5,7 +5,7 @@ class Blog < ApplicationRecord
 
   belongs_to :project
 
-  #has_many :expenses
+  has_many :expenses
 
   has_many :jobs
 

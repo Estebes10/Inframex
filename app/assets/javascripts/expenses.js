@@ -23,7 +23,9 @@ $( document ).on('ready turbolinks:load', function() {
     $('button.delete-expense').click(function(e) {
         e.preventDefault(e);
         var expenseId = $(this).attr("data-expense-id");
-        deleteExpense(expenseId);
+        var blogId = $(this).attr("data-blog-id");
+        var projectId = $(this).attr("data-project-id");
+        deleteExpense(expenseId, blogId, projectId);
         return false;
     });
 });
@@ -64,7 +66,7 @@ function deleteExpenseAjax(expenseId, deleteButton) {
     });
 }
 
-function deleteExpense(expenseId) {
+function deleteExpense(expenseId, blogId, projectId) {
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar este gasto?",
@@ -75,7 +77,7 @@ function deleteExpense(expenseId) {
         confirmButtonColor: "#ec6c62"
     }, function() {
         $.ajax({
-            url: "/expenses/" + expenseId,
+            url: "/projects/" + projectId + "/blogs/" + blogId  + "/expenses/" + expenseId,
             type: "DELETE"
         })
     });

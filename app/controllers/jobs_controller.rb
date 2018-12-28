@@ -41,7 +41,7 @@ class JobsController < ApplicationController
   def update
     if @job.update_attributes(job_params)
       flash[:success] = ' Trabajo modificada correctamente'
-      redirect_to project_blog_url(project_id: @project, id: @blog)
+      redirect_to cc
     else
       flash[:error] = ' Error al modificar el trabajo'
       render :edit

@@ -11,6 +11,7 @@ class BlogsController < ApplicationController
     @readonly = true
     @create = false
     @required_str = ""
+    @expenses = @blog.expenses.order(:name).all
   end
 
   def new
@@ -59,6 +60,8 @@ class BlogsController < ApplicationController
     if @blog.jobs.count > 0
       # remove all jobs
       @blog.jobs.destroy_all
+      # remove all expenses
+      @blog.expenses.destroy_all
     end
     @blog.destroy
   end
@@ -67,6 +70,8 @@ class BlogsController < ApplicationController
     if @blog.jobs.count > 0
       # remove all jobs
       @blog.jobs.destroy_all
+      # remove all expenses
+      @blog.expenses.destroy_all
     end
     if @blog.destroy
       flash[:success] = ' Se ha eliminado la bitácora correctamente'

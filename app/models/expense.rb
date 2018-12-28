@@ -2,6 +2,7 @@ class Expense < ApplicationRecord
   belongs_to :supplier
   belongs_to :subcategory
   belongs_to :concept
+  belongs_to :blog
 
   before_validation :calculate_total
 

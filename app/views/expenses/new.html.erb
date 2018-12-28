@@ -1,4 +1,4 @@
-<% provide(:title, 'Registrar Gasto') %>
+<% provide(:title, 'Nuevo Gasto') %>
 <div class="masonry-item col-md-12">
   <div class="bd bgc-white">
     <div class="layers">
@@ -6,7 +6,7 @@
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
-                    expenses_path
+                    project_blog_url(project_id: @project, id: @blog)
         %>
         <h5 class="float-left pL-15">Registrar Gasto</h5>
       </div>
