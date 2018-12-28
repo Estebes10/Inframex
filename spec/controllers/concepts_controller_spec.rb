@@ -1,25 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ConceptsController, type: :controller do
-  describe 'GET index' do
-    context 'when user has permissions' do
-
-      it "renders the index template" do
-        get :index
-        expect(response).to render_template(:index)
-      end
-
-      it "returns http success" do
-        get :index
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    context 'when user has not permissions' do
-      it 'must redirects to another page'
-    end
-  end
-
   describe 'GET show' do
 
     context 'when user has permissions' do
@@ -33,7 +14,7 @@ RSpec.describe ConceptsController, type: :controller do
         before(:each) do
           get(
               :show,
-              params: { id: @concept_example.id }
+              params: { id: @concept_example.id, project_id: @concept_example.project.id }
           )
         end
 
@@ -58,19 +39,26 @@ RSpec.describe ConceptsController, type: :controller do
   end
 
   describe 'GET new' do
-
+    before(:each) do
+      @project = FactoryBot.create(:project)
+    end
     context 'when user has permissions' do
+
       it "renders the new template" do
-        get :new
+        get(
+            :new,
+            params: { project_id: @project.id }
+        )
         expect(response).to render_template(:new)
       end
 
       it "returns http success" do
-        get :new
+        get(
+            :new,
+            params: { project_id: @project.id }
+        )
         expect(response).to have_http_status(:success)
       end
-
-      it { should route(:get, '/concepts/new').to(action: :new) }
     end
 
     context 'when user has not permissions' do
@@ -79,9 +67,10 @@ RSpec.describe ConceptsController, type: :controller do
   end
 
   describe 'POST create' do
-
+    before(:each) do
+      @project = FactoryBot.create(:project)
+    end
     context 'with valid attributes' do
-
 
       let(:valid_attributes) do
         {
@@ -90,7 +79,6 @@ RSpec.describe ConceptsController, type: :controller do
                 description:    Faker::Lorem.characters(200),
                 unity:          'kgs',
                 unit_price:     10.50,
-                total:          100.50,
                 quantity:       10,
                 category_id:    1
             }
@@ -100,7 +88,7 @@ RSpec.describe ConceptsController, type: :controller do
       before(:each) do
         post(
             :create,
-            params: valid_attributes
+            params: { project_id: @project.id, concept: valid_attributes }
         )
       end
 
@@ -132,7 +120,6 @@ RSpec.describe ConceptsController, type: :controller do
                 description:    Faker::Lorem.characters(200),
                 unity:          'kgs',
                 unit_price:     10.50,
-                total:          100.50,
                 quantity:       10,
                 category_id:    nil
             }
@@ -142,7 +129,7 @@ RSpec.describe ConceptsController, type: :controller do
       before(:each) do
         post(
             :create,
-            params: not_valid_attributes
+            params: { project_id: @project.id, concept: not_valid_attributes }
         )
       end
 
@@ -170,7 +157,7 @@ RSpec.describe ConceptsController, type: :controller do
         before(:each) do
           get(
               :edit,
-              params: { id: @concept_example.id }
+              params: { id: @concept_example.id, project_id: @concept_example.project_id}
           )
         end
 
@@ -208,16 +195,16 @@ RSpec.describe ConceptsController, type: :controller do
             description:    Faker::Lorem.characters(200),
             unity:          'kgs',
             unit_price:     10.50,
-            total:          200.50,
             quantity:       20,
-            category_id:    1
+            category_id:    1,
+            project_id:     1
         }
       end
 
       before(:each) do
         put(
             :update,
-            params: {:id => @concept_example_update.to_param, :concept => valid_attributes}
+            params: {:id => @concept_example_update.to_param, project_id: @concept_example_update.project_id, :concept => valid_attributes}
         )
       end
 
@@ -261,16 +248,16 @@ RSpec.describe ConceptsController, type: :controller do
             description:    Faker::Lorem.characters(200),
             unity:          'kgs',
             unit_price:     10.50,
-            total:          100.50,
             quantity:       10,
-            category_id:    nil
+            category_id:    nil,
+            project_id:     nil
         }
       end
 
       before(:each) do
         put(
             :update,
-            params: {:id => @concept_example_update.to_param, :concept => not_valid_attributes}
+            params: {:id => @concept_example_update.to_param, project_id: @concept_example_update.project_id, :concept => not_valid_attributes}
         )
       end
 
@@ -282,6 +269,7 @@ RSpec.describe ConceptsController, type: :controller do
         expect(@concept_example_update.total).not_to eq(not_valid_attributes[:total])
         expect(@concept_example_update.quantity).not_to eq(not_valid_attributes[:quantity])
         expect(@concept_example_update.category_id).not_to eq(not_valid_attributes[:category_id])
+        expect(@concept_example_update.project_id).not_to eq(not_valid_attributes[:project_id])
 
       end
 
@@ -290,8 +278,6 @@ RSpec.describe ConceptsController, type: :controller do
       end
 
       it 'renders new template' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template("edit")
       end
 
@@ -302,19 +288,20 @@ RSpec.describe ConceptsController, type: :controller do
 
     before(:each) do
       @concept_example_delete = FactoryBot.create(:concept, code: 'delete')
+      @project = @concept_example_delete.project
     end
 
     context 'when user has permissions' do
 
       it "destroys the requested blog" do
         expect do
-          delete :destroy, params: {:id => @concept_example_delete.to_param}
+          delete :destroy, params: {:project_id =>@concept_example_delete.project.id, :id => @concept_example_delete.to_param}
         end.to change(Concept, :count).by(-1)
       end
 
       it "redirects to the posts list" do
-        delete :destroy, params: {:id => @concept_example_delete.to_param.to_param}
-        expect(response).to redirect_to(concepts_path)
+        delete :destroy, params: {:project_id =>@concept_example_delete.project.id, :id => @concept_example_delete.to_param.to_param}
+        expect(response).to redirect_to(project_url(@project))
       end
 
     end
