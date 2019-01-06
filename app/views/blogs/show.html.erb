@@ -7,7 +7,7 @@
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
-                    project_path(id: @project)
+                    project_path(@project , :anchor => "nav-blogs")
         %>
         <h5 class="float-left pL-15">Bitácora - <%= @blog.name %></h5>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
@@ -17,7 +17,7 @@
                     edit_project_blog_path(project_id: @project, id: @blog)
         %>
         <button type="button" class="btn btn-outline-light float-right delete-blog btn-sm mR-5"
-                data-blog-id="<%= @blog.id %>">
+                data-blog-id="<%= @blog.id %>" data-project-id="<%= @project.id %>">
           <i class="ti-trash" aria-hidden="true"></i>
         </button>
 

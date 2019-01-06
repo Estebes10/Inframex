@@ -24,9 +24,9 @@ class ConceptsController < ApplicationController
 
     if @concept.save
       flash[:success] = ' Éxito al crear concepto'
-      redirect_to project_url(@project)
+      redirect_to project_path(@project , :anchor => "nav-concepts")
     else
-      flash[:error] = ' Error al crear concepto'
+      flash.now[:error] = ' Error al crear concepto'
       render action: 'new'
     end
   end
@@ -40,9 +40,9 @@ class ConceptsController < ApplicationController
   def update
     if @concept.update_attributes(concepts_params)
       flash[:success] = ' Concepto modificado correctamente'
-      redirect_to project_url(@project)
+      redirect_to project_path(@project , :anchor => "nav-concepts")
     else
-      flash[:error] = ' Error al modificar concepto'
+      flash.now[:error] = ' Error al modificar concepto'
       render :edit
     end
   end
@@ -62,10 +62,10 @@ class ConceptsController < ApplicationController
     end
     if @concept.destroy
       flash[:success] = ' Se ha eliminado concepto correctamente'
-      redirect_to project_url(@project)
+      redirect_to project_path(@project , :anchor => "nav-concepts")
     else
-      flash[:error] = ' No se ha podido eliminar el concepto'
-      redirect_to project_url(@project)
+      flash.now[:error] = ' No se ha podido eliminar el concepto'
+      render :show
     end
   end
 

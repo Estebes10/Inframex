@@ -11,45 +11,36 @@
                     new_project_concept_path(@project)
         %>
       </div>
-      <div class="layer w-100 p-20 text-center">
+      <div class="layer w-100 p-20">
         <% if @categories.blank? %>
-            <div class="row">
-              <div class="col-md-12">
-                <p class="lead">Actualmente no se encuentra registrada ninguna categoría en el sistema.</p>
-              </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p class="lead">Actualmente no se encuentra registrada ninguna categoría en el sistema.</p>
             </div>
+          </div>
+        <% else %>
 
-          <% else %>
-
-        <% @categories.each do |c| %>
-          <div class="masonry-item col-md-12">
-            <div class="bd bgc-white">
-              <div class="layers">
-                <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15 bgcH-blue-grey-900" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse-<%= c.id %>">
-                  <h5 class="float-left pL-15"><%= c.name %></h5>
+          <% @categories.each do |c| %>
+            <div class="layers bd">
+              <% if !@project.concepts.where(category_id: c.id).blank? %>
+                <div class="bgc-blue-grey-600 bgcH-blue-grey-900 bdc-grey-200 bdB c-white d-inline layer w-100 p-10" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse-<%= c.id %>">
+                  <h6 class="pL-15"><%= c.name %></h6>
                 </div>
-                <div class="layer w-100 p-20 text-center collapse" id="collapse-<%= c.id %>">
-                    <% if @project.concepts.where(category_id: c.id).blank? %>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <p class="lead">Actualmente no se encuentra registrado ningún concepto con esta categoría para este proyecto.</p>
-                        </div>
-                      </div>
-                    <% else %>
-                      <table class="table table-hover datatable" id="concepts-datatable" role="datatable">
-                        <thead>
-                        <tr class="tableHead">
-                          <th>Clave</th>
-                          <th>Categoría</th>
-                          <th>Descripción</th>
-                          <th>Cantidad</th>
-                          <th>Unidad</th>
-                          <th>Precio Unitario</th>
-                          <th>Total</th>
-                          <th>Acciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                <div class="layer  bgc-white w-100 p-20 text-center collapse" id="collapse-<%= c.id %>">
+                  <table class="table table-hover datatable" id="concepts-datatable" role="datatable">
+                      <thead>
+                      <tr class="tableHead">
+                        <th>Clave</th>
+                        <th>Categoría</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Unidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                      </tr>
+                      </thead>
+                      <tbody>
                         <% @project.concepts.where(category_id: c.id).order(:code).each do |concept| %>
                           <tr>
                             <td><%= concept.code-%></td>
@@ -61,11 +52,11 @@
                             <td><%= concept.total-%></td>
                             <td>
                               <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
-                                    <i class="ti-eye icon-white" aria-hidden="true"></i>
-                                    </button>').html_safe, {controller: :concepts, action: :show, :id => concept.id, :project_id => @project.id} %>
+                                      <i class="ti-eye icon-white" aria-hidden="true"></i>
+                                      </button>').html_safe, {controller: :concepts, action: :show, :id => concept.id, :project_id => @project.id} %>
                               <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
-                                    <i class="ti-pencil" aria-hidden="true"></i>
-                                   </button>').html_safe, {controller: :concepts, action: :edit, :id => concept.id, :project_id => @project.id} %>
+                                      <i class="ti-pencil" aria-hidden="true"></i>
+                                     </button>').html_safe, {controller: :concepts, action: :edit, :id => concept.id, :project_id => @project.id} %>
                               <button type="button" class="btn btn-outline-danger btn-circle delete-concept-ajax"
                                       data-concept-id="<%= concept.id %>" data-project-id="<%= @project.id %>">
                                 <i class="ti-trash" aria-hidden="true"></i>
@@ -73,27 +64,20 @@
                             </td>
                           </tr>
                         <% end %>
-                        </tbody>
-                        <tfooter>
-                          <tr class="bgc-blue-grey-900">
-                            <td class="c-white"><strong>Total de <%= c.name %></strong></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="c-white"><strong><%= c.concepts.sum(:total) %></strong></td>
-                            <td></td>
-                          </tr>
-                        </tfooter>
-                      </table>
-                    <% end %>
+                      </tbody>
+                      <tfooter>
+                        <tr class="bgc-blue-grey-900">
+                          <td class="c-white" colspan="6"><strong>Total de <%= c.name %></strong></td>
+                          <td class="c-white"><strong><%= c.concepts.sum(:total) %></strong></td>
+                          <td></td>
+                        </tr>
+                      </tfooter>
+                    </table>
                 </div>
-              </div>
+              <% end %>
             </div>
-          </div>
-        <% end %>
           <% end %>
+        <% end %>
       </div>
     </div>
   </div>
