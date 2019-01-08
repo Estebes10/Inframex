@@ -1,12 +1,10 @@
 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
   <h5 class="float-left">Trabajos realizados</h5>
-    <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-                  id="new-job-button">
-                  <i class="ti-plus"></i>
-                  Agregar trabajo
-                </button>'.html_safe,
-                new_project_blog_job_path(@project, @blog)
-    %>
+  <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+          id="new-job-button" data-toggle="modal" data-target="#concepts-modal">
+    <i class="ti-plus"></i>
+    Agregar trabajo
+  </button>
 </div>
 
 <% if @blog.jobs.blank? %>
@@ -25,7 +23,6 @@
     <table class="table table-hover" id="jobs-datatable" role="datatable">
       <thead>
         <tr>
-          <th scope="col">Número</th>
           <th scope="col">Nombre</th>
           <th scope="col">Concepto</th>
           <th scope="col">Cantidad Avance</th>
@@ -36,11 +33,10 @@
       <tbody>
       <% @blog.jobs.each do |job| %>
         <tr>
-          <th scope="row"> <%= job.id %> </th>
           <td><%= job.name %></td>
-          <td>_1_</td>
-          <td>_50_</td>
-          <td>_m2_</td>
+          <td><%= link_to job.concept.code, {:controller => :concepts, :action => :show, :id => job.concept.id} %></td>
+          <td><%= job.quantity %></td>
+          <td><%= job.concept.unity %></td>
           <td>
             <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
               <i class="ti-pencil icon-white" aria-hidden="true"></i>
@@ -60,3 +56,28 @@
   </div>
 
 <%end%>
+
+<div class="modal fade" id="concepts-modal" tabindex="-1" role="dialog" aria-labelledby="conceptsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Elige concepto del nuevo trabajo:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_with url: '#', id: "get-new-job-form", :local => true, :html => { :onsubmit => "return submitGetNewJobForm(#{@project.id}, #{@blog.id}, event)" } do |f| %>
+        <div class="modal-body">
+          <%= f.label :concept_id, "Clave y descripción del concepto: " %>
+          <%= f.select(:concept_id, options_for_select(@concepts.map{|s|[s.code + ", " + s.description, s.id]}),
+                       {:include_blank => 'Seleccione un concepto'},
+                       {:class => 'form-control', :required => 'true'}) %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+          <%= f.submit "Continuar", class: 'btn btn-primary save-button' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

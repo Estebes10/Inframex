@@ -1,6 +1,7 @@
 class Concept < ApplicationRecord
   belongs_to :category
   has_many :expenses
+  has_many :jobs
 
   before_validation :calculate_total
 
@@ -29,6 +30,10 @@ class Concept < ApplicationRecord
   validates :total,
             presence: {with: true, message: "no puede estar vacío"},
             numericality: {with: true, only_integer: false }, :on => [:create ,:update]
+
+  def sum_jobs_quantity
+    jobs.sum(:quantity)
+  end
 
   private
 

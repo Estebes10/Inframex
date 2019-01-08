@@ -35,7 +35,10 @@ Rails.application.routes.draw do
   # blogs
   resources :projects do
     resources :blogs, except: :destroy do
-      resources :jobs
+      resources :jobs, except: :new
+
+      get  'jobs/new/:concept_id',  to: 'jobs#new', as: :new_job
+      post 'jobs',  to: 'jobs#create', as: :create_job
     end
 
     delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog

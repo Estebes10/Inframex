@@ -11,6 +11,7 @@ class BlogsController < ApplicationController
     @readonly = true
     @create = false
     @required_str = ""
+    @concepts = Concept.order(:code).all
   end
 
   def new

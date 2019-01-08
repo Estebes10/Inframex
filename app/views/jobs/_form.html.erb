@@ -1,4 +1,3 @@
-
 <%= form_for [@project, @blog, @job] do |f| %>
   <%= render 'layouts/errors_form', object: @job %>
   <div class="modal-body">
@@ -8,7 +7,7 @@
           <div class="col-md-12">
             <p>Los campos marcados con '*' son obligatorios.</p>
           </div>
-
+          <%= f.hidden_field :concept_id, value: @concept.id %>
           <div class="col-md-6 mT-15">
             <%= f.label :name, "* Nombre del trabajo:" %>
             <%= f.text_field :name,
@@ -16,6 +15,19 @@
                              required: 'true',
                              placeholder: "e.g. Pintar pared...",
                              readonly: @readonly %>
+          </div>
+          <div class="col-md-6 mT-15">
+            <%= f.label :quantity, "* Cantidad:" %>
+            <div class="input-group">
+              <%= f.number_field :quantity,
+                                 class:"form-control",
+                                 required: 'true',
+                                 placeholder: "e.g. 10",
+                                 readonly: @readonly %>
+              <div class="input-group-append">
+                <span class="input-group-text"><%= @concept.unity %></span>
+              </div>
+            </div>
           </div>
 
         </div>
