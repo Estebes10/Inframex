@@ -4,14 +4,11 @@
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left pL-15">Categorías</h5>
-        <a id="modal-trigger"
-           href="<%= new_category_path %>" data-remote="true"
-           data-toggle="modal" data-target="#category-modal">
-          <button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
-            <i class="ti-plus"></i>
-            Registrar Categoría
-          </button>
-        </a>
+        <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                id="new-role-button" data-toggle="modal" data-target="#new-category-modal">
+          <i class="ti-plus"></i>
+          Registrar Categoría
+        </button>
       </div>
       <div class="layer w-100 p-20 text-center">
         <% if @categories.blank? %>
@@ -29,13 +26,10 @@
               <tr>
                 <td><%= a.name -%></td>
                 <td>
-                  <a id="modal-trigger"
-                     href="<%= edit_category_path(a.id) %>" data-remote="true"
-                     data-toggle="modal" data-target="#category-modal">
-                    <button type="button" class="btn btn-outline-warning btn-circle">
-                      <i class="ti-pencil icon-white" aria-hidden="true"></i>
-                    </button>
-                  </a>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                                   <i class="ti-pencil"></i>
+                                 </button>'),
+                              edit_category_path(a), data: {remote: 'true'} %>
                   <button type="button" class="btn btn-outline-danger btn-circle delete-category-ajax"
                           data-category-id="<%= a.id %>">
                     <i class="ti-trash" aria-hidden="true"></i>
@@ -58,14 +52,11 @@
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
           <h5 class="float-left pL-15">Subcategorías</h5>
-          <a id="modal-trigger"
-             href="<%= new_subcategory_path %>" data-remote="true"
-             data-toggle="modal" data-target="#subcategory-modal">
-            <button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
-              <i class="ti-plus"></i>
-              Registrar Subcategoría
-            </button>
-          </a>
+          <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                  id="new-role-button" data-toggle="modal" data-target="#new-subcategory-modal">
+            <i class="ti-plus"></i>
+            Registrar Subcategoría
+          </button>
       </div>
       <div class="layer w-100 p-20 text-center">
         <% if @subcategories.blank? %>
@@ -83,13 +74,10 @@
               <tr>
                 <td><%= b.name -%></td>
                 <td>
-                  <a id="modal-trigger"
-                     href="<%= edit_subcategory_path(b.id) %>" data-remote="true"
-                     data-toggle="modal" data-target="#subcategory-modal">
-                    <button type="button" class="btn btn-outline-warning btn-circle">
-                      <i class="ti-pencil icon-white" aria-hidden="true"></i>
-                    </button>
-                  </a>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                                   <i class="ti-pencil"></i>
+                                 </button>'),
+                              edit_subcategory_path(b), data: {remote: 'true'} %>
                   <button type="button" class="btn btn-outline-danger btn-circle delete-subcategory-ajax"
                           data-subcategory-id="<%= b.id %>">
                     <i class="ti-trash" aria-hidden="true"></i>
@@ -107,5 +95,12 @@
   </div>
 </div>
 
-<div class="modal fade" id="category-modal" role="dialog" aria-labelledby="user-label" aria-hidden="true">
+<div id="edit-category-modal-target"></div>
+<div id="new-category-modal-target">
+  <%= render "categories/new" %>
+</div>
+
+<div id="edit-subcategory-modal-target"></div>
+<div id="new-subcategory-modal-target">
+  <%= render "subcategories/new" %>
 </div>

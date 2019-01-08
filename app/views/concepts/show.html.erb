@@ -12,7 +12,7 @@
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
                       <i class="ti-pencil"></i>
                     </button>'.html_safe,
-                    {controller: :concepts, action: :edit, :id => @concept.id, :project_id => @project.id}
+                    edit_project_concept_path(:project_id => @project.id, :id => @concept.id)
         %>
         <button type="button" class="btn btn-outline-light float-right delete-concept btn-sm mR-5"
                 data-concept-id="<%= @concept.id %>" data-project-id="<%= @project.id %>">
@@ -41,6 +41,7 @@
               <th scope="col">Fecha</th>
               <th scope="col">Cantidad Avance</th>
               <th scope="col">Unidad</th>
+              <th scope="col">Bitácora</th>
               <th scope="col">Acciones</th>
             </tr>
             </thead>
@@ -49,8 +50,9 @@
               <tr>
                 <td><%= job.name %></td>
                 <td><%= job.blog.date %></td>
-                <td><%= job.quantity %></td>
+                <td><%= number_with_delimiter(job.quantity) %></td>
                 <td><%= job.concept.unity %></td>
+                <td><%= link_to job.blog.name, project_blog_path(project_id: @concept.project_id, id: job.blog.id) %></td>
                 <td>
                   <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                         <i class="ti-pencil icon-white" aria-hidden="true"></i>
@@ -69,8 +71,8 @@
             <tfooter>
               <tr class="bgc-blue-grey-900">
                 <td class="c-white text-left" colspan="2"><strong>Total</strong></td>
-                <td class="c-white"><strong><%= @concept.sum_jobs_quantity %> <%= @concept.unity %></strong></td>
-                <td colspan="2"></td>
+                <td class="c-white"><strong><%= number_with_delimiter(@concept.sum_jobs_quantity) %> <%= @concept.unity %></strong></td>
+                <td colspan="3"></td>
               </tr>
             </tfooter>
           </table>
@@ -94,7 +96,75 @@
       </div>
       <div class="layer w-100 p-20 text-center">
         <% if @concept.expenses.count > 0 %>
-
+          <table class="table table-hover" id="expenses-datatable" role="datatable">
+            <thead>
+            <tr class="tableHead">
+              <th>Nombre</th>
+              <th>Fecha</th>
+              <th>Total</th>
+              <th>Aprobado</th>
+              <th>Facturado</th>
+              <th>Bitácora</th>
+              <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @concept.expenses.each do |a| %>
+              <tr>
+                <td><%= a.name-%></td>
+                <td><%= a.date-%></td>
+                <td><%= number_to_currency(a.total)-%></td>
+                <td>
+                  <label class="switch">
+                    <input class="activate-switch status-expense" id="status-<%= "expenses-#{a.id}" %>"
+                           data-id="<%= "#{a.id}" %>"
+                           name="expenses"
+                           type="checkbox"
+                           <%= if (a.status)
+                                 "checked"
+                               end %>>
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+                <td>
+                  <label class="switch">
+                    <input class="activate-switch status-ticket-expense"
+                           id="status_ticket-<%= "expenses-#{a.id}" %>"
+                           data-id="<%= "#{a.id}" %>"
+                           name="expensesticket"
+                           type="checkbox"
+                           <%= if (a.status_ticket)
+                                 "checked"
+                               end %>>
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+                <td><%= link_to a.blog.name, project_blog_path(project_id: @concept.project_id, id: a.blog.id) %></td>
+                <td>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                                    <i class="ti-eye icon-white" aria-hidden="true"></i>
+                                    </button>').html_safe, {controller: :expenses, action: :show, :id => a.id, :project_id => @concept.project_id, :blog_id => a.blog.id} %>
+                  <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                    <i class="ti-pencil" aria-hidden="true"></i>
+                   </button>').html_safe,  {controller: :expenses, action: :edit, :id => a.id, :project_id => @concept.project_id, :blog_id => a.blog.id}%>
+                  <button type="button" class="btn btn-outline-danger btn-circle delete-expense-ajax"
+                          data-expense-id="<%= a.id %>"
+                          data-blog-id="<%= a.blog.id %>"
+                          data-project-id="<%= @concept.project_id %>">
+                    <i class="ti-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfooter>
+              <tr class="bgc-blue-grey-900">
+                <td class="c-white text-left" colspan="2"><strong>Total</strong></td>
+                <td class="c-white"><strong><%= number_to_currency(@concept.sum_total_expenses) %></strong></td>
+                <td colspan="4"></td>
+              </tr>
+            </tfooter>
+          </table>
         <% else %>
           <div class="row">
             <div class="col-md-10">

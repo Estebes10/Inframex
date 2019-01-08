@@ -36,6 +36,10 @@ class Concept < ApplicationRecord
     jobs.sum(:quantity)
   end
 
+  def sum_total_expenses
+    expenses.sum(:total)
+  end
+
   private
 
   def calculate_total

@@ -1,12 +1,12 @@
 <% provide(:title, 'Editar Concepto') %>
-<div class="masonry-item col-md-12">
+<div class="masonry-item col-md-8 offset-md-2">
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
-                    project_path(@project , :anchor => "nav-concepts")
+                    project_concept_path(:project_id => @project.id, :id => @concept.id)
         %>
         <h5 class="float-left pL-15">Concepto <% @concept.code %></h5>
       </div>

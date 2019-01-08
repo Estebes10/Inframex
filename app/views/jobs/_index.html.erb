@@ -35,7 +35,7 @@
         <tr>
           <td><%= job.name %></td>
           <td><%= link_to job.concept.code, {:controller => :concepts, :action => :show, :id => job.concept.id} %></td>
-          <td><%= job.quantity %></td>
+          <td><%= number_with_delimiter(job.quantity) %></td>
           <td><%= job.concept.unity %></td>
           <td>
             <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">

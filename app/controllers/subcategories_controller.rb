@@ -3,19 +3,17 @@ class SubcategoriesController < ApplicationController
   before_action :set_subcategory, only: [:edit, :update, :destroy_ajax]
 
   def new
-    @subcategory = Subcategory.new
   end
 
   def create
     @subcategory = Subcategory.new(subcategory_param)
-
     if @subcategory.save
-      flash[:success] = ' Éxito al crear la subcategoría'
-      redirect_to categories_path
+      flash[:success] = ' Éxito al crear la subcategoría. '
     else
-      flash[:error] = ' Error al crear la subcategoría'
-      render action: 'new'
+      flash[:danger] = ' Error al crear la subcategoría. '
+      set_flash_errors(@subcategory)
     end
+    redirect_to categories_path
   end
 
   def edit
@@ -23,12 +21,12 @@ class SubcategoriesController < ApplicationController
 
   def update
     if @subcategory.update_attributes(subcategory_param)
-      flash[:success] = ' Subcategoría modificado correctamente'
-      redirect_to categories_path
+      flash[:success] = ' Subcategoría modificada correctamente. '
     else
-      flash[:error] = ' Error al modificar subcategoría'
-      render :edit
+      flash[:danger] = ' Error al modificar subcategoría. '
+      set_flash_errors(@subcategory)
     end
+    redirect_to categories_path
   end
 
   def destroy_ajax
@@ -49,5 +47,13 @@ class SubcategoriesController < ApplicationController
 
   def set_subcategory
     @subcategory = Subcategory.find(params[:id])
+  end
+
+  def set_flash_errors(object)
+    if object.errors.any?
+      object.errors.full_messages.each do |msg|
+        flash[:danger] += (msg + ". ")
+      end
+    end
   end
 end

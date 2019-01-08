@@ -17,15 +17,15 @@
         <table class="table">
           <tr>
             <td>Cantidad del concepto:</td>
-            <td><%= @concept.quantity %> <%= @concept.unity %></td>
+            <td><%= number_with_delimiter(@concept.quantity) %> <%= @concept.unity %></td>
           </tr>
           <tr>
             <td>Cantidad avanzada en trabajos:</td>
-            <td><%= @concept.sum_jobs_quantity %> <%= @concept.unity %></td>
+            <td><%= number_with_delimiter(@concept.sum_jobs_quantity) %> <%= @concept.unity %></td>
           </tr>
           <tr>
             <td><strong>Cantidad restante:</strong></td>
-            <td><strong><%= @concept.quantity - @concept.sum_jobs_quantity %> <%= @concept.unity %></strong></td>
+            <td><strong><%= number_with_delimiter(@concept.quantity - @concept.sum_jobs_quantity) %> <%= @concept.unity %></strong></td>
           </tr>
         </table>
         <%= render "form" %>

@@ -24,4 +24,8 @@ class Blog < ApplicationRecord
   validates :status,
     inclusion: { in: [true, false] } # validate presence for booleans
 
+  def sum_total_expenses
+    expenses.sum(:total)
+  end
+
 end
