@@ -49,4 +49,13 @@ RSpec.describe Concept, type: :model do
     should belong_to(:category)
   end
 
+  it 'belongs to project' do
+    should belong_to(:project)
+  end
+
+  it 'has many expenses' do
+    should have_many(:expenses)
+  end
+
+
 end

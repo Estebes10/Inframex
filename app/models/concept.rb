@@ -1,5 +1,6 @@
 class Concept < ApplicationRecord
   belongs_to :category
+  belongs_to :project
   has_many :expenses
   has_many :jobs
 

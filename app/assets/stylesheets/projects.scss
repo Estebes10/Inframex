@@ -2,3 +2,8 @@ div.project-card {
   background-color: #cedee0 !important;
   width: 30%;
 }
+
+#project-nav-tab .nav-link.active, .show > .nav-link {
+  color: #495057 !important;
+  background-color: #fff !important;
+}

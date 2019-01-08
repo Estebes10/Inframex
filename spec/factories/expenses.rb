@@ -3,6 +3,7 @@ FactoryBot.define do
     association(:supplier)
     association(:subcategory)
     association(:concept)
+    association(:blog)
     sequence(:name)  { |n| "Gasto #{n} for this project" }
     date             {Faker::Date.between(10.days.ago, 10.days.after)}
     sequence(:unity) { |n| "Unidad #{n} for this project"}

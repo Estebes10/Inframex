@@ -1,41 +1,101 @@
 <% provide(:title, 'Proyecto') %>
 <div class="masonry-item col-md-12">
   <!-- #Todo ==================== -->
-  <div class="bd bgc-white">
+  <div class="bd bgc-grey-100">
     <div class="layers">
-      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15" style="padding-bottom: 0px !important;">
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
                     projects_path
         %>
         <h5 class="float-left pL-15">Proyecto - <%= @project.name %> - <%= @project.code%></h5>
-        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-                      id="edit-project-button"">
-                      <i class="ti-pencil"></i>
-                      Editar datos
-                    </button>'.html_safe,
-                    edit_project_path(@project)
-        %>
-      </div>
-      <div class="layer w-100 p-20 text-center">
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Bitácoras</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Conceptos</a>
+        <nav class="float-right">
+          <div class="nav nav-tabs nav-fill" id="project-nav-tab" role="tablist">
+            <a class="nav-item nav-link active c-white" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">General</a>
+            <a class="nav-item nav-link c-white" id="nav-blogs-tab" data-toggle="tab" href="#nav-blogs" role="tab" aria-controls="nav-blogs" aria-selected="false">Bitácoras</a>
+            <a class="nav-item nav-link c-white" id="nav-concepts-tab" data-toggle="tab" href="#nav-concepts" role="tab" aria-controls="nav-concepts" aria-selected="false">Conceptos</a>
           </div>
         </nav>
+      </div>
+      <div class="layer w-100 p-20">
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <%= render "form" %>
+          <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+            <div class="row gap-20">
+              <div class="masonry-item col-md-6">
+                <div class="bd bgc-white">
+                  <div class="layers">
+                    <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+                      <h5 class="float-left">Datos Generales</h5>
+                      <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                        id="edit-project-button"">
+                        <i class="ti-pencil"></i>
+                        Editar
+                      </button>'.html_safe,
+                                  edit_project_path(@project)
+                      %>
+                    </div>
+                    <div class="layer w-100 p-20 text-center">
+                      <%= render "form" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="masonry-item col-md-6">
+              <div class="bd bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+                    <h5 class="float-left">Resumen de Avances</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                    <h6>Albañileria</h6>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated"
+                           role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                           aria-valuemax="100" style="width: 75%">75%</div>
+                    </div>
+                    <h6>Pintura</h6>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated"
+                           role="progressbar" aria-valuenow="23" aria-valuemin="0"
+                           aria-valuemax="100" style="width: 23%">23%</div>
+                    </div>
+                    <h6>Electricidad</h6>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated"
+                           role="progressbar" aria-valuenow="41" aria-valuemin="0"
+                           aria-valuemax="100" style="width: 41%">41%</div>
+                    </div>
+                    <h6>Gas</h6>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated"
+                           role="progressbar" aria-valuenow="15" aria-valuemin="0"
+                           aria-valuemax="100" style="width: 15%">15%</div>
+                    </div>
+                    <h6>Plomería</h6>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated"
+                           role="progressbar" aria-valuenow="29" aria-valuemin="0"
+                           aria-valuemax="100" style="width: 29%">29%</div>
+                    </div>
+                    <hr>
+                    <h6>Total</h6>
+                    <div class="progress">
+                      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                           role="progressbar" aria-valuenow="57" aria-valuemin="0"
+                           aria-valuemax="100" style="width: 57%">57%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
           </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <br>
+          <div class="tab-pane fade" id="nav-blogs" role="tabpanel" aria-labelledby="nav-blogs-tab">
             <%= render template: "blogs/index" %>
           </div>
-          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-              <h5> No hay registro de conceptos por el momento</h5>
+          <div class="tab-pane fade" id="nav-concepts" role="tabpanel" aria-labelledby="nav-concepts-tab">
+            <%= render template: "concepts/index" %>
           </div>
         </div>
       </div>

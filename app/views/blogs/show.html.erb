@@ -1,5 +1,5 @@
 <% provide(:title, 'Bitácora') %>
-<div class="masonry-item col-md-5">
+<div class="masonry-item col-md-4">
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
@@ -7,9 +7,9 @@
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
-                    project_path(id: @project)
+                    project_path(@project , :anchor => "nav-blogs")
         %>
-        <h5 class="float-left pL-15">Bitácora - <%= @blog.name + " - " + @blog.date.strftime("%d/%m/%Y") %></h5>
+        <h5 class="float-left pL-15">Bitácora - <%= @blog.name %></h5>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-blog-button2">
                       <i class="ti-pencil"></i>
@@ -17,7 +17,7 @@
                     edit_project_blog_path(project_id: @project, id: @blog)
         %>
         <button type="button" class="btn btn-outline-light float-right delete-blog btn-sm mR-5"
-                data-blog-id="<%= @blog.id %>">
+                data-blog-id="<%= @blog.id %>" data-project-id="<%= @project.id %>">
           <i class="ti-trash" aria-hidden="true"></i>
         </button>
 
@@ -29,8 +29,15 @@
   </div>
 </div>
 
-<div class="col-md-7">
+<div class="col-md-8">
   <div class="row gap-20">
+    <div class="masonry-item col-md-12">
+      <div class="bd bgc-white">
+        <div class="layers">
+          <%= render "expenses/index"%>
+        </div>
+      </div>
+    </div>
 
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">

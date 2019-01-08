@@ -4,12 +4,15 @@
     <div class="sidebar-logo">
       <div class="peers ai-c fxw-nw">
         <div class="peer peer-greed">
-          <a class="sidebar-link td-n" href="#">
-            <div class="peers ai-c fxw-nw">
+          <a class="sidebar-link td-n" href="/projects">
+            <div class="peers ai-c fxw-nw align-items-center">
               <div class="peer">
                 <div class="logo">
-                  <%= image_tag "logo2.png", :style => "height: 65px; width: 65px;" %>
+                  <%= image_tag "small_logo.png", :style => "height: 58px; width: 60px; padding: 5px;" %>
                 </div>
+              </div>
+              <div class="peer peer-greed">
+<!--                <h5 class="lh-1 mB-0 logo-text">Inframex</h5>-->
               </div>
             </div>
           </a>
@@ -29,7 +32,7 @@
       <li class="nav-item">
         <%= link_to raw('
           <span class="icon-holder">
-            <i class="c-blue-500 ti-email"></i>
+            <i class="c-blue-500 ti-home"></i>
           </span>
           <span class="title">Proyectos</span>
         ').html_safe, projects_path, class: "sidebar-link" %>

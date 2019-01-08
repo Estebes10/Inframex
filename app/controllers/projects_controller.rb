@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 
   before_action :set_project, only: [:edit, :update, :show, :destroy]
+  before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
     @projects = Project.order(:id)
@@ -76,6 +77,10 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+  end
+
+  def set_categories
+    @categories = Category.order(:name).all
   end
 
 end

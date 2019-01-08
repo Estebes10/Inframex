@@ -280,7 +280,7 @@ can infers the controller path and its corresponding action.
 ```ruby
 require 'rails_helper'
 
-RSpec.describe 'blogs/index.html.erb', type: :view do
+RSpec.describe '_index.html.erb', type: :view do
 
   context 'with 2 blogs' do
     before(:each) do

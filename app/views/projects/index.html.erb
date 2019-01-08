@@ -33,7 +33,10 @@
                     </p>
                     <p class="card-text">
                       <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: <%= Random.rand(100)%>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= Random.rand(100)%>%</div>
+                        <% rand = Random.rand(100)%>
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                             role="progressbar" style="width: <%= rand %>%;"
+                             aria-valuenow="<%= rand %>" aria-valuemin="0" aria-valuemax="100"><%= rand %>%</div>
                       </div>
                     </p>
                     <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">

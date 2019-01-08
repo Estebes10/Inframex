@@ -54,7 +54,11 @@
   <% if !@readonly %>
     <div id="form-footer-blog">
       <hr>
-      <%= link_to 'Cancelar', :back, class: 'btn btn-outline-danger' %>
+      <% if @create %>
+        <%= link_to 'Cancelar', project_path(@project , :anchor => "nav-blogs"), class: 'btn btn-outline-danger' %>
+      <% else %>
+        <%= link_to 'Cancelar', project_blog_path(@project, @blog), class: 'btn btn-outline-danger' %>
+      <% end %>
       <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
     </div>
   <% end %>
