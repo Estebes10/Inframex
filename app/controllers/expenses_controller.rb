@@ -109,7 +109,6 @@ class ExpensesController < ApplicationController
   end
 
   def select_objects
-    #@expense = @blog.expenses.find_by!(id: params[:id]) if @blog
     @concept_id = @expense.concept_id
     @subcategory_id = @expense.subcategory_id
   end
