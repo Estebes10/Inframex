@@ -1,3 +1,29 @@
+<div class="row">
+  <div class="col-lg-10 offset-lg-1">
+    <table class="table hover">
+      <tr>
+        <td colspan="2">Cantidad del concepto:</td>
+        <td></td>
+        <td><%= number_with_delimiter(@concept.quantity) %> <%= @concept.unity %></td>
+      </tr>
+      <tr>
+        <td colspan="2">Cantidad avanzada en trabajos aprobados:</td>
+        <td></td>
+        <td class="text-success"><%= number_with_delimiter(@concept.sum_jobs_quantity_by_status(true)) %> <%= @concept.unity %></td>
+      </tr>
+      <tr>
+        <td colspan="2">Cantidad avanzada en trabajos no aprobados:</td>
+        <td class="text-danger"><%= number_with_delimiter(@concept.sum_jobs_quantity_by_status(false)) %> <%= @concept.unity %></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="2"><strong>Cantidad restante:</strong></td>
+        <td></td>
+        <td><strong><%= number_with_delimiter(@concept.quantity - @concept.sum_jobs_quantity_by_status(true)) %> <%= @concept.unity %></strong></td>
+      </tr>
+    </table>
+  </div>
+</div>
 <%= form_for [@project, @blog, @job] do |f| %>
   <%= render 'layouts/errors_form', object: @job %>
   <div class="modal-body">

@@ -16,4 +16,6 @@ class Job < ApplicationRecord
             presence: {with: true, message: "no puede estar vacío"},
             numericality:{with: true, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
 
+
+
 end

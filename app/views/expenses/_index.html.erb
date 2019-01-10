@@ -87,8 +87,13 @@
       </tbody>
       <tfooter>
         <tr class="bgc-blue-grey-900">
+          <td class="c-white text-left" colspan="3"><strong>Total Aprobado</strong></td>
+          <td class="c-white"><strong><%= number_to_currency(@blog.sum_expenses_by_status(true)) %></strong></td>
+          <td colspan="3"></td>
+        </tr>
+        <tr class="bgc-blue-grey-900">
           <td class="c-white text-left" colspan="3"><strong>Total</strong></td>
-          <td class="c-white"><strong><%= number_to_currency(@blog.sum_total_expenses) %></strong></td>
+          <td class="c-white"><strong><%= number_to_currency(@blog.sum_all_expenses) %></strong></td>
           <td colspan="3"></td>
         </tr>
       </tfooter>

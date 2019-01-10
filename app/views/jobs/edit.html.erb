@@ -14,20 +14,6 @@
         </div>
       </div>
       <div class="layer w-100 p-20">
-        <table class="table">
-          <tr>
-            <td>Cantidad del concepto:</td>
-            <td><%= number_with_delimiter(@concept.quantity) %> <%= @concept.unity %></td>
-          </tr>
-          <tr>
-            <td>Cantidad avanzada en trabajos:</td>
-            <td><%= number_with_delimiter(@concept.sum_jobs_quantity) %> <%= @concept.unity %></td>
-          </tr>
-          <tr>
-            <td><strong>Cantidad restante:</strong></td>
-            <td><strong><%= number_with_delimiter(@concept.quantity - @concept.sum_jobs_quantity) %> <%= @concept.unity %></strong></td>
-          </tr>
-        </table>
         <%= render "form" %>
       </div>
     </div>
