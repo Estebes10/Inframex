@@ -83,6 +83,8 @@ RSpec.describe ExpensesController, type: :controller do
 
       let(:valid_attributes) do
         {
+          project_id: @project.id,
+          blog_id: @blog.id,
             expense: {
                 name:        Faker::Lorem.characters(100),
                 date:        Date.today,
@@ -100,7 +102,7 @@ RSpec.describe ExpensesController, type: :controller do
       before(:each) do
         post(
             :create,
-            params: { project_id: @project.id, blog_id: @blog.id, expense: valid_attributes }
+            params: valid_attributes
         )
       end
 

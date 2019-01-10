@@ -31,10 +31,10 @@ class Concept < ApplicationRecord
             presence: {with: true, message: "no puede estar vacío"},
             numericality: {with: true, only_integer: false }, :on => [:create ,:update]
 
-  private
+  protected
 
   def calculate_total
-    self.total = self.quantity * self.unit_price
+    self.total ||= self.quantity * self.unit_price if attribute_present?("quantity") and attribute_present?("unit_price")
   end
 
 end
