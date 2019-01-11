@@ -4,7 +4,7 @@ FactoryBot.define do
     association(:subcategory)
     association(:concept)
     association(:blog)
-    sequence(:name)  { |n| "Gasto #{n} for this project" }
+    sequence(:name)  { |n| "Gasto #{n} for this project" + Faker::Lorem.characters(15)}
     date             {Faker::Date.between(10.days.ago, 10.days.after)}
     sequence(:unity) { |n| "Unidad #{n} for this project"}
     unit_price       {Faker::Number.decimal(5,2)}

@@ -23,11 +23,12 @@ RSpec.describe 'routes for jobs', :type => :routing do
     end
 
     it 'routes /blogs to blogs controller' do
-      expect(get('/projects/:project_id/blogs/:blog_id/jobs/new')).to route_to(
+      expect(get('/projects/:project_id/blogs/:blog_id/jobs/new/:concept_id')).to route_to(
         :controller => "jobs",
         :action => "new",
         :project_id => ":project_id",
-        :blog_id => ":blog_id"
+        :blog_id => ":blog_id",
+        :concept_id => ":concept_id"
       )
     end
   end

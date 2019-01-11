@@ -36,10 +36,6 @@ RSpec.describe CategoriesController, type: :controller do
   describe 'GET new' do
 
     context 'when user has permissions' do
-      it "renders the new template" do
-        get :new, xhr: true, format: :js
-        expect(response).to render_template(:new)
-      end
 
       it "returns http success" do
       post :index, xhr: true, format: :js
@@ -94,10 +90,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display a success message' do
-        #expect(flash[:success]).to match(/ Éxito al crear la bitácora*/)
-        #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
@@ -123,12 +115,9 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       it 'renders new template' do
-        expect(response).to render_template('new')
+        expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display an error message' do
-        #expect(flash[:danger]).to be_present
-      #end
     end
   end
 
@@ -172,10 +161,6 @@ RSpec.describe CategoriesController, type: :controller do
               params: { id: -124 }
           )
         end
-
-        #it 'should respond with not found code' do
-          #expect(response).to have_http_status(404)
-        #end
 
       end
     end
@@ -228,10 +213,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display a success message' do
-        #expect(flash[:success]).to match(/ Bitácora modificada correctamente*/)
-        #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
@@ -264,35 +245,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).not_to be_a_new(Category)
       end
 
-      it 'renders edit template' do
-        expect(response).to render_template("edit")
-      end
-
-      #it 'must display an error message' do
-        #expect(flash[:error]).to be_present
-        #expect(flash[:error]).to match(/ Error al modificar la bitácora*/)
-      #end
-    end
-  end
-
-  describe "DELETE destroy" do
-
-    before(:each) do
-      @category_example_delete = FactoryBot.create(:category, name: 'delete test')
-    end
-
-    context 'when user has permissions' do
-
-      #it "destroys the requested blog" do
-        #expect do
-          #delete :destroy, params: {:id => @category_example_delete.to_param}
-        #end.to change(Category, :count).by(-1)
-      #end
-
-    end
-
-    context 'when user has not permissions' do
-      it 'show unauthorized message'
     end
   end
 

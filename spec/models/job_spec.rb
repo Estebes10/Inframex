@@ -26,15 +26,6 @@ RSpec.describe Job, type: :model do
     expect(job_example).not_to be_valid
   end
 
-  # validate uniqueness for name attribute
-  it 'is not valid if the name is not unique' do
-    # Create a previous record using the same name of blog example and then try
-    # to save the blog example
-    FactoryBot.create(:job, name: job_example.name)
-
-    expect(job_example).not_to be_valid
-  end
-
   # Set of tests to validate associations
   it 'belongs to blog' do
     should belong_to(:blog)
