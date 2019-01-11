@@ -16,6 +16,13 @@ $( document ).on('ready turbolinks:load', function() {
     });
 });
 
+function submitGetNewJobForm(projectId, blogId) {
+    const conceptId = $('#concept_id').val();
+    const url = '/projects/' + projectId + '/blogs/' + blogId + '/jobs/new/' + conceptId;
+    $(location).attr('href',url);
+    return false;
+}
+
 function deleteJob(jobId, blogId, projectId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",

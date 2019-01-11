@@ -1,3 +1,3 @@
-600.times do
+2000.times do
   FactoryBot.create(:blog)
 end

@@ -24,4 +24,12 @@ class Blog < ApplicationRecord
   validates :status,
     inclusion: { in: [true, false] } # validate presence for booleans
 
+  def sum_expenses_by_status(status)
+    expenses.where("expenses.status = " + (status ? "true" : "false")).sum(:total)
+  end
+
+  def sum_all_expenses
+    expenses.sum(:total)
+  end
+
 end

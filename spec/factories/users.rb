@@ -8,7 +8,7 @@ FactoryBot.define do
     email    {Faker::Internet.email}
     phone    {Faker::PhoneNumber.cell_phone}
     status   {Faker::Boolean.boolean}
-    role_id {Faker::Number.between(1, Role.all.length)}
+    role_id  {Role.all.ids.sample}
     # association(:role)
   end
 end

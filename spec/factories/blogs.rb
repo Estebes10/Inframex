@@ -6,6 +6,6 @@ FactoryBot.define do
     status      {Faker::Boolean.boolean}
     sequence(:comments) { |n| "Comentario #{n}: " + Faker::Lorem.paragraph}
     # association(:project)
-    project_id {Faker::Number.between(1, Project.all.length)}
+    project_id {Project.all.ids.sample}
   end
 end

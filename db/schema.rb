@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_27_230632) do
+ActiveRecord::Schema.define(version: 2019_01_07_152706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,10 @@ ActiveRecord::Schema.define(version: 2018_12_27_230632) do
     t.bigint "blog_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "concept_id"
+    t.decimal "quantity"
     t.index ["blog_id"], name: "index_jobs_on_blog_id"
+    t.index ["concept_id"], name: "index_jobs_on_concept_id"
   end
 
   create_table "privileges", force: :cascade do |t|
@@ -148,6 +151,7 @@ ActiveRecord::Schema.define(version: 2018_12_27_230632) do
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
   add_foreign_key "jobs", "blogs"
+  add_foreign_key "jobs", "concepts"
   add_foreign_key "roleprivileges", "privileges"
   add_foreign_key "roleprivileges", "roles"
   add_foreign_key "user_projects", "projects"

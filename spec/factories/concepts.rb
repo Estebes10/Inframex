@@ -2,10 +2,10 @@ FactoryBot.define do
   factory :concept do
     code             {Faker::Name.initials(6)}
     description      {Faker::Lorem.paragraph}
-    quantity         {Faker::Number.decimal(4,2)}
+    quantity         {Faker::Number.decimal(3,2)}
     unity            {["m2", "kg", "L", "m"].sample}
-    unit_price       {Faker::Number.decimal(5,2)}
-    project_id       {Faker::Number.between(1, Project.all.length)}
-    category_id      {Faker::Number.between(1, Category.all.length)}
+    unit_price       {Faker::Number.between(from = 2.00, to = 100.00)}
+    project_id       {Project.all.ids.sample}
+    category_id      {Category.all.ids.sample}
   end
 end

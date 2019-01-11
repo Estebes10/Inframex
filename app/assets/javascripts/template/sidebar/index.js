@@ -43,7 +43,9 @@ $(function () {
 
         // Sidebar Activity Class
         const sidebarLinks = $('.sidebar').find('.sidebar-link');
+        let found_href = 0;
 
+        // search complete match:
         sidebarLinks
             .each((index, el) => {
                 $(el).removeClass('active');
@@ -51,9 +53,24 @@ $(function () {
             .filter(function () {
                 const href = $(this).attr('href');
                 const pattern = href[0] === '/' ? href.substr(1) : href;
+                found_href += (pattern === (window.location.pathname).substr(1));
                 return pattern === (window.location.pathname).substr(1);
             })
             .addClass('active');
+
+        // if complete match not found, search substring match:
+        if(!found_href) {
+            sidebarLinks
+                .each((index, el) => {
+                    $(el).removeClass('active');
+                })
+                .filter(function () {
+                    const href = $(this).attr('href');
+                    const pattern = href[0] === '/' ? href.substr(1) : href;
+                    return (window.location.pathname).substr(1).includes(pattern);
+                })
+                .addClass('active');
+        }
 
         // ٍSidebar Toggle
         $('.sidebar-toggle').on('click', e => {

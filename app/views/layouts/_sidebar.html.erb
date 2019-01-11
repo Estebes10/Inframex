@@ -49,34 +49,23 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <%= link_to "Buscar", users_url , class: "sidebar-link"%>
+            <%= link_to "Usuarios", users_path , class: "sidebar-link"%>
           </li>
           <li>
-            <%= link_to "Nuevo", new_user_url , class: "sidebar-link"%>
+            <%= link_to "Registrar Usuario", new_user_path , class: "sidebar-link"%>
           </li>
           <li>
             <%= link_to "Roles", roles_path , class: "sidebar-link"%>
           </li>
         </ul>
       </li>
-      <li class="nav-item dropdown">
-        <a class="dropdown-toggle" href="javascript:void(0);">
-                  <span class="icon-holder">
-                    <i class="c-blue-500 ti-clipboard"></i>
-                  </span>
-          <span class="title">Catálogos</span>
-          <span class="arrow">
-                    <i class="ti-angle-right"></i>
-                  </span>
+      <li class="nav-item">
+        <a class='sidebar-link' href="/categories">
+                <span class="icon-holder">
+                  <i class="c-blue-500 ti-clipboard"></i>
+                </span>
+          <span class="title">Categorías</span>
         </a>
-        <ul class="dropdown-menu">
-          <li>
-            <a class='sidebar-link' href="#">Buscar</a>
-          </li>
-          <li>
-            <a class='sidebar-link' href="#">Nuevo</a>
-          </li>
-        </ul>
       </li>
       <li class="nav-item">
         <a class='sidebar-link' href="#">
