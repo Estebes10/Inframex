@@ -1,0 +1,5 @@
+Category.create(name: 'Albañileria')
+Category.create(name: 'Pintura')
+Category.create(name: 'Electricidad')
+Category.create(name: 'Gas')
+Category.create(name: 'Plomería')
