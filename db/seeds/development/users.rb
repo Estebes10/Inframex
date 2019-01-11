@@ -11,3 +11,8 @@ if !User.find_by(email: 'super@admin.com')
                                  role_id: 1
                              })
 end
+
+100.times do
+  FactoryBot.create(:user)
+end
+

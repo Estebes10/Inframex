@@ -1,4 +1,4 @@
-Category.create(name: 'Albañileria')
+Category.create(name: 'Albañilería')
 Category.create(name: 'Pintura')
 Category.create(name: 'Electricidad')
 Category.create(name: 'Gas')
