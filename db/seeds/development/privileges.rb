@@ -3,7 +3,7 @@ if !Privilege.find_by(name: 'Consultar')
                                      # Privilegios de Usuarios
                                      {
                                          name: 'Consultar',
-                                         description: 'Consultar la lista deusuarios y el perfil de cada usuario',
+                                         description: 'Consultar la lista de usuarios y el perfil de cada usuario',
                                          str_id: 'user_1',
                                          module_name: 'Usuarios'
                                      },
@@ -67,6 +67,208 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Eliminar rol de usuario',
                                          str_id: 'rbac_6',
                                          module_name: 'Rbac'
+                                     },
+                                     # Privilegios de categorías
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear una nueva categoría en el sistema',
+                                         str_id: 'category_1',
+                                         module_name: 'Categorías'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar categoría en el sistema',
+                                         str_id: 'category_2',
+                                         module_name: 'Categorías'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar categoría del sistema',
+                                         str_id: 'category_3',
+                                         module_name: 'Categorías'
+                                     },
+                                     # Privilegios de subcategorías
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear una nueva subcategoría en el sistema',
+                                         str_id: 'subcategory_1',
+                                         module_name: 'Subcategorías'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar subcategoría en el sistema',
+                                         str_id: 'subcategory_2',
+                                         module_name: 'Subcategorías'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar subcategoría del sistema',
+                                         str_id: 'subcategory_3',
+                                         module_name: 'Subcategorías'
+                                     },
+                                     # Privilegios de Proyectos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los proyectos y entrar a cada uno',
+                                         str_id: 'project_1',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo proyecto en el sistema',
+                                         str_id: 'project_2',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar proyecto en el sistema',
+                                         str_id: 'project_3',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar proyecto del sistema',
+                                         str_id: 'project_4',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar proyecto en el sistema',
+                                         str_id: 'project_5',
+                                         module_name: 'Proyectos'
+                                     },
+                                     # Privilegios de Bitácoras
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar las bitácoras y entrar a cada uno',
+                                         str_id: 'blog_1',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear una nueva bitácora en el sistema',
+                                         str_id: 'blog_2',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar bitácora en el sistema',
+                                         str_id: 'blog_3',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar bitácora del sistema',
+                                         str_id: 'blog_4',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar bitácora en el sistema',
+                                         str_id: 'blog_5',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     #28
+                                     # Privilegios de Conceptos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los conceptos y entrar a cada uno',
+                                         str_id: 'concept_1',
+                                         module_name: 'Conceptos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo concepto en el sistema',
+                                         str_id: 'concept_2',
+                                         module_name: 'Conceptos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar concepto en el sistema',
+                                         str_id: 'concept_3',
+                                         module_name: 'Conceptos'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar concepto del sistema',
+                                         str_id: 'concept_4',
+                                         module_name: 'Conceptos'
+                                     },
+                                     # Privilegios de Gastos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los gastos y entrar a cada uno',
+                                         str_id: 'expenses_1',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo gasto en el sistema',
+                                         str_id: 'expenses_2',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar gasto en el sistema',
+                                         str_id: 'expenses_3',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar gasto del sistema',
+                                         str_id: 'expenses_4',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Aprobar / Desaprobar gasto en el sistema',
+                                         str_id: 'expenses_5',
+                                         module_name: 'Gastos'
+                                     },
+                                     # Privilegios de Trabajos
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo trabajo en el sistema',
+                                         str_id: 'job_1',
+                                         module_name: 'Trabajos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar trabajo en el sistema',
+                                         str_id: 'job_2',
+                                         module_name: 'Trabajos'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar trabajo del sistema',
+                                         str_id: 'job_3',
+                                         module_name: 'Trabajos'
+                                     },
+                                     # Privilegios de Archivos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los archivos y entrar a cada uno',
+                                         str_id: 'file_1',
+                                         module_name: 'Archivos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo archivo en el sistema',
+                                         str_id: 'file_2',
+                                         module_name: 'Archivos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar archivo en el sistema',
+                                         str_id: 'file_3',
+                                         module_name: 'Archivos'
+                                     },
+                                     #43
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar archivo del sistema',
+                                         str_id: 'file_4',
+                                         module_name: 'Archivos'
                                      }
                                  ]
   )
