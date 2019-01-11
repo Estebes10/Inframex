@@ -1,16 +1,15 @@
 FactoryBot.define do
   factory :expense do
-    association(:supplier)
-    association(:subcategory)
-    association(:concept)
-    association(:blog)
-    sequence(:name)  { |n| "Gasto #{n} for this project" }
-    date             {Faker::Date.between(10.days.ago, 10.days.after)}
-    sequence(:unity) { |n| "Unidad #{n} for this project"}
+    sequence(:name)  { |n| "Gasto #{n}" }
+    date             {Faker::Date.between(100.days.ago, 100.days.after)}
+    unity            {["m2", "kg", "L", "m"].sample}
     unit_price       {Faker::Number.decimal(5,2)}
-    total            {Faker::Number.decimal(7,2)}
     quantity         {Faker::Number.decimal(3,2)}
-    status {true}
-    status_ticket {true}
+    status           {Faker::Boolean.boolean}
+    status_ticket    {Faker::Boolean.boolean}
+    supplier_id      {Faker::Number.between(1, Supplier.all.length)}
+    subcategory_id   {Faker::Number.between(1, Subcategory.all.length)}
+    concept_id       {Faker::Number.between(1, Concept.all.length)}
+    blog_id          {Faker::Number.between(1, Blog.all.length)}
   end
 end
