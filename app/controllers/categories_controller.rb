@@ -5,22 +5,23 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.all.order(:name)
     @subcategories = Subcategory.all.order(:name)
+    # new category and subcategory for modal partials
+    @category = Category.new
+    @subcategory = Subcategory.new
   end
 
   def new
-    @category = Category.new
   end
 
   def create
     @category = Category.new(category_param)
-
     if @category.save
-      flash[:success] = ' Éxito al crear la categoría'
-      redirect_to action: 'index'
+      flash[:success] = ' Éxito al crear la categoría. '
     else
-      flash[:error] = ' Error al crear la categoría'
-      render action: 'new'
+      flash[:danger] = ' Error al crear la categoría. '
+      set_flash_errors(@category)
     end
+    redirect_to action: 'index'
   end
 
   def edit
@@ -28,12 +29,12 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update_attributes(category_param)
-      flash[:success] = ' Categoría modificado correctamente'
-      redirect_to action: 'index'
+      flash[:success] = ' Categoría modificada correctamente. '
     else
-      flash[:error] = ' Error al modificar categoría'
-      render action: 'edit'
+      flash[:danger] = ' Error al modificar categoría. '
+      set_flash_errors(@category)
     end
+    redirect_to action: 'index'
   end
 
   def destroy_ajax
@@ -54,5 +55,13 @@ class CategoriesController < ApplicationController
 
   def set_category
     @category = Category.find(params[:id])
+  end
+
+  def set_flash_errors(object)
+    if object.errors.any?
+      object.errors.full_messages.each do |msg|
+        flash[:danger] += (msg + ". ")
+      end
+    end
   end
 end

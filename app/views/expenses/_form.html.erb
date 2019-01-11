@@ -19,8 +19,8 @@
           </div>
 
           <div class="col-md-6 mT-15">
-            <%= f.label :concept_id, "* Clave del concepto:" %>
-            <%= f.select(:concept_id, options_for_select(@concepts.map{|s|[s.code, s.id]}, @concept_id),
+            <%= f.label :concept_id, "#{@required_str}Clave y descripción del concepto:" %>
+            <%= f.select(:concept_id, options_for_select(@concepts.map{|s|[s.code + ", " + s.description, s.id]}, @concept_id),
                          {:include_blank => 'Seleccione un concepto'},
                          {:class => 'form-control', :required => 'true', :disabled => @read_only}) %>
           </div>

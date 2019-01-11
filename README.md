@@ -64,6 +64,11 @@ Application settings:
   rails g model Blog name:string status:boolean due_date:date days:integer
 ```
 
+### generate migration to create 1 to n relationship
+```shell
+rails g migration AddConceptToJobs concept:references
+```
+
 ### run migration to create table in database or update existing tables
 ```shell
   rails db:migrate

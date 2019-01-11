@@ -46,17 +46,17 @@
                             <td><%= concept.code-%></td>
                             <td><%= concept.category.name-%></td>
                             <td><%= concept.description-%></td>
-                            <td><%= concept.quantity-%></td>
+                            <td><%= number_with_delimiter(concept.quantity) -%></td>
                             <td><%= concept.unity-%></td>
-                            <td><%= concept.unit_price-%></td>
-                            <td><%= concept.total-%></td>
+                            <td><%= number_to_currency(concept.unit_price)-%></td>
+                            <td class="text-right"><%= number_to_currency(concept.total)-%></td>
                             <td>
                               <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                                       <i class="ti-eye icon-white" aria-hidden="true"></i>
-                                      </button>').html_safe, {controller: :concepts, action: :show, :id => concept.id, :project_id => @project.id} %>
+                                      </button>').html_safe, project_concept_path(:project_id => @project.id, :id => concept.id) %>
                               <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                                       <i class="ti-pencil" aria-hidden="true"></i>
-                                     </button>').html_safe, {controller: :concepts, action: :edit, :id => concept.id, :project_id => @project.id} %>
+                                     </button>').html_safe, edit_project_concept_path(:project_id => @project.id, :id => concept.id) %>
                               <button type="button" class="btn btn-outline-danger btn-circle delete-concept-ajax"
                                       data-concept-id="<%= concept.id %>" data-project-id="<%= @project.id %>">
                                 <i class="ti-trash" aria-hidden="true"></i>
@@ -67,8 +67,8 @@
                       </tbody>
                       <tfooter>
                         <tr class="bgc-blue-grey-900">
-                          <td class="c-white" colspan="6"><strong>Total de <%= c.name %></strong></td>
-                          <td class="c-white"><strong><%= c.concepts.sum(:total) %></strong></td>
+                          <td class="c-white text-left" colspan="6"><strong>Total de <%= c.name %></strong></td>
+                          <td class="c-white text-right"><strong><%= number_to_currency(c.concepts.sum(:total)) %></strong></td>
                           <td></td>
                         </tr>
                       </tfooter>

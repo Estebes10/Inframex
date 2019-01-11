@@ -11,6 +11,7 @@ class BlogsController < ApplicationController
     @readonly = true
     @create = false
     @required_str = ""
+    @concepts = @project.concepts.order(:code)
     @expenses = @blog.expenses.order(:name).all
   end
 

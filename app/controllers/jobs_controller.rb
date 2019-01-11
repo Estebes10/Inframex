@@ -2,21 +2,17 @@ class JobsController < ApplicationController
 
   before_action :set_project
   before_action :set_blog
-  before_action :set_job, only: [:show, :update, :edit, :destroy]
+  before_action :set_job, only: [:update, :edit, :destroy]
 
   def index
-    @jobs = @blog.jobs
   end
 
   def new
     @readonly = false
     @create = true
     @job = @blog.jobs.new
-  end
-
-  def show
-    @readonly = true
-    @create = false
+    @concept = Concept.find(params[:concept_id])
+    render :new
   end
 
   def create
@@ -28,7 +24,7 @@ class JobsController < ApplicationController
       flash.now[:danger] = ' Error al crear el trabajo'
       @readonly = false
       @create = true
-      # @roles = Role.all
+      @concept = Concept.find(params[:concept_id])
       render action: :new
     end
   end
@@ -36,6 +32,7 @@ class JobsController < ApplicationController
   def edit
     @readonly = false
     @create = false
+    @concept = @job.concept
   end
 
   def update
@@ -55,7 +52,9 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:name)
+    params.require(:job).permit(:name,
+                                :quantity,
+                                :concept_id)
   end
 
   def set_project
@@ -64,7 +63,6 @@ class JobsController < ApplicationController
 
   def set_blog
     @blog = @project.blogs.find_by!(id: params[:blog_id]) if @project
-    #@blog = Blog.find(params[:blog_id])
   end
 
   # find current job
