@@ -68,7 +68,9 @@
                       <tfooter>
                         <tr class="bgc-blue-grey-900">
                           <td class="c-white text-left" colspan="6"><strong>Total de <%= c.name %></strong></td>
-                          <td class="c-white text-right"><strong><%= number_to_currency(c.concepts.sum(:total)) %></strong></td>
+                          <td class="c-white text-right"><strong>
+                            <%= number_to_currency(c.concepts.where("project_id = #{@project.id}").sum(:total)) %>
+                          </strong></td>
                           <td></td>
                         </tr>
                       </tfooter>

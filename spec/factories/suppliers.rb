@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :supplier do
-    sequence(:name) { |n| "Proveedor #{n} for this project" }
+    sequence(:name) { |n| Faker::Company.name + " #{n}" }
   end
 end
