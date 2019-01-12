@@ -119,6 +119,10 @@ RSpec.describe UsersController, type: :controller do
       sign_in
     end
 
+    before(:each) do
+      @role = FactoryBot.create(:role)
+    end
+
     context 'with valid attributes' do
 
       let(:valid_attributes) do
@@ -129,7 +133,8 @@ RSpec.describe UsersController, type: :controller do
             password: 'contrasena',
             email:    'messi10@example.com',
             birthday: Date.today - 30.years,
-            phone:    '4428428989'
+            phone:    '4428428989',
+            role_id:  @role.id
           }
         }
       end

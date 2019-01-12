@@ -11,6 +11,8 @@ class BlogsController < ApplicationController
     @readonly = true
     @create = false
     @required_str = ""
+    @concepts = @project.concepts.order(:code)
+    @expenses = @blog.expenses.order(:name).all
   end
 
   def new
@@ -26,7 +28,7 @@ class BlogsController < ApplicationController
     @blog = @project.blogs.new(blog_params)
     if @blog.save
       flash[:success] = ' Éxito al crear la bitácora'
-      redirect_to project_url(@project)
+      redirect_to project_blog_path(project_id: @project, id: @blog)
     else
       flash.now[:danger] = ' Error al crear la bitácora'
       @readonly = false
@@ -45,7 +47,7 @@ class BlogsController < ApplicationController
   def update
     if @blog.update_attributes(blog_params)
       flash[:success] = ' Bitácora modificada correctamente'
-      redirect_to project_blog_url(project_id: @project, id: @blog)
+      redirect_to project_blog_path(project_id: @project, id: @blog)
     else
       flash[:error] = ' Error al modificar la bitácora'
       @readonly = false
@@ -59,6 +61,8 @@ class BlogsController < ApplicationController
     if @blog.jobs.count > 0
       # remove all jobs
       @blog.jobs.destroy_all
+      # remove all expenses
+      @blog.expenses.destroy_all
     end
     @blog.destroy
   end
@@ -67,12 +71,14 @@ class BlogsController < ApplicationController
     if @blog.jobs.count > 0
       # remove all jobs
       @blog.jobs.destroy_all
+      # remove all expenses
+      @blog.expenses.destroy_all
     end
     if @blog.destroy
       flash[:success] = ' Se ha eliminado la bitácora correctamente'
-      redirect_to action: :index
+      redirect_to project_path(@project , :anchor => "nav-blogs")
     else
-      flash[:error] = ' No se ha podido eliminar la bitácora'
+      flash.now[:error] = ' No se ha podido eliminar la bitácora'
       render :show
     end
   end

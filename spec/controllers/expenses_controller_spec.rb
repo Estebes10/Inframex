@@ -2,31 +2,6 @@ require 'rails_helper'
 
 RSpec.describe ExpensesController, type: :controller do
 
-  describe 'GET index' do
-
-    context 'when user has permissions' do
-      it "assigns @expenses" do
-        expenses = Expense.all
-        get :index
-        expect(assigns(:expenses)).to eq(expenses)
-      end
-
-      it "renders the index template" do
-        get :index
-        expect(response).to render_template(:index)
-      end
-
-      it "returns http success" do
-        get :index
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    context 'when user has not permissions' do
-      it 'must redirects to another page'
-    end
-  end
-
   describe 'GET show' do
 
     context 'when user has permissions' do
@@ -35,12 +10,14 @@ RSpec.describe ExpensesController, type: :controller do
 
         before(:each) do
           @expense_example = FactoryBot.create(:expense)
+          @blog = @expense_example.blog
+          @project = @blog.project
         end
 
         before(:each) do
           get(
               :show,
-              params: { id: @expense_example.id }
+              params: { project_id: @project.id, blog_id: @blog.id, id: @expense_example.id }
           )
         end
 
@@ -67,17 +44,28 @@ RSpec.describe ExpensesController, type: :controller do
   describe 'GET new' do
 
     context 'when user has permissions' do
+
+      before(:each) do
+        @blog = FactoryBot.create(:blog)
+        @project = @blog.project
+      end
+
       it "renders the new template" do
-        get :new
+        get(
+            :new,
+            params: { project_id: @project.id, blog_id: @blog.id }
+        )
         expect(response).to render_template(:new)
       end
 
       it "returns http success" do
-        get :new
+        get(
+            :new,
+            params: { project_id: @project.id, blog_id: @blog.id }
+        )
         expect(response).to have_http_status(:success)
       end
 
-      it { should route(:get, '/expenses/new').to(action: :new) }
     end
 
     context 'when user has not permissions' do
@@ -88,16 +76,20 @@ RSpec.describe ExpensesController, type: :controller do
   describe 'POST create' do
 
     context 'with valid attributes' do
-
+      before(:each) do
+        @blog = FactoryBot.create(:blog)
+        @project = @blog.project
+      end
 
       let(:valid_attributes) do
         {
+          project_id: @project.id,
+          blog_id: @blog.id,
             expense: {
                 name:        Faker::Lorem.characters(100),
                 date:        Date.today,
                 unity:       'kgs',
                 unit_price:  10.50,
-                total:       100.50,
                 quantity:    10,
                 status:      true,
                 status_ticket: true,
@@ -128,18 +120,16 @@ RSpec.describe ExpensesController, type: :controller do
       end
 
       it 'redirects to index view' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template(:new)
       end
 
-      #it 'must display a success message' do
-        #expect(flash[:success]).to match(/ Éxito al crear la bitácora*/)
-        #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
+      before(:each) do
+        @blog = FactoryBot.create(:blog)
+        @project = @blog.project
+      end
 
       let(:not_valid_attributes) do
         {
@@ -148,7 +138,6 @@ RSpec.describe ExpensesController, type: :controller do
                 date:        Date.today,
                 unity:       'kgs',
                 unit_price:  10.50,
-                total:       100.50,
                 quantity:    10,
                 status:      true,
                 status_ticket: true,
@@ -161,7 +150,7 @@ RSpec.describe ExpensesController, type: :controller do
       before(:each) do
         post(
             :create,
-            params: not_valid_attributes
+            params: { project_id: @project.id, blog_id: @blog.id, expense: not_valid_attributes }
         )
       end
 
@@ -170,14 +159,9 @@ RSpec.describe ExpensesController, type: :controller do
       end
 
       it 'renders new template' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template("new")
       end
 
-      #it 'must display an error message' do
-        #expect(flash[:danger]).to be_present
-      #end
     end
   end
 
@@ -189,12 +173,14 @@ RSpec.describe ExpensesController, type: :controller do
 
         before(:each) do
           @expense_example = FactoryBot.create(:expense)
+          @blog = @expense_example.blog
+          @project = @blog.project
         end
 
         before(:each) do
           get(
               :edit,
-              params: { id: @expense_example }
+              params: { project_id: @project.id, blog_id: @blog.id, id: @expense_example.id }
           )
         end
 
@@ -224,6 +210,8 @@ RSpec.describe ExpensesController, type: :controller do
 
       before(:each) do
         @expense_example_update = FactoryBot.create(:expense)
+        @blog = @expense_example_update.blog
+        @project = @blog.project
       end
 
       let(:valid_attributes) do
@@ -232,7 +220,6 @@ RSpec.describe ExpensesController, type: :controller do
                 date:        Date.today,
                 unity:       'kgs',
                 unit_price:  10.50,
-                total:       100.50,
                 quantity:    10,
                 status:      true,
                 status_ticket: true,
@@ -244,7 +231,8 @@ RSpec.describe ExpensesController, type: :controller do
       before(:each) do
         put(
             :update,
-            params: {:id => @expense_example_update.to_param, :expense => valid_attributes}
+            params: {:project_id => @project.id, :blog_id => @blog.id,
+                     :id => @expense_example_update.to_param, :expense => valid_attributes}
         )
       end
 
@@ -258,7 +246,6 @@ RSpec.describe ExpensesController, type: :controller do
 
       it 'update the attributes' do
         # compare if the record saved is the same that valid attributes
-        expect(assigns(:expense).name).to eq(valid_attributes[:name])
         expect(assigns(:expense).date).to eq(valid_attributes[:date])
         expect(assigns(:expense).unity).to eq(valid_attributes[:unity])
         expect(assigns(:expense).unit_price).to eq(valid_attributes[:unit_price])
@@ -273,21 +260,17 @@ RSpec.describe ExpensesController, type: :controller do
       end
 
       it 'redirects to expense view' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template(:edit)
       end
 
-      #it 'must display a success message' do
-        #expect(flash[:success]).to match(/ Bitácora modificada correctamente*/)
-        #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
 
       before(:each) do
         @expense_example_update = FactoryBot.create(:expense, name: 'update test')
+        @blog = @expense_example_update.blog
+        @project = @blog.project
       end
 
       # send string to blog date
@@ -297,7 +280,6 @@ RSpec.describe ExpensesController, type: :controller do
             date:        Date.today,
             unity:       'kgs',
             unit_price:  10.50,
-            total:       100.50,
             quantity:    10,
             status:      true,
             status_ticket: true,
@@ -309,7 +291,8 @@ RSpec.describe ExpensesController, type: :controller do
       before(:each) do
         put(
             :update,
-            params: {:id => @expense_example_update.to_param, :expense => not_valid_attributes}
+            params: {:project_id => @project.id, :blog_id => @blog.id,
+                     :id => @expense_example_update.to_param, :expense => not_valid_attributes}
         )
       end
 
@@ -330,15 +313,9 @@ RSpec.describe ExpensesController, type: :controller do
       end
 
       it 'renders new template' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template("edit")
       end
 
-      #it 'must display an error message' do
-        #expect(flash[:error]).to be_present
-        #expect(flash[:error]).to match(/ Error al modificar la bitácora*/)
-      #end
     end
   end
 
@@ -346,26 +323,25 @@ RSpec.describe ExpensesController, type: :controller do
 
     before(:each) do
       @expense_example_delete = FactoryBot.create(:expense, name: 'delete test')
+      @blog = @expense_example_delete.blog
+      @project = @blog.project
     end
 
     context 'when user has permissions' do
 
       it "destroys the requested blog" do
         expect do
-          delete :destroy, params: {:id => @expense_example_delete.to_param}
+          delete :destroy, params: {:project_id => @project.id, :blog_id => @blog.id,
+                                    :id => @expense_example_delete.to_param}
         end.to change(Expense, :count).by(-1)
       end
 
       it "redirects to the posts list" do
-        delete :destroy, params: {:id => @expense_example_delete.to_param.to_param}
-        expect(response).to redirect_to(expenses_path)
+        delete :destroy, params: {:project_id => @project.id, :blog_id => @blog.id,
+                                  :id => @expense_example_delete.to_param}
+        expect(response).to redirect_to(project_blog_url(project_id: @project.id, id: @blog.id))
       end
 
-      #it 'must display a success message' do
-        #delete :destroy, params: {:id => @expense_example_delete.to_param.to_param}
-        #expect(flash[:success]).to be_present
-        #expect(flash[:success]).to match(/ Se ha eliminado la bitácora correctamente*/)
-      #end
     end
 
     context 'when user has not permissions' do

@@ -5,17 +5,18 @@
             <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
                 <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                 <i class="ti-arrow-left"></i>
-            </button>'.html_safe,
-                            expenses_url
+            </button>'.html_safe, project_blog_url(project_id: @project, id: @blog)
                 %>
-                <h5 class="float-left pL-15">Gasto <% @expense.name %></h5>
+                <h5 class="float-left pL-15">Gasto - <%= @expense.name %></h5>
               <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
                       <i class="ti-pencil"></i>
                     </button>'.html_safe,
-                          edit_expense_path(@expense)
+                          {controller: :expenses, action: :edit, :id => @expense.id, :project_id => @project.id, :blog_id => @blog.id}
               %>
               <button type="button" class="btn btn-outline-light float-right delete-expense btn-sm mR-5"
-                      data-expense-id="<%= @expense.id %>">
+                      data-expense-id="<%= @expense.id %>"
+                      data-blog-id="<%= @blog.id %>"
+                      data-project-id="<%= @project.id %>">
                 <i class="ti-trash" aria-hidden="true"></i>
               </button>
             </div>

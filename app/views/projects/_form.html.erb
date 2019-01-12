@@ -1,94 +1,88 @@
 <%= form_for(@project) do |f| %>
   <%= render 'layouts/errors_form', object: @project %>
   <%= @url %>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-lg-10 offset-lg-1">
-        <div class="row">
-          <% if !@readonly %>
-            <div class="col-md-12">
-              <p>Los campos marcados con '*' son obligatorios.</p>
-            </div>
-          <% end %>
-          <div class="col-md-6 mT-15">
-            <%= f.label :name, "* Nombre del proyecto:" %>
-            <%= f.text_field :name,
-                             class:"form-control",
-                             required: 'true',
-                             placeholder: "e.g. Villas del Mesón",
-                             readonly: @readonly%>
-          </div>
-          <div class="col-md-6 mT-15">
-            <%= f.label :code, "* Clave: " %>
-            <%= f.text_field :code,
-                             class: 'form-control',
-                             required: 'true',
-                             :maxlength => 50,
-                             placeholder: "e.g. P02-24",
-                             readonly: @readonly %>
-          </div>
+  <div class="row">
+    <% if !@readonly %>
+      <div class="col-md-12">
+        <p>Los campos marcados con '*' son obligatorios.</p>
+      </div>
+    <% end %>
+    <div class="col-md-6">
+      <%= f.label :name, "* Nombre del proyecto:" %>
+      <%= f.text_field :name,
+                       class:"form-control",
+                       required: 'true',
+                       placeholder: "e.g. Villas del Mesón",
+                       readonly: @readonly%>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :code, "* Clave: " %>
+      <%= f.text_field :code,
+                       class: 'form-control',
+                       required: 'true',
+                       :maxlength => 50,
+                       placeholder: "e.g. P02-24",
+                       readonly: @readonly %>
+    </div>
 
-          <div class="col-md-6 mT-15">
-            <%= f.label :start_date, "* Fecha de Inicio: " %>
-            <%= f.date_field :start_date,
-                             class: 'form-control',
-                             start_year: 2015,
-                             required: true,
-                             readonly: @readonly %>
-          </div>
-          <div class="col-md-6 mT-15">
-            <%= f.label :due_date, "Fecha de entrega: " %>
-            <% if @readonly %>
-              <%= f.text_field :due_date,
-                               class: 'form-control',
-                               start_year: 2015,
-                               readonly: @readonly %>
-            <% else %>
-              <%= f.date_field :due_date,
-                               class: 'form-control',
-                               start_year: 2015,
-                               readonly: @readonly %>
-            <% end %>
-          </div>
-          <div class="col-md-6 mT-15">
-            <%= f.label :client, "Cliente: " %>
-            <% if @readonly %>
-              <%= f.text_field :client,
-                               class: 'form-control',
-                               readonly: @readonly %>
-            <% else %>
-              <%= f.text_field :client,
-                               class: 'form-control',
-                               placeholder: "e.g. Ing. Salomón Olivera",
-                               readonly: @readonly %>
-            <% end %>
-          </div>
+    <div class="col-md-6 mT-15">
+      <%= f.label :start_date, "* Fecha de Inicio: " %>
+      <%= f.date_field :start_date,
+                       class: 'form-control',
+                       start_year: 2015,
+                       required: true,
+                       readonly: @readonly %>
+    </div>
+    <div class="col-md-6 mT-15">
+      <%= f.label :due_date, "Fecha de entrega: " %>
+      <% if @readonly %>
+        <%= f.text_field :due_date,
+                         class: 'form-control',
+                         start_year: 2015,
+                         readonly: @readonly %>
+      <% else %>
+        <%= f.date_field :due_date,
+                         class: 'form-control',
+                         start_year: 2015,
+                         readonly: @readonly %>
+      <% end %>
+    </div>
+    <div class="col-md-6 mT-15">
+      <%= f.label :client, "Cliente: " %>
+      <% if @readonly %>
+        <%= f.text_field :client,
+                         class: 'form-control',
+                         readonly: @readonly %>
+      <% else %>
+        <%= f.text_field :client,
+                         class: 'form-control',
+                         placeholder: "e.g. Ing. Salomón Olivera",
+                         readonly: @readonly %>
+      <% end %>
+    </div>
 
-          <div class="col-md-6 mT-15">
-            <%= f.label :address, "Dirección del proyecto: " %>
-            <% if @readonly %>
-              <%= f.text_area :address,
-                                class: 'form-control',
-                                readonly: @readonly %>
-            <% else %>
-              <%= f.text_area :address,
-                                class: 'form-control',
-                                placeholder: "e.g. Epigmenio González 500, San Pablo, 76130 Santiago de Querétaro, Qro",
-                                readonly: @readonly %>
-            <% end %>
-          </div>
-          <div class="col-md-6 mT-15">
-            <label for = "user_status">Estado en el sistema:</label>
-            <div class="row">
-              <div class="col-md-2 col-sm-2" align="center">
-                <label class="switch">
-                  <% @readonly ? @var = "return false;" : @var = ""%>
-                  <%= f.check_box :status, onclick: @var %>
-                  <span class="slider round"></span>
-                </label>
-              </div>
-            </div>
-          </div>
+    <div class="col-md-6 mT-15">
+      <%= f.label :address, "Dirección del proyecto: " %>
+      <% if @readonly %>
+        <%= f.text_area :address,
+                          class: 'form-control',
+                          readonly: @readonly %>
+      <% else %>
+        <%= f.text_area :address,
+                          class: 'form-control',
+                          placeholder: "e.g. Epigmenio González 500, San Pablo, 76130 Santiago de Querétaro, Qro",
+                          readonly: @readonly %>
+      <% end %>
+    </div>
+    <div class="col-md-6 mT-15">
+      <label for = "user_status">Estado en el sistema:</label>
+      <div class="row">
+        <div class="col-md-2 col-sm-2" align="center">
+          <label class="switch">
+            <% @readonly ? @var = "return false;" : @var = ""%>
+            <%= f.check_box :status, onclick: @var %>
+            <span class="slider round"></span>
+          </label>
         </div>
       </div>
     </div>

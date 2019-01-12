@@ -1,6 +1,8 @@
 class Concept < ApplicationRecord
   belongs_to :category
+  belongs_to :project
   has_many :expenses
+  has_many :jobs
 
   before_validation :calculate_total
 
@@ -30,10 +32,26 @@ class Concept < ApplicationRecord
             presence: {with: true, message: "no puede estar vacío"},
             numericality: {with: true, only_integer: false }, :on => [:create ,:update]
 
+  def sum_jobs_quantity_by_status(status)
+    jobs.includes(:blog).where("blogs.status = " + (status ? "true" : "false")).sum(:quantity)
+  end
+
+  def sum_all_jobs_quantity
+    jobs.sum(:quantity)
+  end
+
+  def sum_expenses_by_status(status)
+    expenses.where("expenses.status = " + (status ? "true" : "false")).sum(:total)
+  end
+
+  def sum_all_expenses
+    expenses.sum(:total)
+  end
+
   private
 
   def calculate_total
-    self.total = self.quantity * self.unit_price
+    self.total ||= self.quantity * self.unit_price if attribute_present?("quantity") and attribute_present?("unit_price")
   end
 
 end

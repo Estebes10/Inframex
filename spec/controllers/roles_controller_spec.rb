@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe RolesController, type: :controller do
+
   describe 'GET index' do
 
     context 'when user has permissions' do
@@ -82,9 +83,8 @@ RSpec.describe RolesController, type: :controller do
 
     context 'when user has permissions' do
       it "assigns @role" do
-      role = Role.find(params[:idRole])
-      get :new
-      expect(assigns(:role)).to eq(role)
+      get(:new, xhr: true)
+      expect(assigns(:role)).to be_a_new(Role)
     end
 
       it { should route(:get, '/roles/new').to(action: :new) }
@@ -110,7 +110,9 @@ RSpec.describe RolesController, type: :controller do
       before(:each) do
         post(
           :create,
-          params: valid_attributes
+          params: valid_attributes,
+          :format => "js",
+          xhr: true
         )
       end
 
@@ -128,7 +130,7 @@ RSpec.describe RolesController, type: :controller do
       end
 
       it 'returns an http success code' do
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(200)
       end
 
       it 'redirects to index view' do
@@ -185,17 +187,14 @@ RSpec.describe RolesController, type: :controller do
         before(:each) do
           get(
             :edit,
-            params: { id: @role_example }
+            params: { id: @role_example },
+            format: :js,
+            xhr: true
           )
         end
 
         it 'assigns @role' do
           expect(assigns(:role)).to eq(@role_example)
-        end
-
-        it 'renders the show template' do
-          #expect(response).to render_template(:edit)
-          expect(response).to render_template(:partial => 'edit')
         end
 
         it 'return http found code' do

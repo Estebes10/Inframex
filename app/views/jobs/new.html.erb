@@ -3,10 +3,17 @@
   <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
-      <div class="bgc-secondary c-white layer w-100 p-15">
-        <h5 class="pull-right">Nuevo trabajo</h5>
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                <i class="ti-arrow-left"></i>
+            </button>'.html_safe, project_blog_url(project_id: @project, id: @blog)
+        %>
+        <div class="pL-15 float-left">
+          <h5>Nuevo Trabajo</h5>
+          <h6>Concepto: <%= @concept.code + ", " + @concept.description %></h6>
+        </div>
       </div>
-      <div class="layer w-100 p-20 text-center">
+      <div class="layer w-100 p-20">
         <%= render "form" %>
       </div>
     </div>

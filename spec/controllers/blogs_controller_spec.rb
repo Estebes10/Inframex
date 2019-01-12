@@ -2,26 +2,28 @@ require 'rails_helper'
 
 RSpec.describe BlogsController, type: :controller do
 
+  before(:each) do
+    @project = FactoryBot.create(:project)
+  end
+
   describe 'GET index' do
 
     before(:each) do
       sign_in()
+      get(:index, params: { project_id: @project.id })
     end
 
     context 'when user has permissions' do
       it "assigns @blogs" do
-        blogs = Blog.order(:blog_date)
-        get :index
+        blogs = @project.blogs.order(:date)
         expect(assigns(:blogs)).to eq(blogs)
       end
 
       it "renders the index template" do
-        get :index
         expect(response).to render_template(:index)
       end
 
       it "returns http success" do
-        get :index
         expect(response).to have_http_status(:success)
       end
     end
@@ -42,13 +44,19 @@ RSpec.describe BlogsController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
-          @blog_example = FactoryBot.create(:blog)
+          @blog_example = @project.blogs.create(
+            name: Faker::Lorem.paragraph,
+            description: Faker::Lorem.paragraph,
+            date: Date.today,
+            comments: Faker::Lorem.paragraph,
+            status: true
+          )
         end
 
         before(:each) do
           get(
             :show,
-            params: { id: @blog_example.id }
+            params: { project_id: @project.id, id: @blog_example.id }
           )
         end
 
@@ -70,14 +78,14 @@ RSpec.describe BlogsController, type: :controller do
         before(:each) do
           get(
             :show,
-            params: { id: -124 }
+            params: { project_id: @project.id, id: -124 }
           )
         end
 
         it 'should respond with not found code' do
           expect(response).to have_http_status(404)
         end
-        #it { should respond_with_status(:not_found) }
+
       end
     end
 
@@ -91,20 +99,19 @@ RSpec.describe BlogsController, type: :controller do
 
     before(:each) do
       sign_in()
+      get(:new, params: { project_id: @project.id })
     end
 
     context 'when user has permissions' do
       it "renders the new template" do
-        get :new
         expect(response).to render_template(:new)
       end
 
       it "returns http success" do
-        get :new
         expect(response).to have_http_status(:success)
       end
 
-      it { should route(:get, '/blogs/new').to(action: :new) }
+      it { should route(:get, "/projects/#{@project.id}/blogs/new").to(action: :new, project_id: @project.id) }
     end
 
     context 'when user has not permissions' do
@@ -122,10 +129,12 @@ RSpec.describe BlogsController, type: :controller do
 
       let(:valid_attributes) do
         {
+          project_id: @project.id,
           blog: {
             name:        Faker::Lorem.characters(100),
             description: 'Ejemplo de bitácora de prueba',
-            blog_date:   Date.today,
+            date:        Date.today,
+            comments:    Faker::Lorem.characters(50)
           }
         }
       end
@@ -155,9 +164,8 @@ RSpec.describe BlogsController, type: :controller do
       end
 
       it 'redirects to index view' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
-        expect(response).to redirect_to(blogs_url)
+        @blog_created = @project.blogs.last
+        expect(response).to redirect_to(project_blog_url(project_id: @project.id, id: @blog_created.id))
       end
 
       it 'must display a success message' do
@@ -170,6 +178,7 @@ RSpec.describe BlogsController, type: :controller do
 
       let(:not_valid_attributes) do
         {
+          project_id: @project.id,
           blog: {
             name:        nil,
             description: 'Ejemplo de bitácora de prueba',
@@ -190,8 +199,6 @@ RSpec.describe BlogsController, type: :controller do
       end
 
       it 'renders new template' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template("new")
       end
 
@@ -212,13 +219,19 @@ RSpec.describe BlogsController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
-          @blog_example = FactoryBot.create(:blog)
+          @blog_example = @project.blogs.create(
+            name: Faker::Lorem.paragraph,
+            description: Faker::Lorem.paragraph,
+            date: Date.today,
+            comments: Faker::Lorem.paragraph,
+            status: true
+          )
         end
 
         before(:each) do
           get(
             :edit,
-            params: { id: @blog_example }
+            params: { project_id: @project.id, id: @blog_example }
           )
         end
 
@@ -240,14 +253,14 @@ RSpec.describe BlogsController, type: :controller do
         before(:each) do
           get(
             :show,
-            params: { id: -124 }
+            params: { project_id: @project.id, id: -124 }
           )
         end
 
         it 'should respond with not found code' do
           expect(response).to have_http_status(404)
         end
-        #it { should respond_with_status(:not_found) }
+
       end
     end
 
@@ -266,7 +279,13 @@ RSpec.describe BlogsController, type: :controller do
     context 'with valid attributes' do
 
       before(:each) do
-        @blog_example_update = FactoryBot.create(:blog)
+        @blog_example_update = @project.blogs.create(
+          name: Faker::Lorem.characters(50),
+          description: Faker::Lorem.paragraph,
+          date: Date.today,
+          comments: Faker::Lorem.paragraph,
+          status: true
+        )
       end
 
       let(:valid_attributes) do
@@ -280,7 +299,7 @@ RSpec.describe BlogsController, type: :controller do
       before(:each) do
         put(
           :update,
-          params: {:id => @blog_example_update.to_param, :blog => valid_attributes}
+          params: { project_id: @project.id, :id => @blog_example_update.to_param, :blog => valid_attributes}
         )
       end
 
@@ -304,9 +323,7 @@ RSpec.describe BlogsController, type: :controller do
       end
 
       it 'redirects to blog view' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
-        expect(response).to redirect_to(blog_url(@blog_example_update))
+        expect(response).to redirect_to(project_blog_url(project_id: @project, id: @blog_example_update))
       end
 
       it 'must display a success message' do
@@ -318,7 +335,13 @@ RSpec.describe BlogsController, type: :controller do
     context 'with invalid attributes' do
 
       before(:each) do
-        @blog_example_update = FactoryBot.create(:blog, name: 'update test')
+        @blog_example_update = @project.blogs.create(
+          name: 'update test',
+          description: Faker::Lorem.paragraph,
+          date: Date.today,
+          comments: Faker::Lorem.paragraph,
+          status: true
+        )
       end
 
       # send string to blog date
@@ -333,7 +356,7 @@ RSpec.describe BlogsController, type: :controller do
       before(:each) do
         put(
           :update,
-          params: {:id => @blog_example_update.to_param, :blog => not_valid_attributes}
+          params: { project_id: @project.id, :id => @blog_example_update.to_param, :blog => not_valid_attributes}
         )
       end
 
@@ -349,8 +372,6 @@ RSpec.describe BlogsController, type: :controller do
       end
 
       it 'renders new template' do
-        #expect(response).to redirect_to(Blog.last)
-        #expect(response).to render_template(:index)
         expect(response).to render_template("edit")
       end
 
@@ -368,24 +389,30 @@ RSpec.describe BlogsController, type: :controller do
     end
 
     before(:each) do
-      @blog_example_delete = FactoryBot.create(:blog, name: 'delete test')
+      @blog_example_delete = @project.blogs.create(
+        name: 'delete test',
+        description: Faker::Lorem.paragraph,
+        date: Date.today,
+        comments: Faker::Lorem.paragraph,
+        status: true
+      )
     end
 
     context 'when user has permissions' do
 
       it "destroys the requested blog" do
         expect do
-          delete :destroy, params: {:id => @blog_example_delete.to_param}
+          delete :destroy, params: { project_id: @project.id, :id => @blog_example_delete.to_param}
         end.to change(Blog, :count).by(-1)
       end
 
       it "redirects to the posts list" do
-        delete :destroy, params: {:id => @blog_example_delete.to_param.to_param}
-        expect(response).to redirect_to(blogs_url)
+        delete :destroy, params: { project_id: @project.id, :id => @blog_example_delete.to_param.to_param}
+        expect(response).to redirect_to(project_url(@project, :anchor => "nav-blogs"))
       end
 
       it 'must display a success message' do
-        delete :destroy, params: {:id => @blog_example_delete.to_param.to_param}
+        delete :destroy, params: { project_id: @project.id, :id => @blog_example_delete.to_param.to_param}
         expect(flash[:success]).to be_present
         expect(flash[:success]).to match(/ Se ha eliminado la bitácora correctamente*/)
       end

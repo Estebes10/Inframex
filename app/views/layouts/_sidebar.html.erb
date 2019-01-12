@@ -4,12 +4,15 @@
     <div class="sidebar-logo">
       <div class="peers ai-c fxw-nw">
         <div class="peer peer-greed">
-          <a class="sidebar-link td-n" href="#">
-            <div class="peers ai-c fxw-nw">
+          <a class="sidebar-link td-n" href="/projects">
+            <div class="peers ai-c fxw-nw align-items-center">
               <div class="peer">
                 <div class="logo">
-                  <%= image_tag "logo2.png", :style => "height: 65px; width: 65px;" %>
+                  <%= image_tag "small_logo.png", :style => "height: 58px; width: 60px; padding: 5px;" %>
                 </div>
+              </div>
+              <div class="peer peer-greed">
+<!--                <h5 class="lh-1 mB-0 logo-text">Inframex</h5>-->
               </div>
             </div>
           </a>
@@ -29,7 +32,7 @@
       <li class="nav-item">
         <%= link_to raw('
           <span class="icon-holder">
-            <i class="c-blue-500 ti-email"></i>
+            <i class="c-blue-500 ti-home"></i>
           </span>
           <span class="title">Proyectos</span>
         ').html_safe, projects_path, class: "sidebar-link" %>
@@ -46,34 +49,23 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <%= link_to "Buscar", users_url , class: "sidebar-link"%>
+            <%= link_to "Usuarios", users_path , class: "sidebar-link"%>
           </li>
           <li>
-            <%= link_to "Nuevo", new_user_url , class: "sidebar-link"%>
+            <%= link_to "Registrar Usuario", new_user_path , class: "sidebar-link"%>
           </li>
           <li>
             <%= link_to "Roles", roles_path , class: "sidebar-link"%>
           </li>
         </ul>
       </li>
-      <li class="nav-item dropdown">
-        <a class="dropdown-toggle" href="javascript:void(0);">
-                  <span class="icon-holder">
-                    <i class="c-blue-500 ti-clipboard"></i>
-                  </span>
-          <span class="title">Catálogos</span>
-          <span class="arrow">
-                    <i class="ti-angle-right"></i>
-                  </span>
+      <li class="nav-item">
+        <a class='sidebar-link' href="/categories">
+                <span class="icon-holder">
+                  <i class="c-blue-500 ti-clipboard"></i>
+                </span>
+          <span class="title">Categorías</span>
         </a>
-        <ul class="dropdown-menu">
-          <li>
-            <a class='sidebar-link' href="#">Buscar</a>
-          </li>
-          <li>
-            <a class='sidebar-link' href="#">Nuevo</a>
-          </li>
-        </ul>
       </li>
       <li class="nav-item">
         <a class='sidebar-link' href="#">

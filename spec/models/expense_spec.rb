@@ -52,4 +52,12 @@ RSpec.describe Expense, type: :model do
     should belong_to(:supplier)
   end
 
+  it 'belongs to concept' do
+    should belong_to(:concept)
+  end
+
+  it 'belongs to blog' do
+    should belong_to(:blog)
+  end
+
 end

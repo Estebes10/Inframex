@@ -2,6 +2,7 @@ class Expense < ApplicationRecord
   belongs_to :supplier
   belongs_to :subcategory
   belongs_to :concept
+  belongs_to :blog
 
   before_validation :calculate_total
 
@@ -51,8 +52,7 @@ class Expense < ApplicationRecord
   private
 
   def calculate_total
-    self.total = self.quantity * self.unit_price
+    self.total ||= self.quantity * self.unit_price if attribute_present?("quantity") and attribute_present?("unit_price")
   end
-
 
 end

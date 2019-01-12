@@ -2,13 +2,13 @@ FactoryBot.define do
   factory :user do
     name     {Faker::Name.first_name}
     lastName {Faker::Name.last_name}
-    #password_digest {'contrasena'}
     password {"contrasena"}
-    #password_confirmation {"password"}
+    password_confirmation {"contrasena"}
     birthday {Faker::Date.between(40.years.ago, 20.years.ago)}
     email    {Faker::Internet.email}
     phone    {Faker::PhoneNumber.cell_phone}
-    status   {true}
-    association(:role)
+    status   {Faker::Boolean.boolean}
+    role_id  {Role.all.ids.sample}
+    # association(:role)
   end
 end

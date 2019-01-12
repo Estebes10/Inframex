@@ -3,77 +3,94 @@ require "rails_helper"
 RSpec.describe 'routes for expenses', :type => :routing do
 
   context 'for show action' do
-    it 'should route to /expenses/:id' do
-      expect(:get => '/expenses/:id').to be_routable
+    it 'should route to /projects/:project_id/blogs/:blog_id/expenses/:id' do
+      expect(:get => '/projects/:project_id/blogs/:blog_id/expenses/:id').to be_routable
     end
 
-    it 'routes /expenses/:id to expenses controller' do
-      expect(get("/expenses/:id")).to route_to(
+    it 'routes /projects/:project_id/blogs/:blog_id/expenses/:id to expenses controller' do
+      expect(get("/projects/:project_id/blogs/:blog_id/expenses/:id")).to route_to(
                                                :controller => "expenses",
                                                :action => "show",
-                                               :id => ":id"
+                                               :id => ":id",
+                                               :project_id => ":project_id",
+                                               :blog_id => ":blog_id"
                                            )
     end
   end
   context 'for new action' do
-    it 'should route to /expenses/new' do
-      expect(:get => '/expenses/new').to be_routable
+    it 'should route to /projects/:project_id/blogs/:blog_id/expenses/new' do
+      expect(:get => '/projects/:project_id/blogs/:blog_id/expenses/new').to be_routable
     end
 
-    it 'routes /expenses to expenses controller' do
-      expect(get('expenses/new')).to route_to('expenses#new')
+    it 'routes /projects/:project_id/blogs/:blog_id/expenses to expenses controller' do
+      expect(get('/projects/:project_id/blogs/:blog_id/expenses/new')).to route_to(
+                                                                              :controller => "expenses",
+                                                                              :action => "new",
+                                                                              :project_id => ":project_id",
+                                                                              :blog_id => ":blog_id"
+                                                                          )
     end
   end
 
   context 'for create action' do
-    it 'should route to /expenses' do
-      expect(:post => '/expenses').to be_routable
+    it 'should route to /projects/:project_id/blogs/:blog_id/expenses' do
+      expect(:post => '/projects/:project_id/blogs/:blog_id/expenses').to be_routable
     end
 
-    it 'routes /expenses to expenses controller' do
-      expect(post('expenses')).to route_to('expenses#create')
+    it 'routes /projects/:project_id/blogs/:blog_id/expenses to expenses controller' do
+      expect(post('/projects/:project_id/blogs/:blog_id/expenses')).to route_to(
+                                                                           :controller => "expenses",
+                                                                           :action => "create",
+                                                                           :project_id => ":project_id",
+                                                                           :blog_id => ":blog_id"
+                                                                       )
     end
   end
 
   context 'for edit action' do
-    it 'should route to /expenses/:id' do
-      expect(:get => "/expenses/:id/edit").to be_routable
+    it 'should route to /projects/:project_id/blogs/:blog_id/expenses/:id' do
+      expect(:get => "/projects/:project_id/blogs/:blog_id/expenses/:id/edit").to be_routable
     end
 
-    it 'routes /expenses/:id/edit to expenses controller' do
-      expect(get("/expenses/:id/edit")).to route_to(
+    it 'routes /projects/:project_id/blogs/:blog_id/expenses/:id/edit to expenses controller' do
+      expect(get("/projects/:project_id/blogs/:blog_id/expenses/:id/edit")).to route_to(
                                                     :controller => "expenses",
                                                     :action => "edit",
-                                                    :id => ":id"
+                                                    :id => ":id",
+                                                    :project_id => ":project_id",
+                                                    :blog_id => ":blog_id"
                                                 )
     end
   end
 
   context 'for update action' do
-    it 'should route to /expenses/:id' do
-      expect(:patch => '/expenses/1').to be_routable
+    it 'should route to /projects/:project_id/blogs/:blog_id/expenses/:id' do
+      expect(:patch => '/projects/:project_id/blogs/:blog_id/expenses/1').to be_routable
     end
 
-    it 'routes /expenses to expenses controller' do
-      expect(patch('expenses/:id')).to route_to(
+    it 'routes /projects/:project_id/blogs/:blog_id/expenses to expenses controller' do
+      expect(patch('/projects/:project_id/blogs/:blog_id/expenses/:id')).to route_to(
                                                 :controller => "expenses",
                                                 :action => "update",
-                                                :id => ":id"
+                                                :id => ":id",
+                                                :project_id => ":project_id",
+                                                :blog_id => ":blog_id"
                                             )
     end
   end
 
   context 'for destroy action' do
     it 'should not to be routable' do
-      expect(:delete => "/expenses/:id").to be_routable
+      expect(:delete => "/projects/:project_id/blogs/:blog_id/expenses/:id").to be_routable
     end
 
-    it 'routes /expenses to expenses controller' do
-      expect(delete('expenses/:id')).to route_to(
+    it 'routes /projects/:project_id/blogs/:blog_id/expenses to expenses controller' do
+      expect(delete('/projects/:project_id/blogs/:blog_id/expenses/:id')).to route_to(
                                                  :controller => "expenses",
                                                  :action => "destroy",
-                                                 :id => ":id"
-                                             )
+                                                 :id => ":id",
+                                                 :project_id => ":project_id",
+                                                 :blog_id => ":blog_id")
     end
   end
 

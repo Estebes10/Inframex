@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_22_021343) do
+ActiveRecord::Schema.define(version: 2019_01_07_152706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,9 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
     t.string "unity", null: false
     t.decimal "unit_price", precision: 15, scale: 4, null: false
     t.decimal "total", precision: 15, scale: 4, null: false
+    t.bigint "project_id"
     t.index ["category_id"], name: "index_concepts_on_category_id"
+    t.index ["project_id"], name: "index_concepts_on_project_id"
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -54,6 +56,8 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
     t.boolean "status", default: false, null: false
     t.boolean "status_ticket", default: false, null: false
     t.bigint "concept_id", null: false
+    t.bigint "blog_id", null: false
+    t.index ["blog_id"], name: "index_expenses_on_blog_id"
     t.index ["concept_id"], name: "index_expenses_on_concept_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
@@ -64,7 +68,10 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
     t.bigint "blog_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "concept_id"
+    t.decimal "quantity"
     t.index ["blog_id"], name: "index_jobs_on_blog_id"
+    t.index ["concept_id"], name: "index_jobs_on_concept_id"
   end
 
   create_table "privileges", force: :cascade do |t|
@@ -138,10 +145,13 @@ ActiveRecord::Schema.define(version: 2018_12_22_021343) do
 
   add_foreign_key "blogs", "projects"
   add_foreign_key "concepts", "categories"
+  add_foreign_key "concepts", "projects"
+  add_foreign_key "expenses", "blogs"
   add_foreign_key "expenses", "concepts"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
   add_foreign_key "jobs", "blogs"
+  add_foreign_key "jobs", "concepts"
   add_foreign_key "roleprivileges", "privileges"
   add_foreign_key "roleprivileges", "roles"
   add_foreign_key "user_projects", "projects"
