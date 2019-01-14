@@ -4,6 +4,26 @@ class JobsController < ApplicationController
   before_action :set_blog
   before_action :set_job, only: [:update, :edit, :destroy]
 
+  #RBAC index
+  before_action only: [:index] do
+    has_privilege_controller(current_user, 'job_4')
+  end
+
+  #RBAC create
+  before_action only: [:create, :new] do
+    has_privilege_controller(current_user, 'job_1')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'job_2')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy] do
+    has_privilege_controller(current_user, 'job_3')
+  end
+
   def index
   end
 

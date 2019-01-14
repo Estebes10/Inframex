@@ -2,6 +2,27 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:edit, :update, :show, :destroy]
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
+  #RBAC index
+  before_action only: [:show, :index] do
+    has_privilege_controller(current_user, 'project_1')
+  end
+
+  #RBAC create
+  before_action only: [:create, :new] do
+    has_privilege_controller(current_user, 'project_2')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'project_3')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy_ajax] do
+    has_privilege_controller(current_user, 'project_4')
+  end
+
+
   def index
     @projects = Project.order(:id)
   end

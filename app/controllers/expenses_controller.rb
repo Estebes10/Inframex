@@ -8,6 +8,31 @@ class ExpensesController < ApplicationController
   before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
 
 
+  #RBAC show
+  before_action only: [:index, :show] do
+    has_privilege_controller(current_user, 'expenses_1')
+  end
+
+  #RBAC create
+  before_action only: [:new, :create] do
+    has_privilege_controller(current_user, 'expenses_2')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'expenses_3')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy, :destroy_ajax] do
+    has_privilege_controller(current_user, 'expenses_4')
+  end
+
+  #RBAC activate
+  before_action only: [:activate, :activate_ticket] do
+    has_privilege_controller(current_user, 'expenses_5')
+  end
+
   def index
     @expenses = @blog.expenses.all
   end

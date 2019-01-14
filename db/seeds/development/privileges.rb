@@ -87,6 +87,12 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'category_3',
                                          module_name: 'Categorías'
                                      },
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar categorías y subcategorías en el sistema',
+                                         str_id: 'category_4',
+                                         module_name: 'Categorías'
+                                     },
                                      # Privilegios de subcategorías
                                      {
                                          name: 'Crear',
@@ -129,12 +135,6 @@ if !Privilege.find_by(name: 'Consultar')
                                          name: 'Eliminar',
                                          description: 'Eliminar proyecto del sistema',
                                          str_id: 'project_4',
-                                         module_name: 'Proyectos'
-                                     },
-                                     {
-                                         name: 'Des/activar',
-                                         description: 'Activar / Desactivar proyecto en el sistema',
-                                         str_id: 'project_5',
                                          module_name: 'Proyectos'
                                      },
                                      # Privilegios de Bitácoras
@@ -244,6 +244,12 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'job_3',
                                          module_name: 'Trabajos'
                                      },
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar trabajos del sistema',
+                                         str_id: 'job_4',
+                                         module_name: 'Trabajos'
+                                     },
                                      # Privilegios de Archivos
                                      {
                                          name: 'Consultar',
@@ -263,7 +269,6 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'file_3',
                                          module_name: 'Archivos'
                                      },
-                                     #43
                                      {
                                          name: 'Eliminar',
                                          description: 'Eliminar archivo del sistema',

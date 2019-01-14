@@ -2,6 +2,26 @@ class CategoriesController < ApplicationController
 
   before_action :set_category, only: [:edit, :update, :destroy_ajax]
 
+  #RBAC index
+  before_action only: [:index] do
+    has_privilege_controller(current_user, 'category_4')
+  end
+
+  #RBAC create
+  before_action only: [:create, :new] do
+    has_privilege_controller(current_user, 'category_1')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'category_2')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy_ajax] do
+    has_privilege_controller(current_user, 'category_3')
+  end
+
   def index
     @categories = Category.all.order(:name)
     @subcategories = Subcategory.all.order(:name)

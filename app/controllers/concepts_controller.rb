@@ -3,6 +3,26 @@ class ConceptsController < ApplicationController
   before_action :set_concept, only: [:show, :edit, :update, :destroy, :destroy_ajax]
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
+  #RBAC show
+  before_action only: [:index, :show] do
+    has_privilege_controller(current_user, 'concept_1')
+  end
+
+  #RBAC create
+  before_action only: [:new, :create] do
+    has_privilege_controller(current_user, 'concept_2')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'concept_3')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy, :destroy_ajax] do
+    has_privilege_controller(current_user, 'concept_4')
+  end
+
   def index
   end
 
