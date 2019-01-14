@@ -4,12 +4,15 @@
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <% if has_privilege(current_user, "user_1") %>
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
                     users_path
         %>
+          <% end %>
         <h5 class="float-left pL-15">Usuario - <%= @user.name + " " + @user.lastName %></h5>
+        <% if has_privilege(current_user, "user_3") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-user-button"">
                       <i class="ti-pencil"></i>
@@ -17,6 +20,7 @@
                     </button>'.html_safe,
                     edit_user_path(@user)
         %>
+          <% end %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <%= render "form" %>

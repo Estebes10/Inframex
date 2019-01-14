@@ -4,11 +4,13 @@
   <div class="bd bgc-grey-100">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15" style="padding-bottom: 0px !important;">
+        <% if has_privilege(current_user, "project_1") %>
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
                     projects_path
         %>
+        <% end %>
         <h5 class="float-left pL-15">Proyecto - <%= @project.name %> - <%= @project.code%></h5>
         <nav class="float-right">
           <div class="nav nav-tabs nav-fill" id="project-nav-tab" role="tablist">
@@ -27,6 +29,7 @@
                   <div class="layers">
                     <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
                       <h5 class="float-left">Datos Generales</h5>
+                      <% if has_privilege(current_user, "project_3") %>
                       <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="edit-project-button"">
                         <i class="ti-pencil"></i>
@@ -34,6 +37,7 @@
                       </button>'.html_safe,
                                   edit_project_path(@project)
                       %>
+                      <% end %>
                     </div>
                     <div class="layer w-100 p-20 text-center">
                       <%= render "form" %>

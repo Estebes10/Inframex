@@ -1,3 +1,4 @@
+<% if has_privilege(current_user, "user_1") %>
 <% provide(:title, 'Usuarios') %>
 <div class="masonry-item col-md-10 offset-md-1">
   <!-- #Todo ==================== -->
@@ -5,6 +6,7 @@
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left">Usuarios</h5>
+        <% if has_privilege(current_user, "rbac_1") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm" id="modal-trigger"
                       data-toggle="modal" data-target="#">
                       <i class="ti-user"></i>
@@ -12,6 +14,8 @@
                     </button>'.html_safe,
                     roles_path
         %>
+        <% end %>
+        <% if has_privilege(current_user, "user_2") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-user-button">
                       <i class="ti-plus"></i>
@@ -19,6 +23,7 @@
                     </button>'.html_safe,
                     new_user_path
         %>
+        <% end %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <table class="table table-hover" id="users-datatable" role="datatable">
@@ -44,6 +49,7 @@
               <td><%= if a.role.present? then a.role.name end -%></td>
               <!-- Where status is -->
               <td>
+                <% if has_privilege(current_user, "user_5") %>
                 <label class="switch">
                   <input class="activate-switch status-user"
                      id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
@@ -55,6 +61,7 @@
                          end %>>
                   <span class="slider round"></span>
                 </label>
+                  <% end %>
               </td>
 
               <td>
@@ -62,14 +69,18 @@
                       <i class="ti-eye icon-white" aria-hidden="true"></i>
                       </button>').html_safe, {action: :show, :id => a.id } %>
 
+                <% if has_privilege(current_user, "user_3") %>
                 <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                     <i class="ti-pencil icon-white" aria-hidden="true"></i>
                   </button>').html_safe, {action: :edit, :id => a.id } %>
 
+                <% end %>
+                <% if has_privilege(current_user, "user_4") %>
                  <button type="button" class="btn btn-outline-danger btn-circle delete-user"
                     data-user-id="<%= a.id %>">
                     <i class="ti-trash" aria-hidden="true"></i>
                  </button>
+                <% end %>
               </td>
             </tr>
 
@@ -80,3 +91,4 @@
     </div>
   </div>
 </div>
+<% end %>
