@@ -1,9 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Concept, type: :model do
+
+  before(:each)do
+    @project = FactoryBot.create(:project)
+    @category = FactoryBot.create(:category)
+  end
+
   subject(:concept_example) do
     # Returns a blog instance that's not saved
-    FactoryBot.build(:concept)
+    FactoryBot.build(:concept, project_id: @project.id, category_id: @category.id)
   end
 
   # Test for valid attributes

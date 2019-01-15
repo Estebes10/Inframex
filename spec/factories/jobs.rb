@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :job do
     name             {Faker::Job.field}
-    quantity         @quantity
+    quantity         {Faker::Number.decimal(2,2)}
 
     before(:create) do |job|
       @concept_id = Concept.all.ids.sample

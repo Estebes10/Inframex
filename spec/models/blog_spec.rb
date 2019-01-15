@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Blog, type: :model do
 
+  before(:each)do
+    @project = FactoryBot.create(:project)
+  end
+
   subject(:blog_example) do
     # Returns a blog instance that's not saved
-    FactoryBot.build(:blog)
+    FactoryBot.build(:blog, project_id: @project.id)
   end
 
   # Test for valid attributes

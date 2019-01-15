@@ -2,9 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Job, type: :model do
 
+  before(:each)do
+    @project = FactoryBot.create(:project)
+    @category = FactoryBot.create(:category)
+    @blog = FactoryBot.create(:blog, project_id: @project.id)
+    @concept = FactoryBot.create(:concept, category_id: @category.id, project_id: @project.id)
+  end
+
   subject(:job_example) do
     # Returns a blog instance that's not saved
-    FactoryBot.build(:job)
+    FactoryBot.build(
+      :job,
+      blog_id: @blog.id,
+      concept_id: @concept.id
+    )
   end
 
   # Test for valid attributes
