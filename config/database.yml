@@ -18,5 +18,8 @@ test:
   <<: *default
   database: inframex_test
 
-production:
+staging:
   url: <%= ENV['DATABASE_URL'] %>
+
+production:
+  url: <%= ENV['URL'] %>
