@@ -4,22 +4,29 @@
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <% if has_privilege(current_user, "rbac_1") %>
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
                     roles_path
         %>
+        <% end %>
         <h5 class="float-left pL-15">Privilegios de Rol - <%= @role.name %></h5>
+        <% if has_privilege(current_user, "rbac_4") %>
         <%= link_to raw('<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
                            <i class="ti-pencil"></i>
                            Editar Nombre
                          </button>'),
                     edit_role_url(@role), data: {remote: 'true'} %>
+        <% end %>
+
+        <% if has_privilege(current_user, "rbac_3") %>
         <%= link_to raw('<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
                            <i class="ti-plus"></i>
                            Agregar Privilegios
                          </button>'),
                     new_roleprivileges_url(@role), data: {remote: 'true'} %>
+        <% end %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <table class="table table-hover" id="roleprivileges-datatable" role="datatable">
@@ -45,11 +52,13 @@
                 <%= p.description %>
               </td>
               <td>
+                <% if has_privilege(current_user, "rbac_5") %>
                 <button id="delete-role-button" type="button"
                         class="btn btn-outline-danger btn-circle delete-roleprivilege"
                         data-role-id="<%= @role.id %>" data-roleprivilege-id="<%= p.id %>">
                   <i class="ti-trash"></i>
                 </button>
+                <% end %>
               </td>
             </tr>
           <% end %>

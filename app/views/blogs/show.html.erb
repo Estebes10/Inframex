@@ -37,6 +37,7 @@
 
 <div class="col-lg-8">
   <div class="row gap-20">
+    <% if has_privilege(current_user, "expenses_1") %>
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">
         <div class="layers">
@@ -44,7 +45,9 @@
         </div>
       </div>
     </div>
+    <% end %>
 
+    <% if has_privilege(current_user, "job_4") %>
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">
         <div class="layers">
@@ -52,6 +55,7 @@
         </div>
       </div>
     </div>
+    <% end %>
 
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">
