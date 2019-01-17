@@ -87,10 +87,17 @@ class BlogsController < ApplicationController
     @blog.update_attribute(:status, params[:data])
   end
 
+  def delete_image_attachment
+    @image = ActiveStorage::Blob.find_signed(params[:id])
+    @attachment = @image.attachments.first
+    @image.purge
+    @attachment.destroy
+  end
+
   private
 
   def blog_params
-    params.require(:blog).permit(:name, :description, :date, :comments, :status)
+    params.require(:blog).permit(:name, :description, :date, :comments, :status, files: [])
   end
 
   def set_blog

@@ -1,7 +1,7 @@
 class Blog < ApplicationRecord
 
   # Associations
-  #has_many :pictures
+  has_many_attached :files
 
   belongs_to :project
 

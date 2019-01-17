@@ -27,6 +27,10 @@ Rails.application.routes.draw do
       get  'jobs/new/:concept_id',  to: 'jobs#new', as: :new_job
       post 'jobs',  to: 'jobs#create', as: :create_job
       resources :expenses
+
+      member do
+        delete :delete_image_attachment
+      end
     end
     # concepts
     resources :concepts, except: :destroy
