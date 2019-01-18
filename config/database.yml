@@ -19,7 +19,7 @@ test:
   database: inframex_test
 
 staging:
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['HEROKU_POSTGRESQL_SILVER_URL'] %>
 
 production:
   url: <%= ENV['URL'] %>
