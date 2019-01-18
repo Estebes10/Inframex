@@ -373,23 +373,23 @@ if !Roleprivilege.find_by(role_id: 1)
                                               },
                                               # "Cliente" privileges
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 18
                                               },
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 23
                                               },
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 28
                                               },
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 32
                                               },
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 40
                                               }
                                           ]
