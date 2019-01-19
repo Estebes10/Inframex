@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
 
   before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
-  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment]
   before_action :set_expense_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
   before_action :select_objects, only: [:show, :edit]
   before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
@@ -74,6 +74,10 @@ class ExpensesController < ApplicationController
     @expense.update_attribute(:status_ticket, params[:data])
   end
 
+  def delete_image_attachment
+    @image = @expense.files.find(params[:attachment_id]).purge
+  end
+
   private
 
   def expenses_params
@@ -88,7 +92,8 @@ class ExpensesController < ApplicationController
         :status,
         :status_ticket,
         :quantity,
-        :supplier_name
+        :supplier_name,
+        files: []
     )
   end
 

@@ -27,3 +27,45 @@
         </div>
     </div>
 </div>
+
+<div class="masonry-item col-md-12">
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left pL-15"> Adjuntos del gasto</h5>
+        <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+          id="new-file-button" data-toggle="modal" data-target="#new-file-expense-modal">
+          <i class="ti-plus"></i>
+          Agregar Archivo
+        </button>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+          <%= render "file" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="new-file-expense-modal" class="modal fade" role="dialog" aria-labelledby="new-file-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar archivo(s)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for [@project, @blog, @expense] do |f| %>
+        <div class="modal-body">
+          <div class="input-field">
+            <%= f.file_field :files, multiple: true %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+          <button type="submit " name="save" value="ready" class="btn btn-primary">Guardar</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

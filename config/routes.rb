@@ -26,10 +26,14 @@ Rails.application.routes.draw do
       resources :jobs, except: :new
       get  'jobs/new/:concept_id',  to: 'jobs#new', as: :new_job
       post 'jobs',  to: 'jobs#create', as: :create_job
-      resources :expenses
+      resources :expenses do
+        member do
+          delete 'delete_image_attachment/:attachment_id', to: 'expenses#delete_image_attachment', as: :delete_expense_image_attachment
+        end
+      end
 
       member do
-        delete :delete_image_attachment
+        delete 'delete_image_attachment/:attachment_id', to: 'blogs#delete_image_attachment', as: :delete_image_attachment
       end
     end
     # concepts
