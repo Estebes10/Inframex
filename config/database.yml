@@ -22,4 +22,11 @@ staging:
   url: <%= ENV['HEROKU_POSTGRESQL_SILVER_URL'] %>
 
 production:
-  url: <%= ENV['URL'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: "postgres"
+  password: "inframx2018"
+  database: "inframx_prod_2018"
+  host:   "/cloudsql/inframexapp:us-east1:inframex-prod-2018"
