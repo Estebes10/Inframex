@@ -3,29 +3,35 @@
     <div class="row">
       <% @blog.files.each do |file|%>
         <div class="file-card">
-          <%= image_tag file.variant(resize: "200x200"), class: "card-img-top", id: file.id, data: {toggle: 'modal', target: '#file_'+file.id.to_s } %>
-          <div id="file_<%= file.id %>" class="modal fade bd-example-modal-lg" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <%= image_tag file.variant(resize: '50%x50%') %>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+          <% if file.blob.content_type.include? "image" %>
+            <%= image_tag file.variant(resize: "200x200"), class: "card-img-top", id: file.id, data: {toggle: 'modal', target: '#file_'+file.id.to_s } %>
+            <div id="file_<%= file.id %>" class="modal fade bd-example-modal-lg" role="dialog">
+              <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <% if file.blob.content_type.include? "image" %>
+                            <%= image_tag file.variant(resize: '50%x50%') %>
+                          <% end %>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
             </div>
-          </div>
+          <% elsif file.blob.content_type.include? "video" %>
+            <%= image_tag "video_icon.png", class: "card-img-top", id: file.id, data: {toggle: 'modal', target: '#file_'+file.id.to_s } %>
+          <% elsif file.blob.content_type.include? "pdf" %>
+            <%= image_tag "pdf_icon.png", class: "card-img-top", id: file.id, data: {toggle: 'modal', target: '#file_'+file.id.to_s } %>
+          <% elsif file.blob.content_type.include? "document" %>
+            <%= image_tag "document_icon.png", class: "card-img-top", id: file.id, data: {toggle: 'modal', target: '#file_'+file.id.to_s } %>
+          <% end %>
           <div class="card-body">
-            <%= link_to raw('<button type="button" class="btn btn-outline-danger btn-circle">
-                  <i class="ti-trash icon-white" aria-hidden="true"></i>
-                </button>').html_safe,
-                delete_image_attachment_project_blog_url(file.signed_id, project_id: @project.id, blog_id: @blog.id,),
-                method: :delete,
-                project_id: @project.id,
-                blog_id: @blog.id,
-                id: file.id,
-                data: { confirm: 'Are you sure?' } %>
+            <p> <%= file.blob.filename.to_s.truncate(30)%> </p>
+            <button type="button" class="btn btn-outline-danger btn-circle delete-image"
+               data-project-id="<%= @project.id %>" data-blog-id="<%= @blog.id %>" data-image-id="<%= file.id %>">
+               <i class="ti-trash" aria-hidden="true"></i>
+            </button>
 
             <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                   <i class="ti-download icon-white" aria-hidden="true"></i>

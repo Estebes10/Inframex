@@ -1,7 +1,7 @@
 class BlogsController < ApplicationController
   before_action :validate_user
   before_action :set_project
-  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate]
+  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate, :delete_image_attachment]
 
   def index
     @blogs = @project.blogs.order(:date)
@@ -88,10 +88,11 @@ class BlogsController < ApplicationController
   end
 
   def delete_image_attachment
-    @image = ActiveStorage::Blob.find_signed(params[:id])
-    @attachment = @image.attachments.first
-    @image.purge
-    @attachment.destroy
+    @image = @blog.files.find(params[:attachment_id]).purge
+    #@image = ActiveStorage::Blob.find_signed(params[:image_id])
+    #@attachment = @image.attachments.first
+    #@image.purge
+    #@attachment.destroy
   end
 
   private
