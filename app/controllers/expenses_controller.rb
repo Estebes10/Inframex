@@ -28,9 +28,14 @@ class ExpensesController < ApplicationController
     has_privilege_controller(current_user, 'expenses_4')
   end
 
-  #RBAC activate
-  before_action only: [:activate, :activate_ticket] do
+  #RBAC approve
+  before_action only: [:activate] do
     has_privilege_controller(current_user, 'expenses_5')
+  end
+
+  #RBAC ticket
+  before_action only: [:activate_ticket] do
+    has_privilege_controller(current_user, 'expenses_6')
   end
 
   def index
@@ -40,6 +45,7 @@ class ExpensesController < ApplicationController
   def show
     @read_only = true
     @mode_edit = false
+    @create = false
     @required_str = ""
   end
 
@@ -47,6 +53,7 @@ class ExpensesController < ApplicationController
     @expense = @blog.expenses.new
     @mode_edit = false
     @read_only = false
+    @create = true
     @required_str = "* "
   end
 
@@ -64,6 +71,7 @@ class ExpensesController < ApplicationController
   def edit
     @mode_edit = true
     @read_only = false
+    @create = false
     @required_str = "* "
   end
 

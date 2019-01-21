@@ -274,6 +274,19 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Eliminar archivo del sistema',
                                          str_id: 'file_4',
                                          module_name: 'Archivos'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Aprobar / Desaprobar facturación de gasto en el sistema',
+                                         str_id: 'expenses_6',
+                                         module_name: 'Gastos'
+                                     },
+                                     #46
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar proyecto en el sistema',
+                                         str_id: 'project_5',
+                                         module_name: 'Proyectos'
                                      }
                                  ]
   )

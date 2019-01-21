@@ -22,7 +22,6 @@ class ProjectsController < ApplicationController
     has_privilege_controller(current_user, 'project_4')
   end
 
-
   def index
     @projects = Project.order(:id)
   end
@@ -31,11 +30,13 @@ class ProjectsController < ApplicationController
     @readonly = false
     @create = true
     @project = Project.new
+    @required_str = "* "
   end
 
   def show
     @readonly = true
     @create = false
+    @required_str = ""
   end
 
   def create
@@ -54,6 +55,7 @@ class ProjectsController < ApplicationController
   def edit
     @readonly = false
     @create = false
+    @required_str = "* "
   end
 
   def update

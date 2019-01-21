@@ -15,8 +15,13 @@
         <nav class="float-right">
           <div class="nav nav-tabs nav-fill" id="project-nav-tab" role="tablist">
             <a class="nav-item nav-link active c-white" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">General</a>
+            <% if has_privilege(current_user, "blog_1") %>
             <a class="nav-item nav-link c-white" id="nav-blogs-tab" data-toggle="tab" href="#nav-blogs" role="tab" aria-controls="nav-blogs" aria-selected="false">Bitácoras</a>
+            <% end %>
+
+            <% if has_privilege(current_user, "concept_1") %>
             <a class="nav-item nav-link c-white" id="nav-concepts-tab" data-toggle="tab" href="#nav-concepts" role="tab" aria-controls="nav-concepts" aria-selected="false">Conceptos</a>
+            <% end %>
           </div>
         </nav>
       </div>

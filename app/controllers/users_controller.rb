@@ -36,6 +36,7 @@ class UsersController < ApplicationController
     @create = false
     @roles = Role.all
     @role_id = @user.role.id
+    @required_str = ""
   end
 
   def new
@@ -44,6 +45,7 @@ class UsersController < ApplicationController
     @roles = Role.all
     @user = User.new
     @role_id = 0
+    @required_str = "* "
   end
 
   def create
@@ -66,6 +68,7 @@ class UsersController < ApplicationController
     @create = false
     @roles = Role.all
     @role_id = @user.role.id
+    @required_str = "* "
   end
 
   def update

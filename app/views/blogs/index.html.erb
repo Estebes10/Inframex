@@ -46,18 +46,27 @@
                 <td> <%= blog.description %></td>
                 <td>
                   <% if has_privilege(current_user, "blog_5") %>
-                  <label class="switch">
-                    <input class="activate-switch status-blog"
-                           id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
-                           project-id="<%= "#{@project.id}" %>"
-                           data-id="<%= "#{blog.id}" %>"
-                           name="projects/<%= "#{@project.id}" %>/blogs/"
-                           type="checkbox"
-                           <%= if (blog.status)
-                                 "checked"
-                               end %>>
-                    <span class="slider round"></span>
-                  </label>
+                    <label class="switch">
+                      <input class="activate-switch status-blog"
+                             id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
+                             project-id="<%= "#{@project.id}" %>"
+                             data-id="<%= "#{blog.id}" %>"
+                             name="projects/<%= "#{@project.id}" %>/blogs/"
+                             type="checkbox"
+                             <%= if (blog.status)
+                                   "checked"
+                                 end %>>
+                      <span class="slider round"></span>
+                    </label>
+                  <% else %>
+                    <label class="switch">
+                      <input class="activate-switch status-blog"
+                             type="checkbox"
+                             <%= if (blog.status)
+                                   "checked"
+                                 end %> disabled>
+                      <span class="slider round"></span>
+                    </label>
                   <% end %>
                 </td>
                 <td>
