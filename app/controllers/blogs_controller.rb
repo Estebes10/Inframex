@@ -1,7 +1,7 @@
 class BlogsController < ApplicationController
   before_action :validate_user
   before_action :set_project
-  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate, :delete_image_attachment]
+  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate, :delete_image_attachment, :edit_image_info, :update_image_info]
 
   def index
     @blogs = @project.blogs.order(:date)
@@ -89,13 +89,29 @@ class BlogsController < ApplicationController
 
   def delete_image_attachment
     @image = @blog.files.find(params[:attachment_id]).purge
-    #@image = ActiveStorage::Blob.find_signed(params[:image_id])
-    #@attachment = @image.attachments.first
-    #@image.purge
-    #@attachment.destroy
+  end
+
+  def edit_image_info
+    @image = @blog.files.find(params[:attachment_id])
+  end
+
+  def update_image_info
+    @image = @blog.files.find(params[:attachment_id])
+    if @image.blob.update_attributes!(file_params)
+      @image.save
+      flash[:success] = ' Archivo modificado correctamente'
+      redirect_to project_blog_path(project_id: @project, id: @blog)
+    else
+      flash[:error] = ' Error al modificar el archivo'
+      render :edit
+    end
   end
 
   private
+
+  def file_params
+    params.require(:attachment).permit(:filename, :description)
+  end
 
   def blog_params
     params.require(:blog).permit(:name, :description, :date, :comments, :status, files: [])

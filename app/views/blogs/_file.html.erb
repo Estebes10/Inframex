@@ -31,11 +31,21 @@
             <%= image_tag "other_icon.png", class: "card-img-top", id: file.id, data: {toggle: 'modal', target: '#file_'+file.id.to_s } %>
           <% end %>
           <div class="card-body">
-            <p> <%= file.blob.filename.to_s.truncate(30)%> </p>
+            <div class="file-name"><%= file.blob.filename.to_s.truncate(30) %> </div> <br/>
+              <% if file.blob.description? %>
+                <%= file.blob.description.to_s.truncate(30)%>
+              <% else %>
+                Sin descripción
+              <% end %> <br/>
             <button type="button" class="btn btn-outline-danger btn-circle delete-image"
                data-project-id="<%= @project.id %>" data-blog-id="<%= @blog.id %>" data-image-id="<%= file.id %>">
                <i class="ti-trash" aria-hidden="true"></i>
             </button>
+
+            <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                               <i class="ti-pencil"></i>
+                             </button>'),
+                        edit_image_info_project_blog_url(project_id: @project.id, id: @blog.id, attachment_id: file.id), data: {remote: 'true'} %>
 
             <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                   <i class="ti-download icon-white" aria-hidden="true"></i>
@@ -43,6 +53,8 @@
           </div>
         </div>
         <br/>
+
+        <div id="edit-file-modal-target"></div>
       <% end %>
     </div>
   </div>

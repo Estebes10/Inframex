@@ -28,11 +28,15 @@ Rails.application.routes.draw do
       post 'jobs',  to: 'jobs#create', as: :create_job
       resources :expenses do
         member do
+          get 'edit_image_info/:attachment_id', to: 'expenses#edit_image_info', as: :edit_expense_image_info
+          patch 'update_image_info/:attachment_id', to: 'expenses#update_image_info', as: :update_expense_image_info
           delete 'delete_image_attachment/:attachment_id', to: 'expenses#delete_image_attachment', as: :delete_expense_image_attachment
         end
       end
 
       member do
+        get 'edit_image_info/:attachment_id', to: 'blogs#edit_image_info', as: :edit_image_info
+        patch 'update_image_info/:attachment_id', to: 'blogs#update_image_info', as: :update_image_info
         delete 'delete_image_attachment/:attachment_id', to: 'blogs#delete_image_attachment', as: :delete_image_attachment
       end
     end

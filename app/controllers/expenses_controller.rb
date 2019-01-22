@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
 
   before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
-  before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment, :edit_image_info, :update_image_info]
   before_action :set_expense_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
   before_action :select_objects, only: [:show, :edit]
   before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
@@ -45,7 +45,7 @@ class ExpensesController < ApplicationController
   def update
     if @expense.update_attributes(expenses_params)
       flash[:success] = ' Gasto modificado correctamente'
-      redirect_to project_blog_url(project_id: @project, id: @blog)
+      redirect_to project_blog_expense_path(project_id: @project, blog_id: @blog, id: @expense)
     else
       flash[:error] = ' Error al modificar gasto'
       render :edit
@@ -78,7 +78,27 @@ class ExpensesController < ApplicationController
     @image = @expense.files.find(params[:attachment_id]).purge
   end
 
+  def edit_image_info
+    @image = @expense.files.find(params[:attachment_id])
+  end
+
+  def update_image_info
+    @image = @expense.files.find(params[:attachment_id])
+    if @image.blob.update_attributes!(file_params)
+      @image.save
+      flash[:success] = ' Archivo modificado correctamente'
+      redirect_to project_blog_expense_path(project_id: @project, blog_id: @blog, id: @expense)
+    else
+      flash[:error] = ' Error al modificar el archivo'
+      render :edit
+    end
+  end
+
   private
+
+  def file_params
+    params.require(:attachment).permit(:filename, :description)
+  end
 
   def expenses_params
     params.require(:expense).permit(

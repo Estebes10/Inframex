@@ -21,6 +21,10 @@
   border-radius: 0.25rem;
   background-color: #bbd8c93d !important;
   width: 220px !important;
-  max-height: 350px !important;
+  max-height: 400px !important;
   min-height: 150px !important;
+}
+
+.file-card > .card-body > .file-name {
+  font-weight: bold;
 }
