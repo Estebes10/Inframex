@@ -168,7 +168,6 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'blog_5',
                                          module_name: 'Bitácoras'
                                      },
-                                     #28
                                      # Privilegios de Conceptos
                                      {
                                          name: 'Consultar',
@@ -275,18 +274,49 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'file_4',
                                          module_name: 'Archivos'
                                      },
+                                     # Privilegios nuevos sin orden
                                      {
                                          name: 'Des/activar',
                                          description: 'Aprobar / Desaprobar facturación de gasto en el sistema',
                                          str_id: 'expenses_6',
                                          module_name: 'Gastos'
                                      },
-                                     #46
                                      {
                                          name: 'Des/activar',
                                          description: 'Activar / Desactivar proyecto en el sistema',
                                          str_id: 'project_5',
                                          module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de bitácora en el sistema',
+                                         str_id: 'blog_6',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Estatus Aprobado',
+                                         description: 'Consultar estatus de aprobado de gasto en el sistema',
+                                         str_id: 'expenses_7',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Estatus Facturado',
+                                         description: 'Consultar estatus de facturado de gasto en el sistema',
+                                         str_id: 'expenses_8',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de proyecto en el sistema',
+                                         str_id: 'project_6',
+                                         module_name: 'Proyectos'
+                                     },
+                                     #51
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de usuario en el sistema',
+                                         str_id: 'user_6',
+                                         module_name: 'Usuarios'
                                      }
                                  ]
   )

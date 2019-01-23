@@ -74,20 +74,40 @@
                           readonly: @readonly %>
       <% end %>
     </div>
-    <% if has_privilege(current_user, "project_5") %>
-      <div class="col-md-6 mT-15">
-        <label for = "user_status">Estado en el sistema:</label>
-        <div class="row">
-          <div class="col-md-2 col-sm-2" align="center">
-            <label class="switch">
-              <% @readonly ? @var = "return false;" : @var = ""%>
-              <%= f.check_box :status, onclick: @var %>
-              <span class="slider round"></span>
-            </label>
+
+
+    <% if has_privilege(current_user, "project_6") %>
+      <% if !@readonly %>
+        <% if has_privilege(current_user, "project_5") or @create%>
+          <div class="col-md-6 mT-15">
+            <label for = "user_status">Estado en el sistema:</label>
+            <div class="row">
+              <div class="col-md-2 col-sm-2" align="center">
+                <label class="switch">
+                  <% @readonly ? @var = "return false;" : @var = ""%>
+                  <%= f.check_box :status, onclick: @var%>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="col-md-6 mT-15">
+          <label for = "user_status">Estado en el sistema:</label>
+          <div class="row">
+            <div class="col-md-2 col-sm-2" align="center">
+              <label class="switch">
+                <% @readonly ? @var = "return false;" : @var = ""%>
+                <%= f.check_box :status, onclick: @var%>
+                <span class="slider round"></span>
+              </label>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
+
   </div>
   <% if !@readonly %>
     <div id="form-footer">

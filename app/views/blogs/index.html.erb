@@ -33,7 +33,9 @@
                 <th scope="col">Fecha de creación</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
-                <th scope="col">Estado de Aprobación</th>
+                <% if has_privilege(current_user, "blog_6") %>
+                  <th scope="col">Estado de Aprobación</th>
+                <% end %>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
@@ -44,31 +46,33 @@
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>
                 <td><%= blog.name %></td>
                 <td> <%= blog.description %></td>
-                <td>
-                  <% if has_privilege(current_user, "blog_5") %>
-                    <label class="switch">
-                      <input class="activate-switch status-blog"
-                             id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
-                             project-id="<%= "#{@project.id}" %>"
-                             data-id="<%= "#{blog.id}" %>"
-                             name="projects/<%= "#{@project.id}" %>/blogs/"
-                             type="checkbox"
-                             <%= if (blog.status)
-                                   "checked"
-                                 end %>>
-                      <span class="slider round"></span>
-                    </label>
-                  <% else %>
-                    <label class="switch">
-                      <input class="activate-switch status-blog"
-                             type="checkbox"
-                             <%= if (blog.status)
-                                   "checked"
-                                 end %> disabled>
-                      <span class="slider round"></span>
-                    </label>
-                  <% end %>
-                </td>
+                <% if has_privilege(current_user, "blog_6") %>
+                  <td>
+                    <% if has_privilege(current_user, "blog_5") %>
+                      <label class="switch">
+                        <input class="activate-switch status-blog"
+                               id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
+                               project-id="<%= "#{@project.id}" %>"
+                               data-id="<%= "#{blog.id}" %>"
+                               name="projects/<%= "#{@project.id}" %>/blogs/"
+                               type="checkbox"
+                               <%= if (blog.status)
+                                     "checked"
+                                   end %>>
+                        <span class="slider round"></span>
+                      </label>
+                    <% else %>
+                      <label class="switch">
+                        <input class="activate-switch status-blog"
+                               type="checkbox"
+                               <%= if (blog.status)
+                                     "checked"
+                                   end %> disabled>
+                        <span class="slider round"></span>
+                      </label>
+                    <% end %>
+                  </td>
+                <% end %>
                 <td>
                   <% if has_privilege(current_user, "blog_1") %>
                   <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">

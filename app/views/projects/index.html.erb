@@ -27,13 +27,17 @@
                     <h5 class="card-title"><%= project.name %></h5>
                     <h6 class="card-subtitle mb-2 text-muted"><%= project.code %></h6>
                     <p class="card-text">Inicio del proyecto: <%= project.start_date %></p>
-                    <p class="card-text">Estatus:
-                      <% if project.status %>
-                        Activo
-                      <% else %>
-                        Completado
-                      <% end %>
-                    </p>
+
+                    <% if has_privilege(current_user, "project_6") %>
+                      <p class="card-text">Estatus:
+                        <% if project.status %>
+                          Activo
+                        <% else %>
+                          Completado
+                        <% end %>
+                      </p>
+                    <% end %>
+                    
                     <p class="card-text">
                       <div class="progress">
                         <% rand = Random.rand(100)%>

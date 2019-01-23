@@ -32,8 +32,13 @@
         <th>Concepto</th>
         <th>Fecha</th>
         <th>Total</th>
-        <th>Aprobado</th>
-        <th>Facturado</th>
+        <% if has_privilege(current_user, "expenses_7") %>
+          <th>Aprobado</th>
+        <% end %>
+
+        <% if has_privilege(current_user, "expenses_8") %>
+          <th>Facturado</th>
+        <% end %>
         <th>Acciones</th>
       </tr>
       </thead>
@@ -48,53 +53,58 @@
             </td>
             <td><%= a.date-%></td>
             <td><%= number_to_currency(a.total)-%></td>
-            <td>
-              <% if has_privilege(current_user, "expenses_5") %>
-              <label class="switch">
-                <input class="activate-switch status-expense" id="status-<%= "expenses-#{a.id}" %>"
-                       data-id="<%= "#{a.id}" %>"
-                       name="expenses"
-                       type="checkbox"
-                       <%= if (a.status)
-                             "checked"
-                           end %>>
-                <span class="slider round"></span>
-              </label>
-              <% else %>
+            <% if has_privilege(current_user, "expenses_7") %>
+              <td>
+                <% if has_privilege(current_user, "expenses_5") %>
                 <label class="switch">
-                  <input class="activate-switch status-expense"
+                  <input class="activate-switch status-expense" id="status-<%= "expenses-#{a.id}" %>"
+                         data-id="<%= "#{a.id}" %>"
+                         name="expenses"
                          type="checkbox"
                          <%= if (a.status)
-                               "checked"
-                             end %> disabled>
-                  <span class="slider round"></span>
-                </label>
-              <% end %>
-            </td>
-            <td>
-              <% if has_privilege(current_user, "expenses_6") %>
-                <label class="switch">
-                  <input class="activate-switch status-ticket-expense"
-                         id="status_ticket-<%= "expenses-#{a.id}" %>"
-                         data-id="<%= "#{a.id}" %>"
-                         name="expensesticket"
-                         type="checkbox"
-                         <%= if (a.status_ticket)
                                "checked"
                              end %>>
                   <span class="slider round"></span>
                 </label>
-              <% else %>
-                <label class="switch">
-                  <input class="activate-switch status-ticket-expense"
-                         type="checkbox"
-                         <%= if (a.status_ticket)
-                               "checked"
-                             end %> disabled>
-                  <span class="slider round"></span>
-                </label>
-              <% end %>
-            </td>
+                <% else %>
+                  <label class="switch">
+                    <input class="activate-switch status-expense"
+                           type="checkbox"
+                           <%= if (a.status)
+                                 "checked"
+                               end %> disabled>
+                    <span class="slider round"></span>
+                  </label>
+                <% end %>
+              </td>
+            <% end %>
+
+            <% if has_privilege(current_user, "expenses_8") %>
+              <td>
+                <% if has_privilege(current_user, "expenses_6") %>
+                  <label class="switch">
+                    <input class="activate-switch status-ticket-expense"
+                           id="status_ticket-<%= "expenses-#{a.id}" %>"
+                           data-id="<%= "#{a.id}" %>"
+                           name="expensesticket"
+                           type="checkbox"
+                           <%= if (a.status_ticket)
+                                 "checked"
+                               end %>>
+                    <span class="slider round"></span>
+                  </label>
+                <% else %>
+                  <label class="switch">
+                    <input class="activate-switch status-ticket-expense"
+                           type="checkbox"
+                           <%= if (a.status_ticket)
+                                 "checked"
+                               end %> disabled>
+                    <span class="slider round"></span>
+                  </label>
+                <% end %>
+              </td>
+            <% end %>
             <td>
               <% if has_privilege(current_user, "expenses_1") %>
               <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
