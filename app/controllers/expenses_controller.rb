@@ -1,13 +1,5 @@
 class ExpensesController < ApplicationController
 
-  before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
-  before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
-  before_action :set_expense, only: [:show, :edit, :update, :destroy]
-  before_action :set_expense_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
-  before_action :select_objects, only: [:show, :edit]
-  before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
-
-
   #RBAC show
   before_action only: [:index, :show] do
     has_privilege_controller(current_user, 'expenses_1')
@@ -37,6 +29,13 @@ class ExpensesController < ApplicationController
   before_action only: [:activate_ticket] do
     has_privilege_controller(current_user, 'expenses_6')
   end
+  
+  before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
+  before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expense_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
+  before_action :select_objects, only: [:show, :edit]
+  before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
 
   def index
     @expenses = @blog.expenses.all

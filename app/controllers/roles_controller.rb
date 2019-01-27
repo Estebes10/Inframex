@@ -1,7 +1,5 @@
 class RolesController < ApplicationController
 
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
-
   #RBAC show
   before_action only: [:index, :show] do
     has_privilege_controller(current_user, 'rbac_1')
@@ -21,6 +19,8 @@ class RolesController < ApplicationController
   before_action only: [:destroy] do
     has_privilege_controller(current_user, 'rbac_6')
   end
+  
+  before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   def index
     @roles = Role.all

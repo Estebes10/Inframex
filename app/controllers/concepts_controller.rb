@@ -1,7 +1,4 @@
 class ConceptsController < ApplicationController
-  before_action :set_project
-  before_action :set_concept, only: [:show, :edit, :update, :destroy, :destroy_ajax]
-  before_action :set_categories, only: [:show, :new, :index, :edit]
 
   #RBAC show
   before_action only: [:index, :show] do
@@ -22,6 +19,10 @@ class ConceptsController < ApplicationController
   before_action only: [:destroy, :destroy_ajax] do
     has_privilege_controller(current_user, 'concept_4')
   end
+  
+  before_action :set_project
+  before_action :set_concept, only: [:show, :edit, :update, :destroy, :destroy_ajax]
+  before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
   end

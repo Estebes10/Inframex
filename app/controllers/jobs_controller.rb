@@ -1,9 +1,5 @@
 class JobsController < ApplicationController
 
-  before_action :set_project
-  before_action :set_blog
-  before_action :set_job, only: [:update, :edit, :destroy]
-
   #RBAC index
   before_action only: [:index] do
     has_privilege_controller(current_user, 'job_4')
@@ -23,6 +19,10 @@ class JobsController < ApplicationController
   before_action only: [:destroy] do
     has_privilege_controller(current_user, 'job_3')
   end
+  
+  before_action :set_project
+  before_action :set_blog
+  before_action :set_job, only: [:update, :edit, :destroy]
 
   def index
   end

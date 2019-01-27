@@ -1,9 +1,4 @@
 class BlogsController < ApplicationController
-  before_action :validate_user
-  before_action :set_project
-  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate]
-
-
   #RBAC show
   before_action only: [:index, :show] do
     has_privilege_controller(current_user, 'blog_1')
@@ -28,6 +23,10 @@ class BlogsController < ApplicationController
   before_action only: [:activate] do
     has_privilege_controller(current_user, 'blog_5')
   end
+  
+  before_action :validate_user
+  before_action :set_project
+  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate]
 
   def index
     @blogs = @project.blogs.order(:date)

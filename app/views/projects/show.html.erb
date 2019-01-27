@@ -101,10 +101,14 @@
             </div>
           </div>
           <div class="tab-pane fade" id="nav-blogs" role="tabpanel" aria-labelledby="nav-blogs-tab">
-            <%= render template: "blogs/index" %>
+            <% if has_privilege(current_user, "blog_1") %>
+              <%= render template: "blogs/index" %>
+            <% end %>
           </div>
           <div class="tab-pane fade" id="nav-concepts" role="tabpanel" aria-labelledby="nav-concepts-tab">
-            <%= render template: "concepts/index" %>
+            <% if has_privilege(current_user, "concept_1") %>
+              <%= render template: "concepts/index" %>
+            <% end %>
           </div>
         </div>
       </div>

@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  before_action :validate_user
-  before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   #RBAC show
   before_action only: [:index, :show] do
@@ -26,6 +24,9 @@ class UsersController < ApplicationController
   before_action only: [:activate] do
     has_privilege_controller(current_user, 'user_5')
   end
+  
+  before_action :validate_user
+  before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   def index
     @users = User.all
