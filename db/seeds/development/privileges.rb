@@ -317,6 +317,44 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Consultar estatus de usuario en el sistema',
                                          str_id: 'user_6',
                                          module_name: 'Usuarios'
+                                     },
+                                     # Privilegios de Avance de Trabajos
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo trabajo en el sistema',
+                                         str_id: 'job_prog_1',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar trabajo en el sistema',
+                                         str_id: 'job_prog_2',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar trabajo del sistema',
+                                         str_id: 'job_prog_3',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar trabajos del sistema',
+                                         str_id: 'job_prog_4',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar avances de trabajo en bitácora',
+                                         str_id: 'job_prog_5',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     #57
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de avances de trabajo en bitácora',
+                                         str_id: 'job_prog_6',
+                                         module_name: 'Avance Trabajo'
                                      }
                                  ]
   )

@@ -1,0 +1,2 @@
+class JobprogressesController < ApplicationController
+end

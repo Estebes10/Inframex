@@ -7,7 +7,7 @@ class Blog < ApplicationRecord
 
   has_many :expenses
 
-  has_many :jobs
+  has_many :job_progress
 
   # Attributes validation
   validates :name,
