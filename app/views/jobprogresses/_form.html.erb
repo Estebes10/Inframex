@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-lg-10 offset-lg-1">
+    <table class="table hover">
+      <tr>
+        <td colspan="2">Cantidad del Trabajo:</td>
+        <td></td>
+        <td><%= number_with_delimiter(@job.quantity) %> <%= @job.unity %></td>
+      </tr>
+      <tr>
+        <td colspan="2">Cantidad avanzada en trabajos aprobados:</td>
+        <td></td>
+        <td class="text-success"><%= number_with_delimiter(@job.sum_job_progresses_quantity_by_status(true)) %> <%= @job.unity %></td>
+      </tr>
+      <tr>
+        <td colspan="2">Cantidad avanzada en trabajos no aprobados:</td>
+        <td class="text-danger"><%= number_with_delimiter(@job.sum_job_progresses_quantity_by_status(false)) %> <%= @job.unity %></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="2"><strong>Cantidad restante:</strong></td>
+        <td></td>
+        <td><strong><%= number_with_delimiter(@job.quantity - @job.sum_job_progresses_quantity_by_status(true)) %> <%= @job.unity %></strong></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<%= form_for [@project, @blog, @job_progress] do |f| %>
+  <%= render 'layouts/errors_form', object: @job_progress %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="row text-center">
+          <div class="col-md-12">
+            <p>Los campos marcados con '*' son obligatorios.</p>
+          </div>
+          <div class="col-md-6 mT-15">
+            <%= f.label :quantity, "* Cantidad:" %>
+            <div class="input-group">
+              <%= f.number_field :quantity,
+                                 class:"form-control",
+                                 required: 'true',
+                                 placeholder: "e.g. 10",
+                                 readonly: @readonly %>
+              <div class="input-group-append">
+                <span class="input-group-text"><%= @concept.unity %></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if !@readonly %>
+    <div id="form-footer-job">
+      <hr>
+      <div class="text-center">
+        <a href="<%= project_blog_path(@project, @blog)%>" class="btn btn-outline-danger"> Cancelar </a>
+        <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

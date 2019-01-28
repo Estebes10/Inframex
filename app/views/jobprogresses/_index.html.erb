@@ -1,0 +1,114 @@
+<div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+  <h5 class="float-left">Trabajos realizados</h5>
+  <% if has_privilege(current_user, "job_1") %>
+  <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+          id="new-job-button" data-toggle="modal" data-target="#concepts-modal">
+    <i class="ti-plus"></i>
+    Agregar trabajo
+  </button>
+  <% end %>
+</div>
+
+<% if @blog.job_progress.blank? %>
+
+  <div class="layer w-100 p-20">
+    <div class="row">
+        <div class="col-md-10">
+            <p class="lead">Actualmente no hay registros de trabajos en esta bitácora</p>
+        </div>
+    </div>
+  </div>
+
+<% else %>
+
+  <div class="layer w-100 p-20">
+    <table class="table table-hover" id="job_progress-datatable" role="datatable">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Concepto</th>
+          <th scope="col">Cantidad Avance</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @blog.job_progress.each do |job_progress| %>
+        <tr>
+          <td><%= job_progress.job.name %></td>
+          <td>
+            <% if has_privilege(current_user, "concept_1") %>
+            <%= link_to job_progress.job.concept.code, {:controller => :concepts, :action => :show, :id => job_progress.job.concept.id} %>
+            <% end %>
+          </td>
+          <td><%= number_with_delimiter(job_progress.quantity) %> <%= job_progress.job.concept.unity %></td>
+          <td>
+            <% if has_privilege(current_user, "job_2") %>
+            <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+              <i class="ti-pencil icon-white" aria-hidden="true"></i>
+              </button>').html_safe, edit_project_blog_job_progress_path(project_id: @project, blog_id: @blog, id: job_progress)%>
+            <% end %>
+
+            <% if has_privilege(current_user, "job_3") %>
+            <button type="button" class="btn btn-outline-danger btn-circle delete-job"
+                    data-job_progress-id="<%= job_progress.id %>"
+                    data-blog-id="<%= @blog.id %>"
+                    data-project-id="<%= @project.id %>">
+              <i class="ti-trash" aria-hidden="true"></i>
+            </button>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<%end%>
+
+<div class="modal fade" id="concepts-modal" tabindex="-1" role="dialog" aria-labelledby="conceptsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Elige concepto y trabajo del nuevo avance:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <br>
+          <% if @concepts_jobs != nil %>
+            <table class="table table-hover" id="concepts_jobs-datatable" role="datatable">
+              <thead>
+                <tr>
+                  <th scope="col">Clave Concepto</th>
+                  <th scope="col">Nombre Trabajo</th>
+                  <th scope="col">Cantidad Trabajo</th>
+                  <th scope="col">Elegir</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @concepts_jobs.each do |job| %>
+                  <tr>
+                    <td><%= job[1] %></td>
+                    <td><%= job[2] %></td>
+                    <td><%= job[3] %> <%= job[4] %></td>
+                    <td>
+                      <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                        <i class="ti-check icon-white" aria-hidden="true"></i>
+                        </button>').html_safe, project_blog_new_job_progresses_path(project_id: @project, blog_id: @blog, job_id: job[0])%>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p class="lead">Actualmente no hay trabajos pre-registrados
+              en ningun concepto del proyecto</p>
+          <% end %>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

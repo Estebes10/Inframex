@@ -37,6 +37,7 @@ class BlogsController < ApplicationController
     @create = false
     @required_str = ""
     @concepts = @project.concepts.order(:code)
+    @concepts_jobs = @project.concepts.joins(:jobs).pluck('concepts.id, concepts.code, jobs.name, jobs.quantity, jobs.unity, jobs.id')
     @expenses = @blog.expenses.order(:name).all
   end
 

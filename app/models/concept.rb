@@ -31,10 +31,6 @@ class Concept < ApplicationRecord
   validates :total,
             presence: {with: true, message: "no puede estar vacío"},
             numericality: {with: true, only_integer: false }, :on => [:create ,:update]
-
-  def sum_all_jobs_quantity
-    jobs.sum(:quantity)
-  end
   
   def sum_all_jobs_weight
     jobs.sum(:weight)

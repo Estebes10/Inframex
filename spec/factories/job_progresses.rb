@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :job_progress do
     quantity         @quantity
+    status   {Faker::Boolean.boolean}
 
     before(:create) do |job_progress|
       @job_id = Job.all.ids.sample

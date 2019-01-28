@@ -24,7 +24,7 @@ class Job < ApplicationRecord
               
               
   def sum_job_progresses_quantity_by_status(status)
-    job_progress.includes(:blog).where("blogs.status = " + (status ? "true" : "false")).sum(:quantity)
+    job_progress.where("status = " + (status ? "true" : "false")).sum(:quantity)
   end
 
   def sum_all_job_progresses_quantity

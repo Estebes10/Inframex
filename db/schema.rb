@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2019_01_27_201224) do
 
   create_table "job_progresses", force: :cascade do |t|
     t.integer "quantity", null: false
+    t.boolean "status", null: false, default: false
     t.bigint "blog_id"
     t.bigint "job_id"
     t.datetime "created_at", null: false

@@ -74,6 +74,8 @@ class JobsController < ApplicationController
   def job_params
     params.require(:job).permit(:name,
                                 :quantity,
+                                :unity,
+                                :weight,
                                 :concept_id)
   end
 
