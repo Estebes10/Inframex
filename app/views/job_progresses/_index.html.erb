@@ -1,6 +1,6 @@
 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
   <h5 class="float-left">Trabajos realizados</h5>
-  <% if has_privilege(current_user, "job_1") %>
+  <% if has_privilege(current_user, "job_prog_1") %>
   <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
           id="new-job-button" data-toggle="modal" data-target="#concepts-modal">
     <i class="ti-plus"></i>
@@ -30,8 +30,10 @@
           <% end %>
           <th scope="col">Nombre Trabajo</th>
           <th scope="col">Cantidad Avance</th>
+          <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
           <th scope="col">Status Avance</th>
-          <% if has_privilege(current_user, "job_2") || has_privilege(current_user, "job_3") %>
+          <% end %>
+          <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
           <th scope="col">Acciones</th>
           <% end %>
         </tr>
@@ -45,13 +47,13 @@
             <% end %>
           </td>
           <td><%= job_progress.job.name %></td>
-          <td><%= number_with_delimiter(job_progress.quantity) %> <%= job_progress.job.concept.unity %></td>
-          <% if has_privilege(current_user, "job_prog_6") %>
+          <td><%= number_with_delimiter(job_progress.quantity) %> <%= job_progress.job.unity %></td>
+          <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
             <td>
               <label class="switch">
                 <input class="activate-switch status-job_progress" id="status-<%= "job_progress-#{job_progress.id}" %>"
-                       data-id="<%= "#{job_progress.id}" %>"
-                       name="job_progress"
+                       data-id="<%= job_progress.id %>"
+                       name="job_progresses"
                        type="checkbox"
                        <%= if job_progress.status
                              "checked"
@@ -63,16 +65,16 @@
               </label>
             </td>
           <% end %>
-          <% if has_privilege(current_user, "job_2") || has_privilege(current_user, "job_3") %>
+          <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
           <td>
-            <% if has_privilege(current_user, "job_2") %>
+            <% if has_privilege(current_user, "job_prog_2") %>
             <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
               <i class="ti-pencil icon-white" aria-hidden="true"></i>
               </button>').html_safe, edit_project_blog_job_progress_path(project_id: @project, blog_id: @blog, id: job_progress)%>
             <% end %>
 
-            <% if has_privilege(current_user, "job_3") %>
-            <button type="button" class="btn btn-outline-danger btn-circle delete-job"
+            <% if has_privilege(current_user, "job_prog_2") %>
+            <button type="button" class="btn btn-outline-danger btn-circle delete-job_progress"
                     data-job_progress-id="<%= job_progress.id %>"
                     data-blog-id="<%= @blog.id %>"
                     data-project-id="<%= @project.id %>">
@@ -101,7 +103,7 @@
       <div class="row">
         <div class="col-md-10 offset-md-1">
           <br>
-          <% if @concepts_jobs != nil %>
+          <% if @has_concepts_jobs %>
             <table class="table table-hover" id="concepts_jobs-datatable" role="datatable">
               <thead>
                 <tr>
@@ -112,17 +114,19 @@
                 </tr>
               </thead>
               <tbody>
-                <% @concepts_jobs.each do |job| %>
-                  <tr>
-                    <td><%= job[1] %></td>
-                    <td><%= job[2] %></td>
-                    <td><%= job[3] %> <%= job[4] %></td>
-                    <td>
-                      <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
-                        <i class="ti-check icon-white" aria-hidden="true"></i>
-                        </button>').html_safe, project_blog_new_job_progresses_path(project_id: @project, blog_id: @blog, job_id: job[0])%>
-                    </td>
-                  </tr>
+                <% @concepts.each do |concept| %>
+                  <% concept.jobs.each do |job| %>
+                    <tr>
+                      <td><%= concept.code %></td>
+                      <td><%= job.name %></td>
+                      <td><%= job.quantity %> <%= job.unity %></td>
+                      <td>
+                        <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                          <i class="ti-check icon-white" aria-hidden="true"></i>
+                          </button>').html_safe, project_blog_new_job_progresses_path(project_id: @project, blog_id: @blog, job_id: job.id)%>
+                      </td>
+                    </tr>
+                  <% end %>
                 <% end %>
               </tbody>
             </table>

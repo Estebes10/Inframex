@@ -46,10 +46,13 @@ Rails.application.routes.draw do
     post 'blogs/activate', to: 'blogs#activate', as: :activate_blog
   end
 
-  #ajax functions for expenses in blogs
+  #ajax routes for expenses in blogs
   delete 'expenses/:id/ajax', to: 'expenses#destroy_ajax', as: :destroy_ajax_expense
   post 'expenses/activate', to: 'expenses#activate', as: :activate_expense
   post 'expensesticket/activate', to: 'expenses#activate_ticket', as: :activate_expense_ticket
+  
+  #ajax routes for job progresses in blogs
+  post 'job_progresses/activate', to: 'job_progresses#activate', as: :activate_job_progresses
 
   # suppliers
   resources :suppliers

@@ -30,6 +30,7 @@
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <div class="row text-center">
+          <%= hidden_field(:job_progress, :job_id) %>
           <div class="col-md-12">
             <p>Los campos marcados con '*' son obligatorios.</p>
           </div>
@@ -42,7 +43,7 @@
                                  placeholder: "e.g. 10",
                                  readonly: @readonly %>
               <div class="input-group-append">
-                <span class="input-group-text"><%= @concept.unity %></span>
+                <span class="input-group-text"><%= @job.unity %></span>
               </div>
             </div>
           </div>

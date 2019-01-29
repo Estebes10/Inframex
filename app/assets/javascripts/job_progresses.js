@@ -17,7 +17,7 @@ $( document ).on('ready turbolinks:load', function() {
         var jobProgressId = $(this).attr("data-job_progress-id");
         var blogId = $(this).attr("data-blog-id");
         var projectId = $(this).attr("data-project-id");
-        deleteJob(jobProgressId, blogId, projectId, deleteButton);
+        deleteJobProgress(jobProgressId, blogId, projectId, deleteButton);
         return false;
     });
 });
@@ -34,7 +34,7 @@ function deleteJobProgress(jobProgressId, blogId, projectId, deleteButton) {
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/projects/" + projectId + "/blogs/" + blogId  + "/job_progress/" + jobProgressId,
+            url: "/projects/" + projectId + "/blogs/" + blogId  + "/job_progresses/" + jobProgressId,
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');

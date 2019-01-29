@@ -19,9 +19,10 @@ class JobProgressesController < ApplicationController
     has_privilege_controller(current_user, 'job_prog_3')
   end
   
-  before_action :set_project
-  before_action :set_blog
+  before_action :set_project, except: [:activate]
+  before_action :set_blog, except: [:activate]
   before_action :set_job_progress, only: [:update, :edit, :destroy]
+  before_action :set_job_progress_ajax, only: [:activate]
 
   def index
   end
@@ -31,6 +32,7 @@ class JobProgressesController < ApplicationController
     @create = true
     @job_progress = @blog.job_progress.new
     @job = Job.find(params[:job_id])
+    @job_progress.job_id = @job.id
     @concept = @job.concept
   end
 
@@ -52,7 +54,8 @@ class JobProgressesController < ApplicationController
   def edit
     @readonly = false
     @create = false
-    @concept = @job_progress.concept
+    @job = @job_progress.job
+    @concept = @job.concept
   end
 
   def update
@@ -67,6 +70,10 @@ class JobProgressesController < ApplicationController
 
   def destroy
     @job_progress.destroy
+  end
+
+  def activate
+    @job_progress.update_attribute(:status, params[:data])
   end
 
   private
@@ -88,5 +95,10 @@ class JobProgressesController < ApplicationController
   # find current job
   def set_job_progress
     @job_progress = @blog.job_progress.find_by!(id: params[:id]) if @blog
+  end
+  
+  # find current job for ajax methods
+  def set_job_progress_ajax
+    @job_progress = JobProgress.find(params[:id])
   end
 end

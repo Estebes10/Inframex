@@ -72,16 +72,15 @@ class ProjectsController < ApplicationController
   def destroy
     if @project.blogs.count > 0
       @project.blogs.each do | blog |
-        if blog.jobs.count > 0
-          blog.jobs.destroy_all
-        else
-          blog.destroy
-        end
+        remove_blog(blog)
       end
-      @project.destroy
-    else
-      @project.destroy
     end
+    if @project.concepts.count > 0
+      @project.concepts.each do | concept |
+        remove_concept(concept)
+      end
+    end
+    @project.destroy
   end
 
   private
@@ -104,6 +103,26 @@ class ProjectsController < ApplicationController
 
   def set_categories
     @categories = Category.order(:name).all
+  end
+  
+  def remove_blog(blog)
+    if blog.job_progress.count > 0
+      # remove all jobs
+      blog.job_progress.destroy_all
+    end
+    if blog.expenses.count > 0
+      # remove all expenses
+      blog.expenses.destroy_all
+    end
+    blog.destroy
+  end
+  
+  def remove_concept(concept)
+    if concept.jobs.count > 0
+      # remove all jobs
+      concept.jobs.destroy_all
+    end
+    concept.destroy
   end
 
 end

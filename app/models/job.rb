@@ -1,6 +1,6 @@
 class Job < ApplicationRecord
   belongs_to :concept
-  has_many :job_progress
+  has_many :job_progress, dependent:   :destroy
 
   validates :concept_id,
             presence:   {with: true, message: "no puede estar vacío"}

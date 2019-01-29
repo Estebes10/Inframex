@@ -37,7 +37,7 @@ class BlogsController < ApplicationController
     @create = false
     @required_str = ""
     @concepts = @project.concepts.order(:code)
-    @concepts_jobs = @project.concepts.joins(:jobs).pluck('concepts.id, concepts.code, jobs.name, jobs.quantity, jobs.unity, jobs.id')
+    @has_concepts_jobs = @concepts.joins(:jobs).any?
     @expenses = @blog.expenses.order(:name).all
   end
 
@@ -84,22 +84,12 @@ class BlogsController < ApplicationController
   end
 
   def destroy_ajax
-    if @blog.jobs.count > 0
-      # remove all jobs
-      @blog.jobs.destroy_all
-      # remove all expenses
-      @blog.expenses.destroy_all
-    end
+    remove_blog_jobs_expenses(@blog)
     @blog.destroy
   end
 
   def destroy
-    if @blog.jobs.count > 0
-      # remove all jobs
-      @blog.jobs.destroy_all
-      # remove all expenses
-      @blog.expenses.destroy_all
-    end
+    remove_blog_jobs_expenses(@blog)
     if @blog.destroy
       flash[:success] = ' Se ha eliminado la bitácora correctamente'
       redirect_to project_path(@project , :anchor => "nav-blogs")
@@ -125,6 +115,17 @@ class BlogsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
+  end
+  
+  def remove_blog_jobs_expenses(blog)
+    if blog.job_progress.count > 0
+      # remove all jobs
+      blog.job_progress.destroy_all
+    end
+    if blog.expenses.count > 0
+      # remove all expenses
+      blog.expenses.destroy_all
+    end
   end
 
 end

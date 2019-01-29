@@ -321,25 +321,25 @@ if !Privilege.find_by(name: 'Consultar')
                                      # Privilegios de Avance de Trabajos
                                      {
                                          name: 'Crear',
-                                         description: 'Crear un nuevo trabajo en el sistema',
+                                         description: 'Crear un nuevo avance de trabajo en el sistema',
                                          str_id: 'job_prog_1',
                                          module_name: 'Avance Trabajo'
                                      },
                                      {
                                          name: 'Editar',
-                                         description: 'Editar trabajo en el sistema',
+                                         description: 'Editar avances de trabajo en el sistema',
                                          str_id: 'job_prog_2',
                                          module_name: 'Avance Trabajo'
                                      },
                                      {
                                          name: 'Eliminar',
-                                         description: 'Eliminar trabajo del sistema',
+                                         description: 'Eliminar avances de trabajo del sistema',
                                          str_id: 'job_prog_3',
                                          module_name: 'Avance Trabajo'
                                      },
                                      {
                                          name: 'Consultar',
-                                         description: 'Consultar trabajos del sistema',
+                                         description: 'Consultar avances de trabajos del sistema',
                                          str_id: 'job_prog_4',
                                          module_name: 'Avance Trabajo'
                                      },
