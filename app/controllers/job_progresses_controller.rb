@@ -1,4 +1,4 @@
-class JobprogressesController < ApplicationController
+class JobProgressesController < ApplicationController
     #RBAC index
   before_action only: [:index] do
     has_privilege_controller(current_user, 'job_prog_4')
@@ -32,7 +32,6 @@ class JobprogressesController < ApplicationController
     @job_progress = @blog.job_progress.new
     @job = Job.find(params[:job_id])
     @concept = @job.concept
-    render :new
   end
 
   def create
@@ -45,6 +44,7 @@ class JobprogressesController < ApplicationController
       @readonly = false
       @create = true
       @job = Job.find(params[:job_id])
+      @concept = @job.concept
       render action: :new
     end
   end

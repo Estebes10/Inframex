@@ -25,22 +25,45 @@
     <table class="table table-hover" id="job_progress-datatable" role="datatable">
       <thead>
         <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Concepto</th>
+          <% if has_privilege(current_user, "concept_1") %>
+          <th scope="col">Clave Concepto</th>
+          <% end %>
+          <th scope="col">Nombre Trabajo</th>
           <th scope="col">Cantidad Avance</th>
+          <th scope="col">Status Avance</th>
+          <% if has_privilege(current_user, "job_2") || has_privilege(current_user, "job_3") %>
           <th scope="col">Acciones</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
       <% @blog.job_progress.each do |job_progress| %>
         <tr>
-          <td><%= job_progress.job.name %></td>
           <td>
             <% if has_privilege(current_user, "concept_1") %>
             <%= link_to job_progress.job.concept.code, {:controller => :concepts, :action => :show, :id => job_progress.job.concept.id} %>
             <% end %>
           </td>
+          <td><%= job_progress.job.name %></td>
           <td><%= number_with_delimiter(job_progress.quantity) %> <%= job_progress.job.concept.unity %></td>
+          <% if has_privilege(current_user, "job_prog_6") %>
+            <td>
+              <label class="switch">
+                <input class="activate-switch status-job_progress" id="status-<%= "job_progress-#{job_progress.id}" %>"
+                       data-id="<%= "#{job_progress.id}" %>"
+                       name="job_progress"
+                       type="checkbox"
+                       <%= if job_progress.status
+                             "checked"
+                           end %> 
+                           <%= if !has_privilege(current_user, "job_prog_5")
+                             "disabled"
+                           end %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          <% end %>
+          <% if has_privilege(current_user, "job_2") || has_privilege(current_user, "job_3") %>
           <td>
             <% if has_privilege(current_user, "job_2") %>
             <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
@@ -57,6 +80,7 @@
             </button>
             <% end %>
           </td>
+          <% end %>
         </tr>
       <% end %>
       </tbody>

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :blogs, except: :destroy do
       # job progresses
       resources :job_progresses, except: :new
-      get  'jobs/:job_id/job_progresses/new',  to: 'jobprogresses#new', as: :new_job_progresses
+      get  'jobs/:job_id/job_progresses/new',  to: 'job_progresses#new', as: :new_job_progresses
       # expenses
       resources :expenses
     end
