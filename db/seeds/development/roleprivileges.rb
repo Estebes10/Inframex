@@ -450,7 +450,7 @@ if !Roleprivilege.find_by(role_id: 1)
                                               # "Cliente" privileges
                                               {
                                                   role_id: 4,
-                                                  privilege_id: 18
+                                                  privilege_id: 19
                                               },
                                               {
                                                   role_id: 4,

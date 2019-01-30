@@ -24,7 +24,11 @@ class ProjectsController < ApplicationController
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
-    @projects = Project.order(:id)
+    if current_user.role_id == 1
+      @projects = Project.order(:id)
+    else
+      @projects = current_user.projects.order(:id)
+    end
   end
 
   def new
@@ -35,7 +39,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @users = @project.users.order(:role_id,:name, :status).all
+    @users = @project.users.order(:role_id,:name).all
     @readonly = true
     @create = false
     @required_str = ""

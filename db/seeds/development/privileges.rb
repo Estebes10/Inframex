@@ -56,6 +56,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'rbac_4',
                                          module_name: 'Rbac'
                                      },
+                                     #10
                                      {
                                          name: 'Eliminar Privilegio',
                                          description: 'Eliminar privilegio de rol',
@@ -119,6 +120,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'project_1',
                                          module_name: 'Proyectos'
                                      },
+                                     #20
                                      {
                                          name: 'Crear',
                                          description: 'Crear un nuevo proyecto en el sistema',
@@ -181,6 +183,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'concept_2',
                                          module_name: 'Conceptos'
                                      },
+                                     #30
                                      {
                                          name: 'Editar',
                                          description: 'Editar concepto en el sistema',
@@ -243,6 +246,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'job_3',
                                          module_name: 'Trabajos'
                                      },
+                                     #40
                                      {
                                          name: 'Consultar',
                                          description: 'Consultar trabajos del sistema',
@@ -305,13 +309,13 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'expenses_8',
                                          module_name: 'Gastos'
                                      },
+                                     #50
                                      {
                                          name: 'Estatus',
                                          description: 'Consultar estatus de proyecto en el sistema',
                                          str_id: 'project_6',
                                          module_name: 'Proyectos'
                                      },
-                                     #51
                                      {
                                          name: 'Estatus',
                                          description: 'Consultar estatus de usuario en el sistema',

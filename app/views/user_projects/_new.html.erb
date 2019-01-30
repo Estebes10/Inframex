@@ -9,12 +9,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= form_for(project_user_projects_path(@project), method: "post", remote: true, html: { style: "display:inline;" }) do %>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-        </div>
-      <% end %>
+      <%= render "form" %>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if logged_in?
-      redirect_to users_url
+      redirect_to projects_url
     else
       render 'new'
     end
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       log_in @user
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
       # flash[:success] = 'Bienvenido, sesión iniciada'
-      redirect_to users_url
+      redirect_to projects_url
     else
       flash.now[:danger] = 'Datos de usuario incorrectos'
       render 'new'

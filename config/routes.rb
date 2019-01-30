@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     post 'blogs/activate', to: 'blogs#activate', as: :activate_blog
     #users in project
     delete 'user_projects/:id', to: 'user_projects#destroy', as: :destroy_user_project
+    post 'user_projects/new', to: 'user_projects#create', as: :create_user_projects
   end
 
   #ajax functions for expenses in blogs
