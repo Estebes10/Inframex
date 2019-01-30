@@ -43,4 +43,17 @@ class Project < ApplicationRecord
     }
 
   validates :status, inclusion: { in: [ true, false ] }
+  
+  def get_category_progress(category_id)
+    total_concepts = concepts.where("category_id = #{category_id}").count
+    progress = 0.0
+    concepts.where("category_id = #{category_id}").each do |c|
+      progress += c.get_progress
+    end
+    return (progress/total_concepts)
+  end
+  
+  def get_category_progress_100(category_id)
+    self.get_category_progress(category_id) * 100
+  end
 end

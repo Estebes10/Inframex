@@ -43,7 +43,20 @@ class Concept < ApplicationRecord
   def sum_all_expenses
     expenses.sum(:total)
   end
-
+  
+  def get_progress
+    total_weigth = self.sum_all_jobs_weight
+    progress = 0.0
+    jobs.each do |j|
+      progress += (j.get_progress * j.weight)/total_weigth
+    end
+    return progress
+  end
+  
+  def get_progress_100
+    self.get_progress * 100
+  end
+  
   private
 
   def calculate_total

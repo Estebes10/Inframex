@@ -30,5 +30,13 @@ class Job < ApplicationRecord
   def sum_all_job_progresses_quantity
     job_progress.sum(:quantity)
   end
+  
+  def get_progress
+    sum_job_progresses_quantity_by_status(true) / self.quantity
+  end
+  
+  def get_progress_100
+    self.get_progress * 100
+  end
 
 end

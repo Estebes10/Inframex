@@ -25,6 +25,13 @@
       </div>
       <div class="layer w-100 p-20 text-center">
         <%= render "form" %>
+        <br>
+        <h6>Progreso del Concepto:</h6>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated"
+               role="progressbar" aria-valuenow="<%= @concept.get_progress_100.round(2) %>" aria-valuemin="0"
+               aria-valuemax="100" style="width: <%= @concept.get_progress_100.round(2) %>%"><%= @concept.get_progress_100.round(2) %>%</div>
+        </div>
       </div>
     </div>
   </div>
@@ -146,7 +153,13 @@
     <% end %>
     <!-- Jobs item -->
     <% if has_privilege(current_user, "job_4") %>
-      <%= render "jobs/index"%>
+      <div class="masonry-item col-md-12">
+        <div class="bd bgc-white">
+          <div class="layers">
+            <%= render "jobs/index"%>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

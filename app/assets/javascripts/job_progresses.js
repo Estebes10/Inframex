@@ -1,17 +1,11 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#job_progress-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-    
-    $('#concepts_jobs-datatable').DataTable({
+    $('.job_progress-datatable').DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
         }
     });
 
-    $('#job_progress-datatable tbody').on('click', 'button.delete-job_progress', function (e) {
+    $('.job_progress-datatable tbody').on('click', 'button.delete-job_progress', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
         var jobProgressId = $(this).attr("data-job_progress-id");
