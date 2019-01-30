@@ -321,6 +321,25 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Consultar estatus de usuario en el sistema',
                                          str_id: 'user_6',
                                          module_name: 'Usuarios'
+                                     },
+                                     # Privilegios de Usuarios-Proyectos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar usuario(s) asignados a un proyecto',
+                                         str_id: 'userproject_1',
+                                         module_name: 'Usuarios-Proyecto'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Asignar usuario(s) a un proyecto',
+                                         str_id: 'userproject_2',
+                                         module_name: 'Usuarios-Proyecto'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Quitar usuario(s) a un proyecto',
+                                         str_id: 'userproject_3',
+                                         module_name: 'Usuarios-Proyecto'
                                      }
                                  ]
   )

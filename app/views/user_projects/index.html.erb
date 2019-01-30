@@ -1,9 +1,10 @@
+<% if has_privilege(current_user, "userproject_1") %>
 <div class="masonry-item col-md-12">
-  <!-- #Todo ==================== -->
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left">Usuarios del Proyecto</h5>
+        <% if has_privilege(current_user, "userproject_2") %>
           <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                     id="new-user-button">
                     <i class="ti-plus"></i>
@@ -11,6 +12,7 @@
                   </button>'.html_safe,
                       new_project_user_project_url(@project), data: {remote: 'true'}
           %>
+        <% end %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <table class="table table-hover" id="users-projects-datatable" role="datatable">
@@ -23,7 +25,9 @@
             <% if has_privilege(current_user, "user_6") %>
               <th>Estatus</th>
             <% end %>
+            <% if has_privilege(current_user, "user_1") or has_privilege(current_user, "userproject_3") %>
             <th>Acciones</th>
+            <% end %>
           </tr>
           </thead>
           <tbody>
@@ -34,7 +38,6 @@
               <% else %>
                 <td><%= a.name + ' ' + a.lastName -%></td>
               <% end %>
-              <!--Se podría poner un mailto con link en el mail  -->
               <td><%= a.email-%></td>
               <td><%= a.phone-%></td>
               <td><%= if a.role.present? then a.role.name end -%></td>
@@ -72,11 +75,14 @@
                       <i class="ti-eye icon-white" aria-hidden="true"></i>
                       </button>').html_safe, {action: :show, :id => a.id } %>
                 <% end %>
+
+                <% if has_privilege(current_user, "userproject_3") %>
                 <button type="button" class="btn btn-outline-danger btn-circle delete-user-project"
                         data-user-id="<%= a.id %>"
                         data-project-id="<%= @project.id %>">
                   <i class="ti-trash" aria-hidden="true"></i>
                 </button>
+                <% end %>
               </td>
             </tr>
 
@@ -89,3 +95,4 @@
 </div>
 
 <div id="user-projects-modal-target"></div>
+<% end %>
