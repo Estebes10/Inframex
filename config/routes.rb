@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   # blogs
   resources :projects do
+    resources :user_projects, except: :destroy
     resources :blogs, except: :destroy do
       resources :jobs, except: :new
       get  'jobs/new/:concept_id',  to: 'jobs#new', as: :new_job
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
     delete 'blogs/:id', to: 'blogs#destroy', as: :destroy_blog
     delete 'blogs/:id/ajax', to: 'blogs#destroy_ajax', as: :destroy_ajax_blog
     post 'blogs/activate', to: 'blogs#activate', as: :activate_blog
+    #users in project
+    delete 'user_projects/:id', to: 'user_projects#destroy', as: :destroy_user_project
   end
 
   #ajax functions for expenses in blogs

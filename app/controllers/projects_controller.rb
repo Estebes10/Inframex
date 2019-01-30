@@ -35,6 +35,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @users = @project.users.order(:role_id,:name, :status).all
     @readonly = true
     @create = false
     @required_str = ""

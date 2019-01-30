@@ -1,0 +1,20 @@
+<div class="modal fade" id="user-projects-modal"
+     tabindex="-1" role="dialog"
+     aria-labelledby="user-projects-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="user-projects-modal-title">Agregar usuarios a proyecto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for(project_user_projects_path(@project), method: "post", remote: true, html: { style: "display:inline;" }) do %>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
