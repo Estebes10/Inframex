@@ -15,20 +15,21 @@ local:
 #   bucket: your_own_bucket
 
 # Remember not to checkin your GCS keyfile to a repository
+# credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
 google:
   service: GCS
   project: inframex-app
   credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'] %>
-  bucket: inframex_storage
-  #credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
+  bucket: inframex-storage
 
 google_dev:
   service: GCS
   project: inframex-app
-  credentials: <%= Rails.application.credentials.staging[:gcs_inframex_app].to_json %>
-  bucket: inframex_storage
-  #credentials: <%= Rails.root.join("config/secrets/inframex-app.json") %>
+  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'] %>
+  bucket: inframex-torage
 
+# credentials: <%= Rails.application.credentials.staging[:gcs_inframex_app].to_json %>
+# credentials: <%= Rails.root.join("config/secrets/inframex-app.json") %>
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:
 #   service: AzureStorage
