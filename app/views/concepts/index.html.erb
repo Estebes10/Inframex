@@ -27,7 +27,7 @@
             <div class="layers bd">
               <% if !@project.concepts.where(category_id: c.id).blank? %>
                 <div class="bgc-blue-grey-600 bgcH-blue-grey-900 bdc-grey-200 bdB c-white d-inline layer w-100 p-10" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse-<%= c.id %>">
-                  <h6 class="pL-15"><%= c.name %></h6>
+                  <h6 class="pL-15"><%= c.name %> (<%= @project.get_category_progress_100(c.id).round(2) %>%)</h6>
                 </div>
                 <div class="layer  bgc-white w-100 p-20 text-center collapse" id="collapse-<%= c.id %>">
                   <table class="table table-hover datatable" id="concepts-datatable" role="datatable">
