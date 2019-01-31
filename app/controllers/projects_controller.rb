@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
-    if current_user.role_id == 1
+    if has_privilege(current_user, 'project_7')
       @projects = Project.order(:id)
     else
       @projects = current_user.projects.order(:id)

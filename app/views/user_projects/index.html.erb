@@ -34,7 +34,7 @@
           <% @users.each do |a| %>
             <tr>
               <% if has_privilege(current_user, "user_1") %>
-              <td><%= link_to a.name + ' ' + a.lastName, {:action => 'show', :id => a.id} -%></td>
+              <td><%= link_to a.name + ' ' + a.lastName, {:controller => :users, :action => 'show', :id => a.id} -%></td>
               <% else %>
                 <td><%= a.name + ' ' + a.lastName -%></td>
               <% end %>
@@ -73,7 +73,7 @@
                 <% if has_privilege(current_user, "user_1") %>
                   <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                       <i class="ti-eye icon-white" aria-hidden="true"></i>
-                      </button>').html_safe, {action: :show, :id => a.id } %>
+                      </button>').html_safe, {:controller => :users, action: :show, :id => a.id } %>
                 <% end %>
 
                 <% if has_privilege(current_user, "userproject_3") %>

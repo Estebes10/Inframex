@@ -340,7 +340,14 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Quitar usuario(s) a un proyecto',
                                          str_id: 'userproject_3',
                                          module_name: 'Usuarios-Proyecto'
+                                     },
+                                     {
+                                         name: 'Consultar Proyectos',
+                                         description: 'Consultar todos los proyectos sin importar si el usuario esta asignado.',
+                                         str_id: 'project_7',
+                                         module_name: 'Proyectos'
                                      }
+
                                  ]
   )
 end
