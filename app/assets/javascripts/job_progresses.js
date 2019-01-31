@@ -4,6 +4,12 @@ $( document ).on('ready turbolinks:load', function() {
             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
         }
     });
+    
+    $('#concepts_jobs-datatable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    });
 
     $('.job_progress-datatable tbody').on('click', 'button.delete-job_progress', function (e) {
         e.preventDefault(e);

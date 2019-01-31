@@ -5,7 +5,7 @@ FactoryBot.define do
 
     before(:create) do |job_progress|
       @job_id = Job.all.ids.sample
-      @quantity = Faker::Number.decimal(1,2)
+      @quantity = Faker::Number.decimal(2,2)
       @job = Job.find(@job_id)
       if (@job.quantity - @job.sum_all_job_progresses_quantity) < @quantity.to_d
         @quantity = Faker::Number.decimal(1,2)
