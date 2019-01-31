@@ -16,7 +16,6 @@
         <tbody>
         <% @users.each do |a| %>
           <tr>
-          <tr>
             <td><%= a.name + ' ' + a.lastName -%></td>
             <td><%= a.email-%></td>
             <td><%= if a.role.present? then a.role.name end -%></td>
