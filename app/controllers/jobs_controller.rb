@@ -31,6 +31,7 @@ class JobsController < ApplicationController
     @readonly = false
     @create = true
     @job = @concept.jobs.new
+    @required_str = "* "
     render :new
   end
 
@@ -50,7 +51,7 @@ class JobsController < ApplicationController
   def edit
     @readonly = false
     @create = false
-    @concept = @job.concept
+    @required_str = "* "
   end
 
   def update

@@ -1,11 +1,12 @@
 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
   <h5 class="float-left">Trabajos del Concepto</h5>
   <% if has_privilege(current_user, "job_1") %>
-  <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-          id="new-job-button" data-toggle="modal" data-target="#concepts-modal">
-    <i class="ti-plus"></i>
-    Agregar trabajo
-  </button>
+  <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                        id="new-job-button"">
+                        <i class="ti-plus"></i>
+                        Agregar trabajo
+                      </button>'.html_safe,
+                    new_project_concept_job_path(@project, @concept)%>
   <% end %>
 </div>
 

@@ -27,15 +27,29 @@
     </div>
     <div class="col-md-12 mT-15">
       <%= f.label :category_id, "#{@required_str}Cantidad:" %>
-      <%= f.text_field :quantity, class: 'form-control', required: 'true', placeholder: "e.g. 225.00", readonly: @read_only %>
+      <%= f.number_field :quantity, 
+        class: 'form-control', 
+        required: 'true', 
+        placeholder: "e.g. 225.00",
+        step: 0.01,
+        readonly: @read_only %>
     </div>
     <div class="col-md-12 mT-15">
       <%= f.label :category_id, "#{@required_str}Unidad:" %>
-      <%= f.text_field :unity, class:"form-control", required: 'true', placeholder: "e.g. m2", readonly: @read_only %>
+      <%= f.text_field :unity, 
+        class:"form-control", 
+        required: 'true',
+        placeholder: "e.g. m2", 
+        readonly: @read_only %>
     </div>
     <div class="col-md-12 mT-15">
       <%= f.label :category_id, "#{@required_str}Precio por Unidad:" %>
-      <%= f.text_field :unit_price, class:"form-control", required: 'true', placeholder: "e.g. 204.44", readonly: @read_only %>
+      <%= f.number_field :unit_price, 
+        class:"form-control", 
+        required: 'true',
+        placeholder: "e.g. 204.44", 
+        step: 0.01,
+        readonly: @read_only %>
     </div>
   </div>
   <% if !@read_only %>
