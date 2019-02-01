@@ -26,7 +26,7 @@ google_dev:
   service: GCS
   project: inframex-app
   credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'] %>
-  bucket: inframex-torage
+  bucket: inframex-storage
 
 # credentials: <%= Rails.application.credentials.staging[:gcs_inframex_app].to_json %>
 # credentials: <%= Rails.root.join("config/secrets/inframex-app.json") %>
