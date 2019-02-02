@@ -20,16 +20,22 @@ Rails.application.routes.draw do
   delete 'users/:id', to: 'users#destroy', as: :destroy_user
   resources :users
 
-  # blogs
+  # projects
   resources :projects do
+    # blogs
     resources :blogs, except: :destroy do
-      resources :jobs, except: :new
-      get  'jobs/new/:concept_id',  to: 'jobs#new', as: :new_job
-      post 'jobs',  to: 'jobs#create', as: :create_job
+      # job progresses
+      resources :job_progresses, except: :new
+      get  'jobs/:job_id/job_progresses/new',  to: 'job_progresses#new', as: :new_job_progresses
+      # expenses
       resources :expenses
     end
+    
     # concepts
-    resources :concepts, except: :destroy
+    resources :concepts, except: :destroy do
+      # jobs
+      resources :jobs
+    end
 
     #delete for concepts
     delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
@@ -40,10 +46,13 @@ Rails.application.routes.draw do
     post 'blogs/activate', to: 'blogs#activate', as: :activate_blog
   end
 
-  #ajax functions for expenses in blogs
+  #ajax routes for expenses in blogs
   delete 'expenses/:id/ajax', to: 'expenses#destroy_ajax', as: :destroy_ajax_expense
   post 'expenses/activate', to: 'expenses#activate', as: :activate_expense
   post 'expensesticket/activate', to: 'expenses#activate_ticket', as: :activate_expense_ticket
+  
+  #ajax routes for job progresses in blogs
+  post 'job_progresses/activate', to: 'job_progresses#activate', as: :activate_job_progresses
 
   # suppliers
   resources :suppliers

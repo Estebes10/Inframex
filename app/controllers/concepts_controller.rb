@@ -69,18 +69,10 @@ class ConceptsController < ApplicationController
   end
 
   def destroy_ajax
-    if @concept.expenses.count > 0
-      #remove all expenses
-      @concept.expenses.destroy_all
-    end
     @concept.destroy
   end
 
   def destroy
-    if @concept.expenses.count > 0
-      #remove all expenses
-      @concept.expenses.destroy_all
-    end
     if @concept.destroy
       flash[:success] = ' Se ha eliminado concepto correctamente'
       redirect_to project_path(@project , :anchor => "nav-concepts")

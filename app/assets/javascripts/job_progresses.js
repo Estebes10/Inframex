@@ -1,28 +1,40 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#jobs-datatable tbody').on('click', 'button.delete-job', function (e) {
+    $('.job_progress-datatable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    });
+    
+    $('#concepts_jobs-datatable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    });
+
+    $('.job_progress-datatable tbody').on('click', 'button.delete-job_progress', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
-        var jobId = $(this).attr("data-job-id");
-        var conceptId = $(this).attr("data-concept-id");
+        var jobProgressId = $(this).attr("data-job_progress-id");
+        var blogId = $(this).attr("data-blog-id");
         var projectId = $(this).attr("data-project-id");
-        deleteJob(jobId, conceptId, projectId, deleteButton);
+        deleteJobProgress(jobProgressId, blogId, projectId, deleteButton);
         return false;
     });
 });
 
-function deleteJob(jobId, conceptId, projectId, deleteButton) {
+function deleteJobProgress(jobProgressId, blogId, projectId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
-        text: "¿Estás seguro de querer borrar el trabajo?",
+        text: "¿Estás seguro de querer borrar el progreso de trabajo?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
-        confirmButtonText: "Sí, ¡Borrar Trabajo!",
+        confirmButtonText: "Sí, ¡Borrar progreso de trabajo!",
         confirmButtonColor: "#ec6c62"
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/projects/" + projectId + "/concepts/" + conceptId  + "/jobs/" + jobId,
+            url: "/projects/" + projectId + "/blogs/" + blogId  + "/job_progresses/" + jobProgressId,
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');
