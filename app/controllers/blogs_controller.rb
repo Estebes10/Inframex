@@ -84,12 +84,10 @@ class BlogsController < ApplicationController
   end
 
   def destroy_ajax
-    remove_blog_jobs_expenses(@blog)
     @blog.destroy
   end
 
   def destroy
-    remove_blog_jobs_expenses(@blog)
     if @blog.destroy
       flash[:success] = ' Se ha eliminado la bitácora correctamente'
       redirect_to project_path(@project , :anchor => "nav-blogs")
@@ -115,17 +113,6 @@ class BlogsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
-  end
-  
-  def remove_blog_jobs_expenses(blog)
-    if blog.job_progress.count > 0
-      # remove all jobs
-      blog.job_progress.destroy_all
-    end
-    if blog.expenses.count > 0
-      # remove all expenses
-      blog.expenses.destroy_all
-    end
   end
 
 end

@@ -22,7 +22,7 @@
 <% else %>
 
   <div class="layer w-100 p-20">
-    <table class="table table-hover" id="job_progress-datatable" role="datatable">
+    <table class="table table-hover job_progress-datatable" role="datatable">
       <thead>
         <tr>
           <% if has_privilege(current_user, "concept_1") %>
@@ -31,7 +31,7 @@
           <th scope="col">Nombre Trabajo</th>
           <th scope="col">Cantidad Avance</th>
           <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
-          <th scope="col">Status Avance</th>
+          <th scope="col">Estatus Avance</th>
           <% end %>
           <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
           <th scope="col">Acciones</th>

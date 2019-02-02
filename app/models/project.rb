@@ -3,8 +3,8 @@ class Project < ApplicationRecord
   has_many :user_projects
   has_many :users, through: :user_projects
 
-  has_many :blogs
-  has_many :concepts
+  has_many :blogs, dependent:   :destroy
+  has_many :concepts, dependent:   :destroy
 
   validates :name,
     presence: {

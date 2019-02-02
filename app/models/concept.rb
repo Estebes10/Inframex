@@ -1,8 +1,8 @@
 class Concept < ApplicationRecord
   belongs_to :category
   belongs_to :project
-  has_many :expenses
-  has_many :jobs
+  has_many :expenses, dependent:   :destroy
+  has_many :jobs, dependent:   :destroy
 
   before_validation :calculate_total
 
