@@ -87,6 +87,12 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'category_3',
                                          module_name: 'Categorías'
                                      },
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar categorías y subcategorías en el sistema',
+                                         str_id: 'category_4',
+                                         module_name: 'Categorías'
+                                     },
                                      # Privilegios de subcategorías
                                      {
                                          name: 'Crear',
@@ -131,12 +137,6 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'project_4',
                                          module_name: 'Proyectos'
                                      },
-                                     {
-                                         name: 'Des/activar',
-                                         description: 'Activar / Desactivar proyecto en el sistema',
-                                         str_id: 'project_5',
-                                         module_name: 'Proyectos'
-                                     },
                                      # Privilegios de Bitácoras
                                      {
                                          name: 'Consultar',
@@ -168,7 +168,6 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'blog_5',
                                          module_name: 'Bitácoras'
                                      },
-                                     #28
                                      # Privilegios de Conceptos
                                      {
                                          name: 'Consultar',
@@ -244,34 +243,84 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'job_3',
                                          module_name: 'Trabajos'
                                      },
-                                     # Privilegios de Archivos
                                      {
                                          name: 'Consultar',
-                                         description: 'Consultar los archivos y entrar a cada uno',
+                                         description: 'Consultar trabajos del sistema',
+                                         str_id: 'job_4',
+                                         module_name: 'Trabajos'
+                                     },
+                                     # Privilegios de Archivos de bitácoras
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los archivos de bitácora',
                                          str_id: 'file_1',
                                          module_name: 'Archivos'
                                      },
                                      {
                                          name: 'Crear',
-                                         description: 'Crear un nuevo archivo en el sistema',
+                                         description: 'Crear un nuevo archivo(s) de bitácora en el sistema',
                                          str_id: 'file_2',
                                          module_name: 'Archivos'
                                      },
                                      {
                                          name: 'Editar',
-                                         description: 'Editar archivo en el sistema',
+                                         description: 'Editar datos de archivos de bitácora en el sistema',
                                          str_id: 'file_3',
                                          module_name: 'Archivos'
                                      },
                                      {
                                          name: 'Eliminar',
-                                         description: 'Eliminar archivo del sistema',
+                                         description: 'Eliminar archivos de bitácora del sistema',
                                          str_id: 'file_4',
                                          module_name: 'Archivos'
                                      },
+                                     # Privilegios nuevos sin orden
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Aprobar / Desaprobar facturación de gasto en el sistema',
+                                         str_id: 'expenses_6',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar proyecto en el sistema',
+                                         str_id: 'project_5',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de bitácora en el sistema',
+                                         str_id: 'blog_6',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Estatus Aprobado',
+                                         description: 'Consultar estatus de aprobado de gasto en el sistema',
+                                         str_id: 'expenses_7',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Estatus Facturado',
+                                         description: 'Consultar estatus de facturado de gasto en el sistema',
+                                         str_id: 'expenses_8',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de proyecto en el sistema',
+                                         str_id: 'project_6',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de usuario en el sistema',
+                                         str_id: 'user_6',
+                                         module_name: 'Usuarios'
+                                     },
+                                     # Privilegios de Archivos de bitácoras (descargar)
                                      {
                                          name: 'Descargar',
-                                         description: 'Descargar los archivos de gastos',
+                                         description: 'Descargar los archivos de bitácora',
                                          str_id: 'file_5',
                                          module_name: 'Archivos'
                                      },
@@ -300,6 +349,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'file_9',
                                          module_name: 'Archivos'
                                      },
+                                     #57
                                      {
                                          name: 'Descargar',
                                          description: 'Descargar archivos de gastos del sistema',
