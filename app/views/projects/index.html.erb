@@ -1,3 +1,4 @@
+<% if has_privilege(current_user, "project_1") %>
 <% provide(:title, 'Proyectos') %>
 <div class="masonry-item col-md-12">
   <!-- #Todo ==================== -->
@@ -5,6 +6,7 @@
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left">Proyectos</h5>
+        <% if has_privilege(current_user, "project_2") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-project-button"">
                       <i class="ti-plus"></i>
@@ -12,6 +14,7 @@
                     </button>'.html_safe,
                     new_project_path
         %>
+        <% end %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <% if @projects.count > 0 %>
@@ -24,13 +27,17 @@
                     <h5 class="card-title"><%= project.name %></h5>
                     <h6 class="card-subtitle mb-2 text-muted"><%= project.code %></h6>
                     <p class="card-text">Inicio del proyecto: <%= project.start_date %></p>
-                    <p class="card-text">Estatus:
-                      <% if project.status %>
-                        Activo
-                      <% else %>
-                        Completado
-                      <% end %>
-                    </p>
+
+                    <% if has_privilege(current_user, "project_6") %>
+                      <p class="card-text">Estatus:
+                        <% if project.status %>
+                          Activo
+                        <% else %>
+                          Completado
+                        <% end %>
+                      </p>
+                    <% end %>
+                    
                     <p class="card-text">
                       <div class="progress">
                         <% rand = Random.rand(100)%>
@@ -43,14 +50,18 @@
                           <i class="ti-eye icon-white" aria-hidden="true"></i>
                           </button>').html_safe, project_path(project) %>
 
+                    <% if has_privilege(current_user, "project_3") %>
                     <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                         <i class="ti-pencil icon-white" aria-hidden="true"></i>
                       </button>').html_safe, edit_project_path(project) %>
+                    <% end %>
 
+                    <% if has_privilege(current_user, "project_4") %>
                     <button type="button" class="btn btn-outline-danger btn-circle delete-project"
                        data-project-id="<%= project.id %>">
                        <i class="ti-trash" aria-hidden="true"></i>
                     </button>
+                    <% end %>
                   </div>
                 </div>
               </div>
@@ -63,3 +74,4 @@
     </div>
   </div>
 </div>
+<% end %>

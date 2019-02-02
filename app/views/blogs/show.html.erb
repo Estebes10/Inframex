@@ -4,22 +4,28 @@
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <% if has_privilege(current_user, "project_1") %>
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
                     project_path(@project , :anchor => "nav-blogs")
         %>
+        <% end %>
         <h5 class="float-left pL-15">Bitácora - <%= @blog.name %></h5>
+        <% if has_privilege(current_user, "blog_3") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                       id="new-blog-button2">
                       <i class="ti-pencil"></i>
                     </button>'.html_safe,
                     edit_project_blog_path(project_id: @project, id: @blog)
         %>
+        <% end %>
+        <% if has_privilege(current_user, "project_4") %>
         <button type="button" class="btn btn-outline-light float-right delete-blog btn-sm mR-5"
                 data-blog-id="<%= @blog.id %>" data-project-id="<%= @project.id %>">
           <i class="ti-trash" aria-hidden="true"></i>
         </button>
+        <% end %>
 
       </div>
       <div class="layer w-100 p-20 text-center">
@@ -31,6 +37,7 @@
 
 <div class="col-lg-8">
   <div class="row gap-20">
+    <% if has_privilege(current_user, "expenses_1") %>
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">
         <div class="layers">
@@ -38,7 +45,9 @@
         </div>
       </div>
     </div>
+    <% end %>
 
+    <% if has_privilege(current_user, "job_4") %>
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">
         <div class="layers">
@@ -46,6 +55,7 @@
         </div>
       </div>
     </div>
+    <% end %>
 
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">

@@ -1,8 +1,10 @@
+<% if has_privilege(current_user, "concept_1") %>
 <div class="masonry-item col-md-12">
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left pL-15">Registro de Conceptos</h5>
+        <% if has_privilege(current_user, "concept_2") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="new-blog-button"">
                         <i class="ti-plus"></i>
@@ -10,6 +12,7 @@
                       </button>'.html_safe,
                     new_project_concept_path(@project)
         %>
+        <% end %>
       </div>
       <div class="layer w-100 p-20">
         <% if @categories.blank? %>
@@ -54,13 +57,20 @@
                               <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                                       <i class="ti-eye icon-white" aria-hidden="true"></i>
                                       </button>').html_safe, project_concept_path(:project_id => @project.id, :id => concept.id) %>
+
+                              <% if has_privilege(current_user, "concept_3") %>
                               <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                                       <i class="ti-pencil" aria-hidden="true"></i>
                                      </button>').html_safe, edit_project_concept_path(:project_id => @project.id, :id => concept.id) %>
+                              <% end %>
+
+                              <% if has_privilege(current_user, "concept_4") %>
                               <button type="button" class="btn btn-outline-danger btn-circle delete-concept-ajax"
                                       data-concept-id="<%= concept.id %>" data-project-id="<%= @project.id %>">
                                 <i class="ti-trash" aria-hidden="true"></i>
                               </button>
+                              <% end %>
+
                             </td>
                           </tr>
                         <% end %>
@@ -84,3 +94,4 @@
     </div>
   </div>
 </div>
+<% end %>

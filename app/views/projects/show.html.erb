@@ -4,17 +4,24 @@
   <div class="bd bgc-grey-100">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15" style="padding-bottom: 0px !important;">
+        <% if has_privilege(current_user, "project_1") %>
         <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                       <i class="ti-arrow-left"></i>
                     </button>'.html_safe,
                     projects_path
         %>
+        <% end %>
         <h5 class="float-left pL-15">Proyecto - <%= @project.name %> - <%= @project.code%></h5>
         <nav class="float-right">
           <div class="nav nav-tabs nav-fill" id="project-nav-tab" role="tablist">
             <a class="nav-item nav-link active c-white" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">General</a>
+            <% if has_privilege(current_user, "blog_1") %>
             <a class="nav-item nav-link c-white" id="nav-blogs-tab" data-toggle="tab" href="#nav-blogs" role="tab" aria-controls="nav-blogs" aria-selected="false">Bitácoras</a>
+            <% end %>
+
+            <% if has_privilege(current_user, "concept_1") %>
             <a class="nav-item nav-link c-white" id="nav-concepts-tab" data-toggle="tab" href="#nav-concepts" role="tab" aria-controls="nav-concepts" aria-selected="false">Conceptos</a>
+            <% end %>
           </div>
         </nav>
       </div>
@@ -27,6 +34,7 @@
                   <div class="layers">
                     <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
                       <h5 class="float-left">Datos Generales</h5>
+                      <% if has_privilege(current_user, "project_3") %>
                       <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="edit-project-button"">
                         <i class="ti-pencil"></i>
@@ -34,6 +42,7 @@
                       </button>'.html_safe,
                                   edit_project_path(@project)
                       %>
+                      <% end %>
                     </div>
                     <div class="layer w-100 p-20 text-center">
                       <%= render "form" %>
@@ -92,10 +101,14 @@
             </div>
           </div>
           <div class="tab-pane fade" id="nav-blogs" role="tabpanel" aria-labelledby="nav-blogs-tab">
-            <%= render template: "blogs/index" %>
+            <% if has_privilege(current_user, "blog_1") %>
+              <%= render template: "blogs/index" %>
+            <% end %>
           </div>
           <div class="tab-pane fade" id="nav-concepts" role="tabpanel" aria-labelledby="nav-concepts-tab">
-            <%= render template: "concepts/index" %>
+            <% if has_privilege(current_user, "concept_1") %>
+              <%= render template: "concepts/index" %>
+            <% end %>
           </div>
         </div>
       </div>

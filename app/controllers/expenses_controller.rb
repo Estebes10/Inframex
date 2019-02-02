@@ -1,12 +1,41 @@
 class ExpensesController < ApplicationController
 
+  #RBAC show
+  before_action only: [:index, :show] do
+    has_privilege_controller(current_user, 'expenses_1')
+  end
+
+  #RBAC create
+  before_action only: [:new, :create] do
+    has_privilege_controller(current_user, 'expenses_2')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'expenses_3')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy, :destroy_ajax] do
+    has_privilege_controller(current_user, 'expenses_4')
+  end
+
+  #RBAC approve
+  before_action only: [:activate] do
+    has_privilege_controller(current_user, 'expenses_5')
+  end
+
+  #RBAC ticket
+  before_action only: [:activate_ticket] do
+    has_privilege_controller(current_user, 'expenses_6')
+  end
+  
   before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment, :edit_image_info, :update_image_info]
   before_action :set_expense_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
   before_action :select_objects, only: [:show, :edit]
   before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
-
 
   def index
     @expenses = @blog.expenses.all
@@ -15,6 +44,7 @@ class ExpensesController < ApplicationController
   def show
     @read_only = true
     @mode_edit = false
+    @create = false
     @required_str = ""
   end
 
@@ -22,6 +52,7 @@ class ExpensesController < ApplicationController
     @expense = @blog.expenses.new
     @mode_edit = false
     @read_only = false
+    @create = true
     @required_str = "* "
   end
 
@@ -39,6 +70,7 @@ class ExpensesController < ApplicationController
   def edit
     @mode_edit = true
     @read_only = false
+    @create = false
     @required_str = "* "
   end
 

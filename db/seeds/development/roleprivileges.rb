@@ -173,6 +173,38 @@ if !Roleprivilege.find_by(role_id: 1)
                                                   role_id: 1,
                                                   privilege_id: 43
                                               },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 44
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 45
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 46
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 47
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 48
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 49
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 50
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 51
+                                              },
                                               # "Administrador de proyectos" privileges
                                               {
                                                   role_id: 2,
@@ -278,6 +310,34 @@ if !Roleprivilege.find_by(role_id: 1)
                                                   role_id: 2,
                                                   privilege_id: 43
                                               },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 44
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 45
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 46
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 47
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 48
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 49
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 50
+                                              },
                                               # "Supervisor de proyecto" privileges
                                               {
                                                   role_id: 3,
@@ -359,26 +419,54 @@ if !Roleprivilege.find_by(role_id: 1)
                                                   role_id: 3,
                                                   privilege_id: 43
                                               },
-                                              # "Cliente" privileges
                                               {
                                                   role_id: 3,
+                                                  privilege_id: 43
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 44
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 45
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 47
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 48
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 49
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 50
+                                              },
+                                              # "Cliente" privileges
+                                              {
+                                                  role_id: 4,
                                                   privilege_id: 18
                                               },
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 23
                                               },
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 28
                                               },
                                               {
-                                                  role_id: 3,
+                                                  role_id: 4,
                                                   privilege_id: 32
                                               },
                                               {
-                                                  role_id: 3,
-                                                  privilege_id: 37
+                                                  role_id: 4,
+                                                  privilege_id: 40
                                               }
                                           ]
   )

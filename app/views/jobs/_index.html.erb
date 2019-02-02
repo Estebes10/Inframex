@@ -1,10 +1,12 @@
 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
   <h5 class="float-left">Trabajos realizados</h5>
+  <% if has_privilege(current_user, "job_1") %>
   <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
           id="new-job-button" data-toggle="modal" data-target="#concepts-modal">
     <i class="ti-plus"></i>
     Agregar trabajo
   </button>
+  <% end %>
 </div>
 
 <% if @blog.jobs.blank? %>
@@ -34,20 +36,28 @@
       <% @blog.jobs.each do |job| %>
         <tr>
           <td><%= job.name %></td>
-          <td><%= link_to job.concept.code, {:controller => :concepts, :action => :show, :id => job.concept.id} %></td>
+          <td>
+            <% if has_privilege(current_user, "concept_1") %>
+            <%= link_to job.concept.code, {:controller => :concepts, :action => :show, :id => job.concept.id} %>
+            <% end %>
+          </td>
           <td><%= number_with_delimiter(job.quantity) %></td>
           <td><%= job.concept.unity %></td>
           <td>
+            <% if has_privilege(current_user, "job_2") %>
             <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
               <i class="ti-pencil icon-white" aria-hidden="true"></i>
               </button>').html_safe, edit_project_blog_job_path(project_id: @project, blog_id: @blog, id: job)%>
+            <% end %>
 
+            <% if has_privilege(current_user, "job_3") %>
             <button type="button" class="btn btn-outline-danger btn-circle delete-job"
                     data-job-id="<%= job.id %>"
                     data-blog-id="<%= @blog.id %>"
                     data-project-id="<%= @project.id %>">
               <i class="ti-trash" aria-hidden="true"></i>
             </button>
+            <% end %>
           </td>
         </tr>
       <% end %>
