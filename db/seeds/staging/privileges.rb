@@ -263,13 +263,49 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'file_3',
                                          module_name: 'Archivos'
                                      },
-                                     #43
                                      {
                                          name: 'Eliminar',
                                          description: 'Eliminar archivo del sistema',
                                          str_id: 'file_4',
                                          module_name: 'Archivos'
-                                     }
+                                     },
+                                     {
+                                         name: 'Descargar',
+                                         description: 'Descargar los archivos de gastos',
+                                         str_id: 'file_5',
+                                         module_name: 'Archivos'
+                                     },
+                                     # Privilegios de Archivos de gastos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los archivos de gastos',
+                                         str_id: 'file_6',
+                                         module_name: 'Archivos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo archivo(s) de gastos en el sistema',
+                                         str_id: 'file_7',
+                                         module_name: 'Archivos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar datos de archivos de gastos en el sistema',
+                                         str_id: 'file_8',
+                                         module_name: 'Archivos'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar archivos de gastos del sistema',
+                                         str_id: 'file_9',
+                                         module_name: 'Archivos'
+                                     },
+                                     {
+                                         name: 'Descargar',
+                                         description: 'Descargar archivos de gastos del sistema',
+                                         str_id: 'file_10',
+                                         module_name: 'Archivos'
+                                     },
                                  ]
   )
 end

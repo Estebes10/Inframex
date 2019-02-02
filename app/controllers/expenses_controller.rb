@@ -29,7 +29,17 @@ class ExpensesController < ApplicationController
   before_action only: [:activate_ticket] do
     has_privilege_controller(current_user, 'expenses_6')
   end
-  
+
+  #RBAC delete_image_attachment
+  before_action only: [:delete_image_attachment] do
+    has_privilege_controller(current_user, 'file_9')
+  end
+
+  #RBAC update image info
+  before_action only: [:edit_image_info, :update_image_info] do
+    has_privilege_controller(current_user, 'file_8')
+  end
+
   before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment, :edit_image_info, :update_image_info]

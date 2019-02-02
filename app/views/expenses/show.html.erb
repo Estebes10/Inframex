@@ -35,23 +35,27 @@
     </div>
 </div>
 
-<div class="masonry-item col-md-12">
-  <div class="bd bgc-white">
-    <div class="layers">
-      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-        <h5 class="float-left pL-15"> Adjuntos del gasto</h5>
-        <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-          id="new-file-button" data-toggle="modal" data-target="#new-file-expense-modal">
-          <i class="ti-plus"></i>
-          Agregar Archivo
-        </button>
-      </div>
-      <div class="layer w-100 p-20 text-center">
-          <%= render "file" %>
+<% if has_privilege(current_user, "file_6") %>
+  <div class="masonry-item col-md-12">
+    <div class="bd bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+          <h5 class="float-left pL-15"> Adjuntos del gasto</h5>
+          <% if has_privilege(current_user, "file_7") %>
+            <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+              id="new-file-button" data-toggle="modal" data-target="#new-file-expense-modal">
+              <i class="ti-plus"></i>
+              Agregar Archivo
+            </button>
+          <% end %>
+        </div>
+        <div class="layer w-100 p-20 text-center">
+            <%= render "file" %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <div id="new-file-expense-modal" class="modal fade" role="dialog" aria-labelledby="new-file-label" aria-hidden="true">
   <div class="modal-dialog" role="document">

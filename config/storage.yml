@@ -18,15 +18,15 @@ local:
 # credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
 google:
   service: GCS
-  project: inframex-app
+  project: InframexApp
   credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'] %>
-  bucket: inframex-storage
+  bucket: inframex_storage
 
 google_dev:
   service: GCS
-  project: inframex-app
-  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'] %>
-  bucket: inframex-storage
+  project: InframexApp
+  credentials: <%= Rails.application.credentials.staging[:gcs_inframex_app].to_json %>
+  bucket: inframex_storage
 
 # credentials: <%= Rails.application.credentials.staging[:gcs_inframex_app].to_json %>
 # credentials: <%= Rails.root.join("config/secrets/inframex-app.json") %>

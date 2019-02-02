@@ -205,6 +205,30 @@ if !Roleprivilege.find_by(role_id: 1)
                                                   role_id: 1,
                                                   privilege_id: 51
                                               },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 52
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 53
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 54
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 55
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 56
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 57
+                                              },
                                               # "Administrador de proyectos" privileges
                                               {
                                                   role_id: 2,

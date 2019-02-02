@@ -23,7 +23,17 @@ class BlogsController < ApplicationController
   before_action only: [:activate] do
     has_privilege_controller(current_user, 'blog_5')
   end
-  
+
+  #RBAC delete_image_attachment
+  before_action only: [:delete_image_attachment] do
+    has_privilege_controller(current_user, 'file_4')
+  end
+
+  #RBAC update image info
+  before_action only: [:edit_image_info, :update_image_info] do
+    has_privilege_controller(current_user, 'file_3')
+  end
+
   before_action :validate_user
   before_action :set_project
   before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate, :delete_image_attachment, :edit_image_info, :update_image_info]
