@@ -20,17 +20,35 @@ Rails.application.routes.draw do
   delete 'users/:id', to: 'users#destroy', as: :destroy_user
   resources :users
 
-  # blogs
+  # projects
   resources :projects do
     resources :user_projects, except: :destroy
+    # blogs
     resources :blogs, except: :destroy do
-      resources :jobs, except: :new
-      get  'jobs/new/:concept_id',  to: 'jobs#new', as: :new_job
-      post 'jobs',  to: 'jobs#create', as: :create_job
-      resources :expenses
+      # job progresses
+      resources :job_progresses, except: :new
+      get  'jobs/:job_id/job_progresses/new',  to: 'job_progresses#new', as: :new_job_progresses
+      # expenses
+      resources :expenses do
+        member do
+          get 'edit_image_info/:attachment_id', to: 'expenses#edit_image_info', as: :edit_expense_image_info
+          patch 'update_image_info/:attachment_id', to: 'expenses#update_image_info', as: :update_expense_image_info
+          delete 'delete_image_attachment/:attachment_id', to: 'expenses#delete_image_attachment', as: :delete_expense_image_attachment
+        end
+      end
+
+      member do
+        get 'edit_image_info/:attachment_id', to: 'blogs#edit_image_info', as: :edit_image_info
+        patch 'update_image_info/:attachment_id', to: 'blogs#update_image_info', as: :update_image_info
+        delete 'delete_image_attachment/:attachment_id', to: 'blogs#delete_image_attachment', as: :delete_image_attachment
+      end
     end
+
     # concepts
-    resources :concepts, except: :destroy
+    resources :concepts, except: :destroy do
+      # jobs
+      resources :jobs
+    end
 
     #delete for concepts
     delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
@@ -44,10 +62,13 @@ Rails.application.routes.draw do
     post 'user_projects/new', to: 'user_projects#create', as: :create_user_projects
   end
 
-  #ajax functions for expenses in blogs
+  #ajax routes for expenses in blogs
   delete 'expenses/:id/ajax', to: 'expenses#destroy_ajax', as: :destroy_ajax_expense
   post 'expenses/activate', to: 'expenses#activate', as: :activate_expense
   post 'expensesticket/activate', to: 'expenses#activate_ticket', as: :activate_expense_ticket
+
+  #ajax routes for job progresses in blogs
+  post 'job_progresses/activate', to: 'job_progresses#activate', as: :activate_job_progresses
 
   # suppliers
   resources :suppliers

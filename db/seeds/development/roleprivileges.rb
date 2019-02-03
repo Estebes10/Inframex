@@ -221,7 +221,38 @@ if !Roleprivilege.find_by(role_id: 1)
                                                   role_id: 1,
                                                   privilege_id: 55
                                               },
-
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 56
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 57
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 58
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 59
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 60
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 61
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 62
+                                              },
+                                              {
+                                                  role_id: 1,
+                                                  privilege_id: 63
+                                              },
                                               # "Administrador de proyectos" privileges
                                               {
                                                   role_id: 2,
@@ -371,6 +402,18 @@ if !Roleprivilege.find_by(role_id: 1)
                                                   role_id: 2,
                                                   privilege_id: 54
                                               },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 55
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 56
+                                              },
+                                              {
+                                                  role_id: 2,
+                                                  privilege_id: 57
+                                              },
                                               # "Supervisor de proyecto" privileges
                                               {
                                                   role_id: 3,
@@ -487,6 +530,14 @@ if !Roleprivilege.find_by(role_id: 1)
                                               {
                                                   role_id: 3,
                                                   privilege_id: 52
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 53
+                                              },
+                                              {
+                                                  role_id: 3,
+                                                  privilege_id: 55
                                               },
                                               # "Cliente" privileges
                                               {

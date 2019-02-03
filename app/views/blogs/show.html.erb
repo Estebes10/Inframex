@@ -47,37 +47,63 @@
     </div>
     <% end %>
 
-    <% if has_privilege(current_user, "job_4") %>
+    <% if has_privilege(current_user, "job_prog_4") %>
     <div class="masonry-item col-md-12">
       <div class="bd bgc-white">
         <div class="layers">
-          <%= render "jobs/index"%>
+          <%= render "job_progresses/index"%>
         </div>
       </div>
     </div>
     <% end %>
 
-    <div class="masonry-item col-md-12">
-      <div class="bd bgc-white">
-        <div class="layers">
-          <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-            <h5 class="float-left">Archivos</h5>
-            <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
-                    id="new-job-button">
-              <i class="ti-plus"></i>
-              Agregar archivo
-            </button>
-          </div>
-          <div class="layer w-100 p-20">
-            <div class="row">
-              <div class="col-md-10">
-                <p class="lead">Actualmente no hay registros de archivos en esta bitácora</p>
+    <% if has_privilege(current_user, "file_1") %>
+      <div class="masonry-item col-md-12">
+        <div class="bd bgc-white">
+          <div class="layers">
+            <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+              <h5 class="float-left">Archivos de bitácora</h5>
+              <% if has_privilege(current_user, "file_2") %>
+                <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                  id="new-file-button" data-toggle="modal" data-target="#new-file-modal">
+                  <i class="ti-plus"></i>
+                  Agregar Archivo
+                </button>
+              <% end %>
+            </div>
+            <div class="layer w-100 p-20">
+              <div class="row">
+                <%= render "file" %>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
+  </div>
+</div>
+
+<div id="new-file-modal" class="modal fade" role="dialog" aria-labelledby="new-file-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar archivo(s)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for [@project, @blog] do |f| %>
+        <div class="modal-body">
+          <div class="input-field">
+            <%= f.file_field :files, multiple: true %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+          <button type="submit " name="save" value="ready" class="btn btn-primary">Guardar</button>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -253,30 +253,30 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'job_4',
                                          module_name: 'Trabajos'
                                      },
-                                     # Privilegios de Archivos
+                                     # Privilegios de Archivos de bitácoras
                                      {
                                          name: 'Consultar',
-                                         description: 'Consultar los archivos y entrar a cada uno',
+                                         description: 'Consultar los archivos de bitácora',
                                          str_id: 'file_1',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
                                      },
                                      {
                                          name: 'Crear',
-                                         description: 'Crear un nuevo archivo en el sistema',
+                                         description: 'Crear un nuevo archivo(s) de bitácora en el sistema',
                                          str_id: 'file_2',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
                                      },
                                      {
                                          name: 'Editar',
-                                         description: 'Editar archivo en el sistema',
+                                         description: 'Editar datos de archivos de bitácora en el sistema',
                                          str_id: 'file_3',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
                                      },
                                      {
                                          name: 'Eliminar',
-                                         description: 'Eliminar archivo del sistema',
+                                         description: 'Eliminar archivos de bitácora del sistema',
                                          str_id: 'file_4',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
                                      },
                                      # Privilegios nuevos sin orden
                                      {
@@ -346,6 +346,82 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Consultar todos los proyectos sin importar si el usuario esta asignado.',
                                          str_id: 'project_7',
                                          module_name: 'Proyectos'
+                                     },
+                                     # Privilegios de Avance de Trabajos
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo avance de trabajo en el sistema',
+                                         str_id: 'job_prog_1',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar avances de trabajo en el sistema',
+                                         str_id: 'job_prog_2',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar avances de trabajo del sistema',
+                                         str_id: 'job_prog_3',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar avances de trabajos del sistema',
+                                         str_id: 'job_prog_4',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar avances de trabajo en bitácora',
+                                         str_id: 'job_prog_5',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de avances de trabajo en bitácora',
+                                         str_id: 'job_prog_6',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     # Privilegios de Archivos de bitácoras (descargar)
+                                     {
+                                         name: 'Descargar',
+                                         description: 'Descargar los archivos de bitácora',
+                                         str_id: 'file_5',
+                                         module_name: 'Archivos-Bitácoras'
+                                     },
+                                     # Privilegios de Archivos de gastos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los archivos de gastos',
+                                         str_id: 'file_6',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo archivo(s) de gastos en el sistema',
+                                         str_id: 'file_7',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar datos de archivos de gastos en el sistema',
+                                         str_id: 'file_8',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar archivos de gastos del sistema',
+                                         str_id: 'file_9',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     #63
+                                     {
+                                         name: 'Descargar',
+                                         description: 'Descargar archivos de gastos del sistema',
+                                         str_id: 'file_10',
+                                         module_name: 'Archivos-Gastos'
                                      }
 
                                  ]

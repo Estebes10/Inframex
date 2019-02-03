@@ -21,6 +21,23 @@ $( document ).on('ready turbolinks:load', function() {
         deleteBlog(blogId, projectId);
         return false;
     });
+
+    $('button.delete-image').click(function(e) {
+        var deleteButton = $(this);
+        e.preventDefault(e);
+        var blogId = $(this).attr("data-blog-id");
+        var projectId = $(this).attr("data-project-id");
+        var imageId = $(this).attr("data-image-id");
+        deleteFile(blogId, projectId, imageId, deleteButton);
+        return false;
+    });
+
+    $('img').on('click', function () {
+        var image = $(this).attr('src');
+        $('#myModal').on('show.bs.modal', function () {
+            $(".img-responsive").attr("src", image);
+        });
+    });
 });
 
 function deleteBlogAjax(blogId, projectId, deleteButton) {
@@ -73,5 +90,41 @@ function deleteBlog(blogId, projectId) {
             url: "/projects/" + projectId + "/blogs/" + blogId,
             type: "DELETE"
         })
+    });
+}
+
+function deleteFile(blogId, projectId, imageId, deleteButton) {
+    swal({
+        title: "¿Estás Seguro?",
+        text: "¿Estás seguro de querer borrar el archivo?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: true,
+        confirmButtonText: "Sí, ¡Borrar el archivo!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        spinner.classList.remove('fadeOut');
+        $.ajax({
+            url: "/projects/" + projectId + "/blogs/" + blogId + "/delete_image_attachment/" + imageId,
+            type: "DELETE"
+        }).then(function (isConfirm) {
+            spinner.classList.add('fadeOut');
+            swal({
+                title: "¡Eliminada!",
+                text: "El archivo se ha eliminado correctamente",
+                type: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            deleteButton.closest('div.file-card').fadeOut();
+        }).catch(function(data) {
+            spinner.classList.add('fadeOut');
+            swal({
+                title: "Oops",
+                text: "¡No se pudo eliminar el archivo!",
+                timer: 1500,
+                showConfirmButton: false
+            });
+        });
     });
 }

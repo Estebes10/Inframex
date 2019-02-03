@@ -1,21 +1,42 @@
 class Job < ApplicationRecord
-  belongs_to :blog
   belongs_to :concept
-
-  validates :blog_id,
-            presence:   {with: true, message: "no puede estar vacío"}
+  has_many :job_progress, dependent:   :destroy
 
   validates :concept_id,
             presence:   {with: true, message: "no puede estar vacío"}
 
   validates :name,
-    presence:   true,
+    presence:   {with: true, message: "no puede estar vacío"},
     length:     { maximum: 256 }
 
   validates :quantity,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality:{with: true, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
+            numericality:{with: true, only_integer: false, greater_than: 0, 
+              message: "debe ser mayor a 0" }
+            
+  validates :unity,
+            presence: {with: true, message: "no puede estar vacío"}
+            
+  validates :weight,
+            presence: {with: true, message: "no puede estar vacío"},
+            numericality:{with: true, only_integer: false, greater_than: 0, 
+              less_than: 100, message: "debe ser mayor a 0" }
+              
+              
+  def sum_job_progresses_quantity_by_status(status)
+    job_progress.where("status = " + (status ? "true" : "false")).sum(:quantity)
+  end
 
-
+  def sum_all_job_progresses_quantity
+    job_progress.sum(:quantity)
+  end
+  
+  def get_progress
+    sum_job_progresses_quantity_by_status(true) / self.quantity
+  end
+  
+  def get_progress_100
+    self.get_progress * 100
+  end
 
 end

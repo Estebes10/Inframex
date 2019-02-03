@@ -4,6 +4,8 @@ class Expense < ApplicationRecord
   belongs_to :concept
   belongs_to :blog
 
+  has_many_attached :files
+
   before_validation :calculate_total
 
   validates :subcategory_id,

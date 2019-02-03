@@ -21,7 +21,7 @@ class JobsController < ApplicationController
   end
   
   before_action :set_project
-  before_action :set_blog
+  before_action :set_concept
   before_action :set_job, only: [:update, :edit, :destroy]
 
   def index
@@ -30,21 +30,20 @@ class JobsController < ApplicationController
   def new
     @readonly = false
     @create = true
-    @job = @blog.jobs.new
-    @concept = Concept.find(params[:concept_id])
+    @job = @concept.jobs.new
+    @required_str = "* "
     render :new
   end
 
   def create
-    @job = @blog.jobs.new(job_params)
+    @job = @concept.jobs.new(job_params)
     if @job.save
       flash[:success] = ' Éxito al crear el trabajo'
-      redirect_to project_blog_url(project_id: @project, id: @blog)
+      redirect_to project_concept_path(project_id: @project, id: @concept)
     else
       flash.now[:danger] = ' Error al crear el trabajo'
       @readonly = false
       @create = true
-      @concept = Concept.find(params[:concept_id])
       render action: :new
     end
   end
@@ -52,13 +51,13 @@ class JobsController < ApplicationController
   def edit
     @readonly = false
     @create = false
-    @concept = @job.concept
+    @required_str = "* "
   end
 
   def update
     if @job.update_attributes(job_params)
       flash[:success] = ' Trabajo modificado correctamente'
-      redirect_to project_blog_url(project_id: @project, id: @blog)
+      redirect_to project_concept_path(project_id: @project, id: @concept)
     else
       flash[:error] = ' Error al modificar el trabajo'
       render :edit
@@ -74,6 +73,8 @@ class JobsController < ApplicationController
   def job_params
     params.require(:job).permit(:name,
                                 :quantity,
+                                :unity,
+                                :weight,
                                 :concept_id)
   end
 
@@ -81,13 +82,13 @@ class JobsController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
-  def set_blog
-    @blog = @project.blogs.find_by!(id: params[:blog_id]) if @project
+  def set_concept
+    @concept = @project.concepts.find_by!(id: params[:concept_id]) if @project
   end
 
   # find current job
   def set_job
-    @job = @blog.jobs.find_by!(id: params[:id]) if @blog
+    @job = @concept.jobs.find_by!(id: params[:id]) if @concept
   end
 
 end

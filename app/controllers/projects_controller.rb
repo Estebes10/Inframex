@@ -75,18 +75,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if @project.blogs.count > 0
-      @project.blogs.each do | blog |
-        if blog.jobs.count > 0
-          blog.jobs.destroy_all
-        else
-          blog.destroy
-        end
-      end
-      @project.destroy
-    else
-      @project.destroy
-    end
+    @project.destroy
   end
 
   private

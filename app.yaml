@@ -1,0 +1,9 @@
+entrypoint: bundle exec rackup --port $PORT
+env: flex
+runtime: ruby
+
+env_variables:
+  SECRET_KEY_BASE: a8f8efb3388747e90f8c569d8ce5572ff830c1b81196a9939a8469a5d9fc5347bef404df6ddde1f314e5e1d35d3ef6b3f873c9be45a12dd82b4fdd66c8379f55
+
+beta_settings:
+  cloud_sql_instances: inframexapp:us-east1:inframex-prod-2018

@@ -23,10 +23,20 @@ class BlogsController < ApplicationController
   before_action only: [:activate] do
     has_privilege_controller(current_user, 'blog_5')
   end
-  
+
+  #RBAC delete_image_attachment
+  before_action only: [:delete_image_attachment] do
+    has_privilege_controller(current_user, 'file_4')
+  end
+
+  #RBAC update image info
+  before_action only: [:edit_image_info, :update_image_info] do
+    has_privilege_controller(current_user, 'file_3')
+  end
+
   before_action :validate_user
   before_action :set_project
-  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate]
+  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate, :delete_image_attachment, :edit_image_info, :update_image_info]
 
   def index
     @blogs = @project.blogs.order(:date)
@@ -37,6 +47,7 @@ class BlogsController < ApplicationController
     @create = false
     @required_str = ""
     @concepts = @project.concepts.order(:code)
+    @has_concepts_jobs = @concepts.joins(:jobs).any?
     @expenses = @blog.expenses.order(:name).all
   end
 
@@ -83,22 +94,10 @@ class BlogsController < ApplicationController
   end
 
   def destroy_ajax
-    if @blog.jobs.count > 0
-      # remove all jobs
-      @blog.jobs.destroy_all
-      # remove all expenses
-      @blog.expenses.destroy_all
-    end
     @blog.destroy
   end
 
   def destroy
-    if @blog.jobs.count > 0
-      # remove all jobs
-      @blog.jobs.destroy_all
-      # remove all expenses
-      @blog.expenses.destroy_all
-    end
     if @blog.destroy
       flash[:success] = ' Se ha eliminado la bitácora correctamente'
       redirect_to project_path(@project , :anchor => "nav-blogs")
@@ -112,10 +111,34 @@ class BlogsController < ApplicationController
     @blog.update_attribute(:status, params[:data])
   end
 
+  def delete_image_attachment
+    @image = @blog.files.find(params[:attachment_id]).purge
+  end
+
+  def edit_image_info
+    @image = @blog.files.find(params[:attachment_id])
+  end
+
+  def update_image_info
+    @image = @blog.files.find(params[:attachment_id])
+    if @image.blob.update_attributes!(file_params)
+      @image.save
+      flash[:success] = ' Archivo modificado correctamente'
+      redirect_to project_blog_path(project_id: @project, id: @blog)
+    else
+      flash[:error] = ' Error al modificar el archivo'
+      render :edit
+    end
+  end
+
   private
 
+  def file_params
+    params.require(:attachment).permit(:filename, :description)
+  end
+
   def blog_params
-    params.require(:blog).permit(:name, :description, :date, :comments, :status)
+    params.require(:blog).permit(:name, :description, :date, :comments, :status, files: [])
   end
 
   def set_blog
