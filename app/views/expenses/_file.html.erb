@@ -3,7 +3,7 @@
     <div class="row">
       <% @expense.files.each do |file|%>
         <div class="file-card">
-          <% if file.blob.content_type.include? "image" %>
+          <% if file.blob.content_type.include? "image/png" or file.blob.content_type.include? "image/jpg" or file.blob.content_type.include? "image/jpeg" or file.blob.content_type.include? "image/gif" %>
             <%= image_tag file.variant(resize: "200x200"), class: "card-img-top", id: file.id, data: {toggle: 'modal', target: '#file_'+file.id.to_s } %>
             <div id="file_<%= file.id %>" class="modal fade bd-example-modal-lg" role="dialog">
               <div class="modal-dialog modal-lg">
