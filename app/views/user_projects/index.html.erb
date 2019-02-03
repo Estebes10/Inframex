@@ -47,9 +47,9 @@
                   <% if has_privilege(current_user, "user_5") %>
                     <label class="switch">
                       <input class="activate-switch status-user"
-                             id="status-<%= "#{controller.controller_name}-#{a.id}" %>"
+                             id="status-users-<%= "#{a.id}" %>"
                              data-id="<%= "#{a.id}" %>"
-                             name="<%= controller.controller_name %>"
+                             name="users"
                              type="checkbox"
                              <%= if (a.status)
                                    "checked"

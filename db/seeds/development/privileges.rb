@@ -372,6 +372,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'job_prog_4',
                                          module_name: 'Avance Trabajo'
                                      },
+                                     #60
                                      {
                                          name: 'Des/activar',
                                          description: 'Activar / Desactivar avances de trabajo en bitácora',
@@ -416,7 +417,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'file_9',
                                          module_name: 'Archivos-Gastos'
                                      },
-                                     #63
+                                     #67
                                      {
                                          name: 'Descargar',
                                          description: 'Descargar archivos de gastos del sistema',
