@@ -1,3 +1,3 @@
-2000.times do
+400.times do
   FactoryBot.create(:job)
 end
