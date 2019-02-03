@@ -100,7 +100,7 @@ class ExpensesController < ApplicationController
 
   def destroy
     if @expense.destroy
-      flash[:success] = ' Se ha eliminado gasto correctamente'
+      flash[:success] = ' Se ha eliminado el gasto correctamente'
       redirect_to project_blog_url(project_id: @project, id: @blog)
     else
       flash[:error] = ' No se ha podido eliminar el gasto'

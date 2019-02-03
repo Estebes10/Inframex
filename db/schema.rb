@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_22_041806) do
+ActiveRecord::Schema.define(version: 2019_01_27_201224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,14 +85,25 @@ ActiveRecord::Schema.define(version: 2019_01_22_041806) do
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
   end
 
+  create_table "job_progresses", force: :cascade do |t|
+    t.decimal "quantity", precision: 15, scale: 4, null: false
+    t.boolean "status", default: false, null: false
+    t.bigint "blog_id"
+    t.bigint "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_job_progresses_on_blog_id"
+    t.index ["job_id"], name: "index_job_progresses_on_job_id"
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.string "name", limit: 256, null: false
-    t.bigint "blog_id"
+    t.decimal "quantity", null: false
+    t.decimal "weight", null: false
+    t.string "unity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "concept_id"
-    t.decimal "quantity"
-    t.index ["blog_id"], name: "index_jobs_on_blog_id"
     t.index ["concept_id"], name: "index_jobs_on_concept_id"
   end
 
@@ -172,7 +183,8 @@ ActiveRecord::Schema.define(version: 2019_01_22_041806) do
   add_foreign_key "expenses", "concepts"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
-  add_foreign_key "jobs", "blogs"
+  add_foreign_key "job_progresses", "blogs"
+  add_foreign_key "job_progresses", "jobs"
   add_foreign_key "jobs", "concepts"
   add_foreign_key "roleprivileges", "privileges"
   add_foreign_key "roleprivileges", "roles"
