@@ -99,8 +99,6 @@ ActiveRecord::Schema.define(version: 2019_01_27_201224) do
   create_table "jobs", force: :cascade do |t|
     t.string "name", limit: 256, null: false
     t.decimal "quantity", null: false
-    t.decimal "weight", null: false
-    t.string "unity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "concept_id"
