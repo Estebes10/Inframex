@@ -19,7 +19,7 @@ test:
   database: inframex_test
 
 staging:
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['HEROKU_POSTGRESQL_MAROON_URL'] %>
 
 production:
   adapter: postgresql
