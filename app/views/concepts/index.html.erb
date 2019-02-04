@@ -1,8 +1,10 @@
+<% if has_privilege(current_user, "concept_1") %>
 <div class="masonry-item col-md-12">
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left pL-15">Registro de Conceptos</h5>
+        <% if has_privilege(current_user, "concept_2") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="new-blog-button"">
                         <i class="ti-plus"></i>
@@ -10,6 +12,7 @@
                       </button>'.html_safe,
                     new_project_concept_path(@project)
         %>
+        <% end %>
       </div>
       <div class="layer w-100 p-20">
         <% if @categories.blank? %>
@@ -24,7 +27,7 @@
             <div class="layers bd">
               <% if !@project.concepts.where(category_id: c.id).blank? %>
                 <div class="bgc-blue-grey-600 bgcH-blue-grey-900 bdc-grey-200 bdB c-white d-inline layer w-100 p-10" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse-<%= c.id %>">
-                  <h6 class="pL-15"><%= c.name %></h6>
+                  <h6 class="pL-15"><%= c.name %> (<%= @project.get_category_progress_100(c.id).round(2) %>%)</h6>
                 </div>
                 <div class="layer  bgc-white w-100 p-20 text-center collapse" id="collapse-<%= c.id %>">
                   <table class="table table-hover datatable" id="concepts-datatable" role="datatable">
@@ -35,6 +38,7 @@
                         <th>Descripción</th>
                         <th>Cantidad</th>
                         <th>Unidad</th>
+                        <th>Progreso</th>
                         <th>Precio Unitario</th>
                         <th>Total</th>
                         <th>Acciones</th>
@@ -48,29 +52,45 @@
                             <td><%= concept.description-%></td>
                             <td><%= number_with_delimiter(concept.quantity) -%></td>
                             <td><%= concept.unity-%></td>
+                            <td><%= concept.get_progress_100.round(2)-%>%</td>
                             <td><%= number_to_currency(concept.unit_price)-%></td>
                             <td class="text-right"><%= number_to_currency(concept.total)-%></td>
                             <td>
                               <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                                       <i class="ti-eye icon-white" aria-hidden="true"></i>
                                       </button>').html_safe, project_concept_path(:project_id => @project.id, :id => concept.id) %>
+
+                              <% if has_privilege(current_user, "concept_3") %>
                               <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                                       <i class="ti-pencil" aria-hidden="true"></i>
                                      </button>').html_safe, edit_project_concept_path(:project_id => @project.id, :id => concept.id) %>
+                              <% end %>
+
+                              <% if has_privilege(current_user, "concept_4") %>
                               <button type="button" class="btn btn-outline-danger btn-circle delete-concept-ajax"
                                       data-concept-id="<%= concept.id %>" data-project-id="<%= @project.id %>">
                                 <i class="ti-trash" aria-hidden="true"></i>
                               </button>
+                              <% end %>
+
                             </td>
                           </tr>
                         <% end %>
                       </tbody>
                       <tfooter>
                         <tr class="bgc-blue-grey-900">
-                          <td class="c-white text-left" colspan="6"><strong>Total de <%= c.name %></strong></td>
-                          <td class="c-white text-right"><strong>
-                            <%= number_to_currency(c.concepts.where("project_id = #{@project.id}").sum(:total)) %>
-                          </strong></td>
+                          <td class="c-white text-left" colspan="5"><strong>Total de <%= c.name %></strong></td>
+                          <td class="c-white text-right">
+                            <strong>
+                              <%= @project.get_category_progress_100(c.id).round(2) %>%
+                            </strong>
+                          </td>
+                          <td></td>
+                          <td class="c-white text-right">
+                            <strong>
+                              <%= number_to_currency(c.concepts.where("project_id = #{@project.id}").sum(:total)) %>
+                            </strong>
+                          </td>
                           <td></td>
                         </tr>
                       </tfooter>
@@ -84,3 +104,4 @@
     </div>
   </div>
 </div>
+<% end %>

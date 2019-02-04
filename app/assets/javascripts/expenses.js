@@ -28,6 +28,17 @@ $( document ).on('ready turbolinks:load', function() {
         deleteExpense(expenseId, blogId, projectId);
         return false;
     });
+
+    $('button.delete-image-expense').click(function(e) {
+        var deleteButton = $(this);
+        e.preventDefault(e);
+        var blogId = $(this).attr("data-blog-id");
+        var projectId = $(this).attr("data-project-id");
+        var imageId = $(this).attr("data-image-id");
+        var expenseId = $(this).attr("data-expense-id");
+        deleteFileExpense(blogId, projectId, imageId, expenseId, deleteButton);
+        return false;
+    });
 });
 
 function deleteExpenseAjax(expenseId, deleteButton) {
@@ -80,5 +91,41 @@ function deleteExpense(expenseId, blogId, projectId) {
             url: "/projects/" + projectId + "/blogs/" + blogId  + "/expenses/" + expenseId,
             type: "DELETE"
         })
+    });
+}
+
+function deleteFileExpense(blogId, projectId, imageId, expenseId, deleteButton) {
+    swal({
+        title: "¿Estás Seguro?",
+        text: "¿Estás seguro de querer borrar el archivo?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: true,
+        confirmButtonText: "Sí, ¡Borrar el archivo!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        spinner.classList.remove('fadeOut');
+        $.ajax({
+            url: "/projects/" + projectId + "/blogs/" + blogId + "/expenses/" + expenseId + "/delete_image_attachment/" + imageId,
+            type: "DELETE"
+        }).then(function (isConfirm) {
+            spinner.classList.add('fadeOut');
+            swal({
+                title: "¡Eliminada!",
+                text: "El archivo se ha eliminado correctamente",
+                type: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            deleteButton.closest('div.file-card').fadeOut();
+        }).catch(function(data) {
+            spinner.classList.add('fadeOut');
+            swal({
+                title: "Oops",
+                text: "¡No se pudo eliminar el archivo!",
+                timer: 1500,
+                showConfirmButton: false
+            });
+        });
     });
 }

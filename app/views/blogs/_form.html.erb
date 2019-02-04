@@ -41,15 +41,32 @@
                             rows: 3,
                             readonly: @readonly %>
           </div>
-          <div class="col-md-12 mT-15">
-            <%= f.label :status, "Estado de Aprobación: " %>
-            <br>
-            <label class="switch">
-              <% @readonly ? @var = "return false;" : @var = ""%>
-              <%= f.check_box :status, onclick: @var %>
-              <span class="slider round"></span>
-            </label>
-          </div>
+
+          <% if has_privilege(current_user, "blog_6") %>
+            <% if !@readonly %>
+              <% if has_privilege(current_user, "blog_5") or @create%>
+                <div class="col-md-12 mT-15">
+                  <%= f.label :status, "Estado de Aprobación: " %>
+                  <br>
+                  <label class="switch">
+                    <% @readonly ? @var = "return false;" : @var = ""%>
+                    <%= f.check_box :status, onclick: @var %>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+               <% end %>
+             <% else %>
+              <div class="col-md-12 mT-15">
+                <%= f.label :status, "Estado de Aprobación: " %>
+                <br>
+                <label class="switch">
+                  <% @readonly ? @var = "return false;" : @var = ""%>
+                  <%= f.check_box :status, onclick: @var %>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+             <% end %>
+           <% end %>
         </div>
   <% if !@readonly %>
     <div id="form-footer-blog">

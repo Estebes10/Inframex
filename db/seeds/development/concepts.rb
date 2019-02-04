@@ -1,3 +1,3 @@
-200.times do
+100.times do
   FactoryBot.create(:concept)
 end

@@ -1,8 +1,10 @@
+<% if has_privilege(current_user, "blog_1") %>
 <div class="masonry-item col-md-12">
   <div class="bd bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left">Registro de bitácoras</h5>
+        <% if has_privilege(current_user, "blog_2") %>
           <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="new-blog-button"">
                         <i class="ti-plus"></i>
@@ -10,6 +12,7 @@
                       </button>'.html_safe,
                       new_project_blog_path(@project)
           %>
+        <% end %>
       </div>
 
       <% if @project.blogs.blank? %>
@@ -30,7 +33,9 @@
                 <th scope="col">Fecha de creación</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
-                <th scope="col">Estado de Aprobación</th>
+                <% if has_privilege(current_user, "blog_6") %>
+                  <th scope="col">Estado de Aprobación</th>
+                <% end %>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
@@ -41,32 +46,50 @@
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>
                 <td><%= blog.name %></td>
                 <td> <%= blog.description %></td>
+                <% if has_privilege(current_user, "blog_6") %>
+                  <td>
+                    <% if has_privilege(current_user, "blog_5") %>
+                      <label class="switch">
+                        <input class="activate-switch status-blog"
+                               id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
+                               project-id="<%= "#{@project.id}" %>"
+                               data-id="<%= "#{blog.id}" %>"
+                               name="projects/<%= "#{@project.id}" %>/blogs/"
+                               type="checkbox"
+                               <%= if (blog.status)
+                                     "checked"
+                                   end %>>
+                        <span class="slider round"></span>
+                      </label>
+                    <% else %>
+                      <label class="switch">
+                        <input class="activate-switch status-blog"
+                               type="checkbox"
+                               <%= if (blog.status)
+                                     "checked"
+                                   end %> disabled>
+                        <span class="slider round"></span>
+                      </label>
+                    <% end %>
+                  </td>
+                <% end %>
                 <td>
-                  <label class="switch">
-                    <input class="activate-switch status-blog"
-                           id="status-<%= "#{controller.controller_name}-#{blog.id}" %>"
-                           project-id="<%= "#{@project.id}" %>"
-                           data-id="<%= "#{blog.id}" %>"
-                           name="projects/<%= "#{@project.id}" %>/blogs/"
-                           type="checkbox"
-                           <%= if (blog.status)
-                                 "checked"
-                               end %>>
-                    <span class="slider round"></span>
-                  </label>
-                </td>
-                <td>
+                  <% if has_privilege(current_user, "blog_1") %>
                   <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                         <i class="ti-eye icon-white" aria-hidden="true"></i>
                       </button>').html_safe, {controller: :blogs, action: :show, :id => blog.id, :project_id => @project.id} %>
+                  <% end %>
+                  <% if has_privilege(current_user, "blog_3") %>
                   <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                         <i class="ti-pencil icon-white" aria-hidden="true"></i>
                       </button>').html_safe, {controller: :blogs, action: :edit, :id => blog.id, :project_id => @project.id} %>
-
+                  <% end %>
+                  <% if has_privilege(current_user, "blog_4") %>
                   <button type="button" class="btn btn-outline-danger btn-circle delete-blog-ajax"
                           data-blog-id="<%= blog.id %>" data-project-id="<%= @project.id %>">
                     <i class="ti-trash" aria-hidden="true"></i>
                   </button>
+                  <% end %>
                 </td>
 
 
@@ -80,3 +103,4 @@
     </div>
   </div>
 </div>
+<% end %>

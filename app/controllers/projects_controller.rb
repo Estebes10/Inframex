@@ -1,20 +1,48 @@
 class ProjectsController < ApplicationController
+
+  #RBAC index
+  before_action only: [:show, :index] do
+    has_privilege_controller(current_user, 'project_1')
+  end
+
+  #RBAC create
+  before_action only: [:create, :new] do
+    has_privilege_controller(current_user, 'project_2')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'project_3')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy_ajax] do
+    has_privilege_controller(current_user, 'project_4')
+  end
+  
   before_action :set_project, only: [:edit, :update, :show, :destroy]
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
-    @projects = Project.order(:id)
+    if has_privilege(current_user, 'project_7')
+      @projects = Project.order(:id)
+    else
+      @projects = current_user.projects.order(:id)
+    end
   end
 
   def new
     @readonly = false
     @create = true
     @project = Project.new
+    @required_str = "* "
   end
 
   def show
+    @users = @project.users.order(:role_id,:name).all
     @readonly = true
     @create = false
+    @required_str = ""
   end
 
   def create
@@ -33,6 +61,7 @@ class ProjectsController < ApplicationController
   def edit
     @readonly = false
     @create = false
+    @required_str = "* "
   end
 
   def update
@@ -46,18 +75,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if @project.blogs.count > 0
-      @project.blogs.each do | blog |
-        if blog.jobs.count > 0
-          blog.jobs.destroy_all
-        else
-          blog.destroy
-        end
-      end
-      @project.destroy
-    else
-      @project.destroy
-    end
+    @project.destroy
   end
 
   private

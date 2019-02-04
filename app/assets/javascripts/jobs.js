@@ -1,29 +1,16 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#jobs-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#jobs-datatable tbody').on('click', 'button.delete-job', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
         var jobId = $(this).attr("data-job-id");
-        var blogId = $(this).attr("data-blog-id");
+        var conceptId = $(this).attr("data-concept-id");
         var projectId = $(this).attr("data-project-id");
-        deleteJob(jobId, blogId, projectId, deleteButton);
+        deleteJob(jobId, conceptId, projectId, deleteButton);
         return false;
     });
 });
 
-function submitGetNewJobForm(projectId, blogId) {
-    const conceptId = $('#concept_id').val();
-    const url = '/projects/' + projectId + '/blogs/' + blogId + '/jobs/new/' + conceptId;
-    $(location).attr('href',url);
-    return false;
-}
-
-function deleteJob(jobId, blogId, projectId, deleteButton) {
+function deleteJob(jobId, conceptId, projectId, deleteButton) {
     swal({
         title: "¿Estás Seguro?",
         text: "¿Estás seguro de querer borrar el trabajo?",
@@ -35,7 +22,7 @@ function deleteJob(jobId, blogId, projectId, deleteButton) {
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: "/projects/" + projectId + "/blogs/" + blogId  + "/jobs/" + jobId,
+            url: "/projects/" + projectId + "/concepts/" + conceptId  + "/jobs/" + jobId,
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');

@@ -1,4 +1,30 @@
 class UsersController < ApplicationController
+
+  #RBAC show
+  before_action only: [:index, :show] do
+    has_privilege_controller(current_user, 'user_1')
+  end
+
+  #RBAC create
+  before_action only: [:new, :create] do
+    has_privilege_controller(current_user, 'user_2')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'user_3')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy] do
+    has_privilege_controller(current_user, 'user_4')
+  end
+
+  #RBAC activate
+  before_action only: [:activate] do
+    has_privilege_controller(current_user, 'user_5')
+  end
+  
   before_action :validate_user
   before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
@@ -11,6 +37,7 @@ class UsersController < ApplicationController
     @create = false
     @roles = Role.all
     @role_id = @user.role.id
+    @required_str = ""
   end
 
   def new
@@ -19,6 +46,7 @@ class UsersController < ApplicationController
     @roles = Role.all
     @user = User.new
     @role_id = 0
+    @required_str = "* "
   end
 
   def create
@@ -41,6 +69,7 @@ class UsersController < ApplicationController
     @create = false
     @roles = Role.all
     @role_id = @user.role.id
+    @required_str = "* "
   end
 
   def update
