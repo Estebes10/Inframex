@@ -24,8 +24,9 @@ class UsersController < ApplicationController
   before_action only: [:activate] do
     has_privilege_controller(current_user, 'user_5')
   end
-  
+
   before_action :validate_user
+  before_action :set_perfil, only: [:perfil, :edit_perfil, :update_perfil]
   before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   def index
@@ -51,9 +52,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @pass = SecureRandom.hex
+    @user.password = @pass
+    @user.password_confirmation = @pass
     if @user.save
       flash.now[:success] = ' Éxito al crear el usuario'
       redirect_to @user
+      PasswordMailer.with(email: @user.email, pass: @pass, name: @user.name)
+                    .new_password_mailer(@user.email, @pass, @user.name).deliver_now
     else
       flash.now[:danger] = ' Error al crear el usuario'
       @readonly = false
@@ -94,14 +100,36 @@ class UsersController < ApplicationController
     @user.update_attribute(:status, params[:data])
   end
 
+  def perfil
+    @edit_perfil = false
+    @readonly = true
+    @required_str = ""
+  end
+
+  def edit_perfil
+    @edit_perfil = true
+    @readonly = false
+    @required_str = ""
+  end
+
+  def update_perfil
+    if @user.update_attributes(perfil_params)
+      flash[:success] = ' Tus datos han sido modificados correctamente'
+      redirect_to perfil_url
+    else
+      @readonly = false
+      @create = false
+      flash[:error] = ' Error al actualizar tus datos'
+      render :edit_perfil
+    end
+  end
+
   private
 
   def user_params
     params.require(:user).permit(
         :name,
         :lastName,
-        :password,
-        :password_confirmation,
         :birthday,
         :email,
         :status,
@@ -110,8 +138,24 @@ class UsersController < ApplicationController
     )
   end
 
+  def perfil_params
+    params.require(:user).permit(
+        :name,
+        :lastName,
+        :password,
+        :password_confirmation,
+        :birthday,
+        :email,
+        :phone,
+    )
+  end
+
   private
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_perfil
+    @user = current_user
   end
 end

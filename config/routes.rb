@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   post 'users/activate', to: 'users#activate', as: :activate_user
   delete 'users/:id', to: 'users#destroy', as: :destroy_user
   resources :users
+  get '/perfil', to: 'users#perfil', as: :perfil
+  get '/perfil/edit', to: 'users#edit_perfil', as: :edit_perfil
+  patch '/update_perfil', to: 'users#update_perfil', as: :update_perfil
+
+  # Password reset
+  resources :email_resets, only: [:new, :create, :edit, :update]
 
   # projects
   resources :projects do

@@ -10,6 +10,11 @@
         <%= form_for(:sessions, url: {action: "create"}, method: :post) do |f| %>
           <%= render 'layouts/errors' %>
           <div class="input-group form-group">
+            <div class="row align-items-center remember">
+              <a href="#" data-toggle="modal" data-target="#passwordRecover"> (Olvidé mi contraseña)</a>
+            </div>
+          </div>
+          <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ti-user"></i></span>
             </div>
@@ -33,6 +38,32 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="passwordRecover" tabindex="-1" role="dialog" aria-labelledby="passwordEmailLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="passwordEmailLabel">Recuperar contraseña</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <%= form_for(:email_reset, url: email_resets_path) do |f|%>
+        <div class="modal-body">
+          <div class="input-field">
+            <%= f.email_field :email,  class: 'form-control', required: 'true', min: '0' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit " name="save" value="ready" class="btn btn-primary">Recuperar contraseña</button>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div>
+
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "login.js" %>
 <% end %>

@@ -1,6 +1,5 @@
-<%= form_for(@user) do |f| %>
+<%= form_for(@user, url: {action: "update_perfil"}) do |f| %>
   <%= render 'layouts/errors_form', object: @user %>
-  <%= @url %>
   <div class="modal-body">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
@@ -58,48 +57,25 @@
         </div>
 
         <div class="row">
-
-          <% if has_privilege(current_user, "user_6") %>
-            <% if !@readonly %>
-              <% if has_privilege(current_user, "user_5") or @create%>
-                <div class="col-md-6 mT-15">
-                  <label for = "user_status">Estado en el sistema:</label>
-                  <div class="row">
-                    <div class="col-md-2 col-sm-2" align="center">
-                      <label class="switch">
-                        <% @readonly ? @var = "return false;" : @var = ""%>
-                        <%= f.check_box :status, onclick: @var %>
-                        <span class="slider round"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            <% else %>
-              <div class="col-md-6 mT-15">
-                <label for = "user_status">Estado en el sistema:</label>
-                <div class="row">
-                  <div class="col-md-2 col-sm-2" align="center">
-                    <label class="switch">
-                      <% @readonly ? @var = "return false;" : @var = ""%>
-                      <%= f.check_box :status, onclick: @var %>
-                      <span class="slider round"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            <% end %>
+          <% if @edit_perfil %>
+            <div class="col-md-6 mT-15">
+              <%= f.label :password, "#{@required_str}Contraseña" %>
+              <%= f.password_field :password,
+                                   class: 'form-control',
+                                   :minlength => 6,
+                                   :maxlength => 64,
+                                   required: 'true',
+                                   readonly: @readonly %>
+            </div>
+            <div class="col-md-6 mT-15">
+              <%= f.label :password_confirmation, "#{@required_str}Confirmación de contraseña" %>
+              <%= f.password_field :password_confirmation,
+                                   class: 'form-control',
+                                   required: 'true',
+                                   readonly: @readonly %>
+            </div>
           <% end %>
 
-
-
-          <div class="col-md-6 mT-15">
-            <label for = "user_status">Rol de usuario:</label>
-            <%= f.select(:role_id, options_for_select(@roles.map{|s|[s.name, s.id]}, @role_id),
-                         {:include_blank => 'Seleccione un rol'},
-                         {:class => 'form-control', :required => 'true', :disabled => @readonly}) %>
-
-          </div>
         </div>
       </div>
     </div>
