@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   before_action :validate_user
-  before_action :set_perfil, only: [:perfil, :edit_perfil, :update_perfil]
+  before_action :set_profile, only: [:profile, :edit_profile, :update_profile]
   before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   def index
@@ -100,27 +100,27 @@ class UsersController < ApplicationController
     @user.update_attribute(:status, params[:data])
   end
 
-  def perfil
-    @edit_perfil = false
+  def profile
+    @edit_profile = false
     @readonly = true
     @required_str = ""
   end
 
-  def edit_perfil
-    @edit_perfil = true
+  def edit_profile
+    @edit_profile = true
     @readonly = false
     @required_str = ""
   end
 
-  def update_perfil
-    if @user.update_attributes(perfil_params)
+  def update_profile
+    if @user.update_attributes(profile_params)
       flash[:success] = ' Tus datos han sido modificados correctamente'
-      redirect_to perfil_url
+      redirect_to profile_url
     else
       @readonly = false
       @create = false
-      flash[:error] = ' Error al actualizar tus datos'
-      render :edit_perfil
+      flash[:danger] = ' Error al actualizar tus datos'
+      render :edit_profile
     end
   end
 
@@ -138,7 +138,7 @@ class UsersController < ApplicationController
     )
   end
 
-  def perfil_params
+  def profile_params
     params.require(:user).permit(
         :name,
         :lastName,
@@ -155,7 +155,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def set_perfil
+  def set_profile
     @user = current_user
   end
 end
