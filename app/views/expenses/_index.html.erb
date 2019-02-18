@@ -47,7 +47,7 @@
           <tr>
             <td><%= a.name-%></td>
             <td>
-              <% if has_privilege(current_user, "expenses_4") %>
+              <% if has_privilege(current_user, "concept_1") %>
               <%= link_to a.concept.code, {:controller => :concepts, :action => :show, :id => a.concept.id} %>
               <% end %>
             </td>

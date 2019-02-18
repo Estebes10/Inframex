@@ -40,6 +40,13 @@ class ProjectsController < ApplicationController
 
   def show
     @users = @project.users.order(:role_id,:name).all
+    @expenses = []
+    @project.blogs.each do |blog|
+      blog.expenses.each do |expense|
+        @expenses.push(expense)
+      end
+    end
+    @expenses = @expenses.sort_by { |k| k.name }
     @readonly = true
     @create = false
     @required_str = ""
