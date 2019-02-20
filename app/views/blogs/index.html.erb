@@ -15,7 +15,7 @@
         <% end %>
       </div>
 
-      <% if @project.blogs.blank? %>
+      <% if @blogs.blank? %>
 
         <div class="row">
             <div class="col-md-10">
@@ -40,7 +40,7 @@
               </tr>
             </thead>
             <tbody>
-            <% @project.blogs.each do |blog| %>
+            <% @blogs.each do |blog| %>
               <tr>
                 <td><%= blog.id %></td>
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>

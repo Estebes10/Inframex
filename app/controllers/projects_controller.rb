@@ -44,6 +44,15 @@ class ProjectsController < ApplicationController
     @create = false
     @required_str = ""
     expenses_filter
+    blogs_filter
+  end
+
+  def blogs_filter
+    if has_privilege(current_user, 'blog_7')
+      @blogs = @project.blogs.where(status: true).all
+    else
+      @blogs = @project.blogs.all
+    end
   end
 
   def expenses_filter
