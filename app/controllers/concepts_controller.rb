@@ -31,6 +31,11 @@ class ConceptsController < ApplicationController
     @read_only = true
     @mode_edit = false
     @required_str = ""
+    if has_privilege(current_user, 'expenses_9')
+      @expenses = @concept.expenses.where(status: true).order(:name).all
+    else
+      @expenses = @concept.expenses.order(:name).all
+    end
   end
 
   def new

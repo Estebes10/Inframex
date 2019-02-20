@@ -48,7 +48,7 @@
             <h5 class="float-left pL-15">Gastos del Concepto</h5>
           </div>
           <div class="layer w-100 p-20 text-center">
-            <% if @concept.expenses.count > 0 %>
+            <% if @expenses.count > 0 %>
               <table class="table table-hover" id="expenses-datatable" role="datatable">
                 <thead>
                 <tr class="tableHead">
@@ -62,7 +62,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% @concept.expenses.each do |a| %>
+                <% @expenses.each do |a| %>
                   <tr>
                     <td><%= a.name-%></td>
                     <td><%= a.date-%></td>
