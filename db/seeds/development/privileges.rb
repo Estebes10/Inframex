@@ -417,14 +417,25 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'file_9',
                                          module_name: 'Archivos-Gastos'
                                      },
-                                     #67
                                      {
                                          name: 'Descargar',
                                          description: 'Descargar archivos de gastos del sistema',
                                          str_id: 'file_10',
                                          module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Mostrar solo los gastos con estatus de aprobado',
+                                         str_id: 'expenses_9',
+                                         module_name: 'Gastos'
+                                     },
+                                     #69
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Mostrar solo las bitácoras con estatus de aprobado',
+                                         str_id: 'blog_7',
+                                         module_name: 'Bitácoras'
                                      }
-
                                  ]
   )
 end
