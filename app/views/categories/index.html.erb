@@ -17,7 +17,7 @@
         <% if @categories.blank? %>
           <h5> Actualmente no se encuentra ninguna categoría registrada en el sistema</h5>
         <% else %>
-          <table class="table table-hover" id="categories-datatable" role="datatable">
+          <div class="table-responsive"><table class="table table-hover" id="categories-datatable" role="datatable">
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
@@ -46,7 +46,7 @@
 
             <% end %>
             </tbody>
-          </table>
+          </table></div>
         <% end %>
       </div>
 
@@ -71,7 +71,7 @@
         <% if @subcategories.blank? %>
           <h5> Actualmente no se encuentra ninguna subcategoría registrada en el sistema</h5>
         <% else %>
-          <table class="table table-hover" id="subcategories-datatable" role="datatable">
+          <div class="table-responsive"><table class="table table-hover" id="subcategories-datatable" role="datatable">
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
@@ -100,7 +100,7 @@
 
             <% end %>
             </tbody>
-          </table>
+          </table></div>
         <% end %>
       </div>
 

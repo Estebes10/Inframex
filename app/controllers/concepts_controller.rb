@@ -92,7 +92,8 @@ class ConceptsController < ApplicationController
         :quantity,
         :unity,
         :unit_price,
-        :total
+        :total,
+        :weight
     )
   end
 
