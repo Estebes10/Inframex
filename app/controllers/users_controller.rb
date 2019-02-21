@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   before_action :validate_user
-  before_action :set_profile, only: [:profile, :edit_profile, :update_profile]
+  before_action :set_profile, only: [:profile, :edit_profile, :update_profile, :edit_password]
   before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
   def index
@@ -56,10 +56,10 @@ class UsersController < ApplicationController
     @user.password = @pass
     @user.password_confirmation = @pass
     if @user.save
+      @user.create_reset_digest
       flash.now[:success] = ' Éxito al crear el usuario'
       redirect_to @user
-      PasswordMailer.with(email: @user.email, pass: @pass, name: @user.name)
-                    .new_password_mailer(@user.email, @pass, @user.name).deliver_now
+      PasswordMailer.with(email: @user.email).new_password_mailer(@user.email).deliver_now
     else
       flash.now[:danger] = ' Error al crear el usuario'
       @readonly = false
@@ -101,15 +101,17 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @edit_profile = false
+    @edit_profile = true
     @readonly = true
     @required_str = ""
+    @edit_password = false
   end
 
   def edit_profile
     @edit_profile = true
     @readonly = false
     @required_str = ""
+    @edit_password = false
   end
 
   def update_profile
@@ -122,6 +124,13 @@ class UsersController < ApplicationController
       flash[:danger] = ' Error al actualizar tus datos'
       render :edit_profile
     end
+  end
+
+  def edit_password
+    @edit_profile = false
+    @readonly = false
+    @required_str = ""
+    @edit_password = true
   end
 
   private

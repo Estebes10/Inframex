@@ -22,8 +22,9 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#profile', as: :profile
   get '/profile/edit', to: 'users#edit_profile', as: :edit_profile
   patch '/update_profile', to: 'users#update_profile', as: :update_profile
-  get '/edit_password', to: 'email_resets#edit_password', as: :edit_password
+  get '/edit_password/:reset_digest/edit', to: 'email_resets#edit_password', as: :edit_password
   patch '/update_password', to: 'email_resets#update_password', as: :update_password
+  get '/edit_password_profile', to: 'users#edit_password', as: :edit_password_profile
 
   # Password reset
   resources :email_resets, only: [:new, :create, :edit, :update]

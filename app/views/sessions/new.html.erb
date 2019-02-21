@@ -52,6 +52,7 @@
         <%= form_for(:email_reset, url: email_resets_path) do |f|%>
         <div class="modal-body">
           <div class="input-field">
+            <%= f.label :email, "Correo: " %>
             <%= f.email_field :email,  class: 'form-control', required: 'true', min: '0' %>
           </div>
         </div>

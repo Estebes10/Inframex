@@ -3,61 +3,63 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <div class="row">
-          <% if !@readonly %>
-            <div class="col-md-12">
-              <p>Los campos marcados con '*' son obligatorios.</p>
+        <% if @edit_profile %>
+          <div class="row">
+            <% if !@readonly %>
+              <div class="col-md-12">
+                <p>Los campos marcados con '*' son obligatorios.</p>
+              </div>
+            <% end %>
+            <div class="col-md-6 mT-15">
+              <%= f.label :name, "#{@required_str}Nombre del usuario:" %>
+              <%= f.text_field :name,
+                               class:"form-control",
+                               required: 'true',
+                               placeholder: "e.g. Juan",
+                               readonly: @readonly%>
             </div>
-          <% end %>
-          <div class="col-md-6 mT-15">
-            <%= f.label :name, "#{@required_str}Nombre del usuario:" %>
-            <%= f.text_field :name,
-                             class:"form-control",
-                             required: 'true',
-                             placeholder: "e.g. Juan",
-                             readonly: @readonly%>
-          </div>
-          <div class="col-md-6 mT-15">
-            <%= f.label :name, "#{@required_str}Apellido: " %>
-            <%= f.text_field :lastName,
-                             class: 'form-control',
-                             required: 'true',
-                             :maxlength => 50,
-                             placeholder: "e.g. Gama Moreno",
-                             readonly: @readonly %>
+            <div class="col-md-6 mT-15">
+              <%= f.label :name, "#{@required_str}Apellido: " %>
+              <%= f.text_field :lastName,
+                               class: 'form-control',
+                               required: 'true',
+                               :maxlength => 50,
+                               placeholder: "e.g. Gama Moreno",
+                               readonly: @readonly %>
+            </div>
+
+            <div class="col-md-6 mT-15">
+              <%= f.label :birthday, "#{@required_str}Fecha de nacimiento: " %>
+              <%= f.date_field :birthday,
+                               class: 'form-control',
+                               required: 'true', start_year: 1900,
+                               readonly: @readonly %>
+            </div>
+            <div class="col-md-6 mT-15">
+              <%= f.label :phone, "#{@required_str}Teléfono: " %>
+              <%= f.text_field :phone,
+                               class: 'form-control',
+                               required: 'true',
+                               :maxlength => 10,
+                               placeholder: "e.g. 1234567",
+                               readonly: @readonly %>
+            </div>
           </div>
 
-          <div class="col-md-6 mT-15">
-            <%= f.label :birthday, "#{@required_str}Fecha de nacimiento: " %>
-            <%= f.date_field :birthday,
-                             class: 'form-control',
-                             required: 'true', start_year: 1900,
-                             readonly: @readonly %>
+          <div class="row">
+            <div class="col-md-6 mT-15">
+              <%= f.label :email, "#{@required_str}Correo electrónico: " %>
+              <%= f.email_field :email,
+                                class: 'form-control',
+                                required: 'true',
+                                placeholder: "e.g. gama@mail.com",
+                                readonly: @readonly %>
+            </div>
           </div>
-          <div class="col-md-6 mT-15">
-            <%= f.label :phone, "#{@required_str}Teléfono: " %>
-            <%= f.text_field :phone,
-                             class: 'form-control',
-                             required: 'true',
-                             :maxlength => 10,
-                             placeholder: "e.g. 1234567",
-                             readonly: @readonly %>
-          </div>
-        </div>
+        <% end %>
 
-        <div class="row">
-          <div class="col-md-6 mT-15">
-            <%= f.label :email, "#{@required_str}Correo electrónico: " %>
-            <%= f.email_field :email,
-                              class: 'form-control',
-                              required: 'true',
-                              placeholder: "e.g. gama@mail.com",
-                              readonly: @readonly %>
-          </div>
-        </div>
-
-        <div class="row">
-          <% if @edit_profile %>
+        <% if @edit_password %>
+          <div class="row">
             <div class="col-md-6 mT-15">
               <%= f.label :password, "#{@required_str}Contraseña" %>
               <%= f.password_field :password,
@@ -72,9 +74,8 @@
                                    class: 'form-control',
                                    readonly: @readonly %>
             </div>
-          <% end %>
-
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
