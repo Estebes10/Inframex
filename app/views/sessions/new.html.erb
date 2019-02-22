@@ -1,38 +1,42 @@
 <% provide(:title, 'Login') %>
-<div id="particles-id" style="width: 100%; height: 100%; background: #212E3B; position: relative;">
-  <div style="padding-top: 5%; padding-left: 36%; position: absolute;">
-    <%= image_tag"logo.png" %>
-    <div class="card" style="position: absolute; margin-left: 10px">
-      <div class="card-header">
-        <h3>Inicia Sesión</h3>
-      </div>
-      <div class="card-body">
-        <%= form_for(:sessions, url: {action: "create"}, method: :post) do |f| %>
-          <%= render 'layouts/errors' %>
-          <div class="input-group form-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ti-user"></i></span>
-            </div>
-            <%= email_field :session, :email , class: 'form-control', required: 'true' %>
+<div id="particles-js"></div>
 
+<div class="row">
+  <br><br>
+  <div class="card p-15 col-xl-3 col-lg-4 col-md-6 col-sm-8 col-10 mT-110">
+    <%= image_tag("logo.png", :class=>"card-img-top") %>
+    <div class="card-header">
+      <h4>Inicia Sesión</h4>
+    </div>
+    <div class="card-body p-15">
+      <%= form_for(:sessions, url: {action: "create"}, method: :post) do |f| %>
+        <%= render 'layouts/errors' %>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="ti-user"></i></span>
           </div>
-          <div class="input-group form-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="ti-lock"></i></span>
-            </div>
-            <%= password_field :session, :password,  class: 'form-control', required: 'true', min: '0' %>
+          <%= email_field :session, :email , class: 'form-control', required: 'true' %>
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="ti-lock"></i></span>
           </div>
-          <div class="row align-items-center remember">
-            <%= check_box :session, :remember_me%> Recordar sesión
-          </div>
-          <div class="form-group">
-            <input type="submit" value="Iniciar sesión" class="btn float-right login_btn">
-          </div>
-        <% end %>
-      </div>
+          <%= password_field :session, :password,  class: 'form-control', required: 'true', min: '0' %>
+        </div>
+        <div class="custom-control custom-checkbox checkbox-info">
+          <%= check_box :session, :remember_me, class: 'custom-control-input' %>
+          <label id="remember_label" 
+            class="custom-control-label text-white" 
+            for="session_remember_me">Recordar sesión</label>
+        </div>
+        <div class="form-group pT-15">
+          <input type="submit" value="Iniciar sesión" class="btn float-right login_btn">
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
+
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "login.js" %>
 <% end %>

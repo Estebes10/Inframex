@@ -1,17 +1,26 @@
+#particles-js {
+  position: absolute !important;
+  width: 110% !important;
+  height: 110% !important;
+  background: {
+      image: image-url("login.jpg") !important;
+      position: bottom !important;
+      repeat: no-repeat !important;
+      color: black !important;
+      size: cover !important;
+  }
+}
+
 .container{
     height: 100%;
     align-content: center;
 }
 
 .card{
-    height: 140%;
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 42%;
     background-color: rgba(0,0,0,0.5) !important;
 }
 
-.card-header h3{
+.card-header h4{
     color: white;
 }
 
@@ -29,22 +38,13 @@ input:focus{
 
 }
 
-.remember{
-    color: white;
-}
-
-.remember input
-{
-    width: 20px;
-    height: 20px;
-    margin-left: 15px;
-    margin-right: 5px;
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color: #4F74B2;
 }
 
 .login_btn{
     color: white;
     background-color: #4F74B2;
-    width: 40%;
 }
 
 .login_btn:hover{

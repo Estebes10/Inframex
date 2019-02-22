@@ -42,6 +42,10 @@ class Project < ApplicationRecord
     }
 
   validates :status, inclusion: { in: [ true, false ] }
+
+  def sum_all_concepts_weight
+    concepts.sum(:weight)
+  end
   
   def get_category_progress(category_id)
     total_concepts = concepts.where("category_id = #{category_id}").count
@@ -57,19 +61,12 @@ class Project < ApplicationRecord
   end
   
   def get_project_progress
+    total_weigth = self.sum_all_concepts_weight
     progress = 0.0
-    num_categories = 0
-    Category.all.each do |c|
-      if !concepts.where(category_id: c.id).blank?
-        num_categories += 1
-        progress += self.get_category_progress(c.id)
-      end
+    concepts.each do |c|
+      progress += (c.get_progress * c.weight)/total_weigth
     end
-    if num_categories
-      return (progress / num_categories)
-    else
-      return 0
-    end
+    return progress
   end
   
   def get_project_progress_100

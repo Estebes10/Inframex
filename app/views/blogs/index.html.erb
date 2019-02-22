@@ -26,7 +26,7 @@
       <% else %>
 
         <div class="layer w-100 p-20 text-center">
-          <table class="table table-hover" id="blogs-datatable" role="datatable">
+          <div class="table-responsive"><table class="table table-hover" id="blogs-datatable" role="datatable">
             <thead>
               <tr>
                 <th scope="col">Número</th>
@@ -45,7 +45,7 @@
                 <td><%= blog.id %></td>
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>
                 <td><%= blog.name %></td>
-                <td> <%= blog.description %></td>
+                <td class="text-truncate text-truncate" style="max-width: 150px;"> <%= blog.description %></td>
                 <% if has_privilege(current_user, "blog_6") %>
                   <td>
                     <% if has_privilege(current_user, "blog_5") %>
@@ -96,7 +96,7 @@
               </tr>
             <% end %>
             </tbody>
-          </table>
+          </table></div>
         </div>
 
       <%end%>

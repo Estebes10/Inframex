@@ -31,6 +31,11 @@ class Concept < ApplicationRecord
   validates :total,
             presence: {with: true, message: "no puede estar vacío"},
             numericality: {with: true, only_integer: false }, :on => [:create ,:update]
+
+  validates :weight,
+            presence: {with: true, message: "no puede estar vacío"},
+            numericality:{with: true, only_integer: false, greater_than: 0,
+                          less_than: 100, message: "debe ser mayor a 0 y menor a 100" }
   
   def sum_all_jobs_weight
     jobs.sum(:weight)
@@ -42,6 +47,14 @@ class Concept < ApplicationRecord
 
   def sum_all_expenses
     expenses.sum(:total)
+  end
+
+  def get_expenses_progress
+    self.sum_all_expenses / self.total
+  end
+
+  def get_expenses_progress_100
+    self.get_expenses_progress * 100
   end
   
   def get_progress

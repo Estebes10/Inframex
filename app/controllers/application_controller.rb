@@ -27,7 +27,7 @@ def has_privilege_controller(user, privilege_id_str)
     return true
   else
     # store_location
-    flash[:precaucion] = "Url no encontrado"
+    flash[:info] = "Url no encontrado"
     redirect_to '/404'
   end
 end

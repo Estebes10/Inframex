@@ -1,7 +1,7 @@
 <%= form_for(project_user_projects_path(@project), remote: true, html: { style: "display:inline;" }) do %>
   <div class="modal-body">
     <% if(@users.count > 0) %>
-      <table class="table table-hover" id="user-projects-new-datatable" role="datatable">
+      <div class="table-responsive"><table class="table table-hover" id="user-projects-new-datatable" role="datatable">
         <thead>
         <tr>
           <th>Nombre Completo</th>
@@ -38,7 +38,7 @@
           </tr>
         <% end %>
         </tbody>
-      </table>
+      </table></div>
     <% else %>
       <p>Ya han sido asignados todos los usuarios a este proyecto.</p>
     <% end %>

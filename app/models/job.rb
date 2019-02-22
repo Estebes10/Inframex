@@ -20,7 +20,7 @@ class Job < ApplicationRecord
   validates :weight,
             presence: {with: true, message: "no puede estar vacío"},
             numericality:{with: true, only_integer: false, greater_than: 0, 
-              less_than: 100, message: "debe ser mayor a 0" }
+              less_than: 100, message: "debe ser mayor a 0 y menor a 100" }
               
               
   def sum_job_progresses_quantity_by_status(status)

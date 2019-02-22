@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load',() => {
-    if(document.getElementById("particles-id")){
-        particlesJS('particles-id', {
+    if(document.getElementById("particles-js")){
+        particlesJS('particles-js', {
             "particles": {
                 "number": {
                     "value": 76,
@@ -10,7 +10,7 @@ document.addEventListener('turbolinks:load',() => {
                     }
                 },
                 "color": {
-                    "value": "#7f7c7d"
+                    "value": "#C8DFFE"
                 },
                 "shape": {
                     "type": "circle",
@@ -22,9 +22,9 @@ document.addEventListener('turbolinks:load',() => {
                         "nb_sides": 8
                     },
                     "image": {
-                        "src": "img/github.svg",
-                        "width": 100,
-                        "height": 100
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
                     }
                 },
                 "opacity": {
@@ -50,14 +50,14 @@ document.addEventListener('turbolinks:load',() => {
                 "line_linked": {
                     "enable": true,
                     "distance": 150,
-                    "color": "#7f7c7d",
-                    "opacity": 0.4,
+                    "color": "#C8D8ED",
+                    "opacity": 0.2,
                     "width": 2
                 },
                 "move": {
                     "enable": true,
                     "speed": 2,
-                    "direction": "top-right",
+                    "direction": "top-left",
                     "random": false,
                     "straight": false,
                     "out_mode": "out",
@@ -80,7 +80,11 @@ document.addEventListener('turbolinks:load',() => {
                         "enable": false,
                         "mode": "push"
                     },
-                    "resize": true
+                    onresize: {
+                        enable: true,
+                        density_auto: true,
+                        density_area: 400 // nb_particles = particles.nb * (canvas width *  canvas height / 1000) / density_area
+                    }
                 },
                 "modes": {
                     "grab": {

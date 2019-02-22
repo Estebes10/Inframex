@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-10 offset-lg-1">
-    <table class="table hover">
+    <div class="table-responsive"><table class="table hover">
       <tr>
         <td colspan="2">Cantidad del Trabajo:</td>
         <td></td>
@@ -21,7 +21,7 @@
         <td></td>
         <td><strong><%= number_with_delimiter(@job.quantity - @job.sum_job_progresses_quantity_by_status(true)) %> <%= @job.unity %></strong></td>
       </tr>
-    </table>
+    </table></div>
   </div>
 </div>
 <%= form_for [@project, @blog, @job_progress] do |f| %>
