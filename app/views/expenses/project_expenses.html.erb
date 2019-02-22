@@ -6,10 +6,12 @@
           <h5 class="float-left">Gastos del Proyecto</h5>
         </div>
         <div class="layer w-100 p-20 text-center">
-          <table class="table table-hover" id="expenses-datatable" role="datatable">
+          <div class="table-responsive">
+            <table class="table table-hover" id="expenses-datatable" role="datatable">
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
+              <th>Bitácora</th>
               <th>Concepto</th>
               <th>Fecha</th>
               <th>Total</th>
@@ -27,6 +29,11 @@
             <% @expenses.each do |a| %>
               <tr>
                 <td><%= a.name-%></td>
+                <td>
+                  <% if has_privilege(current_user, "blog_1") %>
+                    <%= link_to a.blog.name, {:controller => :blogs, :action => :show, :project_id => @project.id, :id => a.blog.id} %>
+                  <% end %>
+                </td>
                 <td>
                   <% if has_privilege(current_user, "concept_1") %>
                     <%= link_to a.concept.code, {:controller => :concepts, :action => :show, :project_id => @project.id, :id => a.concept.id} %>
@@ -113,6 +120,7 @@
             <% end %>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
