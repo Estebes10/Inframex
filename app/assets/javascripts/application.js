@@ -18,6 +18,7 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
+//= require jszip
 //= require datatables
 //= require sweetalert
 //= require particles
