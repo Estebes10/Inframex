@@ -429,7 +429,13 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'expenses_9',
                                          module_name: 'Gastos'
                                      },
-                                     #69
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Filtrar sólo las bitácoras con estatus de aprobado',
+                                         str_id: 'blog_7',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     #70
                                      {
                                          name: 'Filtrar',
                                          description: 'Filtrar sólo las bitácoras con estatus de aprobado',
