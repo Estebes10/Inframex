@@ -9,7 +9,7 @@
   <% end %>
 </div>
 
-<% if @blog.job_progress.blank? %>
+<% if @job_progress.blank? %>
 
   <div class="layer w-100 p-20">
     <div class="row">
@@ -31,7 +31,7 @@
           <th scope="col">Nombre Trabajo</th>
           <th scope="col">Cantidad Avance</th>
           <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
-          <th scope="col">Estatus Avance</th>
+          <th scope="col">Aprobado</th>
           <% end %>
           <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
           <th scope="col">Acciones</th>
@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-      <% @blog.job_progress.each do |job_progress| %>
+      <% @job_progress.each do |job_progress| %>
         <tr>
           <td>
             <% if has_privilege(current_user, "concept_1") %>

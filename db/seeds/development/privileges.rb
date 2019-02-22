@@ -438,9 +438,9 @@ if !Privilege.find_by(name: 'Consultar')
                                      #70
                                      {
                                          name: 'Filtrar',
-                                         description: 'Filtrar sólo las bitácoras con estatus de aprobado',
-                                         str_id: 'blog_7',
-                                         module_name: 'Bitácoras'
+                                         description: 'Filtrar sólo los avances de trabajo con estatus de aprobado',
+                                         str_id: 'job_prog_7',
+                                         module_name: 'Avance Trabajo'
                                      }
                                  ]
   )

@@ -49,6 +49,13 @@ class BlogsController < ApplicationController
     @concepts = @project.concepts.order(:code)
     @has_concepts_jobs = @concepts.joins(:jobs).any?
 
+    #Check privileges to retrieve jobs and expenses
+    if has_privilege(current_user, 'job_prog_7')
+      @job_progress = @blog.job_progress.where(status: true).all
+    else
+      @job_progress = @blog.job_progress.all
+    end
+
     if has_privilege(current_user, 'expenses_9')
       @expenses = @blog.expenses.where(status: true).order(:name).all
     else
