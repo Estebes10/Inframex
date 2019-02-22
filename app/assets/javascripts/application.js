@@ -23,5 +23,4 @@
 //= require sweetalert
 //= require particles
 //= require bootstrap-datepicker
-//= require template/index
 //= require_tree .

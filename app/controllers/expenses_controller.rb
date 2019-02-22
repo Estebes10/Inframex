@@ -72,7 +72,7 @@ class ExpensesController < ApplicationController
       flash[:success] = ' Éxito al crear gasto'
       redirect_to project_blog_url(project_id: @project, id: @blog)
     else
-      flash[:error] = ' Error al crear gasto'
+      flash[:danger] = ' Error al crear gasto'
       render action: 'new'
     end
   end
@@ -89,7 +89,7 @@ class ExpensesController < ApplicationController
       flash[:success] = ' Gasto modificado correctamente'
       redirect_to project_blog_expense_path(project_id: @project, blog_id: @blog, id: @expense)
     else
-      flash[:error] = ' Error al modificar gasto'
+      flash[:danger] = ' Error al modificar gasto'
       render :edit
     end
   end
@@ -103,7 +103,7 @@ class ExpensesController < ApplicationController
       flash[:success] = ' Se ha eliminado el gasto correctamente'
       redirect_to project_blog_url(project_id: @project, id: @blog)
     else
-      flash[:error] = ' No se ha podido eliminar el gasto'
+      flash[:danger] = ' No se ha podido eliminar el gasto'
       redirect_to action: 'index'
     end
   end
@@ -131,7 +131,7 @@ class ExpensesController < ApplicationController
       flash[:success] = ' Archivo modificado correctamente'
       redirect_to project_blog_expense_path(project_id: @project, blog_id: @blog, id: @expense)
     else
-      flash[:error] = ' Error al modificar el archivo'
+      flash[:danger] = ' Error al modificar el archivo'
       render :edit
     end
   end

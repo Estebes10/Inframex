@@ -4,8 +4,6 @@
 //= require datatables/dataTables.bootstrap4
 
 //Optional Datatables extensions
-//= require pdfmake/pdfmake.min.js
-//= require pdfmake/vfs_fonts.js
 //= require datatables/extensions/Responsive/dataTables.responsive
 //= require datatables/extensions/Responsive/responsive.bootstrap4
 //= require datatables/extensions/Buttons/dataTables.buttons
