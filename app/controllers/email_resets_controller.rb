@@ -13,7 +13,7 @@ class EmailResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       PasswordMailer.with(email: @user.email).password_mailer(@user.email).deliver_now
-      flash[:success] = 'Sigue las instrucciones que se han mandado a tu correo'
+      flash[:success] = 'Sigue las instrucciones que se han mandado a tu correo, VERIFICA EL SPAM SI NO LLEGA A TU BANDEJA DE ENTRADA'
     else
       flash[:danger] = 'No existe un usuario con ese correo'
     end
