@@ -44,8 +44,8 @@ Rails.application.configure do
     port: 587,
     domain: "gmail.com",
     authentication: "plain",
-    user_name: "inframex.qro@gmail.com",
-    password: "Inframex2018"
+    user_name: ENV['USERNAME_EMAIL'],
+    password: ENV['PASSWORD_EMAIL']
   }
   config.action_mailer.default_url_options = { host: "localhost:3000" }
 
