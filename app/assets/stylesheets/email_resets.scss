@@ -1,3 +1,72 @@
 // Place all the styles related to the EmailResets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container590 {
+    max-width: 100% !important;
+}
+
+.container580 {
+    width: 400px !important;
+}
+
+.classStyleTable {
+  border-collapse: collapse;
+  mso-table-lspace:0pt;
+  mso-table-rspace:0pt;
+}
+
+.imageEmailContact {
+  display: inline;
+  width: 80px;
+}
+
+.aImageContact {
+  border-style: none !important;
+  border: 0 !important;
+}
+
+.space-line {
+  font-size: 25px;
+  line-height: 25px;
+  height: 25px;
+}
+
+.footer-email {
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+.container-collapse {
+  border-collapse:collapse;
+  mso-table-lspace:0pt;
+  mso-table-rspace:0pt;
+  text-align: center;
+}
+
+.container-contact-text {
+  color: #888888;
+  font-size: 14px;
+  font-family: 'Work Sans', Calibri, sans-serif;
+  line-height: 23px;
+}
+
+.container-text {
+  color: #aaaaaa;
+  font-size: 14px;
+  font-family: 'Work Sans', Calibri, sans-serif;
+  line-height: 24px;
+}
+
+.container-text > div > div > spam{
+  color: #333333;
+}
+
+.footer-text {
+  font-size: 14px;
+  font-family: 'Work Sans', Calibri, sans-serif;
+  line-height: 24px;
+  color: #5caad2;
+  text-decoration: none;
+  font-weight:bold;
+}

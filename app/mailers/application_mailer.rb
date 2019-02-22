@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'inframex.qro@gmail.com'
+  default from: 'inframex-noreply@inframex.com'
   layout 'mailer'
 end
