@@ -48,7 +48,12 @@ class BlogsController < ApplicationController
     @required_str = ""
     @concepts = @project.concepts.order(:code)
     @has_concepts_jobs = @concepts.joins(:jobs).any?
-    @expenses = @blog.expenses.order(:name).all
+
+    if has_privilege(current_user, 'expenses_9')
+      @expenses = @blog.expenses.where(status: true).order(:name).all
+    else
+      @expenses = @blog.expenses.order(:name).all
+    end
   end
 
   def new

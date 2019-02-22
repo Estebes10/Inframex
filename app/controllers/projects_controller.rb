@@ -43,6 +43,33 @@ class ProjectsController < ApplicationController
     @readonly = true
     @create = false
     @required_str = ""
+    expenses_filter
+    blogs_filter
+  end
+
+  def blogs_filter
+    if has_privilege(current_user, 'blog_7')
+      @blogs = @project.blogs.where(status: true).all
+    else
+      @blogs = @project.blogs.all
+    end
+  end
+
+  def expenses_filter
+    @expenses = []
+    if has_privilege(current_user, 'expenses_9')
+      @project.blogs.each do |blog|
+        blog.expenses.where(status: true).each do |expense|
+          @expenses.push(expense)
+        end
+      end
+    else
+      @project.blogs.each do |blog|
+        blog.expenses.each do |expense|
+          @expenses.push(expense)
+        end
+      end
+    end
   end
 
   def create

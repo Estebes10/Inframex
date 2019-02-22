@@ -13,7 +13,12 @@ class SessionsController < ApplicationController
       log_in @user
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
       # flash[:success] = 'Bienvenido, sesión iniciada'
-      redirect_to projects_url
+      if current_user.projects.count == 1
+        @project = current_user.projects.first
+        redirect_to @project
+      else
+        redirect_to projects_url
+      end
     else
       flash.now[:danger] = 'Datos de usuario incorrectos'
       render 'new'

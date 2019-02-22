@@ -14,13 +14,18 @@
         <h5 class="float-left pL-15">Proyecto - <%= @project.name %> - <%= @project.code%></h5>
         <nav class="float-right">
           <div class="nav nav-tabs nav-fill" id="project-nav-tab" role="tablist">
-            <a class="nav-item nav-link active c-white" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">General</a>
+            <a class="nav-item nav-link active c-white" id="nav-reports-tab" data-toggle="tab" href="#nav-reports" role="tab" aria-controls="nav-reports" aria-selected="true">Reportes</a>
+            <a class="nav-item nav-link c-white" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">General</a>
             <% if has_privilege(current_user, "blog_1") %>
               <a class="nav-item nav-link c-white" id="nav-blogs-tab" data-toggle="tab" href="#nav-blogs" role="tab" aria-controls="nav-blogs" aria-selected="false">Bitácoras</a>
             <% end %>
 
             <% if has_privilege(current_user, "concept_1") %>
               <a class="nav-item nav-link c-white" id="nav-concepts-tab" data-toggle="tab" href="#nav-concepts" role="tab" aria-controls="nav-concepts" aria-selected="false">Conceptos</a>
+            <% end %>
+
+            <% if has_privilege(current_user, "expenses_1") %>
+              <a class="nav-item nav-link c-white" id="nav-expenses-tab" data-toggle="tab" href="#nav-expenses" role="tab" aria-controls="nav-expenses" aria-selected="false">Gastos</a>
             <% end %>
 
             <% if has_privilege(current_user, "userproject_1") %>
@@ -31,14 +36,55 @@
       </div>
       <div class="layer w-100 p-20">
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
-            <div class="row gap-20">
-              <div class="masonry-item col-md-6">
-                <div class="bd bgc-white">
-                  <div class="layers">
-                    <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-                      <h5 class="float-left">Datos Generales</h5>
-                      <% if has_privilege(current_user, "project_3") %>
+          <div class="tab-pane fade show active" id="nav-reports" role="tabpanel" aria-labelledby="nav-reports-tab">
+            <div class="masonry-item col-md-12">
+            <div class="bd bgc-white">
+              <div class="layers">
+                <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+                  <h5 class="float-left">Resumen de Avances</h5>
+                </div>
+                <div class="layer w-100 p-20">
+                  <% @categories.each do |c| %>
+                    <% if !@project.concepts.where(category_id: c.id).blank? %>
+                      <% progress = @project.get_category_progress_100(c.id).round(2) %>
+                      <h6><%= c.name %></h6>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                             role="progressbar"
+                             aria-valuenow="<%= progress %>"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width: <%= progress %>%">
+                          <%= progress %>%
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                  <hr>
+                  <h6>Total</h6>
+                  <div class="progress">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                         role="progressbar"
+                         aria-valuenow="<%= @project.get_project_progress_100.round(2) %>"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         style="width: <%= @project.get_project_progress_100.round(2) %>%">
+                      <%= @project.get_project_progress_100.round(2) %>%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div class="tab-pane fade" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+            <div class="masonry-item col-md-12">
+              <div class="bd bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+                    <h5 class="float-left">Datos Generales</h5>
+                    <% if has_privilege(current_user, "project_3") %>
                       <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="edit-project-button"">
                         <i class="ti-pencil"></i>
@@ -46,55 +92,16 @@
                       </button>'.html_safe,
                                   edit_project_path(@project)
                       %>
-                      <% end %>
-                    </div>
-                    <div class="layer w-100 p-20 text-center">
-                      <%= render "form" %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="masonry-item col-md-6">
-              <div class="bd bgc-white">
-                <div class="layers">
-                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-                    <h5 class="float-left">Resumen de Avances</h5>
-                  </div>
-                  <div class="layer w-100 p-20">
-                    <% @categories.each do |c| %>
-                      <% if !@project.concepts.where(category_id: c.id).blank? %>
-                        <% progress = @project.get_category_progress_100(c.id).round(2) %>
-                        <h6><%= c.name %></h6>
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-striped progress-bar-animated"
-                               role="progressbar" 
-                               aria-valuenow="<%= progress %>" 
-                               aria-valuemin="0"
-                               aria-valuemax="100" 
-                               style="width: <%= progress %>%">
-                            <%= progress %>%
-                          </div>
-                        </div>
-                      <% end %>
                     <% end %>
-                    <hr>
-                    <h6>Total</h6>
-                    <div class="progress">
-                      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                           role="progressbar" 
-                           aria-valuenow="<%= @project.get_project_progress_100.round(2) %>" 
-                           aria-valuemin="0"
-                           aria-valuemax="100" 
-                           style="width: <%= @project.get_project_progress_100.round(2) %>%">
-                        <%= @project.get_project_progress_100.round(2) %>%
-                      </div>
-                    </div>
+                  </div>
+                  <div class="layer w-100 p-20 text-center">
+                    <%= render "form" %>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
+
           <div class="tab-pane fade" id="nav-blogs" role="tabpanel" aria-labelledby="nav-blogs-tab">
             <% if has_privilege(current_user, "blog_1") %>
               <%= render template: "blogs/index" %>
@@ -103,6 +110,12 @@
           <div class="tab-pane fade" id="nav-concepts" role="tabpanel" aria-labelledby="nav-concepts-tab">
             <% if has_privilege(current_user, "concept_1") %>
               <%= render template: "concepts/index" %>
+            <% end %>
+          </div>
+
+          <div class="tab-pane fade" id="nav-expenses" role="tabpanel" aria-labelledby="nav-expenses-tab">
+            <% if has_privilege(current_user, "expenses_1") %>
+              <%= render template: "expenses/project_expenses" %>
             <% end %>
           </div>
 
