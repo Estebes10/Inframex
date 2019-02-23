@@ -66,12 +66,14 @@
                                    class: 'form-control',
                                    :minlength => 6,
                                    :maxlength => 64,
+                                   required: 'true',
                                    readonly: @readonly %>
             </div>
             <div class="col-md-6 mT-15">
               <%= f.label :password_confirmation, "#{@required_str}Confirmación de contraseña" %>
               <%= f.password_field :password_confirmation,
                                    class: 'form-control',
+                                   required: 'true',
                                    readonly: @readonly %>
             </div>
           </div>

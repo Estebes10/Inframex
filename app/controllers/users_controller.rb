@@ -121,8 +121,13 @@ class UsersController < ApplicationController
     else
       @readonly = false
       @create = false
-      flash[:danger] = ' Error al actualizar tus datos'
-      render :edit_profile
+      if profile_params['password'].present?
+        flash[:danger] = ' Error, las contraseñas no son iguales'
+        redirect_to edit_password_profile_url
+      else
+        flash[:danger] = ' Error al actualizar tus datos'
+        render :edit_profile
+      end
     end
   end
 
