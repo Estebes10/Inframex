@@ -49,7 +49,8 @@
           </div>
           <div class="layer w-100 p-20 text-center">
             <% if @expenses.count > 0 %>
-              <div class="table-responsive"><table class="table table-hover" id="expenses-datatable" role="datatable">
+              <div class="table-responsive">
+                <table class="table table-hover datatable" id="expenses-datatable" role="datatable">
                 <thead>
                 <tr class="tableHead">
                   <th>Nombre</th>
@@ -138,7 +139,8 @@
                     <td colspan="4"></td>
                   </tr>
                 </tfooter>
-              </table></div>
+              </table>
+              </div>
             <% else %>
               <div class="row">
                 <div class="col-md-10">

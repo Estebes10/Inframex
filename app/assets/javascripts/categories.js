@@ -1,11 +1,5 @@
 // Categories
 $( document ).on('ready turbolinks:load', function() {
-    $('#categories-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#categories-datatable tbody').on('click', 'button.delete-category-ajax', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
@@ -53,12 +47,6 @@ function deleteCategoryAjax(categoryId, deleteButton) {
 
 // Subcategories
 $( document ).on('ready turbolinks:load', function() {
-    $('#subcategories-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#subcategories-datatable tbody').on('click', 'button.delete-subcategory-ajax', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);

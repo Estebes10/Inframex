@@ -63,7 +63,7 @@ class JobProgressesController < ApplicationController
       flash[:success] = ' Trabajo modificado correctamente'
       redirect_to project_blog_url(project_id: @project, id: @blog)
     else
-      flash[:error] = ' Error al modificar el trabajo'
+      flash[:danger] = ' Error al modificar el trabajo'
       render :edit
     end
   end

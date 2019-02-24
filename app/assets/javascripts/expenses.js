@@ -6,12 +6,6 @@ jQuery(function() {
 
 // Expenses
 $( document ).on('ready turbolinks:load', function() {
-    $('#expenses-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#expenses-datatable tbody').on('click', 'button.delete-expense-ajax', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);

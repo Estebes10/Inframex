@@ -1,10 +1,4 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#blogs-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#blogs-datatable tbody').on('click', 'button.delete-blog-ajax', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);

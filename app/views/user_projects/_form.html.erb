@@ -1,7 +1,9 @@
-<%= form_for(project_user_projects_path(@project), remote: true, html: { style: "display:inline;" }) do %>
+<%= form_tag(project_user_projects_path(@project), method: "post",  id: "project-users-form",
+             remote: true, html: { style: "display:inline;" }) do %>
   <div class="modal-body">
     <% if(@users.count > 0) %>
-      <div class="table-responsive"><table class="table table-hover" id="user-projects-new-datatable" role="datatable">
+      <div class="table-responsive">
+        <table class="table table-hover datatable" id="user-projects-new-datatable" role="datatable">
         <thead>
         <tr>
           <th>Nombre Completo</th>
@@ -33,12 +35,17 @@
               </td>
             <% end %>
             <td class="text-center">
-              <input class="form-check-input" type="checkbox" name="user_project[]" id="<%= a.id %>" value="<%= a.id %>">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input align-middle" type="checkbox" name="user_project[]"
+                       id="<%= a.id %>" value="<%= a.id %>">
+                <label class="custom-control-label align-top" for="<%= a.id %>"></label>
+              </div>
             </td>
           </tr>
         <% end %>
         </tbody>
-      </table></div>
+      </table>
+      </div>
     <% else %>
       <p>Ya han sido asignados todos los usuarios a este proyecto.</p>
     <% end %>
@@ -46,7 +53,7 @@
   <div class="modal-footer">
     <% if(@users.count > 0) %>
       <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-      <button type="submit" name="save" value="ready" class="btn btn-primary">Guardar</button>
+      <button type="submit" id="submit_users" name="save" value="ready" class="btn btn-primary">Guardar</button>
     <% else %>
       <button type="button" class="btn cancel-button-modal" data-dismiss="modal">Aceptar</button>
     <% end %>
