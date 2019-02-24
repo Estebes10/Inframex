@@ -22,7 +22,8 @@
 <% else %>
 
   <div class="layer w-100 p-20">
-    <div class="table-responsive"><table class="table table-hover job_progress-datatable" role="datatable">
+    <div class="table-responsive">
+      <table class="table table-hover datatable job_progress-datatable" role="datatable">
       <thead>
         <tr>
           <% if has_privilege(current_user, "concept_1") %>
@@ -86,7 +87,8 @@
         </tr>
       <% end %>
       </tbody>
-    </table></div>
+    </table>
+    </div>
   </div>
 
 <%end%>
@@ -104,7 +106,8 @@
         <div class="col-md-10 offset-md-1">
           <br>
           <% if @has_concepts_jobs %>
-            <div class="table-responsive"><table class="table table-hover" id="concepts_jobs-datatable" role="datatable">
+            <div class="table-responsive">
+              <table class="table table-hover datatable" id="concepts_jobs-datatable" role="datatable">
               <thead>
                 <tr>
                   <th scope="col">Clave Concepto</th>
@@ -129,7 +132,8 @@
                   <% end %>
                 <% end %>
               </tbody>
-            </table></div>
+            </table>
+            </div>
           <% else %>
             <p class="lead">Actualmente no hay trabajos pre-registrados
               en ningun concepto del proyecto</p>

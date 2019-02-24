@@ -66,7 +66,8 @@
             <td colspan="7" class="p-0" style="border-top: 0px;">
               <div class="collapse p-40 bgc-grey-100" id="collapseJobProgresses<%= job.id %>">
               <% if job.job_progress.count > 0 %>
-                <div class="table-responsive"><table class="table table-hover job_progress-datatable" role="datatable">
+                <div class="table-responsive">
+                  <table class="table table-hover datatable job_progress-datatable" role="datatable">
                   <thead>
                     <tr>
                       <% if has_privilege(current_user, "blog_1") %>
@@ -140,7 +141,8 @@
                     <td colspan="4"></td>
                   </tr>
                 </tfooter>
-                </table></div>
+                </table>
+                </div>
               <% else %>
                 <div class="row">
                   <div class="col-md-10">
