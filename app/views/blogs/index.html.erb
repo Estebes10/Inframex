@@ -1,9 +1,9 @@
 <% if has_privilege(current_user, "blog_1") %>
 <div class="masonry-item col-md-12">
-  <div class="bd bgc-white">
+  <div class="bgc-white">
     <div class="layers">
-      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-        <h5 class="float-left">Registro de bitácoras</h5>
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+        <h5 class="float-left fsz-md">Registro de bitácoras</h5>
         <% if has_privilege(current_user, "blog_2") %>
           <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="new-blog-button"">

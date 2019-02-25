@@ -1,9 +1,9 @@
 <% if has_privilege(current_user, "userproject_1") %>
 <div class="masonry-item col-md-12">
-  <div class="bd bgc-white">
+  <div class="bgc-white">
     <div class="layers">
-      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-        <h5 class="float-left">Usuarios del Proyecto</h5>
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+        <h5 class="float-left fsz-md">Usuarios del Proyecto</h5>
         <% if has_privilege(current_user, "userproject_2") %>
           <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                     id="new-user-button">

@@ -1,9 +1,9 @@
 <% if has_privilege(current_user, "concept_1") %>
 <div class="masonry-item col-md-12">
-  <div class="bd bgc-white">
+  <div class="bgc-white">
     <div class="layers">
-      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
-        <h5 class="float-left pL-15">Registro de Conceptos</h5>
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+        <h5 class="float-left pL-15 fsz-md">Registro de Conceptos</h5>
         <% if has_privilege(current_user, "concept_2") %>
         <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                         id="new-blog-button"">
@@ -24,7 +24,7 @@
         <% else %>
 
           <% @categories.each do |c| %>
-            <div class="layers bd">
+            <div class="layers">
               <% if !@project.concepts.where(category_id: c.id).blank? %>
                 <div class="bgc-blue-grey-600 bgcH-blue-grey-900 bdc-grey-200 bdB c-white d-inline layer w-100 p-10" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse-<%= c.id %>">
                   <h6 class="pL-15"><%= c.name %> (<%= @project.get_category_progress_100(c.id).round(2) %>%)</h6>

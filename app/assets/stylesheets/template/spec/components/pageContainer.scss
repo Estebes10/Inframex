@@ -41,6 +41,12 @@
   @include to($breakpoint-md) {
     padding: 85px 5px 5px;
   }
+
+  background: {
+    image: image-url("login.jpg") !important;
+    position: bottom !important;
+    repeat: repeat-y !important;
+  }
 }
 
 .remain-height {

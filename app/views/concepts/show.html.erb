@@ -1,6 +1,6 @@
 <% provide(:title, 'Ver Concepto') %>
 <div class="masonry-item col-lg-4">
-  <div class="bd bgc-white">
+  <div class="bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <% if has_privilege(current_user, "project_1") %>
@@ -42,7 +42,7 @@
     <!-- Expenses item -->
     <% if has_privilege(current_user, "expenses_1") %>
     <div class="masonry-item col-md-12">
-      <div class="bd bgc-white">
+      <div class="bgc-white">
         <div class="layers">
           <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
             <h5 class="float-left pL-15">Gastos del Concepto</h5>
@@ -156,7 +156,7 @@
     <!-- Jobs item -->
     <% if has_privilege(current_user, "job_4") %>
       <div class="masonry-item col-md-12">
-        <div class="bd bgc-white">
+        <div class="bgc-white">
           <div class="layers">
             <%= render "jobs/index"%>
           </div>
