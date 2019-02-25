@@ -35,7 +35,9 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
                 <% if has_privilege(current_user, "blog_6") %>
-                  <th scope="col">Estado de Aprobación</th>
+                  <% if !has_privilege(current_user, "blog_7") %>
+                    <th scope="col">Estado de Aprobación</th>
+                  <% end %>
                 <% end %>
                 <th scope="col">Acciones</th>
               </tr>
@@ -47,7 +49,8 @@
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>
                 <td><%= blog.name %></td>
                 <td class="text-truncate text-truncate" style="max-width: 150px;"> <%= blog.description %></td>
-                <% if has_privilege(current_user, "blog_6") %>
+                <% if !has_privilege(current_user, "blog_7") %>
+                  <% if has_privilege(current_user, "blog_6") %>
                   <td>
                     <% if has_privilege(current_user, "blog_5") %>
                       <label class="switch">
@@ -73,6 +76,7 @@
                       </label>
                     <% end %>
                   </td>
+                <% end %>
                 <% end %>
                 <td>
                   <% if has_privilege(current_user, "blog_1") %>

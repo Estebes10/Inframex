@@ -79,7 +79,9 @@
                         <% end %>
                         <th scope="col">Cantidad Avance</th>
                         <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
-                          <th scope="col">Aprobado</th>
+                          <% if !has_privilege(current_user, "job_prog_7") %>
+                            <th scope="col">Aprobado</th>
+                          <% end %>
                         <% end %>
                         <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
                           <th scope="col">Acciones</th>
@@ -96,7 +98,8 @@
                           <% end %>
                           <td class="text-center"><%= number_with_delimiter(job_progress.quantity) %> <%= job.unity %></td>
                           <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
-                            <td>
+                            <% if !has_privilege(current_user, "job_prog_7") %>
+                              <td>
                               <label class="switch">
                                 <input class="activate-switch status-job_progress" id="status-<%= "job_progress-#{job_progress.id}" %>"
                                        data-id="<%= job_progress.id %>"
@@ -108,6 +111,7 @@
                                 <span class="slider round"></span>
                               </label>
                             </td>
+                            <% end %>
                           <% end %>
                           <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
                             <td>
