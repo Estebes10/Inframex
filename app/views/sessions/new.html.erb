@@ -25,14 +25,40 @@
         </div>
         <div class="custom-control custom-checkbox checkbox-info">
           <%= check_box :session, :remember_me, class: 'custom-control-input checkbox-login-blue' %>
-          <label id="remember_label" 
-            class="custom-control-label text-white" 
+          <label id="remember_label"
+            class="custom-control-label text-white"
             for="session_remember_me">Recordar sesión</label>
         </div>
         <div class="form-group pT-15">
           <input type="submit" value="Iniciar sesión" class="btn float-right login_btn">
         </div>
       <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="passwordRecover" tabindex="-1" role="dialog" aria-labelledby="passwordEmailLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="passwordEmailLabel">Recuperar contraseña</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <%= form_for(:email_reset, url: email_resets_path) do |f|%>
+        <div class="modal-body">
+          <div class="input-field">
+            <%= f.label :email, "Correo: " %>
+            <%= f.email_field :email,  class: 'form-control', required: 'true', min: '0' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit " name="save" value="ready" class="btn btn-primary">Recuperar contraseña</button>
+        </div>
+        <% end %>
     </div>
   </div>
 </div>

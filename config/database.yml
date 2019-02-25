@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   encoding: utf8
   pool: 5
-  password: admin
+  password: Avenged10jc
   port: 5432
   username: postgres
   host: localhost

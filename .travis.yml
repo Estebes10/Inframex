@@ -3,7 +3,7 @@ rvm:
   - 2.5.1
 before_script:
   - bundle install
-  - rake db:reset
+  - bundle exec rake db:reset
 script:
-  - rake db:test:prepare
+  - bundle exec rake db:test:prepare
   - bundle exec rspec spec/ -fd --order rand

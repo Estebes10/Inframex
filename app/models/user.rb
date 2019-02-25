@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :reset_token
   has_secure_password
   belongs_to :role
 
@@ -68,4 +69,8 @@ class User < ApplicationRecord
     return show_user_path(self)
   end
 
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  reset_token)
+  end
 end

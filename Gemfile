@@ -50,8 +50,6 @@ gem 'mini_magick', '~> 4.8'
 gem 'google-cloud-asset', '~> 0.1.1', require: false
 gem "google-cloud-storage", "~> 1.8", require: false
 
-gem "appengine", "~> 0.4.6"
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_154950) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id"
+    t.string "reset_digest"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
