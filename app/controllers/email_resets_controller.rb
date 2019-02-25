@@ -24,7 +24,7 @@ class EmailResetsController < ApplicationController
   end
 
   def update_password
-    if params[:reset_digest] == @user.reset_digest
+    if params[:format] == @user.reset_digest
       if @user.update_attributes(password_params)
         redirect_to root_url
         flash[:success] = 'La contraseña ha sido modificada correctamente'
