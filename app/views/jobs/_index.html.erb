@@ -64,93 +64,97 @@
           </tr>
           <tr>
             <td colspan="7" class="p-0" style="border-top: 0px;">
-              <div class="collapse p-40 bgc-grey-100" id="collapseJobProgresses<%= job.id %>">
-              <% if job.job_progress.count > 0 %>
-                <div class="table-responsive">
-                  <table class="table table-hover datatable job_progress-datatable" role="datatable">
-                  <thead>
-                    <tr>
-                      <% if has_privilege(current_user, "blog_1") %>
-                        <th scope="col">Bitácora</th>
-                      <% end %>
-                      <th scope="col">Cantidad Avance</th>
-                      <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
-                        <th scope="col">Estatus Avance</th>
-                      <% end %>
-                      <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
-                        <th scope="col">Acciones</th>
-                      <% end %>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <% job.job_progress.each do |job_progress| %>
-                    <tr>
-                      <% if has_privilege(current_user, "blog_1") %>
-                        <td>
-                          <%= link_to job_progress.blog.name, project_blog_path(project_id: @concept.project_id, id: job_progress.blog.id) %>
-                        </td>
-                      <% end %>
-                      <td class="text-center"><%= number_with_delimiter(job_progress.quantity) %> <%= job.unity %></td>
-                      <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
-                        <td>
-                          <label class="switch">
-                            <input class="activate-switch status-job_progress" id="status-<%= "job_progress-#{job_progress.id}" %>"
-                                   data-id="<%= job_progress.id %>"
-                                   name="job_progresses"
-                                   type="checkbox"
-                                   <%= if job_progress.status
-                                         "checked"
-                                       end %> 
-                                       <%= if !has_privilege(current_user, "job_prog_5")
-                                         "disabled"
-                                       end %>>
-                            <span class="slider round"></span>
-                          </label>
-                        </td>
-                      <% end %>
-                      <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
-                      <td>
-                        <% if has_privilege(current_user, "job_prog_2") %>
-                        <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+              <% if has_privilege(current_user, 'job_prog_7') %>
+                <% job_progress_object = job.job_progress.where(status: true) %>
+              <% else %>
+                <% job_progress_object = job.job_progress %>
+              <% end %>
+                <div class="collapse p-40 bgc-grey-100" id="collapseJobProgresses<%= job.id %>">
+                  <% if job_progress_object.count > 0 %>
+                    <div class="table-responsive"><table class="table table-hover job_progress-datatable" role="datatable">
+                      <thead>
+                      <tr>
+                        <% if has_privilege(current_user, "blog_1") %>
+                          <th scope="col">Bitácora</th>
+                        <% end %>
+                        <th scope="col">Cantidad Avance</th>
+                        <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
+                          <% if !has_privilege(current_user, "job_prog_7") %>
+                            <th scope="col">Aprobado</th>
+                          <% end %>
+                        <% end %>
+                        <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
+                          <th scope="col">Acciones</th>
+                        <% end %>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% job_progress_object.each do |job_progress| %>
+                        <tr>
+                          <% if has_privilege(current_user, "blog_1") %>
+                            <td>
+                              <%= link_to job_progress.blog.name, project_blog_path(project_id: @concept.project_id, id: job_progress.blog.id) %>
+                            </td>
+                          <% end %>
+                          <td class="text-center"><%= number_with_delimiter(job_progress.quantity) %> <%= job.unity %></td>
+                          <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>
+                            <% if !has_privilege(current_user, "job_prog_7") %>
+                              <td>
+                              <label class="switch">
+                                <input class="activate-switch status-job_progress" id="status-<%= "job_progress-#{job_progress.id}" %>"
+                                       data-id="<%= job_progress.id %>"
+                                       name="job_progresses"
+                                       type="checkbox"
+                                       <%= if job_progress.status
+                                             "checked"
+                                           end %>>
+                                <span class="slider round"></span>
+                              </label>
+                            </td>
+                            <% end %>
+                          <% end %>
+                          <% if has_privilege(current_user, "job_prog_2") || has_privilege(current_user, "job_prog_3") %>
+                            <td>
+                              <% if has_privilege(current_user, "job_prog_2") %>
+                                <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                           <i class="ti-pencil icon-white" aria-hidden="true"></i>
                           </button>').html_safe, edit_project_blog_job_progress_path(project_id: @project, blog_id: job_progress.blog.id, id: job_progress)%>
-                        <% end %>
-            
-                        <% if has_privilege(current_user, "job_prog_3") %>
-                        <button type="button" class="btn btn-outline-danger btn-circle delete-job_progress"
-                                data-job_progress-id="<%= job_progress.id %>"
-                                data-blog-id="<%= job_progress.blog.id %>"
-                                data-project-id="<%= @project.id %>">
-                          <i class="ti-trash" aria-hidden="true"></i>
-                        </button>
-                        <% end %>
-                      </td>
+                              <% end %>
+
+                              <% if has_privilege(current_user, "job_prog_3") %>
+                                <button type="button" class="btn btn-outline-danger btn-circle delete-job_progress"
+                                        data-job_progress-id="<%= job_progress.id %>"
+                                        data-blog-id="<%= job_progress.blog.id %>"
+                                        data-project-id="<%= @project.id %>">
+                                  <i class="ti-trash" aria-hidden="true"></i>
+                                </button>
+                              <% end %>
+                            </td>
+                          <% end %>
+                        </tr>
                       <% end %>
-                    </tr>
+                      </tbody>
+                      <tfooter>
+                        <tr class="bgc-blue-grey-900">
+                          <td class="c-white text-left"><strong>Total Aprobado:</strong></td>
+                          <td class="c-white"><strong><%= number_with_delimiter(job.sum_job_progresses_quantity_by_status(true)) %> <%= job.unity %></strong></td>
+                          <td colspan="4"></td>
+                        </tr>
+                        <tr class="bgc-blue-grey-900">
+                          <td class="c-white text-left"><strong>Total:</strong></td>
+                          <td class="c-white"><strong><%= number_with_delimiter(job.sum_all_job_progresses_quantity) %> <%= job.unity %></strong></td>
+                          <td colspan="4"></td>
+                        </tr>
+                      </tfooter>
+                    </table></div>
+                  <% else %>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <p class="lead">Actualmente no hay registros de avances para este trabajo</p>
+                      </div>
+                    </div>
                   <% end %>
-                  </tbody>
-                  <tfooter>
-                  <tr class="bgc-blue-grey-900">
-                    <td class="c-white text-left"><strong>Total Aprobado:</strong></td>
-                    <td class="c-white"><strong><%= number_with_delimiter(job.sum_job_progresses_quantity_by_status(true)) %> <%= job.unity %></strong></td>
-                    <td colspan="4"></td>
-                  </tr>
-                  <tr class="bgc-blue-grey-900">
-                    <td class="c-white text-left"><strong>Total:</strong></td>
-                    <td class="c-white"><strong><%= number_with_delimiter(job.sum_all_job_progresses_quantity) %> <%= job.unity %></strong></td>
-                    <td colspan="4"></td>
-                  </tr>
-                </tfooter>
-                </table>
                 </div>
-              <% else %>
-                <div class="row">
-                  <div class="col-md-10">
-                    <p class="lead">Actualmente no hay registros de avances para este trabajo</p>
-                  </div>
-                </div>
-              <% end %>
-              </div>
             </td>
           </tr>
         <% end %>

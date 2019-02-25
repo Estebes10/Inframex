@@ -21,7 +21,7 @@
           <div class="row gap-50" id="projects-datatable">
             <% @projects.each do |project|%>
               <div class="col-md-4 col-sm-6">
-                <div class="card project-card w-100 h-100">
+                <div class="card project-card w-100 h-80" style="margin-top: 0;">
                   <%= image_tag("logo2.png", {:class => "card-img-top", :alt => "Card image cap"}) %>
                   <div class="card-body">
                     <h5 class="card-title"><%= project.name %></h5>
