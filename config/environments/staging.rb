@@ -79,6 +79,8 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: "https://inframx.herokuapp.com/" }
+  config.action_mailer.asset_host = 'https://inframx.herokuapp.com/'
+  config.action_controller.asset_host = 'https://inframx.herokuapp.com/'
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

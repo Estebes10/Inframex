@@ -24,11 +24,16 @@ class EmailResetsController < ApplicationController
   end
 
   def update_password
-    if @user.update_attributes(password_params)
-      redirect_to root_url
-      flash[:success] = 'La contraseña ha sido modificada correctamente'
+    if params[:reset_digest] == @user.reset_digest
+      if @user.update_attributes(password_params)
+        redirect_to root_url
+        flash[:success] = 'La contraseña ha sido modificada correctamente'
+      else
+        flash.now[:danger] = 'No se pudo restaurar la contraseña, prueba otra vez'
+      end
     else
-      flash.now[:danger] = 'No se pudo restaurar la contraseña, prueba otra vez'
+      flash[:danger] = 'Token no válido, verifica tu correo'
+      redirect_to root_url
     end
   end
 
