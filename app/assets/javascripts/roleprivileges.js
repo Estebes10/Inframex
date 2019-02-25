@@ -1,10 +1,4 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#roleprivileges-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#roleprivileges-datatable tbody').on('click', 'button.delete-roleprivilege', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);

@@ -59,7 +59,7 @@ class JobsController < ApplicationController
       flash[:success] = ' Trabajo modificado correctamente'
       redirect_to project_concept_path(project_id: @project, id: @concept)
     else
-      flash[:error] = ' Error al modificar el trabajo'
+      flash[:danger] = ' Error al modificar el trabajo'
       render :edit
     end
   end

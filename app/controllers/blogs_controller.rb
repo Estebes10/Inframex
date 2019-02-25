@@ -97,7 +97,7 @@ class BlogsController < ApplicationController
       flash[:success] = ' Bitácora modificada correctamente'
       redirect_to project_blog_path(project_id: @project, id: @blog)
     else
-      flash[:error] = ' Error al modificar la bitácora'
+      flash[:danger] = ' Error al modificar la bitácora'
       @readonly = false
       @create = false
       @required_str = "* "
@@ -138,7 +138,7 @@ class BlogsController < ApplicationController
       flash[:success] = ' Archivo modificado correctamente'
       redirect_to project_blog_path(project_id: @project, id: @blog)
     else
-      flash[:error] = ' Error al modificar el archivo'
+      flash[:danger] = ' Error al modificar el archivo'
       render :edit
     end
   end

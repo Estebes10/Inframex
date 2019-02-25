@@ -96,7 +96,7 @@ class ProjectsController < ApplicationController
       flash[:success] = ' Proyecto modificado correctamente'
       redirect_to project_url(@project)
     else
-      flash[:error] = ' Error al modificar el proyecto'
+      flash[:danger] = ' Error al modificar el proyecto'
       render :edit
     end
   end

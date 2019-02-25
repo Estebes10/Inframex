@@ -81,7 +81,7 @@ class UsersController < ApplicationController
       @create = false
       @roles = Role.all
       @role_id = @user.role.id
-      flash[:error] = ' Error al modificar usuario'
+      flash[:danger] = ' Error al modificar usuario'
       render :edit
     end
   end
