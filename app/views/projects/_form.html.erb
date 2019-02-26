@@ -108,6 +108,20 @@
       <% end %>
     <% end %>
 
+    <% if @readonly %>
+      <div class="col-md-6 mT-15">
+        <% if @project.image.attached?%>
+          <%= f.label :image, "Imagen de proyecto: " %>
+          <%= image_tag(@project.image, {:class => "card-img-top", :alt => "Imagen de proyecto"}) %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-md-6 mT-15">
+        <%= f.label :image, "Imagen de proyecto: " %>
+        <%= f.file_field :image, class: 'form-control' %>
+      </div>
+    <% end %>
+
   </div>
   <% if !@readonly %>
     <div id="form-footer">

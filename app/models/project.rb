@@ -5,6 +5,8 @@ class Project < ApplicationRecord
   has_many :blogs, dependent:   :destroy
   has_many :concepts, dependent:   :destroy
 
+  has_one_attached :image
+
   validates :name,
     presence: {
       with: true,
@@ -46,7 +48,7 @@ class Project < ApplicationRecord
   def sum_all_concepts_weight
     concepts.sum(:weight)
   end
-  
+
   def get_category_progress(category_id)
     total_concepts = concepts.where("category_id = #{category_id}").count
     progress = 0.0
@@ -55,11 +57,11 @@ class Project < ApplicationRecord
     end
     return (progress/total_concepts)
   end
-  
+
   def get_category_progress_100(category_id)
     self.get_category_progress(category_id) * 100
   end
-  
+
   def get_project_progress
     total_weigth = self.sum_all_concepts_weight
     progress = 0.0
@@ -68,9 +70,9 @@ class Project < ApplicationRecord
     end
     return progress
   end
-  
+
   def get_project_progress_100
     self.get_project_progress * 100
   end
-  
+
 end

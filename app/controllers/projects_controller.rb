@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
   before_action only: [:destroy_ajax] do
     has_privilege_controller(current_user, 'project_4')
   end
-  
+
   before_action :set_project, only: [:edit, :update, :show, :destroy]
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
@@ -115,7 +115,8 @@ class ProjectsController < ApplicationController
         :due_date,
         :client,
         :address,
-        :status
+        :status,
+        :image
       )
   end
 
