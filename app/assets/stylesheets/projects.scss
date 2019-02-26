@@ -12,3 +12,11 @@ div.project-card {
   max-height: 180px !important;
   min-height: 180px !important;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Buscar";
+}
+
+.file-image-uploaded {
+  max-width: 100%;
+}

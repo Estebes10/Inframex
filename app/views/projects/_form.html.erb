@@ -117,8 +117,22 @@
       </div>
     <% else %>
       <div class="col-md-6 mT-15">
-        <%= f.label :image, "Imagen de proyecto: " %>
-        <%= f.file_field :image, class: 'form-control' %>
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <%= f.file_field :image, class: 'custom-file-input', accept: "image/*" %>
+            <%= f.label :image, "Seleccionar archivo ", class: 'custom-file-label' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mT-15"> </div>
+      <div class="col-md-6 mT-15">
+        <label for="project-img-tag">Imagen seleccionada</label><br/>
+        <% if @project.image.attached?%>
+          <%= image_tag(@project.image, {:class => "file-image-uploaded", :id => "project-img-tag", :alt => "Imagen de proyecto"}) %>
+        <% else %>
+          <img src="" id="project-img-tag" class="file-image-uploaded"/>
+        <% end %>
       </div>
     <% end %>
 

@@ -32,6 +32,13 @@ $( document ).on('ready turbolinks:load', function() {
             $(".img-responsive").attr("src", image);
         });
     });
+
+    $("#blog_files").change(function(){
+        var selDiv = $( "#projectSelectedFiles" );
+        var files = $('#blog_files').prop("files");
+        var names = $.map(files, function(val) { return val.name; });
+        addNamesPreview(names, selDiv);
+    });
 });
 
 function deleteBlogAjax(blogId, projectId, deleteButton) {
@@ -121,4 +128,12 @@ function deleteFile(blogId, projectId, imageId, deleteButton) {
             });
         });
     });
+}
+
+function addNamesPreview(names, element){
+  for (var i = 0; i < names.length; i++) {
+    element.append(
+      '<p>' + names[i] + '</p>'
+    );
+  }
 }

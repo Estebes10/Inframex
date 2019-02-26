@@ -68,9 +68,11 @@
       </div>
       <%= form_for [@project, @blog, @expense] do |f| %>
         <div class="modal-body">
-          <div class="input-field">
-            <%= f.file_field :files, multiple: true %>
+          <div class="custom-file">
+            <%= f.file_field :files, class: "custom-file-input", multiple: true %>
+            <label class="custom-file-label" for="expense_files">Seleccionar archivos</label>
           </div>
+          <div id="expenseSelectedFiles"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>

@@ -33,6 +33,13 @@ $( document ).on('ready turbolinks:load', function() {
         deleteFileExpense(blogId, projectId, imageId, expenseId, deleteButton);
         return false;
     });
+
+    $("#expense_files").change(function(){
+        var selDiv = $( "#expenseSelectedFiles" );
+        var files = $('#expense_files').prop("files");
+        var names = $.map(files, function(val) { return val.name; });
+        addExpenseNamesPreview(names, selDiv);
+    });
 });
 
 function deleteExpenseAjax(expenseId, deleteButton) {
@@ -122,4 +129,12 @@ function deleteFileExpense(blogId, projectId, imageId, expenseId, deleteButton) 
             });
         });
     });
+}
+
+function addExpenseNamesPreview(names, element){
+  for (var i = 0; i < names.length; i++) {
+    element.append(
+      '<p>' + names[i] + '</p>'
+    );
+  }
 }
