@@ -80,14 +80,16 @@
         </a>
       </li>
       <% end %>
-      <li class="nav-item">
-        <a class='sidebar-link' href="#">
-                <span class="icon-holder">
-                  <i class="c-blue-500 ti-stats-up"></i>
-                </span>
-          <span class="title">Reportes</span>
-        </a>
-      </li>
+      <% if has_privilege(current_user, "report_1") %>
+        <li class="nav-item">
+          <a class='sidebar-link' href="#">
+                  <span class="icon-holder">
+                    <i class="c-blue-500 ti-stats-up"></i>
+                  </span>
+            <span class="title">Reportes</span>
+          </a>
+        </li>
+      <% end %>
       <hr>
       <li class="nav-item">
         <a class='sidebar-link' href="/profile">

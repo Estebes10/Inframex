@@ -417,14 +417,37 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'file_9',
                                          module_name: 'Archivos-Gastos'
                                      },
-                                     #67
                                      {
                                          name: 'Descargar',
                                          description: 'Descargar archivos de gastos del sistema',
                                          str_id: 'file_10',
                                          module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Filtrar sólo los gastos con estatus de aprobado',
+                                         str_id: 'expenses_9',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Filtrar sólo las bitácoras con estatus de aprobado',
+                                         str_id: 'blog_7',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Filtrar sólo los avances de trabajo con estatus de aprobado',
+                                         str_id: 'job_prog_7',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     #71
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar reportes generales del sistema',
+                                         str_id: 'report_1',
+                                         module_name: 'Reportes'
                                      }
-
                                  ]
   )
 end
