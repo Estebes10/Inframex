@@ -2,6 +2,14 @@ require 'rails_helper'
 
 RSpec.describe BlogsController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   before(:each) do
     @project = FactoryBot.create(:project)
   end
@@ -9,7 +17,7 @@ RSpec.describe BlogsController, type: :controller do
   describe 'GET index' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
       get(:index, params: { project_id: @project.id })
     end
 
@@ -36,7 +44,7 @@ RSpec.describe BlogsController, type: :controller do
   describe 'GET show' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -98,7 +106,7 @@ RSpec.describe BlogsController, type: :controller do
   describe 'GET new' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
       get(:new, params: { project_id: @project.id })
     end
 
@@ -122,7 +130,7 @@ RSpec.describe BlogsController, type: :controller do
   describe 'POST create' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
     end
 
     context 'with valid attributes' do
@@ -211,7 +219,7 @@ RSpec.describe BlogsController, type: :controller do
   describe 'GET edit' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -273,7 +281,7 @@ RSpec.describe BlogsController, type: :controller do
   describe 'PATCH update' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
     end
 
     context 'with valid attributes' do
@@ -376,8 +384,8 @@ RSpec.describe BlogsController, type: :controller do
       end
 
       it 'must display an error message' do
-        expect(flash[:error]).to be_present
-        expect(flash[:error]).to match(/ Error al modificar la bitácora*/)
+        expect(flash[:danger]).to be_present
+        expect(flash[:danger]).to match(/ Error al modificar la bitácora*/)
       end
     end
   end
@@ -385,7 +393,7 @@ RSpec.describe BlogsController, type: :controller do
   describe "DELETE destroy" do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
     end
 
     before(:each) do

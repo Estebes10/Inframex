@@ -2,6 +2,14 @@ require 'rails_helper'
 
 RSpec.describe ConceptsController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   before(:each) do
     @project = FactoryBot.create(:project)
     @category = FactoryBot.create(:category)
@@ -10,6 +18,10 @@ RSpec.describe ConceptsController, type: :controller do
   describe 'GET show' do
 
     context 'when user has permissions' do
+
+      before(:each) do
+        sign_in(@user)
+      end
 
       context 'and record exists' do
 
@@ -20,7 +32,10 @@ RSpec.describe ConceptsController, type: :controller do
             unity:          'kgs',
             unit_price:     10.50,
             quantity:       10,
-            category_id:    @category.id
+            category_id:    @category.id,
+            project_id:     @project.id,
+            total:          100,
+            weight:         50
           )
         end
 
@@ -55,6 +70,10 @@ RSpec.describe ConceptsController, type: :controller do
 
     context 'when user has permissions' do
 
+      before(:each) do
+        sign_in(@user)
+      end
+
       it "renders the new template" do
         get(
             :new,
@@ -81,6 +100,10 @@ RSpec.describe ConceptsController, type: :controller do
 
     context 'with valid attributes' do
 
+      before(:each) do
+        sign_in(@user)
+      end
+
       let(:valid_attributes) do
         {
             project_id: @project.id,
@@ -90,7 +113,10 @@ RSpec.describe ConceptsController, type: :controller do
                 unity:          'kgs',
                 unit_price:     10.50,
                 quantity:       10,
-                category_id:    @category.id
+                category_id:    @category.id,
+                project_id:     @project.id,
+                total:          100,
+                weight:         50
             }
         }
       end
@@ -124,6 +150,10 @@ RSpec.describe ConceptsController, type: :controller do
     end
 
     context 'with invalid attributes' do
+
+      before(:each) do
+        sign_in(@user)
+      end
 
       let(:not_valid_attributes) do
         {
@@ -160,6 +190,10 @@ RSpec.describe ConceptsController, type: :controller do
 
     context 'when user has permissions' do
 
+      before(:each) do
+        sign_in(@user)
+      end
+
       context 'and record exists' do
 
         before(:each) do
@@ -169,7 +203,10 @@ RSpec.describe ConceptsController, type: :controller do
             unity:          'kgs',
             unit_price:     10.50,
             quantity:       10,
-            category_id:    @category.id
+            category_id:    @category.id,
+            project_id:     @project.id,
+            total:          100,
+            weight:         50
           )
         end
 
@@ -205,13 +242,20 @@ RSpec.describe ConceptsController, type: :controller do
     context 'with valid attributes' do
 
       before(:each) do
+        sign_in(@user)
+      end
+
+      before(:each) do
         @concept_example_update = @project.concepts.create(
           code:           'update',
           description:    Faker::Lorem.characters(200),
           unity:          'kgs',
           unit_price:     10.50,
           quantity:       10,
-          category_id:    @category.id
+          category_id:    @category.id,
+          project_id:     @project.id,
+          total:          100,
+          weight:         50
         )
       end
 
@@ -263,13 +307,20 @@ RSpec.describe ConceptsController, type: :controller do
     context 'with invalid attributes' do
 
       before(:each) do
+        sign_in(@user)
+      end
+
+      before(:each) do
         @concept_example_update = @project.concepts.create(
           code:           'update',
           description:    Faker::Lorem.characters(200),
           unity:          'kgs',
           unit_price:     10.50,
           quantity:       10,
-          category_id:    @category.id
+          category_id:    @category.id,
+          project_id:     @project.id,
+          total:          100,
+          weight:         50
         )
       end
 
@@ -317,13 +368,20 @@ RSpec.describe ConceptsController, type: :controller do
   describe "DELETE destroy" do
 
     before(:each) do
+      sign_in(@user)
+    end
+
+    before(:each) do
       @concept_example_delete = @project.concepts.create(
         code:           Faker::Lorem.characters(6),
         description:    Faker::Lorem.characters(200),
         unity:          'kgs',
         unit_price:     10.50,
         quantity:       10,
-        category_id:    @category.id
+        category_id:    @category.id,
+        project_id:     @project.id,
+        total:          100,
+        weight:         50
       )
       #@concept_example_delete = FactoryBot.create(:concept, code: 'delete')
     end

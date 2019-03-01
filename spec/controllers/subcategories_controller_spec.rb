@@ -2,7 +2,19 @@ require 'rails_helper'
 
 RSpec.describe SubcategoriesController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   describe 'GET new' do
+
+    before(:each) do
+      sign_in(@user)
+    end
 
     context 'when user has permissions' do
 
@@ -15,6 +27,10 @@ RSpec.describe SubcategoriesController, type: :controller do
   end
 
   describe 'POST create' do
+
+    before(:each) do
+      sign_in(@user)
+    end
 
     context 'with valid attributes' do
 
@@ -83,6 +99,10 @@ RSpec.describe SubcategoriesController, type: :controller do
 
   describe 'GET edit' do
 
+    before(:each) do
+      sign_in(@user)
+    end
+
     context 'when user has permissions' do
 
       context 'and record exists' do
@@ -132,6 +152,10 @@ RSpec.describe SubcategoriesController, type: :controller do
   end
 
   describe 'PATCH update' do
+
+    before(:each) do
+      sign_in(@user)
+    end
 
     context 'with valid attributes' do
 

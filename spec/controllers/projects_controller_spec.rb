@@ -1,10 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :controller do
+
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   describe 'GET index' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -34,7 +43,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET show' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -90,7 +99,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET new' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -115,7 +124,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'POST create' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'with valid attributes' do
@@ -207,7 +216,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET edit' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -262,7 +271,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'PATCH update' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'with valid attributes' do
@@ -350,7 +359,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe "DELETE destroy" do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     before(:each) do

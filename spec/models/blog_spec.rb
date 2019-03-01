@@ -64,16 +64,16 @@ RSpec.describe Blog, type: :model do
   end
 
   # Set of tests to validate associations
-  it 'has many expenses'
-
-  it 'has many pictures'
+  it 'has many expenses' do
+    should have_many(:expenses)
+  end
 
   it 'belongs to project' do
     should belong_to(:project)
   end
 
-  it 'has many jobs' do
-    should have_many(:jobs)
+  it 'has many job progreses' do
+    should have_many(:job_progress)
   end
 
 end

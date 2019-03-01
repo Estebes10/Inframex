@@ -2,9 +2,22 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   describe 'GET index' do
 
     context 'when user has permissions' do
+
+      before(:each) do
+        sign_in(@user)
+      end
+
       it "assigns @categories" do
         categories = Category.all.order(:name)
         get :index
@@ -37,6 +50,10 @@ RSpec.describe CategoriesController, type: :controller do
 
     context 'when user has permissions' do
 
+      before(:each) do
+        sign_in(@user)
+      end
+
       it "returns http success" do
       post :index, xhr: true, format: :js
         expect(response).to have_http_status(:success)
@@ -63,6 +80,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       before(:each) do
+        sign_in(@user)
         post(
             :create,
             params: valid_attributes
@@ -103,6 +121,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       before(:each) do
+        sign_in(@user)
         post(
             :create,
             params: not_valid_attributes,
@@ -128,6 +147,7 @@ RSpec.describe CategoriesController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
+          sign_in(@user)
           @category_example = FactoryBot.create(:category)
         end
 
@@ -176,6 +196,7 @@ RSpec.describe CategoriesController, type: :controller do
     context 'with valid attributes' do
 
       before(:each) do
+        sign_in(@user)
         @category_example_update = FactoryBot.create(:category)
       end
 
@@ -218,6 +239,7 @@ RSpec.describe CategoriesController, type: :controller do
     context 'with invalid attributes' do
 
       before(:each) do
+        sign_in(@user)
         @category_example_update = FactoryBot.create(:category, name: 'update test')
       end
 
