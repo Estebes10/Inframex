@@ -29,6 +29,7 @@
 
     <!-- ### $Sidebar Menu ### -->
     <ul class="sidebar-menu scrollable pos-r">
+      <% if has_privilege(current_user, "project_1") %>
       <li class="nav-item">
         <%= link_to raw('
           <span class="icon-holder">
@@ -37,6 +38,9 @@
           <span class="title">Proyectos</span>
         ').html_safe, projects_path, class: "sidebar-link" %>
       </li>
+      <% end %>
+
+      <% if has_privilege(current_user, "user_1") %>
       <li class="nav-item dropdown">
         <a class="dropdown-toggle" href="javascript:void(0);">
                   <span class="icon-holder">
@@ -51,14 +55,22 @@
           <li>
             <%= link_to "Usuarios", users_path , class: "sidebar-link"%>
           </li>
+          <% if has_privilege(current_user, "user_2") %>
           <li>
             <%= link_to "Registrar Usuario", new_user_path , class: "sidebar-link"%>
           </li>
+          <% end %>
+
+          <% if has_privilege(current_user, "rbac_1") %>
           <li>
             <%= link_to "Roles", roles_path , class: "sidebar-link"%>
           </li>
+          <% end %>
         </ul>
       </li>
+      <% end %>
+
+      <% if has_privilege(current_user, "category_4") %>
       <li class="nav-item">
         <a class='sidebar-link' href="/categories">
                 <span class="icon-holder">
@@ -67,17 +79,20 @@
           <span class="title">Categorías</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class='sidebar-link' href="#">
-                <span class="icon-holder">
-                  <i class="c-blue-500 ti-stats-up"></i>
-                </span>
-          <span class="title">Reportes</span>
-        </a>
-      </li>
+      <% end %>
+      <% if has_privilege(current_user, "report_1") %>
+        <li class="nav-item">
+          <a class='sidebar-link' href="#">
+                  <span class="icon-holder">
+                    <i class="c-blue-500 ti-stats-up"></i>
+                  </span>
+            <span class="title">Reportes</span>
+          </a>
+        </li>
+      <% end %>
       <hr>
       <li class="nav-item">
-        <a class='sidebar-link' href="#">
+        <a class='sidebar-link' href="/profile">
                 <span class="icon-holder">
                   <i class="c-black ti-user"></i>
                 </span>

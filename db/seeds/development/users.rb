@@ -12,7 +12,7 @@ if !User.find_by(email: 'super@admin.com')
                              })
 end
 
-100.times do
+50.times do
   FactoryBot.create(:user)
 end
 

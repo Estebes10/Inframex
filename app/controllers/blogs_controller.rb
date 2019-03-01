@@ -1,7 +1,42 @@
 class BlogsController < ApplicationController
+  #RBAC show
+  before_action only: [:index, :show] do
+    has_privilege_controller(current_user, 'blog_1')
+  end
+
+  #RBAC create
+  before_action only: [:new, :create] do
+    has_privilege_controller(current_user, 'blog_2')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'blog_3')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy, :destroy_ajax] do
+    has_privilege_controller(current_user, 'blog_4')
+  end
+
+  #RBAC activate
+  before_action only: [:activate] do
+    has_privilege_controller(current_user, 'blog_5')
+  end
+
+  #RBAC delete_image_attachment
+  before_action only: [:delete_image_attachment] do
+    has_privilege_controller(current_user, 'file_4')
+  end
+
+  #RBAC update image info
+  before_action only: [:edit_image_info, :update_image_info] do
+    has_privilege_controller(current_user, 'file_3')
+  end
+
   before_action :validate_user
   before_action :set_project
-  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate]
+  before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate, :delete_image_attachment, :edit_image_info, :update_image_info]
 
   def index
     @blogs = @project.blogs.order(:date)
@@ -12,7 +47,20 @@ class BlogsController < ApplicationController
     @create = false
     @required_str = ""
     @concepts = @project.concepts.order(:code)
-    @expenses = @blog.expenses.order(:name).all
+    @has_concepts_jobs = @concepts.joins(:jobs).any?
+
+    #Check privileges to retrieve jobs and expenses
+    if has_privilege(current_user, 'job_prog_7')
+      @job_progress = @blog.job_progress.where(status: true).all
+    else
+      @job_progress = @blog.job_progress.all
+    end
+
+    if has_privilege(current_user, 'expenses_9')
+      @expenses = @blog.expenses.where(status: true).order(:name).all
+    else
+      @expenses = @blog.expenses.order(:name).all
+    end
   end
 
   def new
@@ -49,7 +97,7 @@ class BlogsController < ApplicationController
       flash[:success] = ' Bitácora modificada correctamente'
       redirect_to project_blog_path(project_id: @project, id: @blog)
     else
-      flash[:error] = ' Error al modificar la bitácora'
+      flash[:danger] = ' Error al modificar la bitácora'
       @readonly = false
       @create = false
       @required_str = "* "
@@ -58,22 +106,10 @@ class BlogsController < ApplicationController
   end
 
   def destroy_ajax
-    if @blog.jobs.count > 0
-      # remove all jobs
-      @blog.jobs.destroy_all
-      # remove all expenses
-      @blog.expenses.destroy_all
-    end
     @blog.destroy
   end
 
   def destroy
-    if @blog.jobs.count > 0
-      # remove all jobs
-      @blog.jobs.destroy_all
-      # remove all expenses
-      @blog.expenses.destroy_all
-    end
     if @blog.destroy
       flash[:success] = ' Se ha eliminado la bitácora correctamente'
       redirect_to project_path(@project , :anchor => "nav-blogs")
@@ -87,10 +123,34 @@ class BlogsController < ApplicationController
     @blog.update_attribute(:status, params[:data])
   end
 
+  def delete_image_attachment
+    @image = @blog.files.find(params[:attachment_id]).purge
+  end
+
+  def edit_image_info
+    @image = @blog.files.find(params[:attachment_id])
+  end
+
+  def update_image_info
+    @image = @blog.files.find(params[:attachment_id])
+    if @image.blob.update_attributes!(file_params)
+      @image.save
+      flash[:success] = ' Archivo modificado correctamente'
+      redirect_to project_blog_path(project_id: @project, id: @blog)
+    else
+      flash[:danger] = ' Error al modificar el archivo'
+      render :edit
+    end
+  end
+
   private
 
+  def file_params
+    params.require(:attachment).permit(:filename, :description)
+  end
+
   def blog_params
-    params.require(:blog).permit(:name, :description, :date, :comments, :status)
+    params.require(:blog).permit(:name, :description, :date, :comments, :status, files: [])
   end
 
   def set_blog

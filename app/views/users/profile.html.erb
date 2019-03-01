@@ -1,0 +1,28 @@
+<% provide(:title, 'Mi Perfil') %>
+<div class="masonry-item col-md-10 offset-md-1">
+  <!-- #Todo ==================== -->
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                      id="new-user-button"">
+                      <i class="ti-pencil"></i>
+                      Editar Perfil
+                    </button>'.html_safe,
+                    edit_profile_path
+        %>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                      id="new-user-button"">
+                      <i class="ti-lock"></i>
+                      Editar contraseña
+                    </button>'.html_safe,
+                    edit_password_profile_path
+        %>
+        <h5 class="float-left pL-15">Mi perfil - <%= @user.name + " " + @user.lastName %></h5>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <%= render "form_profile" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,3 @@
-4000.times do
+1000.times do
   FactoryBot.create(:expense)
 end

@@ -1,0 +1,30 @@
+$("#user-projects-modal-target").html("<%= escape_javascript(render 'new') %>")
+$('#user-projects-modal').modal('show');
+
+user_projects_new_datatable = $('#user-projects-new-datatable').DataTable({
+    "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+    },
+    order: [[0, 'asc']]
+});
+
+
+$("#project-users-form").on('submit', function(e){
+    var $form = $(this);
+    // Iterate over all checkboxes in the table
+    user_projects_new_datatable.$('input[type="checkbox"]').each(function(){
+        // If checkbox doesn't exist in DOM
+        if(!$.contains(document, this)){
+            // If checkbox is checked
+            if(this.checked){
+                // Create a hidden element
+                $form.append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', this.name)
+                        .val(this.value)
+                );
+            }
+        }
+    });
+});

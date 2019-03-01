@@ -10,6 +10,12 @@ $( document ).on('ready turbolinks:load', function() {
         deleteProject(projectId, deleteButton);
         return false;
     });
+
+    $("#project_image").change(function(){
+        readURL(this);
+        var fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
 });
 
 function deleteProject(projectId, deleteButton) {
@@ -47,4 +53,15 @@ function deleteProject(projectId, deleteButton) {
             });
         });
     });
+}
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          $('#project-img-tag').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+  }
 }

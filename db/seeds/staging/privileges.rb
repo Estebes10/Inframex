@@ -56,6 +56,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'rbac_4',
                                          module_name: 'Rbac'
                                      },
+                                     #10
                                      {
                                          name: 'Eliminar Privilegio',
                                          description: 'Eliminar privilegio de rol',
@@ -87,6 +88,12 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'category_3',
                                          module_name: 'Categorías'
                                      },
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar categorías y subcategorías en el sistema',
+                                         str_id: 'category_4',
+                                         module_name: 'Categorías'
+                                     },
                                      # Privilegios de subcategorías
                                      {
                                          name: 'Crear',
@@ -113,6 +120,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'project_1',
                                          module_name: 'Proyectos'
                                      },
+                                     #20
                                      {
                                          name: 'Crear',
                                          description: 'Crear un nuevo proyecto en el sistema',
@@ -129,12 +137,6 @@ if !Privilege.find_by(name: 'Consultar')
                                          name: 'Eliminar',
                                          description: 'Eliminar proyecto del sistema',
                                          str_id: 'project_4',
-                                         module_name: 'Proyectos'
-                                     },
-                                     {
-                                         name: 'Des/activar',
-                                         description: 'Activar / Desactivar proyecto en el sistema',
-                                         str_id: 'project_5',
                                          module_name: 'Proyectos'
                                      },
                                      # Privilegios de Bitácoras
@@ -168,7 +170,6 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'blog_5',
                                          module_name: 'Bitácoras'
                                      },
-                                     #28
                                      # Privilegios de Conceptos
                                      {
                                          name: 'Consultar',
@@ -182,6 +183,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'concept_2',
                                          module_name: 'Conceptos'
                                      },
+                                     #30
                                      {
                                          name: 'Editar',
                                          description: 'Editar concepto en el sistema',
@@ -244,31 +246,207 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'job_3',
                                          module_name: 'Trabajos'
                                      },
-                                     # Privilegios de Archivos
+                                     #40
                                      {
                                          name: 'Consultar',
-                                         description: 'Consultar los archivos y entrar a cada uno',
+                                         description: 'Consultar trabajos del sistema',
+                                         str_id: 'job_4',
+                                         module_name: 'Trabajos'
+                                     },
+                                     # Privilegios de Archivos de bitácoras
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los archivos de bitácora',
                                          str_id: 'file_1',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
                                      },
                                      {
                                          name: 'Crear',
-                                         description: 'Crear un nuevo archivo en el sistema',
+                                         description: 'Crear un nuevo archivo(s) de bitácora en el sistema',
                                          str_id: 'file_2',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
                                      },
                                      {
                                          name: 'Editar',
-                                         description: 'Editar archivo en el sistema',
+                                         description: 'Editar datos de archivos de bitácora en el sistema',
                                          str_id: 'file_3',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
                                      },
-                                     #43
                                      {
                                          name: 'Eliminar',
-                                         description: 'Eliminar archivo del sistema',
+                                         description: 'Eliminar archivos de bitácora del sistema',
                                          str_id: 'file_4',
-                                         module_name: 'Archivos'
+                                         module_name: 'Archivos-Bitácoras'
+                                     },
+                                     # Privilegios nuevos sin orden
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Aprobar / Desaprobar facturación de gasto en el sistema',
+                                         str_id: 'expenses_6',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar proyecto en el sistema',
+                                         str_id: 'project_5',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de bitácora en el sistema',
+                                         str_id: 'blog_6',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Estatus Aprobado',
+                                         description: 'Consultar estatus de aprobado de gasto en el sistema',
+                                         str_id: 'expenses_7',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Estatus Facturado',
+                                         description: 'Consultar estatus de facturado de gasto en el sistema',
+                                         str_id: 'expenses_8',
+                                         module_name: 'Gastos'
+                                     },
+                                     #50
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de proyecto en el sistema',
+                                         str_id: 'project_6',
+                                         module_name: 'Proyectos'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de usuario en el sistema',
+                                         str_id: 'user_6',
+                                         module_name: 'Usuarios'
+                                     },
+                                     # Privilegios de Usuarios-Proyectos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar usuario(s) asignados a un proyecto',
+                                         str_id: 'userproject_1',
+                                         module_name: 'Usuarios-Proyecto'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Asignar usuario(s) a un proyecto',
+                                         str_id: 'userproject_2',
+                                         module_name: 'Usuarios-Proyecto'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Quitar usuario(s) a un proyecto',
+                                         str_id: 'userproject_3',
+                                         module_name: 'Usuarios-Proyecto'
+                                     },
+                                     {
+                                         name: 'Consultar Proyectos',
+                                         description: 'Consultar todos los proyectos sin importar si el usuario esta asignado.',
+                                         str_id: 'project_7',
+                                         module_name: 'Proyectos'
+                                     },
+                                     # Privilegios de Avance de Trabajos
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo avance de trabajo en el sistema',
+                                         str_id: 'job_prog_1',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar avances de trabajo en el sistema',
+                                         str_id: 'job_prog_2',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar avances de trabajo del sistema',
+                                         str_id: 'job_prog_3',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar avances de trabajos del sistema',
+                                         str_id: 'job_prog_4',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     #60
+                                     {
+                                         name: 'Des/activar',
+                                         description: 'Activar / Desactivar avances de trabajo en bitácora',
+                                         str_id: 'job_prog_5',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     {
+                                         name: 'Estatus',
+                                         description: 'Consultar estatus de avances de trabajo en bitácora',
+                                         str_id: 'job_prog_6',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     # Privilegios de Archivos de bitácoras (descargar)
+                                     {
+                                         name: 'Descargar',
+                                         description: 'Descargar los archivos de bitácora',
+                                         str_id: 'file_5',
+                                         module_name: 'Archivos-Bitácoras'
+                                     },
+                                     # Privilegios de Archivos de gastos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los archivos de gastos',
+                                         str_id: 'file_6',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo archivo(s) de gastos en el sistema',
+                                         str_id: 'file_7',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar datos de archivos de gastos en el sistema',
+                                         str_id: 'file_8',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar archivos de gastos del sistema',
+                                         str_id: 'file_9',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Descargar',
+                                         description: 'Descargar archivos de gastos del sistema',
+                                         str_id: 'file_10',
+                                         module_name: 'Archivos-Gastos'
+                                     },
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Filtrar sólo los gastos con estatus de aprobado',
+                                         str_id: 'expenses_9',
+                                         module_name: 'Gastos'
+                                     },
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Filtrar sólo las bitácoras con estatus de aprobado',
+                                         str_id: 'blog_7',
+                                         module_name: 'Bitácoras'
+                                     },
+                                     {
+                                         name: 'Filtrar',
+                                         description: 'Filtrar sólo los avances de trabajo con estatus de aprobado',
+                                         str_id: 'job_prog_7',
+                                         module_name: 'Avance Trabajo'
+                                     },
+                                     #71
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar reportes generales del sistema',
+                                         str_id: 'report_1',
+                                         module_name: 'Reportes'
                                      }
                                  ]
   )

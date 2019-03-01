@@ -1,0 +1,24 @@
+<% provide(:title, 'Editar trabajo') %>
+<div class="masonry-item col-md-10 offset-md-1">
+  <!-- #Todo ==================== -->
+  <div class="bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <% if has_privilege(current_user, "blog_1") %>
+        <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                <i class="ti-arrow-left"></i>
+            </button>'.html_safe, project_blog_url(project_id: @project, id: @blog)
+        %>
+        <% end %>
+        <div class="pL-15 float-left">
+          <h5>Editar Avance de Trabajo</h5>
+          <h6>Concepto: <%= @concept.code + ", " + @concept.description %></h6>
+          <h6>Trabajo: <%= @job.name %></h6>
+        </div>
+      </div>
+      <div class="layer w-100 p-20">
+        <%= render "form" %>
+      </div>
+    </div>
+  </div>
+</div>

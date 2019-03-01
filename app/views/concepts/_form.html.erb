@@ -16,7 +16,7 @@
                      {:class => 'form-control', :required => 'true', :disabled => @read_only}) %>
     </div>
     <div class="col-md-12 mT-15">
-      <%= f.label :category_id, "#{@required_str}Descripción:" %>
+      <%= f.label :description, "#{@required_str}Descripción:" %>
       <%= f.text_area :description,
                       class: 'form-control',
                       :maxlength => 1024,
@@ -26,16 +26,39 @@
                       readonly: @read_only%>
     </div>
     <div class="col-md-12 mT-15">
-      <%= f.label :category_id, "#{@required_str}Cantidad:" %>
-      <%= f.text_field :quantity, class: 'form-control', required: 'true', placeholder: "e.g. 225.00", readonly: @read_only %>
+      <%= f.label :quantity, "#{@required_str}Cantidad:" %>
+      <%= f.number_field :quantity, 
+        class: 'form-control', 
+        required: 'true', 
+        placeholder: "e.g. 225.00",
+        step: 0.001,
+        readonly: @read_only %>
     </div>
     <div class="col-md-12 mT-15">
-      <%= f.label :category_id, "#{@required_str}Unidad:" %>
-      <%= f.text_field :unity, class:"form-control", required: 'true', placeholder: "e.g. m2", readonly: @read_only %>
+      <%= f.label :unity, "#{@required_str}Unidad:" %>
+      <%= f.text_field :unity, 
+        class:"form-control", 
+        required: 'true',
+        placeholder: "e.g. m2", 
+        readonly: @read_only %>
     </div>
     <div class="col-md-12 mT-15">
-      <%= f.label :category_id, "#{@required_str}Precio por Unidad:" %>
-      <%= f.text_field :unit_price, class:"form-control", required: 'true', placeholder: "e.g. 204.44", readonly: @read_only %>
+      <%= f.label :unit_price, "#{@required_str}Precio por Unidad:" %>
+      <%= f.number_field :unit_price, 
+        class:"form-control", 
+        required: 'true',
+        placeholder: "e.g. 204.44", 
+        step: 0.001,
+        readonly: @read_only %>
+    </div>
+    <div class="col-md-12 mT-15">
+      <%= f.label :weight, "#{@required_str}Peso:" %>
+      <%= f.number_field :weight,
+                         class:"form-control",
+                         required: 'true',
+                         placeholder: "e.g. 10",
+                         step: 0.001,
+                         readonly: @read_only %>
     </div>
   </div>
   <% if !@read_only %>

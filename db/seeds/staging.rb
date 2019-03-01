@@ -33,3 +33,9 @@ puts "===============================# Expenses loaded #========================
 
 load File.expand_path('../staging/jobs.rb', __FILE__ )
 puts "===============================# Jobs loaded #============================"
+
+load File.expand_path('../staging/user_projects.rb', __FILE__ )
+puts "===============================# User-Projects loaded #============================"
+
+load File.expand_path('../staging/jobprogress.rb', __FILE__ )
+puts "===============================# Jobs progresses loaded #====================="

@@ -1,5 +1,25 @@
 class SubcategoriesController < ApplicationController
 
+  #RBAC index
+  before_action only: [:index] do
+    has_privilege_controller(current_user, 'category_4')
+  end
+
+  #RBAC create
+  before_action only: [:create, :new] do
+    has_privilege_controller(current_user, 'subcategory_1')
+  end
+
+  #RBAC edit
+  before_action only: [:edit, :update] do
+    has_privilege_controller(current_user, 'subcategory_2')
+  end
+
+  #RBAC destroy
+  before_action only: [:destroy_ajax] do
+    has_privilege_controller(current_user, 'subcategory_3')
+  end
+  
   before_action :set_subcategory, only: [:edit, :update, :destroy_ajax]
 
   def new

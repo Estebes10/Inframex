@@ -6,12 +6,6 @@ jQuery(function() {
 
 // Expenses
 $( document ).on('ready turbolinks:load', function() {
-    $('#expenses-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#expenses-datatable tbody').on('click', 'button.delete-expense-ajax', function (e) {
         e.preventDefault(e);
         var deleteButton = $(this);
@@ -27,6 +21,24 @@ $( document ).on('ready turbolinks:load', function() {
         var projectId = $(this).attr("data-project-id");
         deleteExpense(expenseId, blogId, projectId);
         return false;
+    });
+
+    $('button.delete-image-expense').click(function(e) {
+        var deleteButton = $(this);
+        e.preventDefault(e);
+        var blogId = $(this).attr("data-blog-id");
+        var projectId = $(this).attr("data-project-id");
+        var imageId = $(this).attr("data-image-id");
+        var expenseId = $(this).attr("data-expense-id");
+        deleteFileExpense(blogId, projectId, imageId, expenseId, deleteButton);
+        return false;
+    });
+
+    $("#expense_files").change(function(){
+        var selDiv = $( "#expenseSelectedFiles" );
+        var files = $('#expense_files').prop("files");
+        var names = $.map(files, function(val) { return val.name; });
+        addExpenseNamesPreview(names, selDiv);
     });
 });
 
@@ -81,4 +93,48 @@ function deleteExpense(expenseId, blogId, projectId) {
             type: "DELETE"
         })
     });
+}
+
+function deleteFileExpense(blogId, projectId, imageId, expenseId, deleteButton) {
+    swal({
+        title: "¿Estás Seguro?",
+        text: "¿Estás seguro de querer borrar el archivo?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: true,
+        confirmButtonText: "Sí, ¡Borrar el archivo!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        spinner.classList.remove('fadeOut');
+        $.ajax({
+            url: "/projects/" + projectId + "/blogs/" + blogId + "/expenses/" + expenseId + "/delete_image_attachment/" + imageId,
+            type: "DELETE"
+        }).then(function (isConfirm) {
+            spinner.classList.add('fadeOut');
+            swal({
+                title: "¡Eliminada!",
+                text: "El archivo se ha eliminado correctamente",
+                type: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            deleteButton.closest('div.file-card').fadeOut();
+        }).catch(function(data) {
+            spinner.classList.add('fadeOut');
+            swal({
+                title: "Oops",
+                text: "¡No se pudo eliminar el archivo!",
+                timer: 1500,
+                showConfirmButton: false
+            });
+        });
+    });
+}
+
+function addExpenseNamesPreview(names, element){
+  for (var i = 0; i < names.length; i++) {
+    element.append(
+      '<p>' + names[i] + '</p>'
+    );
+  }
 }

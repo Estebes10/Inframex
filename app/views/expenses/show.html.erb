@@ -1,24 +1,31 @@
 <% provide(:title, 'Ver Gasto') %>
 <div class="masonry-item col-md-12">
-    <div class="bd bgc-white">
+    <div class="bgc-white">
         <div class="layers">
             <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+              <% if has_privilege(current_user, "blog_1") %>
                 <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
                 <i class="ti-arrow-left"></i>
             </button>'.html_safe, project_blog_url(project_id: @project, id: @blog)
                 %>
+              <% end %>
                 <h5 class="float-left pL-15">Gasto - <%= @expense.name %></h5>
+              <% if has_privilege(current_user, "expenses_3") %>
               <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
                       <i class="ti-pencil"></i>
                     </button>'.html_safe,
                           {controller: :expenses, action: :edit, :id => @expense.id, :project_id => @project.id, :blog_id => @blog.id}
               %>
+              <% end %>
+
+              <% if has_privilege(current_user, "expenses_4") %>
               <button type="button" class="btn btn-outline-light float-right delete-expense btn-sm mR-5"
                       data-expense-id="<%= @expense.id %>"
                       data-blog-id="<%= @blog.id %>"
                       data-project-id="<%= @project.id %>">
                 <i class="ti-trash" aria-hidden="true"></i>
               </button>
+              <% end %>
             </div>
             <div class="layer w-100 p-20 text-center">
                 <%= render "form" %>
@@ -26,4 +33,52 @@
 
         </div>
     </div>
+</div>
+
+<% if has_privilege(current_user, "file_6") %>
+  <div class="masonry-item col-md-12">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+          <h5 class="float-left pL-15"> Adjuntos del gasto</h5>
+          <% if has_privilege(current_user, "file_7") %>
+            <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+              id="new-file-button" data-toggle="modal" data-target="#new-file-expense-modal">
+              <i class="ti-plus"></i>
+              Agregar Archivo
+            </button>
+          <% end %>
+        </div>
+        <div class="layer w-100 p-20 text-center">
+            <%= render "file" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="new-file-expense-modal" class="modal fade" role="dialog" aria-labelledby="new-file-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar archivo(s)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for [@project, @blog, @expense] do |f| %>
+        <div class="modal-body">
+          <div class="custom-file">
+            <%= f.file_field :files, class: "custom-file-input", multiple: true %>
+            <label class="custom-file-label" for="expense_files">Seleccionar archivos</label>
+          </div>
+          <div id="expenseSelectedFiles"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+          <button type="submit " name="save" value="ready" class="btn btn-primary">Guardar</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

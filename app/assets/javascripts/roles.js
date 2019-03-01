@@ -1,10 +1,4 @@
 $( document ).on('ready turbolinks:load', function() {
-    $('#roles-datatable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        }
-    });
-
     $('#roles-datatable tbody').on('click', 'button.delete-role', function (e) {
         console.log("you activate the event");
         e.preventDefault(e);

@@ -8,7 +8,7 @@
       </div>
     <% end %>
     <div class="col-md-6">
-      <%= f.label :name, "* Nombre del proyecto:" %>
+      <%= f.label :name, "#{@required_str}Nombre del proyecto:" %>
       <%= f.text_field :name,
                        class:"form-control",
                        required: 'true',
@@ -16,7 +16,7 @@
                        readonly: @readonly%>
     </div>
     <div class="col-md-6">
-      <%= f.label :code, "* Clave: " %>
+      <%= f.label :code, "#{@required_str}Clave: " %>
       <%= f.text_field :code,
                        class: 'form-control',
                        required: 'true',
@@ -26,7 +26,7 @@
     </div>
 
     <div class="col-md-6 mT-15">
-      <%= f.label :start_date, "* Fecha de Inicio: " %>
+      <%= f.label :start_date, "#{@required_str}Fecha de Inicio: " %>
       <%= f.date_field :start_date,
                        class: 'form-control',
                        start_year: 2015,
@@ -74,18 +74,68 @@
                           readonly: @readonly %>
       <% end %>
     </div>
-    <div class="col-md-6 mT-15">
-      <label for = "user_status">Estado en el sistema:</label>
-      <div class="row">
-        <div class="col-md-2 col-sm-2" align="center">
-          <label class="switch">
-            <% @readonly ? @var = "return false;" : @var = ""%>
-            <%= f.check_box :status, onclick: @var %>
-            <span class="slider round"></span>
-          </label>
+
+
+    <% if has_privilege(current_user, "project_6") %>
+      <% if !@readonly %>
+        <% if has_privilege(current_user, "project_5") or @create%>
+          <div class="col-md-6 mT-15">
+            <label for = "user_status">Estado en el sistema:</label>
+            <div class="row">
+              <div class="col-md-2 col-sm-2" align="center">
+                <label class="switch">
+                  <% @readonly ? @var = "return false;" : @var = ""%>
+                  <%= f.check_box :status, onclick: @var%>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="col-md-6 mT-15">
+          <label for = "user_status">Estado en el sistema:</label>
+          <div class="row">
+            <div class="col-md-2 col-sm-2" align="center">
+              <label class="switch">
+                <% @readonly ? @var = "return false;" : @var = ""%>
+                <%= f.check_box :status, onclick: @var%>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if @readonly %>
+      <div class="col-md-6 mT-15">
+        <% if @project.image.attached?%>
+          <%= f.label :image, "Imagen de proyecto: " %>
+          <%= image_tag(@project.image, {:class => "card-img-top", :alt => "Imagen de proyecto"}) %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-md-6 mT-15">
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <%= f.file_field :image, class: 'custom-file-input', accept: "image/*" %>
+            <%= f.label :image, "Seleccionar archivo ", class: 'custom-file-label' %>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="col-md-6 mT-15"> </div>
+      <div class="col-md-6 mT-15">
+        <label for="project-img-tag">Imagen seleccionada</label><br/>
+        <% if @project.image.attached?%>
+          <%= image_tag(@project.image, {:class => "file-image-uploaded", :id => "project-img-tag", :alt => "Imagen de proyecto"}) %>
+        <% else %>
+          <img src="" id="project-img-tag" class="file-image-uploaded"/>
+        <% end %>
+      </div>
+    <% end %>
+
   </div>
   <% if !@readonly %>
     <div id="form-footer">

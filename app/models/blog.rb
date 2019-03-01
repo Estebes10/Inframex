@@ -1,13 +1,13 @@
 class Blog < ApplicationRecord
 
   # Associations
-  #has_many :pictures
+  has_many_attached :files
 
   belongs_to :project
 
-  has_many :expenses
+  has_many :expenses, dependent:   :destroy
 
-  has_many :jobs
+  has_many :job_progress, dependent:   :destroy
 
   # Attributes validation
   validates :name,

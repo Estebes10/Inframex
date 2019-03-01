@@ -1,10 +1,9 @@
 class User < ApplicationRecord
+  attr_accessor :reset_token
   has_secure_password
   belongs_to :role
 
-  # associations
-  # associations
-  has_many :user_projects
+  has_many :user_projects, dependent:   :destroy
   has_many :projects, through: :user_projects
 
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
@@ -70,4 +69,8 @@ class User < ApplicationRecord
     return show_user_path(self)
   end
 
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  reset_token)
+  end
 end

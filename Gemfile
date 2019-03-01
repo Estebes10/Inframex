@@ -39,11 +39,16 @@ gem 'popper_js', '~> 1.14'
 # Javascript framework used in bootstrap
 gem 'jquery-rails'
 gem 'jquery-datatables'
+# gem for datatables excel export
+gem 'jszip-rails', '~> 2.5'
 gem 'sweetalert-rails'
 # date input styles
 gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.1.1'
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+gem 'mini_magick', '~> 4.8'
+
+gem 'google-cloud-asset', '~> 0.1.1', require: false
+gem "google-cloud-storage", "~> 1.8", require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

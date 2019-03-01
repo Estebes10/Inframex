@@ -1,0 +1,51 @@
+<% provide(:title, 'Restaurar contraseña') %>
+<div class="masonry-item col-md-10 offset-md-1">
+  <!-- #Todo ==================== -->
+  <div class="bd bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <h5 class="float-left pL-15">Restaurar mi contraseña - <%= @user.name + " " + @user.lastName %></h5>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <%= form_for(@user, url: email_reset_path(params[:reset_digest])) do |f| %>
+          <%= render 'layouts/errors_form', object: @user %>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-10 offset-lg-1">
+                <%= hidden_field_tag :email, @user.email %>
+
+                <div class="row">
+                  <div class="col-md-6 mT-15">
+                    <%= f.label :password, "#{@required_str}Contraseña" %>
+                    <%= f.password_field :password,
+                                         class: 'form-control',
+                                         :minlength => 6,
+                                         :maxlength => 64,
+                                         required: 'true',
+                                         readonly: @readonly %>
+                  </div>
+                  <div class="col-md-6 mT-15">
+                    <%= f.label :password_confirmation, "#{@required_str}Confirmación de contraseña" %>
+                    <%= f.password_field :password_confirmation,
+                                         class: 'form-control',
+                                         required: 'true',
+                                         readonly: @readonly %>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <% if !@readonly %>
+            <div id="form-footer">
+              <hr>
+              <%= link_to 'Cancelar', :back, class: 'btn btn-outline-danger' %>
+              <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
+            </div>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

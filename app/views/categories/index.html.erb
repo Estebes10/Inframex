@@ -1,20 +1,24 @@
+<% if has_privilege(current_user, "category_4") %>
 <% provide(:title, 'Categorías') %>
 <div class="masonry-item col-md-6">
-  <div class="bd bgc-white">
+  <div class="bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
         <h5 class="float-left pL-15">Categorías</h5>
+        <% if has_privilege(current_user, "category_1") %>
         <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                 id="new-role-button" data-toggle="modal" data-target="#new-category-modal">
           <i class="ti-plus"></i>
           Registrar Categoría
         </button>
+        <% end %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <% if @categories.blank? %>
           <h5> Actualmente no se encuentra ninguna categoría registrada en el sistema</h5>
         <% else %>
-          <table class="table table-hover" id="categories-datatable" role="datatable">
+          <div class="table-responsive">
+            <table class="table table-hover datatable" id="categories-datatable" role="datatable">
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
@@ -26,20 +30,24 @@
               <tr>
                 <td><%= a.name -%></td>
                 <td>
+                  <% if has_privilege(current_user, "category_2") %>
                   <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                                    <i class="ti-pencil"></i>
                                  </button>'),
                               edit_category_path(a), data: {remote: 'true'} %>
+                  <% end %>
+                  <% if has_privilege(current_user, "category_3") %>
                   <button type="button" class="btn btn-outline-danger btn-circle delete-category-ajax"
                           data-category-id="<%= a.id %>">
                     <i class="ti-trash" aria-hidden="true"></i>
                   </button>
+                  <% end %>
                 </td>
               </tr>
 
             <% end %>
             </tbody>
-          </table>
+          </table></div>
         <% end %>
       </div>
 
@@ -48,21 +56,24 @@
 </div>
 
 <div class="masonry-item col-md-6">
-  <div class="bd bgc-white">
+  <div class="bgc-white">
     <div class="layers">
       <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
           <h5 class="float-left pL-15">Subcategorías</h5>
+          <% if has_privilege(current_user, "subcategory_1") %>
           <button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                   id="new-role-button" data-toggle="modal" data-target="#new-subcategory-modal">
             <i class="ti-plus"></i>
             Registrar Subcategoría
           </button>
+          <% end %>
       </div>
       <div class="layer w-100 p-20 text-center">
         <% if @subcategories.blank? %>
           <h5> Actualmente no se encuentra ninguna subcategoría registrada en el sistema</h5>
         <% else %>
-          <table class="table table-hover" id="subcategories-datatable" role="datatable">
+          <div class="table-responsive">
+            <table class="table table-hover datatable" id="subcategories-datatable" role="datatable">
             <thead>
             <tr class="tableHead">
               <th>Nombre</th>
@@ -74,20 +85,25 @@
               <tr>
                 <td><%= b.name -%></td>
                 <td>
+                  <% if has_privilege(current_user, "subcategory_2") %>
                   <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                                    <i class="ti-pencil"></i>
                                  </button>'),
                               edit_subcategory_path(b), data: {remote: 'true'} %>
+                  <% end %>
+                  <% if has_privilege(current_user, "subcategory_3") %>
                   <button type="button" class="btn btn-outline-danger btn-circle delete-subcategory-ajax"
                           data-subcategory-id="<%= b.id %>">
                     <i class="ti-trash" aria-hidden="true"></i>
                   </button>
+                  <% end %>
                 </td>
               </tr>
 
             <% end %>
             </tbody>
           </table>
+          </div>
         <% end %>
       </div>
 
@@ -104,3 +120,4 @@
 <div id="new-subcategory-modal-target">
   <%= render "subcategories/new" %>
 </div>
+<% end %>

@@ -1,5 +1,6 @@
 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
   <h5 class="float-left">Gastos realizados</h5>
+  <% if has_privilege(current_user, "expenses_2") %>
   <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                   id="new-job-button">
                   <i class="ti-plus"></i>
@@ -7,10 +8,11 @@
                 </button>'.html_safe,
               new_project_blog_expense_path(@project, @blog)
   %>
+  <% end %>
 </div>
 
 
-<% if @blog.expenses.blank? %>
+<% if @expenses.count == 0 %>
 
   <div class="layer w-100 p-20 text-center">
     <div class="row">
@@ -23,15 +25,23 @@
 <% else %>
 
   <div class="layer w-100 p-20">
-    <table class="table table-hover" id="expenses-datatable" role="datatable">
+    <div class="table-responsive">
+      <table class="table table-hover datatable" id="expenses-datatable" role="datatable">
       <thead>
       <tr class="tableHead">
         <th>Nombre</th>
         <th>Concepto</th>
         <th>Fecha</th>
         <th>Total</th>
-        <th>Aprobado</th>
-        <th>Facturado</th>
+        <% if has_privilege(current_user, "expenses_7") %>
+          <% if !has_privilege(current_user, "expenses_9") %>
+            <th>Aprobado</th>
+           <% end %>
+        <% end %>
+
+        <% if has_privilege(current_user, "expenses_8") %>
+          <th>Facturado</th>
+        <% end %>
         <th>Acciones</th>
       </tr>
       </thead>
@@ -39,47 +49,88 @@
         <% @expenses.each do |a| %>
           <tr>
             <td><%= a.name-%></td>
-            <td><%= link_to a.concept.code, {:controller => :concepts, :action => :show, :id => a.concept.id} %></td>
+            <td>
+              <% if has_privilege(current_user, "concept_1") %>
+              <%= link_to a.concept.code, {:controller => :concepts, :action => :show, :id => a.concept.id} %>
+              <% end %>
+            </td>
             <td><%= a.date-%></td>
             <td><%= number_to_currency(a.total)-%></td>
+            <% if has_privilege(current_user, "expenses_7") %>
+              <% if !has_privilege(current_user, "expenses_9") %>
+                <td>
+                <% if has_privilege(current_user, "expenses_5") %>
+                <label class="switch">
+                  <input class="activate-switch status-expense" id="status-<%= "expenses-#{a.id}" %>"
+                         data-id="<%= "#{a.id}" %>"
+                         name="expenses"
+                         type="checkbox"
+                         <%= if (a.status)
+                               "checked"
+                             end %>>
+                  <span class="slider round"></span>
+                </label>
+                <% else %>
+                  <label class="switch">
+                    <input class="activate-switch status-expense"
+                           type="checkbox"
+                           <%= if (a.status)
+                                 "checked"
+                               end %> disabled>
+                    <span class="slider round"></span>
+                  </label>
+                <% end %>
+              </td>
+              <% end %>
+            <% end %>
+
+            <% if has_privilege(current_user, "expenses_8") %>
+              <td>
+                <% if has_privilege(current_user, "expenses_6") %>
+                  <label class="switch">
+                    <input class="activate-switch status-ticket-expense"
+                           id="status_ticket-<%= "expenses-#{a.id}" %>"
+                           data-id="<%= "#{a.id}" %>"
+                           name="expensesticket"
+                           type="checkbox"
+                           <%= if (a.status_ticket)
+                                 "checked"
+                               end %>>
+                    <span class="slider round"></span>
+                  </label>
+                <% else %>
+                  <label class="switch">
+                    <input class="activate-switch status-ticket-expense"
+                           type="checkbox"
+                           <%= if (a.status_ticket)
+                                 "checked"
+                               end %> disabled>
+                    <span class="slider round"></span>
+                  </label>
+                <% end %>
+              </td>
+            <% end %>
             <td>
-              <label class="switch">
-                <input class="activate-switch status-expense" id="status-<%= "expenses-#{a.id}" %>"
-                       data-id="<%= "#{a.id}" %>"
-                       name="expenses"
-                       type="checkbox"
-                       <%= if (a.status)
-                             "checked"
-                           end %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input class="activate-switch status-ticket-expense"
-                       id="status_ticket-<%= "expenses-#{a.id}" %>"
-                       data-id="<%= "#{a.id}" %>"
-                       name="expensesticket"
-                       type="checkbox"
-                       <%= if (a.status_ticket)
-                             "checked"
-                           end %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-            <td>
+              <% if has_privilege(current_user, "expenses_1") %>
               <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                                     <i class="ti-eye icon-white" aria-hidden="true"></i>
                                     </button>').html_safe, {controller: :expenses, action: :show, :id => a.id, :project_id => @project.id, :blog_id => @blog.id} %>
+              <% end %>
+
+              <% if has_privilege(current_user, "expenses_3") %>
               <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
                     <i class="ti-pencil" aria-hidden="true"></i>
                    </button>').html_safe,  {controller: :expenses, action: :edit, :id => a.id, :project_id => @project.id, :blog_id => @blog.id}%>
+              <% end %>
+
+              <% if has_privilege(current_user, "expenses_4") %>
               <button type="button" class="btn btn-outline-danger btn-circle delete-expense-ajax"
                       data-expense-id="<%= a.id %>"
                       data-blog-id="<%= @blog.id %>"
                       data-project-id="<%= @project.id %>">
                 <i class="ti-trash" aria-hidden="true"></i>
               </button>
+              <% end %>
             </td>
           </tr>
 
@@ -98,6 +149,7 @@
         </tr>
       </tfooter>
     </table>
+    </div>
   </div>
 
 <%end%>

@@ -1,8 +1,8 @@
 class Concept < ApplicationRecord
   belongs_to :category
   belongs_to :project
-  has_many :expenses
-  has_many :jobs
+  has_many :expenses, dependent:   :destroy
+  has_many :jobs, dependent:   :destroy
 
   before_validation :calculate_total
 
@@ -32,12 +32,13 @@ class Concept < ApplicationRecord
             presence: {with: true, message: "no puede estar vacío"},
             numericality: {with: true, only_integer: false }, :on => [:create ,:update]
 
-  def sum_jobs_quantity_by_status(status)
-    jobs.includes(:blog).where("blogs.status = " + (status ? "true" : "false")).sum(:quantity)
-  end
-
-  def sum_all_jobs_quantity
-    jobs.sum(:quantity)
+  validates :weight,
+            presence: {with: true, message: "no puede estar vacío"},
+            numericality:{with: true, only_integer: false, greater_than: 0,
+                          less_than: 100, message: "debe ser mayor a 0 y menor a 100" }
+  
+  def sum_all_jobs_weight
+    jobs.sum(:weight)
   end
 
   def sum_expenses_by_status(status)
@@ -48,6 +49,27 @@ class Concept < ApplicationRecord
     expenses.sum(:total)
   end
 
+  def get_expenses_progress
+    self.sum_all_expenses / self.total
+  end
+
+  def get_expenses_progress_100
+    self.get_expenses_progress * 100
+  end
+  
+  def get_progress
+    total_weigth = self.sum_all_jobs_weight
+    progress = 0.0
+    jobs.each do |j|
+      progress += (j.get_progress * j.weight)/total_weigth
+    end
+    return progress
+  end
+  
+  def get_progress_100
+    self.get_progress * 100
+  end
+  
   private
 
   def calculate_total
