@@ -27,25 +27,23 @@
 
     <div class="col-md-6 mT-15">
       <%= f.label :start_date, "#{@required_str}Fecha de Inicio: " %>
-      <%= f.date_field :start_date,
-                       class: 'form-control',
-                       start_year: 2015,
-                       required: true,
+      <%= f.text_field :start_date,
+                       class: 'form-control datepicker',
+                       'data-behaviour' => 'datepicker',
+                       required: 'true', start_year: 2010,
+                       :value => @project.start_date.strftime('%d/%m/%Y'),
+                       'data-date-format' => "dd/mm/yyyy",
                        readonly: @readonly %>
     </div>
     <div class="col-md-6 mT-15">
       <%= f.label :due_date, "Fecha de entrega: " %>
-      <% if @readonly %>
-        <%= f.text_field :due_date,
-                         class: 'form-control',
-                         start_year: 2015,
-                         readonly: @readonly %>
-      <% else %>
-        <%= f.date_field :due_date,
-                         class: 'form-control',
-                         start_year: 2015,
-                         readonly: @readonly %>
-      <% end %>
+      <%= f.text_field :due_date,
+                       class: 'form-control datepicker',
+                       'data-behaviour' => 'datepicker',
+                       required: 'true', start_year: 2010,
+                       :value => @project.due_date.strftime('%d/%m/%Y'),
+                       'data-date-format' => "dd/mm/yyyy",
+                       readonly: @readonly %>
     </div>
     <div class="col-md-6 mT-15">
       <%= f.label :client, "Cliente: " %>

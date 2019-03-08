@@ -54,7 +54,7 @@
               <%= link_to a.concept.code, {:controller => :concepts, :action => :show, :id => a.concept.id} %>
               <% end %>
             </td>
-            <td><%= a.date-%></td>
+            <td><%= a.date.strftime("%d/%m/%Y")-%></td>
             <td><%= number_to_currency(a.total)-%></td>
             <% if has_privilege(current_user, "expenses_7") %>
               <% if !has_privilege(current_user, "expenses_9") %>
