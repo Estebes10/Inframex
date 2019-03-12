@@ -1,8 +1,9 @@
 language: ruby
 rvm:
   - 2.5.1
-before_script:
+before_install:
   - gem install bundler
+before_script:
   - bundle update
   - bundle install
   - bundle exec rake db:reset
