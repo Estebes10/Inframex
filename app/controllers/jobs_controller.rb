@@ -19,6 +19,11 @@ class JobsController < ApplicationController
   before_action only: [:destroy] do
     has_privilege_controller(current_user, 'job_3')
   end
+
+  # Check if user belongs to project (also check if project exists)
+  before_action do
+    belongs_to_project_controller(current_user, params[:project_id])
+  end
   
   before_action :set_project
   before_action :set_concept

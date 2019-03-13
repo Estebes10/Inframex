@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-
   #RBAC index
   before_action only: [:show, :index] do
     has_privilege_controller(current_user, 'project_1')
@@ -18,6 +17,11 @@ class ProjectsController < ApplicationController
   #RBAC destroy
   before_action only: [:destroy_ajax] do
     has_privilege_controller(current_user, 'project_4')
+  end
+
+  # Check if user belongs to project (also check if project exists)
+  before_action only: [:edit, :update, :show, :destroy] do
+    belongs_to_project_controller(current_user, params[:id])
   end
 
   before_action :set_project, only: [:edit, :update, :show, :destroy]
@@ -45,31 +49,6 @@ class ProjectsController < ApplicationController
     @required_str = ""
     expenses_filter
     blogs_filter
-  end
-
-  def blogs_filter
-    if has_privilege(current_user, 'blog_7')
-      @blogs = @project.blogs.where(status: true).all
-    else
-      @blogs = @project.blogs.all
-    end
-  end
-
-  def expenses_filter
-    @expenses = []
-    if has_privilege(current_user, 'expenses_9')
-      @project.blogs.each do |blog|
-        blog.expenses.where(status: true).each do |expense|
-          @expenses.push(expense)
-        end
-      end
-    else
-      @project.blogs.each do |blog|
-        blog.expenses.each do |expense|
-          @expenses.push(expense)
-        end
-      end
-    end
   end
 
   def create
@@ -106,6 +85,31 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def blogs_filter
+    if has_privilege(current_user, 'blog_7')
+      @blogs = @project.blogs.where(status: true).all
+    else
+      @blogs = @project.blogs.all
+    end
+  end
+
+  def expenses_filter
+    @expenses = []
+    if has_privilege(current_user, 'expenses_9')
+      @project.blogs.each do |blog|
+        blog.expenses.where(status: true).each do |expense|
+          @expenses.push(expense)
+        end
+      end
+    else
+      @project.blogs.each do |blog|
+        blog.expenses.each do |expense|
+          @expenses.push(expense)
+        end
+      end
+    end
+  end
 
   def project_params
       params.require(:project).permit(

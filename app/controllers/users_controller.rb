@@ -25,7 +25,6 @@ class UsersController < ApplicationController
     has_privilege_controller(current_user, 'user_5')
   end
 
-  before_action :validate_user
   before_action :set_profile, only: [:profile, :edit_profile, :update_profile, :edit_password]
   before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 

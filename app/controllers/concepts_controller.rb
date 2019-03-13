@@ -19,6 +19,11 @@ class ConceptsController < ApplicationController
   before_action only: [:destroy, :destroy_ajax] do
     has_privilege_controller(current_user, 'concept_4')
   end
+
+  # Check if user belongs to project (also check if project exists)
+  before_action do
+    belongs_to_project_controller(current_user, params[:project_id])
+  end
   
   before_action :set_project
   before_action :set_concept, only: [:show, :edit, :update, :destroy, :destroy_ajax]
