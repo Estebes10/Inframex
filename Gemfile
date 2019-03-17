@@ -39,6 +39,7 @@ gem 'popper_js', '~> 1.14'
 # Javascript framework used in bootstrap
 gem 'jquery-rails'
 gem 'jquery-datatables'
+gem 'rails-autocomplete'
 # gem for datatables excel export
 gem 'jszip-rails', '~> 2.5'
 gem 'sweetalert-rails'

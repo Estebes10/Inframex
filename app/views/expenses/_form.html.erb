@@ -15,7 +15,7 @@
 
           <div class="col-md-6 mT-15">
             <%= f.label :supplier_name, "#{@required_str}Nombre del proveedor:" %>
-            <%= f.text_field :supplier_name, class:"form-control", required: 'true', placeholder: "e.g. Azupiso", data: { autocomplete_source: suppliers_path}, readonly: @read_only %>
+            <%= f.autocomplete_field :supplier_name, autocomplete_supplier_name_project_blog_expenses_path, class:"form-control", required: 'true', placeholder: "e.g. Azupiso", readonly: @read_only %>
           </div>
 
           <div class="col-md-6 mT-15">

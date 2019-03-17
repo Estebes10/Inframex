@@ -6,7 +6,7 @@
               <p>Los campos marcados con '*' son obligatorios.</p>
             </div>
           <% end %>
-          <div class="col-md-12">
+          <div class=<%= @column_size %>>
             <%= f.label :date, "#{@required_str}Fecha de la bitácora: " %>
             <%= f.text_field :date,
                              class: 'form-control datepicker',
@@ -15,7 +15,7 @@
                              :value => @blog.date.strftime('%d/%m/%Y'),
                              readonly: @readonly %>
           </div>
-          <div class="col-md-12 mT-15">
+          <div class=<%= @column_size %>>
             <%= f.label :name, "#{@required_str}Nombre de la bitácora:" %>
             <%= f.text_field :name,
                              class:"form-control",
@@ -23,7 +23,7 @@
                              placeholder: "e.g. Bitácora B12",
                              readonly: @readonly %>
           </div>
-          <div class="col-md-12 mT-15">
+          <div class=<%= @column_size %>>
             <%= f.label :description, "Descripción: " %>
             <%= f.text_area :description,
                              class: 'form-control',
@@ -32,7 +32,7 @@
                              rows: 3,
                              readonly: @readonly %>
           </div>
-          <div class="col-md-12 mT-15">
+          <div class=<%= @column_size %>>
             <%= f.label :comments, "Comentarios: " %>
             <%= f.text_area :comments,
                             class: 'form-control',
@@ -45,7 +45,7 @@
           <% if has_privilege(current_user, "blog_6") %>
             <% if !@readonly %>
               <% if has_privilege(current_user, "blog_5") or @create%>
-                <div class="col-md-12 mT-15">
+                <div class=<%= @column_size %>>
                   <%= f.label :status, "Estado de Aprobación: " %>
                   <br>
                   <label class="switch">
@@ -56,7 +56,7 @@
                 </div>
                <% end %>
              <% else %>
-              <div class="col-md-12 mT-15">
+              <div class=<%= @column_size %>>
                 <%= f.label :status, "Estado de Aprobación: " %>
                 <br>
                 <label class="switch">

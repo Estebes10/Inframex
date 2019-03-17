@@ -48,6 +48,7 @@ class BlogsController < ApplicationController
     @required_str = ""
     @concepts = @project.concepts.order(:code)
     @has_concepts_jobs = @concepts.joins(:jobs).any?
+    @column_size = "col-md-12 mT-15"
 
     #Check privileges to retrieve jobs and expenses
     if has_privilege(current_user, 'job_prog_7')
@@ -70,6 +71,7 @@ class BlogsController < ApplicationController
     @blog = @project.blogs.new
     @blog.date = Time.now
     @blog.status = false
+    @column_size = "col-md-6 mT-15"
   end
 
   def create
@@ -90,6 +92,7 @@ class BlogsController < ApplicationController
     @readonly = false
     @create = false
     @required_str = "* "
+    @column_size = "col-md-6 mT-15"
   end
 
   def update

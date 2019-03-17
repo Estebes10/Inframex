@@ -1,5 +1,7 @@
 class ExpensesController < ApplicationController
 
+  autocomplete :supplier, :name
+
   #RBAC show
   before_action only: [:index, :show] do
     has_privilege_controller(current_user, 'expenses_1')
