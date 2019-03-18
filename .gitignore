@@ -38,6 +38,7 @@ config/database.yml
 /config/database.yml
 
 # Ignore secrets key for active storage
+config/secrets/*
 /config/secrets/*
 
 # Ignore Mac DS_Store files
