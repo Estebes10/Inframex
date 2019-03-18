@@ -46,6 +46,7 @@ class UsersController < ApplicationController
     @create = true
     @roles = Role.all
     @user = User.new
+    @user.birthday = Time.now
     @role_id = 0
     @required_str = "* "
   end
@@ -110,7 +111,7 @@ class UsersController < ApplicationController
   def edit_profile
     @edit_profile = true
     @readonly = false
-    @required_str = ""
+    @required_str = "* "
     @edit_password = false
   end
 
@@ -134,7 +135,7 @@ class UsersController < ApplicationController
   def edit_password
     @edit_profile = false
     @readonly = false
-    @required_str = ""
+    @required_str = "* "
     @edit_password = true
   end
 

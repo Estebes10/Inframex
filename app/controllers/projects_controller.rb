@@ -35,6 +35,8 @@ class ProjectsController < ApplicationController
     @readonly = false
     @create = true
     @project = Project.new
+    @project.start_date = Time.now
+    @project.due_date = Time.now
     @required_str = "* "
   end
 

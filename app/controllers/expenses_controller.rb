@@ -60,6 +60,7 @@ class ExpensesController < ApplicationController
 
   def new
     @expense = @blog.expenses.new
+    @expense.date = Time.now
     @mode_edit = false
     @read_only = false
     @create = true

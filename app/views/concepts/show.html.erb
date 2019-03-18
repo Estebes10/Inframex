@@ -73,7 +73,7 @@
                 <% @expenses.each do |a| %>
                   <tr>
                     <td><%= a.name-%></td>
-                    <td><%= a.date-%></td>
+                    <td><%= a.date.strftime("%d/%m/%Y")-%></td>
                     <td class="text-right"><%= number_to_currency(a.total)-%></td>
                     <% if has_privilege(current_user, "expenses_7") %>
                       <% if !has_privilege(current_user, "expenses_9") %>
