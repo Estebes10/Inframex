@@ -21,6 +21,9 @@ class EmailResetsController < ApplicationController
   end
 
   def edit_password
+    if current_user.present?
+      log_out
+    end
   end
 
   def update_password

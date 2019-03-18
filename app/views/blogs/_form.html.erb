@@ -6,7 +6,7 @@
               <p>Los campos marcados con '*' son obligatorios.</p>
             </div>
           <% end %>
-          <div class="col-md-12">
+          <div class=<%= @column_size %>>
             <%= f.label :date, "#{@required_str}Fecha de la bitácora: " %>
             <%= f.text_field :date,
                              class: 'form-control datepicker',
@@ -16,7 +16,7 @@
                              'data-date-format' => "dd/mm/yyyy",
                              readonly: @readonly %>
           </div>
-          <div class="col-md-12 mT-15">
+          <div class=<%= @column_size %>>
             <%= f.label :name, "#{@required_str}Nombre de la bitácora:" %>
             <%= f.text_field :name,
                              class:"form-control",
@@ -24,7 +24,7 @@
                              placeholder: "e.g. Bitácora B12",
                              readonly: @readonly %>
           </div>
-          <div class="col-md-12 mT-15">
+          <div class=<%= @column_size %>>
             <%= f.label :description, "Descripción: " %>
             <%= f.text_area :description,
                              class: 'form-control',
@@ -33,7 +33,7 @@
                              rows: 3,
                              readonly: @readonly %>
           </div>
-          <div class="col-md-12 mT-15">
+          <div class=<%= @column_size %>>
             <%= f.label :comments, "Comentarios: " %>
             <%= f.text_area :comments,
                             class: 'form-control',
@@ -43,10 +43,22 @@
                             readonly: @readonly %>
           </div>
 
-          <% if has_privilege(current_user, "blog_6") %>
-            <% if !@readonly %>
-              <% if has_privilege(current_user, "blog_5") or @create%>
-                <div class="col-md-12 mT-15">
+          <% if !@create %>
+            <% if has_privilege(current_user, "blog_6") %>
+              <% if !@readonly %>
+                <% if has_privilege(current_user, "blog_5")%>
+                  <div class=<%= @column_size %>>
+                    <%= f.label :status, "Estado de Aprobación: " %>
+                    <br>
+                    <label class="switch">
+                      <% @readonly ? @var = "return false;" : @var = ""%>
+                      <%= f.check_box :status, onclick: @var %>
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                 <% end %>
+               <% else %>
+                <div class=<%= @column_size %>>
                   <%= f.label :status, "Estado de Aprobación: " %>
                   <br>
                   <label class="switch">
@@ -56,19 +68,10 @@
                   </label>
                 </div>
                <% end %>
-             <% else %>
-              <div class="col-md-12 mT-15">
-                <%= f.label :status, "Estado de Aprobación: " %>
-                <br>
-                <label class="switch">
-                  <% @readonly ? @var = "return false;" : @var = ""%>
-                  <%= f.check_box :status, onclick: @var %>
-                  <span class="slider round"></span>
-                </label>
-              </div>
              <% end %>
-           <% end %>
+          <% end %>
         </div>
+
   <% if !@readonly %>
     <div id="form-footer-blog">
       <hr>
