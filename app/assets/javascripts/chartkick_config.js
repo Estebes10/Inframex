@@ -1,0 +1,1 @@
+Chartkick.configure({language: "sp"});

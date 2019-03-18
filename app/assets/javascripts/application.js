@@ -19,8 +19,10 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require jszip
-//= require datatables
+//= require datatables_config.js
 //= require sweetalert
 //= require particles
 //= require bootstrap-datepicker
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .

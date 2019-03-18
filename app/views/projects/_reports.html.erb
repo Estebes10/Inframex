@@ -1,0 +1,62 @@
+<div class="row pL-10 pR-10">
+  <div class="masonry-item col-lg-6">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Resumen de Avances</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <% @categories.each do |c| %>
+            <% if !@project.concepts.where(category_id: c.id).blank? %>
+              <% progress = @project.get_category_progress_100(c.id).round(2) %>
+              <h6><%= c.name %></h6>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                     role="progressbar"
+                     aria-valuenow="<%= progress %>"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                     style="width: <%= progress %>%">
+                  <%= progress %>%
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <hr>
+          <h6>Total</h6>
+          <div class="progress">
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                 role="progressbar"
+                 aria-valuenow="<%= @project.get_project_progress_100.round(2) %>"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width: <%= @project.get_project_progress_100.round(2) %>%">
+              <%= @project.get_project_progress_100.round(2) %>%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-lg-6">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gasto por proveedor</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%= bar_chart Supplier.joins(expenses: :blog)
+                            .select("suppliers.name")
+                            .where("blogs.project_id = #{@project.id.to_s}")
+                            .group("suppliers.name").sum("expenses.total").sort_by {|_key, value| value},
+                        download: {filename: "proyecto_gastos_por_proveedor"},
+                        height: "400px",
+                        prefix: "$",
+                        thousands: ",",
+                        messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
