@@ -65,9 +65,24 @@
               readonly: @read_only %>
           </div>
 
-          <% if has_privilege(current_user, "expenses_7") %>
-            <% if !@read_only %>
-              <% if has_privilege(current_user, "expenses_5") or @create%>
+          <% if !@create %>
+            <% if has_privilege(current_user, "expenses_7") %>
+              <% if !@read_only %>
+                <% if has_privilege(current_user, "expenses_5")%>
+                  <div class="col-md-6 mT-15">
+                    <label for = "user_status">Aprobado:</label>
+                    <div class="row">
+                      <div class="col-md-2 col-sm-2" align="center">
+                        <label class="switch">
+                          <% @read_only ? @var = "return false;" : @var = ""%>
+                          <%= f.check_box :status, onclick: @var %>
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
                 <div class="col-md-6 mT-15">
                   <label for = "user_status">Aprobado:</label>
                   <div class="row">
@@ -81,25 +96,25 @@
                   </div>
                 </div>
               <% end %>
-            <% else %>
-              <div class="col-md-6 mT-15">
-                <label for = "user_status">Aprobado:</label>
-                <div class="row">
-                  <div class="col-md-2 col-sm-2" align="center">
-                    <label class="switch">
-                      <% @read_only ? @var = "return false;" : @var = ""%>
-                      <%= f.check_box :status, onclick: @var %>
-                      <span class="slider round"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
             <% end %>
-          <% end %>
 
-          <% if has_privilege(current_user, "expenses_8") %>
-            <% if !@read_only %>
-              <% if has_privilege(current_user, "expenses_6") or @create%>
+            <% if has_privilege(current_user, "expenses_8") %>
+              <% if !@read_only %>
+                <% if has_privilege(current_user, "expenses_6")%>
+                  <div class="col-md-6 mT-15">
+                    <label>Facturado:</label>
+                    <div class="row">
+                      <div class="col-md-2 col-sm-2" align="center">
+                        <label class="switch">
+                          <% @read_only ? @var = "return false;" : @var = ""%>
+                          <%= f.check_box :status_ticket, onclick: @var %>
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
                 <div class="col-md-6 mT-15">
                   <label>Facturado:</label>
                   <div class="row">
@@ -113,19 +128,6 @@
                   </div>
                 </div>
               <% end %>
-            <% else %>
-              <div class="col-md-6 mT-15">
-                <label>Facturado:</label>
-                <div class="row">
-                  <div class="col-md-2 col-sm-2" align="center">
-                    <label class="switch">
-                      <% @read_only ? @var = "return false;" : @var = ""%>
-                      <%= f.check_box :status_ticket, onclick: @var %>
-                      <span class="slider round"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
             <% end %>
           <% end %>
 

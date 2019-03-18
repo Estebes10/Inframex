@@ -44,9 +44,6 @@
                              placeholder: "e.g. 1234567",
                              readonly: @readonly %>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-md-6 mT-15">
             <%= f.label :email, "#{@required_str}Correo electrónico: " %>
             <%= f.email_field :email,
@@ -55,13 +52,26 @@
                               placeholder: "e.g. gama@mail.com",
                               readonly: @readonly %>
           </div>
-        </div>
 
-        <div class="row">
 
-          <% if has_privilege(current_user, "user_6") %>
-            <% if !@readonly %>
-              <% if has_privilege(current_user, "user_5") or @create%>
+          <% if !@create %>
+            <% if has_privilege(current_user, "user_6") %>
+              <% if !@readonly %>
+                <% if has_privilege(current_user, "user_5")%>
+                  <div class="col-md-6 mT-15">
+                    <label for = "user_status">Estado en el sistema:</label>
+                    <div class="row">
+                      <div class="col-md-2 col-sm-2" align="center">
+                        <label class="switch">
+                          <% @readonly ? @var = "return false;" : @var = ""%>
+                          <%= f.check_box :status, onclick: @var %>
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
                 <div class="col-md-6 mT-15">
                   <label for = "user_status">Estado en el sistema:</label>
                   <div class="row">
@@ -75,19 +85,6 @@
                   </div>
                 </div>
               <% end %>
-            <% else %>
-              <div class="col-md-6 mT-15">
-                <label for = "user_status">Estado en el sistema:</label>
-                <div class="row">
-                  <div class="col-md-2 col-sm-2" align="center">
-                    <label class="switch">
-                      <% @readonly ? @var = "return false;" : @var = ""%>
-                      <%= f.check_box :status, onclick: @var %>
-                      <span class="slider round"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
             <% end %>
           <% end %>
 

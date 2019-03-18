@@ -42,9 +42,21 @@
                             readonly: @readonly %>
           </div>
 
-          <% if has_privilege(current_user, "blog_6") %>
-            <% if !@readonly %>
-              <% if has_privilege(current_user, "blog_5") or @create%>
+          <% if !@create %>
+            <% if has_privilege(current_user, "blog_6") %>
+              <% if !@readonly %>
+                <% if has_privilege(current_user, "blog_5")%>
+                  <div class=<%= @column_size %>>
+                    <%= f.label :status, "Estado de Aprobación: " %>
+                    <br>
+                    <label class="switch">
+                      <% @readonly ? @var = "return false;" : @var = ""%>
+                      <%= f.check_box :status, onclick: @var %>
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                 <% end %>
+               <% else %>
                 <div class=<%= @column_size %>>
                   <%= f.label :status, "Estado de Aprobación: " %>
                   <br>
@@ -55,19 +67,10 @@
                   </label>
                 </div>
                <% end %>
-             <% else %>
-              <div class=<%= @column_size %>>
-                <%= f.label :status, "Estado de Aprobación: " %>
-                <br>
-                <label class="switch">
-                  <% @readonly ? @var = "return false;" : @var = ""%>
-                  <%= f.check_box :status, onclick: @var %>
-                  <span class="slider round"></span>
-                </label>
-              </div>
              <% end %>
-           <% end %>
+          <% end %>
         </div>
+
   <% if !@readonly %>
     <div id="form-footer-blog">
       <hr>
