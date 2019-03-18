@@ -132,4 +132,3 @@ function addExpenseNamesPreview(names, element){
     );
   }
 }
-//= require jquery
