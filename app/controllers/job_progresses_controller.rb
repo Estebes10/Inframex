@@ -18,6 +18,11 @@ class JobProgressesController < ApplicationController
   before_action only: [:destroy] do
     has_privilege_controller(current_user, 'job_prog_3')
   end
+
+  # Check if user belongs to project (also check if project exists)
+  before_action except: [:activate] do
+    belongs_to_project_controller(current_user, params[:project_id])
+  end
   
   before_action :set_project, except: [:activate]
   before_action :set_blog, except: [:activate]
