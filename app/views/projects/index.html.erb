@@ -30,7 +30,7 @@
                   <div class="card-body">
                     <h5 class="card-title"><%= project.name %></h5>
                     <h6 class="card-subtitle mb-2 text-muted"><%= project.code %></h6>
-                    <p class="card-text">Inicio del proyecto: <%= project.start_date %></p>
+                    <p class="card-text">Inicio del proyecto: <%= project.start_date.strftime("%d/%m/%Y") %></p>
 
                     <% if has_privilege(current_user, "project_6") %>
                       <p class="card-text">Estatus:

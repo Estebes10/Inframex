@@ -25,7 +25,6 @@ class UsersController < ApplicationController
     has_privilege_controller(current_user, 'user_5')
   end
 
-  before_action :validate_user
   before_action :set_profile, only: [:profile, :edit_profile, :update_profile, :edit_password]
   before_action :set_user, only: [:edit, :update, :show, :destroy, :activate]
 
@@ -46,6 +45,7 @@ class UsersController < ApplicationController
     @create = true
     @roles = Role.all
     @user = User.new
+    @user.birthday = Time.now
     @role_id = 0
     @required_str = "* "
   end
@@ -110,7 +110,7 @@ class UsersController < ApplicationController
   def edit_profile
     @edit_profile = true
     @readonly = false
-    @required_str = ""
+    @required_str = "* "
     @edit_password = false
   end
 
@@ -134,7 +134,7 @@ class UsersController < ApplicationController
   def edit_password
     @edit_profile = false
     @readonly = false
-    @required_str = ""
+    @required_str = "* "
     @edit_password = true
   end
 

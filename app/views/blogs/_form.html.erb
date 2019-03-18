@@ -13,6 +13,7 @@
                              'data-behaviour' => 'datepicker',
                              required: 'true', start_year: 2010,
                              :value => @blog.date.strftime('%d/%m/%Y'),
+                             'data-date-format' => "dd/mm/yyyy",
                              readonly: @readonly %>
           </div>
           <div class=<%= @column_size %>>

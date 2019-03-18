@@ -30,9 +30,12 @@
 
           <div class="col-md-6 mT-15">
             <%= f.label :birthday, "#{@required_str}Fecha de nacimiento: " %>
-            <%= f.date_field :birthday,
-                             class: 'form-control',
+            <%= f.text_field :birthday,
+                             class: 'form-control datepicker',
+                             'data-behaviour' => 'datepicker',
                              required: 'true', start_year: 1900,
+                             :value => @user.birthday.strftime('%d/%m/%Y'),
+                             'data-date-format' => "dd/mm/yyyy",
                              readonly: @readonly %>
           </div>
           <div class="col-md-6 mT-15">

@@ -34,9 +34,13 @@
 
           <div class="col-md-6 mT-15">
             <%= f.label :date, "#{@required_str}Fecha: " %>
-            <%= f.date_field :date,
-                             class: 'form-control',
-                             required: 'true', start_year: 2000, readonly: @read_only%>
+            <%= f.text_field :date,
+                             class: 'form-control datepicker',
+                             'data-behaviour' => 'datepicker',
+                             required: 'true', start_year: 2010,
+                             :value => @expense.date.strftime('%d/%m/%Y'),
+                             'data-date-format' => "dd/mm/yyyy",
+                             readonly: @readonly %>
           </div>
           <div class="col-md-6 mT-15">
             <%= f.label :quantity, "#{@required_str}Cantidad:" %>
