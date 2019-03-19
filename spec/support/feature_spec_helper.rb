@@ -1,5 +1,5 @@
 # This class implements helper methods for valid and invalid specs.
-module ControllerSpecHelper
+module FeatureSpecHelper
 
   def sign_in(user = double('user'))
     if user.nil?
@@ -22,7 +22,7 @@ module ControllerSpecHelper
     @privileges = create_privileges
     @role = Role.create!(name: 'Súper Administrador')
     create_role_privileges(@role, @privileges)
-    @user = FactoryBot.create(:user, role_id: @role.id)
+    @user = FactoryBot.create(:user, email: 'super@admin.com', password: 'adminpassword', password_confirmation: 'adminpassword', role_id: @role.id, status: true)
     @user
   end
 

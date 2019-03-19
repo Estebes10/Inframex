@@ -2,16 +2,41 @@ require 'rails_helper'
 
 RSpec.describe ExpensesController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
+  before(:each)do
+    @project = FactoryBot.create(:project)
+    @supplier = FactoryBot.create(:supplier)
+    @category = FactoryBot.create(:category)
+    @subcategory = FactoryBot.create(:subcategory)
+    @blog = FactoryBot.create(:blog, project_id: @project.id)
+    @concept = FactoryBot.create(:concept, category_id: @category.id, project_id: @project.id)
+  end
+
   describe 'GET show' do
 
     context 'when user has permissions' do
 
+      before(:each) do
+        sign_in(@user)
+      end
+
       context 'and record exists' do
 
         before(:each) do
-          @expense_example = FactoryBot.create(:expense)
-          @blog = @expense_example.blog
-          @project = @blog.project
+          @expense_example = FactoryBot.create(
+            :expense,
+            blog_id: @blog.id,
+            supplier_id: @supplier.id,
+            concept_id: @concept.id,
+            subcategory_id: @subcategory.id
+          )
         end
 
         before(:each) do
@@ -46,8 +71,7 @@ RSpec.describe ExpensesController, type: :controller do
     context 'when user has permissions' do
 
       before(:each) do
-        @blog = FactoryBot.create(:blog)
-        @project = @blog.project
+        sign_in(@user)
       end
 
       it "renders the new template" do
@@ -76,9 +100,9 @@ RSpec.describe ExpensesController, type: :controller do
   describe 'POST create' do
 
     context 'with valid attributes' do
+
       before(:each) do
-        @blog = FactoryBot.create(:blog)
-        @project = @blog.project
+        sign_in(@user)
       end
 
       let(:valid_attributes) do
@@ -93,8 +117,8 @@ RSpec.describe ExpensesController, type: :controller do
                 quantity:    10,
                 status:      true,
                 status_ticket: true,
-                subcategory_id: 1,
-                supplier_id:    1
+                subcategory_id: @subcategory.id,
+                supplier_id:    @supplier.id
             }
         }
       end
@@ -126,10 +150,6 @@ RSpec.describe ExpensesController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      before(:each) do
-        @blog = FactoryBot.create(:blog)
-        @project = @blog.project
-      end
 
       let(:not_valid_attributes) do
         {
@@ -145,6 +165,10 @@ RSpec.describe ExpensesController, type: :controller do
                 supplier_id:    nil
             }
         }
+      end
+
+      before(:each) do
+        sign_in(@user)
       end
 
       before(:each) do
@@ -169,12 +193,20 @@ RSpec.describe ExpensesController, type: :controller do
 
     context 'when user has permissions' do
 
+      before(:each) do
+        sign_in(@user)
+      end
+
       context 'and record exists' do
 
         before(:each) do
-          @expense_example = FactoryBot.create(:expense)
-          @blog = @expense_example.blog
-          @project = @blog.project
+          @expense_example = FactoryBot.create(
+            :expense,
+            blog_id: @blog.id,
+            supplier_id: @supplier.id,
+            concept_id: @concept.id,
+            subcategory_id: @subcategory.id
+          )
         end
 
         before(:each) do
@@ -209,9 +241,17 @@ RSpec.describe ExpensesController, type: :controller do
     context 'with valid attributes' do
 
       before(:each) do
-        @expense_example_update = FactoryBot.create(:expense)
-        @blog = @expense_example_update.blog
-        @project = @blog.project
+        sign_in(@user)
+      end
+
+      before(:each) do
+        @expense_example_update = FactoryBot.create(
+          :expense,
+          blog_id: @blog.id,
+          supplier_id: @supplier.id,
+          concept_id: @concept.id,
+          subcategory_id: @subcategory.id
+        )
       end
 
       let(:valid_attributes) do
@@ -224,7 +264,8 @@ RSpec.describe ExpensesController, type: :controller do
                 status:      true,
                 status_ticket: true,
                 subcategory_id: 1,
-                supplier_id:    1
+                supplier_id:    1,
+                total: 100
         }
       end
 
@@ -268,9 +309,18 @@ RSpec.describe ExpensesController, type: :controller do
     context 'with invalid attributes' do
 
       before(:each) do
-        @expense_example_update = FactoryBot.create(:expense, name: 'update test')
-        @blog = @expense_example_update.blog
-        @project = @blog.project
+        sign_in(@user)
+      end
+
+      before(:each) do
+        @expense_example_update = FactoryBot.create(
+          :expense,
+          name: 'update test',
+          blog_id: @blog.id,
+          supplier_id: @supplier.id,
+          concept_id: @concept.id,
+          subcategory_id: @subcategory.id
+        )
       end
 
       # send string to blog date
@@ -322,9 +372,18 @@ RSpec.describe ExpensesController, type: :controller do
   describe "DELETE destroy" do
 
     before(:each) do
-      @expense_example_delete = FactoryBot.create(:expense, name: 'delete test')
-      @blog = @expense_example_delete.blog
-      @project = @blog.project
+      sign_in(@user)
+    end
+
+    before(:each) do
+      @expense_example_delete = FactoryBot.create(
+        :expense,
+        name: 'delete test',
+        blog_id: @blog.id,
+        supplier_id: @supplier.id,
+        concept_id: @concept.id,
+        subcategory_id: @subcategory.id
+      )
     end
 
     context 'when user has permissions' do

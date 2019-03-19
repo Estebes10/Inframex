@@ -2,13 +2,21 @@ require 'rails_helper'
 
 RSpec.describe SubcategoriesController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   describe 'GET new' do
 
+    before(:each) do
+      sign_in(@user)
+    end
+
     context 'when user has permissions' do
-      it "renders the new template" do
-        get :new, xhr: true, format: :js
-        expect(response).to render_template(:new)
-      end
 
       it { should route(:get, '/subcategories/new').to(action: :new) }
     end
@@ -19,6 +27,10 @@ RSpec.describe SubcategoriesController, type: :controller do
   end
 
   describe 'POST create' do
+
+    before(:each) do
+      sign_in(@user)
+    end
 
     context 'with valid attributes' do
 
@@ -58,10 +70,6 @@ RSpec.describe SubcategoriesController, type: :controller do
         expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display a success message' do
-      #expect(flash[:success]).to match(/ Éxito al crear la bitácora*/)
-      #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
@@ -86,17 +94,14 @@ RSpec.describe SubcategoriesController, type: :controller do
         expect(response).not_to be_a_new(Subcategory)
       end
 
-      it 'renders new template' do
-        expect(response).to render_template('new')
-      end
-
-      #it 'must display an error message' do
-      #expect(flash[:danger]).to be_present
-      #end
     end
   end
 
   describe 'GET edit' do
+
+    before(:each) do
+      sign_in(@user)
+    end
 
     context 'when user has permissions' do
 
@@ -137,10 +142,6 @@ RSpec.describe SubcategoriesController, type: :controller do
           )
         end
 
-        #it 'should respond with not found code' do
-        #expect(response).to have_http_status(404)
-        #end
-
       end
     end
 
@@ -151,6 +152,10 @@ RSpec.describe SubcategoriesController, type: :controller do
   end
 
   describe 'PATCH update' do
+
+    before(:each) do
+      sign_in(@user)
+    end
 
     context 'with valid attributes' do
 
@@ -192,10 +197,6 @@ RSpec.describe SubcategoriesController, type: :controller do
         expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display a success message' do
-      #expect(flash[:success]).to match(/ Bitácora modificada correctamente*/)
-      #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
@@ -228,36 +229,7 @@ RSpec.describe SubcategoriesController, type: :controller do
         expect(response).not_to be_a_new(Subcategory)
       end
 
-      it 'renders edit template' do
-        expect(response).to render_template("edit")
-      end
-
-      #it 'must display an error message' do
-      #expect(flash[:error]).to be_present
-      #expect(flash[:error]).to match(/ Error al modificar la bitácora*/)
-      #end
     end
   end
 
-  describe "DELETE destroy" do
-
-    before(:each) do
-      @subcategory_example_delete = FactoryBot.create(:subcategory, name: 'delete test')
-    end
-
-    context 'when user has permissions' do
-
-      #it "destroys the requested blog" do
-        #expect do
-          #delete :destroy, params: {:id => @subcategory_example_delete.to_param}
-        #end.to change(Subcategory, :count).by(-1)
-      #end
-
-    end
-
-    context 'when user has not permissions' do
-      it 'show unauthorized message'
-    end
-  end
-  
 end

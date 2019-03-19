@@ -2,19 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "Projects", type: :feature do
 
-  before(:each)do
-    @role = FactoryBot.create(:role)
-    @user = User.create!({
-       name: 'Super',
-       lastName: 'Administrador',
-       password: 'adminpassword',
-       password_confirmation: 'adminpassword',
-       birthday: '1970-08-08',
-       email: 'super@admin.com',
-       phone: '4421234567',
-       status: true,
-       role_id: @role.id
-   })
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
   end
 
   before(:each)do
@@ -25,7 +18,7 @@ RSpec.describe "Projects", type: :feature do
     click_button "Iniciar sesión"
   end
 
-  context 'see projects index' do
+  context 'access projects index' do
 
     scenario "Visit home page" do
       visit '/projects'

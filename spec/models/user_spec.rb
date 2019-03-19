@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+
+  before(:each)do
+    @role = FactoryBot.create(:role)
+  end
+
   subject(:user_example) do
     # Returns a user instance that's not saved
-    FactoryBot.build(:user)
+    FactoryBot.build(:user, role_id: @role.id)
   end
 
   # Test for valid attributes

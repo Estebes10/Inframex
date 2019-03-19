@@ -2,9 +2,21 @@ require 'rails_helper'
 
 RSpec.describe RoleprivilegesController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   describe 'POST create' do
 
     context 'with valid attributes' do
+
+      before(:each) do
+        sign_in(@user)
+      end
 
       before(:each) do
         @role = FactoryBot.create(:role)
@@ -52,6 +64,10 @@ RSpec.describe RoleprivilegesController, type: :controller do
   end
 
   describe "DELETE destroy" do
+
+    before(:each) do
+      sign_in(@user)
+    end
 
     before(:each) do
       @role_privilege = FactoryBot.create(:roleprivilege)
