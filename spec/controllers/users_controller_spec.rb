@@ -2,10 +2,22 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
+  before(:each)do
+    @role = FactoryBot.create(:role)
+  end
+
   describe 'GET index' do
 
     before(:each) do
-      sign_in()
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -35,7 +47,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET show' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -43,7 +55,7 @@ RSpec.describe UsersController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
-          @user_example = FactoryBot.create(:user)
+          @user_example = FactoryBot.create(:user, role_id: @role.id)
         end
 
         before(:each) do
@@ -91,7 +103,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET new' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -116,11 +128,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'POST create' do
 
     before(:each) do
-      sign_in
-    end
-
-    before(:each) do
-      @role = FactoryBot.create(:role)
+      sign_in(@user)
     end
 
     context 'with valid attributes' do
@@ -210,7 +218,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET edit' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'when user has permissions' do
@@ -218,7 +226,7 @@ RSpec.describe UsersController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
-          @user_example = FactoryBot.create(:user)
+          @user_example = FactoryBot.create(:user, role_id: @role.id)
         end
 
         before(:each) do
@@ -265,13 +273,13 @@ RSpec.describe UsersController, type: :controller do
   describe 'PATCH update' do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     context 'with valid attributes' do
 
       before(:each) do
-        @user_example_update = FactoryBot.create(:user)
+        @user_example_update = FactoryBot.create(:user, role_id: @role.id)
       end
 
       let(:valid_attributes) do
@@ -321,7 +329,7 @@ RSpec.describe UsersController, type: :controller do
     context 'with invalid attributes' do
 
       before(:each) do
-        @user_example_update = FactoryBot.create(:user, name: 'update test')
+        @user_example_update = FactoryBot.create(:user, name: 'update test', role_id: @role.id)
       end
 
       # send string to blog date
@@ -357,11 +365,11 @@ RSpec.describe UsersController, type: :controller do
   describe "DELETE destroy" do
 
     before(:each) do
-      sign_in
+      sign_in(@user)
     end
 
     before(:each) do
-      @user_example_delete = FactoryBot.create(:user, name: 'delete test')
+      @user_example_delete = FactoryBot.create(:user, name: 'delete test', role_id: @role.id)
     end
 
     context 'when user has permissions' do

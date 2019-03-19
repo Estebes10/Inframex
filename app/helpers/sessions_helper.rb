@@ -35,6 +35,15 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  # Checks if the user is active and logged in
+  def active_user?
+    if logged_in?
+      return current_user.status
+    else
+      return false
+    end
+  end
+
   # Forgets a persistent session.
   def forget(user)
     user.forget

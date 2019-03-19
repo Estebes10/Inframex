@@ -44,11 +44,11 @@
       <tbody>
       <% @job_progress.each do |job_progress| %>
         <tr>
-          <td>
-            <% if has_privilege(current_user, "concept_1") %>
-            <%= link_to job_progress.job.concept.code, {:controller => :concepts, :action => :show, :id => job_progress.job.concept.id} %>
-            <% end %>
-          </td>
+          <% if has_privilege(current_user, "concept_1") %>
+            <td>
+              <%= link_to job_progress.job.concept.code, {:controller => :concepts, :action => :show, :id => job_progress.job.concept.id} %>
+            </td>
+          <% end %>
           <td><%= job_progress.job.name %></td>
           <td><%= number_with_delimiter(job_progress.quantity) %> <%= job_progress.job.unity %></td>
           <% if has_privilege(current_user, "job_prog_5") || has_privilege(current_user, "job_prog_6") %>

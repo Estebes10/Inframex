@@ -1,12 +1,17 @@
 class UserProjectsController < ApplicationController
 
+  # Check if user belongs to project (also check if project exists)
+  before_action do
+    belongs_to_project_controller(current_user, params[:project_id])
+  end
+
+  before_action :set_project
+
   def new
-    @project = Project.find(params[:project_id])
     @users = User.where.not(id: UserProject.where(project_id: @project.id).map(&:user_id)).order(:role_id,:name,status: :desc)
   end
 
   def create
-    @project = Project.find(params[:project_id])
     @users_in_project = params[:user_project]
     if(!@users_in_project.nil?)
       @users_in_project.each do |u|
@@ -24,8 +29,13 @@ class UserProjectsController < ApplicationController
   end
 
   def destroy
-    @idProject = params[:project_id]
     @idUser = params[:id]
-    UserProject.where(user_id: @idUser, project_id: @idProject).delete_all
+    UserProject.where(user_id: @idUser, project_id: @project.id).delete_all
+  end
+
+  private
+
+  def set_project
+    @project = Project.find(params[:project_id])
   end
 end

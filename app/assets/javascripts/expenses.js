@@ -1,9 +1,3 @@
-jQuery(function() {
-    return $('#expense_supplier_name').autocomplete({
-        source: $('#expense_supplier_name').data('autocomplete-source')
-    });
-});
-
 // Expenses
 $( document ).on('ready turbolinks:load', function() {
     $('#expenses-datatable tbody').on('click', 'button.delete-expense-ajax', function (e) {

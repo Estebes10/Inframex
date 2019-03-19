@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Blog, type: :model do
 
+  before(:each)do
+    @project = FactoryBot.create(:project)
+  end
+
   subject(:blog_example) do
     # Returns a blog instance that's not saved
-    FactoryBot.build(:blog)
+    FactoryBot.build(:blog, project_id: @project.id)
   end
 
   # Test for valid attributes
@@ -60,16 +64,16 @@ RSpec.describe Blog, type: :model do
   end
 
   # Set of tests to validate associations
-  it 'has many expenses'
-
-  it 'has many pictures'
+  it 'has many expenses' do
+    should have_many(:expenses)
+  end
 
   it 'belongs to project' do
     should belong_to(:project)
   end
 
-  it 'has many jobs' do
-    should have_many(:jobs)
+  it 'has many job progreses' do
+    should have_many(:job_progress)
   end
 
 end

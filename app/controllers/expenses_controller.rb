@@ -1,5 +1,7 @@
 class ExpensesController < ApplicationController
 
+  autocomplete :supplier, :name
+
   #RBAC show
   before_action only: [:index, :show] do
     has_privilege_controller(current_user, 'expenses_1')
@@ -40,6 +42,11 @@ class ExpensesController < ApplicationController
     has_privilege_controller(current_user, 'file_8')
   end
 
+  # Check if user belongs to project (also check if project exists)
+  before_action except: [:destroy_ajax, :activate, :activate_ticket] do
+    belongs_to_project_controller(current_user, params[:project_id])
+  end
+
   before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment, :edit_image_info, :update_image_info]
@@ -60,6 +67,7 @@ class ExpensesController < ApplicationController
 
   def new
     @expense = @blog.expenses.new
+    @expense.date = Time.now
     @mode_edit = false
     @read_only = false
     @create = true

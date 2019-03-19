@@ -2,9 +2,22 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
 
+  before(:all)do
+    create_user
+  end
+
+  after(:all)do
+    delete_user
+  end
+
   describe 'GET index' do
 
     context 'when user has permissions' do
+
+      before(:each) do
+        sign_in(@user)
+      end
+
       it "assigns @categories" do
         categories = Category.all.order(:name)
         get :index
@@ -36,9 +49,9 @@ RSpec.describe CategoriesController, type: :controller do
   describe 'GET new' do
 
     context 'when user has permissions' do
-      it "renders the new template" do
-        get :new, xhr: true, format: :js
-        expect(response).to render_template(:new)
+
+      before(:each) do
+        sign_in(@user)
       end
 
       it "returns http success" do
@@ -67,6 +80,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       before(:each) do
+        sign_in(@user)
         post(
             :create,
             params: valid_attributes
@@ -94,10 +108,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display a success message' do
-        #expect(flash[:success]).to match(/ Éxito al crear la bitácora*/)
-        #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
@@ -111,6 +121,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       before(:each) do
+        sign_in(@user)
         post(
             :create,
             params: not_valid_attributes,
@@ -123,12 +134,9 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       it 'renders new template' do
-        expect(response).to render_template('new')
+        expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display an error message' do
-        #expect(flash[:danger]).to be_present
-      #end
     end
   end
 
@@ -139,6 +147,7 @@ RSpec.describe CategoriesController, type: :controller do
       context 'and record exists' do
 
         before(:each) do
+          sign_in(@user)
           @category_example = FactoryBot.create(:category)
         end
 
@@ -173,10 +182,6 @@ RSpec.describe CategoriesController, type: :controller do
           )
         end
 
-        #it 'should respond with not found code' do
-          #expect(response).to have_http_status(404)
-        #end
-
       end
     end
 
@@ -191,6 +196,7 @@ RSpec.describe CategoriesController, type: :controller do
     context 'with valid attributes' do
 
       before(:each) do
+        sign_in(@user)
         @category_example_update = FactoryBot.create(:category)
       end
 
@@ -228,15 +234,12 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).to redirect_to(categories_path)
       end
 
-      #it 'must display a success message' do
-        #expect(flash[:success]).to match(/ Bitácora modificada correctamente*/)
-        #expect(flash[:success]).to be_present
-      #end
     end
 
     context 'with invalid attributes' do
 
       before(:each) do
+        sign_in(@user)
         @category_example_update = FactoryBot.create(:category, name: 'update test')
       end
 
@@ -264,35 +267,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).not_to be_a_new(Category)
       end
 
-      it 'renders edit template' do
-        expect(response).to render_template("edit")
-      end
-
-      #it 'must display an error message' do
-        #expect(flash[:error]).to be_present
-        #expect(flash[:error]).to match(/ Error al modificar la bitácora*/)
-      #end
-    end
-  end
-
-  describe "DELETE destroy" do
-
-    before(:each) do
-      @category_example_delete = FactoryBot.create(:category, name: 'delete test')
-    end
-
-    context 'when user has permissions' do
-
-      #it "destroys the requested blog" do
-        #expect do
-          #delete :destroy, params: {:id => @category_example_delete.to_param}
-        #end.to change(Category, :count).by(-1)
-      #end
-
-    end
-
-    context 'when user has not permissions' do
-      it 'show unauthorized message'
     end
   end
 

@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get  'jobs/:job_id/job_progresses/new',  to: 'job_progresses#new', as: :new_job_progresses
       # expenses
       resources :expenses do
+        get :autocomplete_supplier_name, :on => :collection
         member do
           get 'edit_image_info/:attachment_id', to: 'expenses#edit_image_info', as: :edit_expense_image_info
           patch 'update_image_info/:attachment_id', to: 'expenses#update_image_info', as: :update_expense_image_info
@@ -79,9 +80,6 @@ Rails.application.routes.draw do
   #ajax routes for job progresses in blogs
   post 'job_progresses/activate', to: 'job_progresses#activate', as: :activate_job_progresses
 
-  # suppliers
-  resources :suppliers
-
   # roles
   resources :roles
 
@@ -89,4 +87,9 @@ Rails.application.routes.draw do
   get  '/roleprivileges/:idRole/new',  to: 'roleprivileges#new', as: :new_roleprivileges
   post '/roleprivileges/:idRole/new',  to: 'roleprivileges#create', as: :create_roleprivileges
   delete '/role/:idRole/privilege/:idPrivilege',  to: 'roleprivileges#destroy', as: :delete_roleprivileges
+
+  # errors
+  match '/404', :to => 'errors#not_found', :via => :all
+  match '/500', :to => 'errors#internal_server_error', :via => :all
+  match '*path' => redirect('/404'), via: :get
 end
