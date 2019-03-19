@@ -1,6 +1,6 @@
 <% if has_privilege(current_user, "project_8") %>
-<div class="row pL-10 pR-10">
-  <div class="masonry-item col-lg-6">
+<div class="row pL-15 pR-15">
+  <div class="masonry-item col-lg-6 pB-15">
     <div class="bgc-white">
       <div class="layers">
         <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
@@ -40,7 +40,92 @@
     </div>
   </div>
 
-  <div class="masonry-item col-lg-6">
+<!--
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gastos por Mes</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%#= line_chart Expense.joins(:blog)
+                             .where("blogs.project_id = #{@project.id.to_s}")
+                             .group_by { |e| e.date.beginning_of_month }
+                             .sum("expenses.total"),
+                         download: {filename: "proyecto_gastos_por_mes"},
+                         prefix: "$",
+                         thousands: ",",
+                         messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+-->
+
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gasto por Categoría</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%= pie_chart Category.joins(concepts: :expenses)
+                            .select("categories.name")
+                            .where("concepts.project_id = #{@project.id.to_s}")
+                            .group("categories.name")
+                            .sum("expenses.total").sort_by {|_key, value| value},
+                        download: {filename: "proyecto_gastos_por_categoria"},
+                        prefix: "$",
+                        thousands: ",",
+                        messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gasto por Subcategoría</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%= pie_chart Subcategory.joins(expenses: :blog)
+                            .select("subcategories.name")
+                            .where("blogs.project_id = #{@project.id.to_s}")
+                            .group("subcategories.name")
+                            .sum("expenses.total").sort_by {|_key, value| value},
+                        download: {filename: "proyecto_gastos_por_subcategoria"},
+                        prefix: "$",
+                        thousands: ",",
+                        messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gasto por Concepto</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%= bar_chart Concept.joins(:expenses)
+                            .select("concepts.code")
+                            .where("concepts.project_id = #{@project.id.to_s}")
+                            .group("concepts.code")
+                            .sum("expenses.total").sort_by {|_key, value| value},
+                        download: {filename: "proyecto_gastos_por_concepto"},
+                        prefix: "$",
+                        thousands: ",",
+                        messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-lg-6 pB-15">
     <div class="bgc-white">
       <div class="layers">
         <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
@@ -60,5 +145,6 @@
       </div>
     </div>
   </div>
+
 </div>
 <% end %>
