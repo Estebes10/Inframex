@@ -279,30 +279,35 @@ if !Privilege.find_by(name: 'Consultar')
                                          module_name: 'Archivos-Bitácoras'
                                      },
                                      # Privilegios nuevos sin orden
+                                     #45
                                      {
                                          name: 'Des/activar',
                                          description: 'Aprobar / Desaprobar facturación de gasto en el sistema',
                                          str_id: 'expenses_6',
                                          module_name: 'Gastos'
                                      },
+                                     #46
                                      {
                                          name: 'Des/activar',
                                          description: 'Activar / Desactivar proyecto en el sistema',
                                          str_id: 'project_5',
                                          module_name: 'Proyectos'
                                      },
+                                     #47
                                      {
                                          name: 'Estatus',
                                          description: 'Consultar estatus de bitácora en el sistema',
                                          str_id: 'blog_6',
                                          module_name: 'Bitácoras'
                                      },
+                                     #48
                                      {
                                          name: 'Estatus Aprobado',
                                          description: 'Consultar estatus de aprobado de gasto en el sistema',
                                          str_id: 'expenses_7',
                                          module_name: 'Gastos'
                                      },
+                                     #49
                                      {
                                          name: 'Estatus Facturado',
                                          description: 'Consultar estatus de facturado de gasto en el sistema',
@@ -316,6 +321,7 @@ if !Privilege.find_by(name: 'Consultar')
                                          str_id: 'project_6',
                                          module_name: 'Proyectos'
                                      },
+                                     #51
                                      {
                                          name: 'Estatus',
                                          description: 'Consultar estatus de usuario en el sistema',
@@ -323,24 +329,28 @@ if !Privilege.find_by(name: 'Consultar')
                                          module_name: 'Usuarios'
                                      },
                                      # Privilegios de Usuarios-Proyectos
+                                     #52
                                      {
                                          name: 'Consultar',
                                          description: 'Consultar usuario(s) asignados a un proyecto',
                                          str_id: 'userproject_1',
                                          module_name: 'Usuarios-Proyecto'
                                      },
+                                     #53
                                      {
                                          name: 'Crear',
                                          description: 'Asignar usuario(s) a un proyecto',
                                          str_id: 'userproject_2',
                                          module_name: 'Usuarios-Proyecto'
                                      },
+                                     #54
                                      {
                                          name: 'Eliminar',
                                          description: 'Quitar usuario(s) a un proyecto',
                                          str_id: 'userproject_3',
                                          module_name: 'Usuarios-Proyecto'
                                      },
+                                     #55
                                      {
                                          name: 'Consultar Proyectos',
                                          description: 'Consultar todos los proyectos sin importar si el usuario esta asignado.',
@@ -447,6 +457,13 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Consultar reportes generales del sistema',
                                          str_id: 'report_1',
                                          module_name: 'Reportes'
+                                     },
+                                     #72
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar reportes de proyecto',
+                                         str_id: 'project_8',
+                                         module_name: 'Proyectos'
                                      }
                                  ]
   )
