@@ -19,14 +19,14 @@ class Concept < ApplicationRecord
 
   validates :quantity,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality:{with: true, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
+            numericality:{with: true, only_integer: false, greater_than_or_equal_to: 0, message: "debe ser mayor a 0" }
 
   validates :unity,
             presence: {with: true, message: "no puede estar vacío"}
 
   validates :unit_price,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality: {with: true, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
+            numericality: {with: true, only_integer: false, greater_than_or_equal_to: 0, message: "debe ser mayor a 0" }
 
   validates :total,
             presence: {with: true, message: "no puede estar vacío"},
@@ -34,9 +34,9 @@ class Concept < ApplicationRecord
 
   validates :weight,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality:{with: true, only_integer: false, greater_than: 0,
-                          less_than: 100, message: "debe ser mayor a 0 y menor a 100" }
-  
+            numericality:{with: true, only_integer: false, greater_than_or_equal_to: 0,
+                          less_than_or_equal_to: 100, message: "debe ser mayor a 0 y menor a 100" }
+
   def sum_all_jobs_weight
     jobs.sum(:weight)
   end
@@ -56,7 +56,7 @@ class Concept < ApplicationRecord
   def get_expenses_progress_100
     self.get_expenses_progress * 100
   end
-  
+
   def get_progress
     total_weigth = self.sum_all_jobs_weight
     progress = 0.0
@@ -65,11 +65,11 @@ class Concept < ApplicationRecord
     end
     return progress
   end
-  
+
   def get_progress_100
     self.get_progress * 100
   end
-  
+
   private
 
   def calculate_total

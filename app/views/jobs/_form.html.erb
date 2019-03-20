@@ -22,15 +22,15 @@
                                class:"form-control",
                                required: 'true',
                                placeholder: "e.g. 10",
-                               step: 0.001,
+                               step: :any,
                                readonly: @readonly %>
           </div>
           <div class="col-md-6 mT-15">
               <%= f.label :unity, "#{@required_str}Unidad:" %>
-              <%= f.text_field :unity, 
+              <%= f.text_field :unity,
                                class:"form-control",
-                               required: 'true', 
-                               placeholder: "e.g. m2", 
+                               required: 'true',
+                               placeholder: "e.g. m2",
                                readonly: @readonly %>
           </div>
           <div class="col-md-6 mT-15">
@@ -39,7 +39,7 @@
                                class:"form-control",
                                required: 'true',
                                placeholder: "e.g. 10",
-                               step: 0.001,
+                               step: :any,
                                readonly: @readonly %>
           </div>
         </div>
@@ -50,7 +50,7 @@
     <div id="form-footer-job">
       <hr>
       <div class="text-center">
-        <a href="<%= project_concept_path(@project, @concept)%>" 
+        <a href="<%= project_concept_path(@project, @concept)%>"
           class="btn btn-outline-danger">Cancelar</a>
         <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
       </div>

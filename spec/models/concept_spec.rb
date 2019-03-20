@@ -67,20 +67,20 @@ RSpec.describe Concept, type: :model do
     expect(concept_example).not_to be_valid
   end
 
-  it 'is not valid if quantity is less or equal than 0' do
-    concept_example.quantity = 0
+  it 'is not valid if quantity is less than 0' do
+    concept_example.quantity = -1
 
     expect(concept_example).not_to be_valid
   end
 
-  it 'is not valid if unit price is less or equal than 0' do
-    concept_example.unit_price = 0
+  it 'is not valid if unit price is less than 0' do
+    concept_example.unit_price = -1
 
     expect(concept_example).not_to be_valid
   end
 
-  it 'is not valid if weight is less or equal than 0' do
-    concept_example.weight = 0
+  it 'is not valid if weight is less than 0' do
+    concept_example.weight = -1
 
     expect(concept_example).not_to be_valid
   end

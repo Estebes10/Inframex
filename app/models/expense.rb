@@ -23,7 +23,7 @@ class Expense < ApplicationRecord
 
   validates :unit_price,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality: {with: true, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
+            numericality: {with: true, only_integer: false, greater_than_or_equal_to: 0, message: "debe ser mayor a 0" }
 
   validates :total,
             presence: {with: true, message: "no puede estar vacío"},
@@ -37,7 +37,7 @@ class Expense < ApplicationRecord
 
   validates :quantity,
             presence: {with: true, message: "no puede estar vacío"},
-            numericality:{with: true, only_integer: false, greater_than: 0, message: "debe ser mayor a 0" }
+            numericality:{with: true, only_integer: false, greater_than_or_equal_to: 0, message: "debe ser mayor a 0" }
 
   validates :supplier_name,
             presence: {with: true, message: "no puede estar vacío"},

@@ -56,14 +56,14 @@ RSpec.describe Job, type: :model do
     expect(job_example).not_to be_valid
   end
 
-  it 'is not valid if the unity is less or equal than 0' do
-    job_example.quantity = 0
+  it 'is not valid if the unity is less than 0' do
+    job_example.quantity = -1
 
     expect(job_example).not_to be_valid
   end
 
   it 'is not valid if the weight is less than 0' do
-    job_example.weight = 0
+    job_example.weight = -1
 
     expect(job_example).not_to be_valid
   end
