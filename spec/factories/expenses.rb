@@ -6,6 +6,7 @@ FactoryBot.define do
     unit_price       {Faker::Number.between(from = 2.00, to = 100.00)}
     quantity         {Faker::Number.decimal(2,2)}
     status           {Faker::Boolean.boolean}
+    iva              {Faker::Boolean.boolean}
     status_ticket    {Faker::Boolean.boolean}
     supplier_id      {Supplier.all.ids.sample}
     subcategory_id   {Subcategory.all.ids.sample}

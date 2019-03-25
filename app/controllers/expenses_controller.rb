@@ -160,6 +160,7 @@ class ExpensesController < ApplicationController
         :unit_price,
         :total,
         :status,
+        :iva,
         :status_ticket,
         :quantity,
         :supplier_name,

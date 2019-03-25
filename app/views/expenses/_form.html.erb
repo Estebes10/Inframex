@@ -69,6 +69,34 @@
               readonly: @read_only %>
           </div>
 
+          <% if !@read_only %>
+            <div class="col-md-6 mT-15">
+              <label>I.V.A:</label>
+              <div class="row">
+                <div class="col-md-2 col-sm-2" align="center">
+                  <label class="switch">
+                    <% @read_only ? @var = "return false;" : @var = ""%>
+                    <%= f.check_box :iva, onclick: @var %>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="col-md-6 mT-15">
+              <label>I.V.A:</label>
+              <div class="row">
+                <div class="col-md-2 col-sm-2" align="center">
+                  <label class="switch">
+                    <% @read_only ? @var = "return false;" : @var = ""%>
+                    <%= f.check_box :iva, onclick: @var %>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
           <% if !@create %>
             <% if has_privilege(current_user, "expenses_7") %>
               <% if !@read_only %>
