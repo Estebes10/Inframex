@@ -32,4 +32,10 @@ class Blog < ApplicationRecord
     expenses.sum(:total)
   end
 
+  def completed_blog?
+    not (expenses.where(status: false).any? or
+        expenses.where(status_ticket: false).any? or
+        job_progress.where(status: false).any?)
+  end
+
 end

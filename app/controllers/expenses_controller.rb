@@ -50,9 +50,11 @@ class ExpensesController < ApplicationController
   before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment, :edit_image_info, :update_image_info]
-  before_action :set_expense_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
+  before_action :set_expense_blog_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
   before_action :select_objects, only: [:show, :edit]
   before_action :set_categories_subcategories_and_concepts, only: [:show, :new, :edit]
+
+  after_action :activate_blog, only: [:create, :update, :activate, :activate_ticket, :destroy, :destroy_ajax]
 
   def index
     @expenses = @blog.expenses.all
@@ -179,8 +181,9 @@ class ExpensesController < ApplicationController
     @expense = @blog.expenses.find_by!(id: params[:id]) if @blog
   end
 
-  def set_expense_ajax
+  def set_expense_blog_ajax
     @expense = Expense.find(params[:id])
+    @blog = @expense.blog
   end
 
   def select_objects
@@ -192,5 +195,15 @@ class ExpensesController < ApplicationController
     @categories = Category.order(:name).all
     @subcategories = Subcategory.order(:name).all
     @concepts = @project.concepts.order(:code).all
+  end
+
+  def activate_blog
+    if @blog.completed_blog?
+      @blog.status = true
+      @blog.save
+    else
+      @blog.status = false
+      @blog.save
+    end
   end
 end

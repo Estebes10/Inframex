@@ -27,7 +27,9 @@ class JobProgressesController < ApplicationController
   before_action :set_project, except: [:activate]
   before_action :set_blog, except: [:activate]
   before_action :set_job_progress, only: [:update, :edit, :destroy]
-  before_action :set_job_progress_ajax, only: [:activate]
+  before_action :set_job_progress_blog_ajax, only: [:activate]
+
+  after_action :activate_blog, only: [:create, :update, :activate, :destroy]
 
   def index
   end
@@ -103,7 +105,18 @@ class JobProgressesController < ApplicationController
   end
   
   # find current job for ajax methods
-  def set_job_progress_ajax
+  def set_job_progress_blog_ajax
     @job_progress = JobProgress.find(params[:id])
+    @blog = @job_progress.blog
+  end
+
+  def activate_blog
+    if @blog.completed_blog?
+      @blog.status = true
+      @blog.save
+    else
+      @blog.status = false
+      @blog.save
+    end
   end
 end
