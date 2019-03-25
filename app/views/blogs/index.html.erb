@@ -30,7 +30,6 @@
             <table class="table table-hover datatable" id="blogs-datatable" role="datatable">
             <thead>
               <tr>
-                <th scope="col">Número</th>
                 <th scope="col">Fecha de creación</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
@@ -45,7 +44,6 @@
             <tbody>
             <% @blogs.each do |blog| %>
               <tr>
-                <td><%= blog.id %></td>
                 <td><%= blog.date.strftime("%d/%m/%Y") %></td>
                 <td><%= blog.name %></td>
                 <td class="text-truncate text-truncate" style="max-width: 150px;"> <%= blog.description %></td>
