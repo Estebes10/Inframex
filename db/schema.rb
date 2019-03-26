@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_18_182200) do
+ActiveRecord::Schema.define(version: 2019_03_25_035112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2019_03_18_182200) do
     t.boolean "status_ticket", default: false, null: false
     t.bigint "concept_id", null: false
     t.bigint "blog_id", null: false
+    t.boolean "iva", default: false, null: false
     t.index ["blog_id"], name: "index_expenses_on_blog_id"
     t.index ["concept_id"], name: "index_expenses_on_concept_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
