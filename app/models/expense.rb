@@ -32,6 +32,9 @@ class Expense < ApplicationRecord
   validates :status,
             inclusion: { in: [true, false] }
 
+  validates :iva,
+            inclusion: { in: [true, false]}
+
   validates :status_ticket,
             inclusion: { in: [true, false] }
 
@@ -54,7 +57,14 @@ class Expense < ApplicationRecord
   private
 
   def calculate_total
-    self.total ||= self.quantity * self.unit_price if attribute_present?("quantity") and attribute_present?("unit_price")
+    partial_total = self.quantity * self.unit_price
+    if attribute_present?("quantity") and attribute_present?("unit_price")
+      if self.iva
+        self.total = partial_total * 1.16
+      else
+        self.total = partial_total
+      end
+    end
   end
 
 end
