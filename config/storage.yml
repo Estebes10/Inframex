@@ -18,9 +18,9 @@ local:
 # credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
 google:
   service: GCS
-  project: infra-store
+  project: infra-admin
   credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'] %>
-  bucket: infra-store
+  bucket: infra-admin
 
 google_dev:
   service: GCS
