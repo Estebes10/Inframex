@@ -4,7 +4,7 @@
     <div class="bgc-white">
       <div class="layers">
         <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-          <h5 class="float-left fsz-md">Resumen de Avances</h5>
+          <h5 class="float-left fsz-md">Resumen de Avances por Categoría</h5>
         </div>
         <div class="layer w-100 p-20">
           <% @categories.each do |c| %>
@@ -40,7 +40,32 @@
     </div>
   </div>
 
-<!--
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Resumen de Avances por Concepto</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <% @project.concepts.each do |c| %>
+            <% progress = c.get_progress_100().round(2) %>
+            <h6 class="text-truncate"><%= c.code %>: <%= c.description %></h6>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated"
+                   role="progressbar"
+                   aria-valuenow="<%= progress %>"
+                   aria-valuemin="0"
+                   aria-valuemax="100"
+                   style="width: <%= progress %>%">
+                <%= progress %>%
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="masonry-item col-lg-6 pB-15">
     <div class="bgc-white">
       <div class="layers">
@@ -48,10 +73,10 @@
           <h5 class="float-left fsz-md">Gastos por Mes</h5>
         </div>
         <div class="layer w-100 p-20">
-          <%#= line_chart Expense.joins(:blog)
+          <%= line_chart Expense.joins(:blog)
                              .where("blogs.project_id = #{@project.id.to_s}")
-                             .group_by { |e| e.date.beginning_of_month }
-                             .sum("expenses.total"),
+                             .group_by_month("expenses.date")
+                             .sum(:total),
                          download: {filename: "proyecto_gastos_por_mes"},
                          prefix: "$",
                          thousands: ",",
@@ -60,7 +85,26 @@
       </div>
     </div>
   </div>
--->
+
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gastos por Día</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%= line_chart Expense.joins(:blog)
+                             .where("blogs.project_id = #{@project.id.to_s}")
+                             .group_by_day("expenses.date")
+                             .sum(:total),
+                         download: {filename: "proyecto_gastos_por_mes"},
+                         prefix: "$",
+                         thousands: ",",
+                         messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="masonry-item col-lg-6 pB-15">
     <div class="bgc-white">
