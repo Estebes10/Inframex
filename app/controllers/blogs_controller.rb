@@ -43,7 +43,11 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:edit, :update, :show, :destroy, :destroy_ajax, :activate, :delete_image_attachment, :edit_image_info, :update_image_info]
 
   def index
-    blogs_filter
+    if has_privilege(current_user, 'blog_7')
+      @blogs = @project.blogs.where(status: true).all.order(:date)
+    else
+      @blogs = @project.blogs.all.order(:date)
+    end
   end
 
   def show
@@ -166,14 +170,6 @@ class BlogsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
-  end
-
-  def blogs_filter
-    if has_privilege(current_user, 'blog_7')
-      @blogs = @project.blogs.where(status: true).all.order(:date)
-    else
-      @blogs = @project.blogs.all.order(:date)
-    end
   end
 
 end
