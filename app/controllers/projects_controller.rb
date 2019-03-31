@@ -84,6 +84,44 @@ class ProjectsController < ApplicationController
   end
 
   def reports
+    @queries = Hash.new
+    # 1. Total estimated cost, sum of concepts total
+    @queries[:estimated_cost] = Concept.where("project_id = #{@project.id.to_s}").sum(:total)
+    # 2. Total project expenses (real)
+    @queries[:total_expenses]= Expense.joins(:blog).where("blogs.project_id = #{@project.id.to_s}").sum(:total)
+    # 3. Expenses by categories
+    @queries[:categories_expenses] = Category.joins(concepts: :expenses)
+                                       .select("categories.name")
+                                       .where("concepts.project_id = #{@project.id.to_s}")
+                                       .group("categories.name")
+                                       .sum("expenses.total").sort_by {|_key, value| value}
+    # 4. Expenses by subcategories
+    @queries[:subcategories_expenses] = Subcategory.joins(expenses: :blog)
+                                         .select("subcategories.name")
+                                         .where("blogs.project_id = #{@project.id.to_s}")
+                                         .group("subcategories.name")
+                                         .sum("expenses.total").sort_by {|_key, value| value}
+    # 5. Expenses by concept
+    @queries[:concepts_expenses] = Concept.joins(:expenses)
+                                            .select("concepts.code")
+                                            .where("concepts.project_id = #{@project.id.to_s}")
+                                            .group("concepts.code")
+                                            .sum("expenses.total").sort_by {|_key, value| value}
+    # 6. Expenses by month
+    @queries[:month_expenses] = Expense.joins(:blog)
+                                       .where("blogs.project_id = #{@project.id.to_s}")
+                                       .group_by_month("expenses.date")
+                                       .sum(:total)
+    # 7. Expenses by day
+    @queries[:day_expenses] = Expense.joins(:blog)
+                                    .where("blogs.project_id = #{@project.id.to_s}")
+                                    .group_by_day("expenses.date")
+                                    .sum(:total)
+    # 8. Expenses by supplier
+    @queries[:suppliers_expenses] = Supplier.joins(expenses: :blog)
+                                  .select("suppliers.name")
+                                  .where("blogs.project_id = #{@project.id.to_s}")
+                                  .group("suppliers.name").sum("expenses.total").sort_by {|_key, value| value}
   end
 
   private
