@@ -3,7 +3,7 @@ class ExpensesController < ApplicationController
   autocomplete :supplier, :name
 
   #RBAC show
-  before_action only: [:index, :show] do
+  before_action only: [:index, :show, :project_expenses] do
     has_privilege_controller(current_user, 'expenses_1')
   end
 
@@ -43,11 +43,15 @@ class ExpensesController < ApplicationController
   end
 
   # Check if user belongs to project (also check if project exists)
-  before_action except: [:destroy_ajax, :activate, :activate_ticket] do
+  before_action except: [:destroy_ajax, :activate, :activate_ticket, :project_expenses] do
     belongs_to_project_controller(current_user, params[:project_id])
   end
 
-  before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket]
+  before_action only: [:project_expenses] do
+    belongs_to_project_controller(current_user, params[:id])
+  end
+
+  before_action :set_project, except: [:destroy_ajax, :activate, :activate_ticket, :project_expenses]
   before_action :set_blog, except: [:destroy_ajax, :activate, :activate_ticket]
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :delete_image_attachment, :edit_image_info, :update_image_info]
   before_action :set_expense_blog_ajax, only: [:destroy_ajax, :activate, :activate_ticket]
@@ -143,6 +147,24 @@ class ExpensesController < ApplicationController
     else
       flash[:danger] = ' Error al modificar el archivo'
       render :edit
+    end
+  end
+
+  def project_expenses
+    @project = Project.find(params[:id])
+    @expenses = []
+    if has_privilege(current_user, 'expenses_9')
+      @project.blogs.each do |blog|
+        blog.expenses.where(status: true).each do |expense|
+          @expenses.push(expense)
+        end
+      end
+    else
+      @project.blogs.each do |blog|
+        blog.expenses.each do |expense|
+          @expenses.push(expense)
+        end
+      end
     end
   end
 

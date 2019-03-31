@@ -43,6 +43,7 @@ function deleteConceptAjax(conceptId, projectId, deleteButton) {
                 showConfirmButton: false
             });
             deleteButton.closest('tr').fadeOut();
+            window.location = "/projects/" + projectId + "/concepts/";
         }).catch(function(data) {
             spinner.classList.add('fadeOut');
             swal({

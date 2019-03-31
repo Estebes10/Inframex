@@ -31,6 +31,10 @@ Rails.application.routes.draw do
 
   # projects
   resources :projects do
+    member do
+      get 'reports', to: 'projects#reports', as: :project_reports
+      get 'project_expenses', to: 'expenses#project_expenses', as: :project_expenses
+    end
     resources :user_projects, except: :destroy
     # blogs
     resources :blogs, except: :destroy do
@@ -50,7 +54,7 @@ Rails.application.routes.draw do
       member do
         get 'edit_image_info/:attachment_id', to: 'blogs#edit_image_info', as: :edit_image_info
         patch 'update_image_info/:attachment_id', to: 'blogs#update_image_info', as: :update_image_info
-        delete 'delete_image_attachment/:attachment_id', to: 'blogs#delete_image_attachment', as: :delete_image_attachment
+        delete 'delete_image_attachment/:attachment_id', to: 'blogs#delete_image_attachment', as: :delete_image_attachmen
       end
     end
 
