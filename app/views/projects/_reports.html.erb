@@ -1,7 +1,7 @@
 <% if has_privilege(current_user, "project_8") %>
 <div class="row pL-15 pR-15">
   <div class="masonry-item col-lg-6 pB-15">
-    <div class="bgc-white">
+    <div class="bgc-white mB-15">
       <div class="layers">
         <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
           <h5 class="float-left fsz-md">Resumen de Avances por Categoría</h5>
@@ -38,6 +38,42 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class='col-sm-6 pB-15'>
+        <div class="layers bd bgc-white p-20">
+          <div class="layer w-100 mB-10">
+            <h6 class="lh-1">Costo Total Estimado de Proyecto</h6>
+          </div>
+          <div class="layer w-100">
+            <div class="peers ai-sb fxw-nw d-inline">
+              <div class="peer float-right">
+            <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500 float-right">
+              <%= number_to_currency(Concept.where("project_id = #{@project.id.to_s}").sum(:total)) %>
+            </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='col-sm-6 pB-15'>
+        <div class="layers bd bgc-white p-20">
+          <div class="layer w-100 mB-10">
+            <h6 class="lh-1">Gasto Total Real de Proyecto</h6>
+          </div>
+          <div class="layer w-100">
+            <div class="peers ai-sb fxw-nw d-inline">
+              <div class="peer float-right">
+            <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">
+              <%= number_to_currency(Expense.joins(:blog).where("blogs.project_id = #{@project.id.to_s}").sum(:total)) %>
+            </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="masonry-item col-lg-6 pB-15">
@@ -61,46 +97,6 @@
               </div>
             </div>
           <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="masonry-item col-lg-6 pB-15">
-    <div class="bgc-white">
-      <div class="layers">
-        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-          <h5 class="float-left fsz-md">Gastos por Mes</h5>
-        </div>
-        <div class="layer w-100 p-20">
-          <%= line_chart Expense.joins(:blog)
-                             .where("blogs.project_id = #{@project.id.to_s}")
-                             .group_by_month("expenses.date")
-                             .sum(:total),
-                         download: {filename: "proyecto_gastos_por_mes"},
-                         prefix: "$",
-                         thousands: ",",
-                         messages: {empty: "Sin datos"}%>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="masonry-item col-lg-6 pB-15">
-    <div class="bgc-white">
-      <div class="layers">
-        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-          <h5 class="float-left fsz-md">Gastos por Día</h5>
-        </div>
-        <div class="layer w-100 p-20">
-          <%= line_chart Expense.joins(:blog)
-                             .where("blogs.project_id = #{@project.id.to_s}")
-                             .group_by_day("expenses.date")
-                             .sum(:total),
-                         download: {filename: "proyecto_gastos_por_mes"},
-                         prefix: "$",
-                         thousands: ",",
-                         messages: {empty: "Sin datos"}%>
         </div>
       </div>
     </div>
@@ -164,6 +160,80 @@
                         prefix: "$",
                         thousands: ",",
                         messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gastos por Mes</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%= line_chart Expense.joins(:blog)
+                             .where("blogs.project_id = #{@project.id.to_s}")
+                             .group_by_month("expenses.date")
+                             .sum(:total),
+                         download: {filename: "proyecto_gastos_por_mes"},
+                         prefix: "$",
+                         thousands: ",",
+                         messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-sm-12 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Gastos por Día</h5>
+        </div>
+        <div class="layer w-100 p-20">
+          <%= line_chart Expense.joins(:blog)
+                             .where("blogs.project_id = #{@project.id.to_s}")
+                             .group_by_day("expenses.date")
+                             .sum(:total),
+                         download: {filename: "proyecto_gastos_por_mes"},
+                         prefix: "$",
+                         thousands: ",",
+                         messages: {empty: "Sin datos"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-lg-6 pB-15">
+    <div class="bgc-white">
+      <div class="layers">
+        <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+          <h5 class="float-left fsz-md">Estimación vs Gasto Real por Concepto</h5>
+        </div>
+        <div class="layer w-100">
+          <% @project.concepts.each do |c| %>
+            <% c_expenses = c.sum_all_expenses().round(2) %>
+            <div class="layers bgc-white p-20">
+              <div class="layer w-100 mB-10">
+                <h6 class="text-truncate"><%= c.code %>: <%= c.description %></h6>
+              </div>
+              <div class="layer w-100">
+                <div class="peers ai-sb fxw-nw d-inline">
+                  <div class="peer float-right pL-20">
+                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">
+                      Gastado: <%= number_to_currency(c_expenses) %>
+                    </span>
+                  </div>
+                  <div class="peer float-right">
+                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">
+                      Estimado: <%= number_to_currency(c.total) %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
