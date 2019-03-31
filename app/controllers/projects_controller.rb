@@ -24,6 +24,10 @@ class ProjectsController < ApplicationController
     belongs_to_project_controller(current_user, params[:id])
   end
 
+  before_action only: [:general_reports] do
+    has_privilege_controller(current_user, 'report_1')
+  end
+
   before_action :set_project, only: [:edit, :update, :show, :destroy]
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
@@ -84,6 +88,10 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
+  end
+
+  def general_reports
+
   end
 
   private

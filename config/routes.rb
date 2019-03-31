@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get '/edit_password/:reset_digest/edit', to: 'email_resets#edit_password', as: :edit_password
   patch '/update_password', to: 'email_resets#update_password', as: :update_password
   get '/edit_password_profile', to: 'users#edit_password', as: :edit_password_profile
+  get '/reportes', to: 'projects#general_reports', as: :general_reports
 
   # Password reset
   resources :email_resets, only: [:new, :create, :edit, :update]
