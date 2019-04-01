@@ -79,7 +79,8 @@ Rails.application.configure do
   }
   config.action_mailer.default_url_options = { host: "app.inframex.mx" }
   config.action_mailer.asset_host = 'http://app.inframex.mx'
-  config.action_controller.asset_host = 'http://app.inframex.mx'
+  config.action_controller.asset_host = 'http://app.inframex.mx/'
+  config.default_url_options = { host: "app.inframex.mx" }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
