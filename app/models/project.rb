@@ -75,4 +75,48 @@ class Project < ApplicationRecord
     self.get_project_progress * 100
   end
 
+  def get_estimated_cost
+    concepts.sum(:total)
+  end
+
+  def get_total_project_expenses
+    concepts.joins(:expenses).sum("expenses.total")
+  end
+
+  def get_expenses_by_concept
+    concepts.joins(:expenses)
+        .select("concepts.code")
+        .group("concepts.code")
+        .sum("expenses.total").sort_by {|_key, value| value}
+  end
+
+  def get_expenses_by_month
+    concepts.joins(:expenses)
+        .group_by_month("expenses.date")
+        .sum(:total)
+  end
+
+  def get_expenses_by_day
+    concepts.joins(:expenses)
+        .group_by_day("expenses.date")
+        .sum(:total)
+  end
+
+  def get_expenses_by_supplier
+    concepts.joins(expenses: :supplier)
+        .select("suppliers.name")
+        .group("suppliers.name").sum("expenses.total").sort_by {|_key, value| value}
+  end
+
+  def get_expenses_by_subcategory
+    concepts.joins(expenses: :subcategory)
+        .select("subcategories.name")
+        .group("subcategories.name").sum("expenses.total").sort_by {|_key, value| value}
+  end
+
+  def get_expenses_by_category
+    concepts.joins(:expenses).joins(:category)
+        .select("categories.name")
+        .group("categories.name").sum("expenses.total").sort_by {|_key, value| value}
+  end
 end
