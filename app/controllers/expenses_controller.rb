@@ -151,6 +151,7 @@ class ExpensesController < ApplicationController
   end
 
   def project_expenses
+    @tabs = "expenses"
     @project = Project.find(params[:id])
     @expenses = []
     if has_privilege(current_user, 'expenses_9')

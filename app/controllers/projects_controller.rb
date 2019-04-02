@@ -48,6 +48,7 @@ class ProjectsController < ApplicationController
     @readonly = true
     @create = false
     @required_str = ""
+    @tabs = "general"
   end
 
   def create
@@ -84,6 +85,10 @@ class ProjectsController < ApplicationController
   end
 
   def reports
+    if !has_privilege(current_user, 'project_8')
+      redirect_to project_path(@project)
+    end
+    @tabs = "reports"
   end
 
   private

@@ -8,6 +8,7 @@ class UserProjectsController < ApplicationController
   before_action :set_project
 
   def index
+    @tabs = "users"
     @users = @project.users.order(:role_id,:name).all
   end
 

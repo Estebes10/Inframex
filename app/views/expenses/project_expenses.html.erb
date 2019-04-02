@@ -12,35 +12,7 @@
           %>
         <% end %>
         <h5 class="float-left pL-15">Proyecto - <%= @project.name %> - <%= @project.code%></h5>
-        <nav class="float-right">
-          <div class="nav nav-tabs nav-fill" id="project-nav-tab" role="tablist">
-            <% if has_privilege(current_user, "project_8") %>
-              <%= link_to "Reportes", project_reports_project_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-reports-tab" %>
-            <% end %>
-
-            <% if has_privilege(current_user, "project_1") %>
-              <%= link_to "General", project_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-users-tab" %>
-            <% end %>
-
-            <% if has_privilege(current_user, "blog_1") %>
-              <%= link_to "Bitácoras", project_blogs_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-blogs-tab" %>
-            <% end %>
-
-            <% if has_privilege(current_user, "concept_1") %>
-              <%= link_to "Conceptos", project_concepts_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-concepts-tab" %>
-            <% end %>
-
-            <% if has_privilege(current_user, "expenses_1") %>
-              <a class="bdB nav-item nav-link active c-white" id="nav-expenses-tab" >
-                Gastos
-              </a>
-            <% end %>
-
-            <% if has_privilege(current_user, "userproject_1") %>
-              <%= link_to "Usuarios", project_user_projects_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-users-tab" %>
-            <% end %>
-          </div>
-        </nav>
+        <%= render 'layouts/tabs' %>
       </div>
       <div class="layer w-100 pT-20 pB-20">
         <div class="masonry-item col-md-12">
