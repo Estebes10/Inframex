@@ -7,6 +7,11 @@ class UserProjectsController < ApplicationController
 
   before_action :set_project
 
+  def index
+    @tabs = "users"
+    @users = @project.users.order(:role_id,:name).all
+  end
+
   def new
     @users = User.where.not(id: UserProject.where(project_id: @project.id).map(&:user_id)).order(:role_id,:name,status: :desc)
   end
@@ -25,7 +30,7 @@ class UserProjectsController < ApplicationController
     else
       flash[:danger] = "No se han seleccionado usuarios"
     end
-    redirect_to project_path(@project , :anchor => "nav-users")
+    redirect_to project_user_projects_path(@project)
   end
 
   def destroy

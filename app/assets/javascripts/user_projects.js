@@ -21,7 +21,7 @@ function deleteUserProject(userId, projectId, deleteButton) {
     }, function() {
         spinner.classList.remove('fadeOut');
         $.ajax({
-            url: projectId + "/user_projects/" + userId,
+            url: "/projects/" + projectId + "/user_projects/" + userId,
             type: "DELETE"
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');

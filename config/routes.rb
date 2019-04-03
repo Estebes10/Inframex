@@ -32,6 +32,10 @@ Rails.application.routes.draw do
 
   # projects
   resources :projects do
+    member do
+      get 'reports', to: 'projects#reports', as: :project_reports
+      get 'project_expenses', to: 'expenses#project_expenses', as: :project_expenses
+    end
     resources :user_projects, except: :destroy
     # blogs
     resources :blogs, except: :destroy do
