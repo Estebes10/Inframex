@@ -91,7 +91,16 @@ class ProjectsController < ApplicationController
   end
 
   def general_reports
-
+    @query = Hash.new
+    @query[:progress] = Project.progress_by_project
+    @query[:active_users] = User.total_active_users
+    @query[:inactive_users] = User.total_inactive_users
+    @query[:user_per_role] = User.user_by_role
+    @query[:blogs_per_project] = Project.total_blogs_per_project
+    @query[:expenses_per_project] = Project.get_total_expenses_per_project
+    @query[:global_expenses_per_category] = Project.global_expenses_per_category
+    @query[:global_expenses_per_subcategory] = Project.global_expenses_per_subcategory
+    @query[:expenses_per_day_by_range] = Expense.expenses_per_day_by_range
   end
 
   private

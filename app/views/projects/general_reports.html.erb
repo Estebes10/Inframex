@@ -1,9 +1,148 @@
-<% provide(:title, 'Reportes Generales') %>
-<div class="masonry-item col-md-12">
-  <!-- #Todo ==================== -->
-  <div class="bgc-white">
-    <div class="layers">
-      <h1>reportes generales</h1>
+<% if has_privilege(current_user, "report_1") %>
+  <div class="masonry-item col-md-6">
+    <!-- #Todo ==================== -->
+    <div class="bgc-grey-300">
+
+          <div class="row">
+            <div class="masonry-item col-md-12">
+              <div class="bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                    <h5 class="float-left fsz-md">Avance por proyecto</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                    <%= bar_chart @query[:progress],
+                      download: {filename: "proyecto_gastos_por_concepto"},
+                      suffix: "%",
+                      thousands: ",",
+                      messages: {empty: "Sin datos"},
+                      min: 0,
+                      max: 100 %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="masonry-item col-md-12">
+              <div class="bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                    <h5 class="float-left fsz-md">Total de usuarios por rol</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                    <%= pie_chart @query[:user_per_role] %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="masonry-item col-md-12">
+              <div class="bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                    <h5 class="float-left fsz-md">Total de bitácoras por proyecto</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                    <%= column_chart @query[:blogs_per_project],
+                      download: {filename: "bitacoras_por_proyecto"},
+                      thousands: ",",
+                      messages: {empty: "Sin datos"},
+                      stacked: true,
+                      min: 0 %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="masonry-item col-md-12">
+              <div class="bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                    <h5 class="float-left fsz-md">Gastos globales por categoria</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                    <%= pie_chart @query[:global_expenses_per_category],
+                      download: {filename: "general_expenses_per_category"},
+                      prefix: "$",
+                      thousands: ",",
+                      messages: {empty: "Sin datos"}%>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="masonry-item col-md-12">
+              <div class="bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                    <h5 class="float-left fsz-md">Gastos globales por Subcategoria</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                    <%= pie_chart @query[:global_expenses_per_subcategory],
+                      download: {filename: "general_expenses_per_subcategory"},
+                      prefix: "$",
+                      thousands: ",",
+                      messages: {empty: "Sin datos"} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="masonry-item col-md-12">
+              <div class="bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                    <h5 class="float-left fsz-md">Presupuesto/Gasto</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                      <%= bar_chart [
+                        {name: "Gastos", data: @query[:expenses_per_project]},
+                        {name: "Presupuesto", data: @query[:expenses_per_project]}
+                      ], download: {filename: "presupuestos_gastos"},
+                      prefix: "$",
+                      thousands: ",",
+                      decimal: ".",
+                      messages: {empty: "Sin datos"},
+                      min: 0 %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="masonry-item col-md-12">
+              <div class="bgc-white">
+                <div class="layers">
+                  <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                    <h5 class="float-left fsz-md">Gastos por día (últimos 24 días)</h5>
+                  </div>
+                  <div class="layer w-100 p-20">
+                      <%= line_chart @query[:expenses_per_day_by_range], download: {filename: "presupuestos_gastos"},
+                      prefix: "$",
+                      thousands: ",",
+                      decimal: ".",
+                      messages: {empty: "Sin datos"},
+                      min: 0 %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class='col-sm-6 pB-15'>
+              <div class="layers bd bgc-white p-20">
+                <div class="layer w-100 mB-10">
+                  <h6 class="lh-1">Usuarios en el sistema</h6>
+                </div>
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500 float-right">
+                  Activos: <%= @query[:active_users] %>
+                </span>
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500 float-right">
+                  Inactivos: <%= @query[:inactive_users] %>
+                </span>
+              </div>
+            </div>
+          </div>
     </div>
   </div>
-</div>
+<% end %>

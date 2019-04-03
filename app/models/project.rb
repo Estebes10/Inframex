@@ -45,6 +45,54 @@ class Project < ApplicationRecord
 
   validates :status, inclusion: { in: [ true, false ] }
 
+  def self.progress_by_project
+    progresses = []
+    Project.all.each do |project|
+      progresses.push([project.name, project.get_project_progress * 100])
+    end
+    progresses
+  end
+
+  def self.total_blogs_per_project
+    blogs_per_project = []
+    Project.all.each do |project|
+      blogs_per_project.push([project.name, project.blogs.count.to_i])
+    end
+    blogs_per_project
+  end
+
+  def self.get_total_expenses_per_project
+    expense_per_project = []
+    Project.all.each do |project|
+      total = 0
+      project.blogs.each do |blog|
+        total = total + blog.sum_all_expenses
+      end
+      expense_per_project.push([project.name, total])
+    end
+    expense_per_project
+  end
+
+  def self.global_expenses_per_category
+    categories = Hash.new
+    Category.all.each do |category|
+      total = 0
+      category.concepts.each do |concept|
+        total = total + concept.sum_all_expenses
+      end
+      categories[category.name] = total.to_f
+    end
+    categories
+  end
+
+  def self.global_expenses_per_subcategory
+    subcategories = Hash.new
+    Subcategory.all.each do |subcategory|
+      subcategories[subcategory.name] = subcategory.get_total_expenses.to_f
+    end
+    subcategories
+  end
+
   def sum_all_concepts_weight
     concepts.sum(:weight)
   end
