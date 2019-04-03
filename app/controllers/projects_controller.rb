@@ -95,10 +95,12 @@ class ProjectsController < ApplicationController
     @query[:inactive_users] = User.total_inactive_users
     @query[:user_per_role] = User.user_by_role
     @query[:blogs_per_project] = Project.total_blogs_per_project
-    @query[:expenses_per_project] = Project.get_total_expenses_per_project
+    @query[:expenses_per_project], @query[:estimated_costs] = Project.get_total_expenses_per_project
     @query[:global_expenses_per_category] = Project.global_expenses_per_category
     @query[:global_expenses_per_subcategory] = Project.global_expenses_per_subcategory
     @query[:expenses_per_day_by_range] = Expense.expenses_per_day_by_range
+    @query[:top_suppliers] = Project.top_suppliers
+    @query[:expenses_by_month] = Expense.expenses_by_month
   end
 
   def reports

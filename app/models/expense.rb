@@ -55,6 +55,15 @@ class Expense < ApplicationRecord
     expenses
   end
 
+  def self.expenses_by_month
+    expenses_by_month = []
+    aux = group_by_month(:date, format: "%b %Y").sum(:total)
+    aux.each do |key, value|
+      expenses_by_month.push([key, value.to_f])
+    end
+    expenses_by_month
+  end
+
   def supplier_name
     supplier.try(:name)
   end

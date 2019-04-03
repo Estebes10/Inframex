@@ -63,14 +63,25 @@ class Project < ApplicationRecord
 
   def self.get_total_expenses_per_project
     expense_per_project = []
+    estimated_costs = []
     Project.all.each do |project|
       total = 0
       project.blogs.each do |blog|
         total = total + blog.sum_all_expenses
       end
-      expense_per_project.push([project.name, total])
+      estimated_costs.push([project.name, project.get_estimated_cost.to_f])
+      expense_per_project.push([project.name, total.to_f])
     end
-    expense_per_project
+    return expense_per_project, estimated_costs
+  end
+
+  def self.top_suppliers
+    suppliers = []
+    aux = Supplier.joins(:expenses).select('suppliers.name, expenses.total').group(:name).order('sum_total DESC').limit(10).sum(:total)
+    aux.each do |key, value|
+      suppliers.push([key, value.to_f])
+    end
+    suppliers
   end
 
   def self.global_expenses_per_category
