@@ -50,7 +50,7 @@ gem 'mini_magick', '~> 4.8'
 
 gem 'google-cloud-asset', '~> 0.1.1', require: false
 gem "google-cloud-storage", "~> 1.8", require: false
-
+gem 'image_processing', '~> 1.2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -59,6 +59,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # gem used to generate charts
 gem 'chartkick'
+
+# gem used to make queries on date values
+gem 'groupdate'
 
 group :development, :test, :staging do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

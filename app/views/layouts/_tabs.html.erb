@@ -1,0 +1,63 @@
+<nav class="float-right">
+  <div class="nav nav-tabs nav-fill" id="project-nav-tab" role="tablist">
+    <% if has_privilege(current_user, "project_8") %>
+      <% if @tabs == "reports"%>
+        <a class="bdB nav-item nav-link active c-white" id="nav-reports-tab" >
+          Reportes
+        </a>
+      <% else %>
+        <%= link_to "Reportes", project_reports_project_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-reports-tab" %>
+      <% end %>
+    <% end %>
+
+    <% if has_privilege(current_user, "project_1") %>
+      <% if @tabs == "general"%>
+        <a class="bdB nav-item nav-link active c-white" id="nav-project-tab" >
+          General
+        </a>
+      <% else %>
+        <%= link_to "General", project_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-users-tab" %>
+      <% end %>
+    <% end %>
+
+    <% if has_privilege(current_user, "blog_1") %>
+      <% if @tabs == "blogs"%>
+        <a class="bdB nav-item nav-link active c-white" id="nav-blogs-tab" >
+          Bitácoras
+        </a>
+      <% else %>
+        <%= link_to "Bitácoras", project_blogs_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-blogs-tab" %>
+      <% end %>
+    <% end %>
+
+    <% if has_privilege(current_user, "concept_1") %>
+      <% if @tabs == "concepts"%>
+        <a class="bdB nav-item nav-link active c-white" id="nav-concepts-tab" >
+          Conceptos
+        </a>
+      <% else %>
+        <%= link_to "Conceptos", project_concepts_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-concepts-tab" %>
+      <% end %>
+    <% end %>
+
+    <% if has_privilege(current_user, "expenses_1") %>
+      <% if @tabs == "expenses"%>
+        <a class="bdB nav-item nav-link active c-white" id="nav-expenses-tab" >
+          Gastos
+        </a>
+      <% else %>
+        <%= link_to "Gastos", project_expenses_project_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-expenses-tab" %>
+      <% end %>
+    <% end %>
+
+    <% if has_privilege(current_user, "userproject_1") %>
+      <% if @tabs == "users"%>
+        <a class="bdB nav-item nav-link active c-white" id="nav-users-tab" >
+          Usuarios
+        </a>
+      <% else %>
+        <%= link_to "Usuarios", project_user_projects_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-users-tab" %>
+      <% end %>
+    <% end %>
+  </div>
+</nav>

@@ -25,12 +25,17 @@ Rails.application.routes.draw do
   get '/edit_password/:reset_digest/edit', to: 'email_resets#edit_password', as: :edit_password
   patch '/update_password', to: 'email_resets#update_password', as: :update_password
   get '/edit_password_profile', to: 'users#edit_password', as: :edit_password_profile
+  get '/reportes', to: 'projects#general_reports', as: :general_reports
 
   # Password reset
   resources :email_resets, only: [:new, :create, :edit, :update]
 
   # projects
   resources :projects do
+    member do
+      get 'reports', to: 'projects#reports', as: :project_reports
+      get 'project_expenses', to: 'expenses#project_expenses', as: :project_expenses
+    end
     resources :user_projects, except: :destroy
     # blogs
     resources :blogs, except: :destroy do
@@ -89,7 +94,7 @@ Rails.application.routes.draw do
   delete '/role/:idRole/privilege/:idPrivilege',  to: 'roleprivileges#destroy', as: :delete_roleprivileges
 
   # errors
-  match '/404', :to => 'errors#not_found', :via => :all
-  match '/500', :to => 'errors#internal_server_error', :via => :all
-  match '*path' => redirect('/404'), via: :get
+  # match '/404', :to => 'errors#not_found', :via => :all
+  # match '/500', :to => 'errors#internal_server_error', :via => :all
+  # match '*path' => redirect('/404'), via: :get
 end

@@ -24,8 +24,12 @@ class ProjectsController < ApplicationController
     belongs_to_project_controller(current_user, params[:id])
   end
 
-  before_action :set_project, only: [:edit, :update, :show, :destroy]
-  before_action :set_categories, only: [:show, :new, :index, :edit]
+  before_action only: [:general_reports] do
+    has_privilege_controller(current_user, 'report_1')
+  end
+
+  before_action :set_project, only: [:edit, :update, :show, :destroy, :reports]
+  before_action :set_categories, only: [:reports, :new, :edit]
 
   def index
     if has_privilege(current_user, 'project_7')
@@ -45,12 +49,10 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @users = @project.users.order(:role_id,:name).all
     @readonly = true
     @create = false
     @required_str = ""
-    expenses_filter
-    blogs_filter
+    @tabs = "general"
   end
 
   def create
@@ -86,32 +88,29 @@ class ProjectsController < ApplicationController
     @project.destroy
   end
 
+  def general_reports
+    @query = Hash.new
+    @query[:progress] = Project.progress_by_project
+    @query[:active_users] = User.total_active_users
+    @query[:inactive_users] = User.total_inactive_users
+    @query[:user_per_role] = User.user_by_role
+    @query[:blogs_per_project] = Project.total_blogs_per_project
+    @query[:expenses_per_project], @query[:estimated_costs] = Project.get_total_expenses_per_project
+    @query[:global_expenses_per_category] = Project.global_expenses_per_category
+    @query[:global_expenses_per_subcategory] = Project.global_expenses_per_subcategory
+    @query[:expenses_per_day_by_range] = Expense.expenses_per_day_by_range
+    @query[:top_suppliers] = Project.top_suppliers
+    @query[:expenses_by_month] = Expense.expenses_by_month
+  end
+
+  def reports
+    if !has_privilege(current_user, 'project_8')
+      redirect_to project_path(@project)
+    end
+    @tabs = "reports"
+  end
+
   private
-
-  def blogs_filter
-    if has_privilege(current_user, 'blog_7')
-      @blogs = @project.blogs.where(status: true).all
-    else
-      @blogs = @project.blogs.all
-    end
-  end
-
-  def expenses_filter
-    @expenses = []
-    if has_privilege(current_user, 'expenses_9')
-      @project.blogs.each do |blog|
-        blog.expenses.where(status: true).each do |expense|
-          @expenses.push(expense)
-        end
-      end
-    else
-      @project.blogs.each do |blog|
-        blog.expenses.each do |expense|
-          @expenses.push(expense)
-        end
-      end
-    end
-  end
 
   def project_params
       params.require(:project).permit(
