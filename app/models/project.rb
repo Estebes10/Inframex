@@ -48,15 +48,16 @@ class Project < ApplicationRecord
   def self.progress_by_project
     progresses = []
     Project.all.each do |project|
-      progresses.push([project.name, project.get_project_progress * 100])
+      progresses.push([project.name, project.get_project_progress_100])
     end
     progresses
   end
 
   def self.total_blogs_per_project
+    aux = joins(:blogs).select('projects.name').group('projects.name').order('count_projects_id').count('projects.id')
     blogs_per_project = []
-    Project.all.each do |project|
-      blogs_per_project.push([project.name, project.blogs.count.to_i])
+    aux.each do |key, value|
+      blogs_per_project.push([key, value.to_i])
     end
     blogs_per_project
   end
