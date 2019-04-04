@@ -47,7 +47,7 @@ class Expense < ApplicationRecord
             length:   { maximum: 256, message: "demasiado largo" }
 
   def self.expenses_per_day_by_range(limitA = 1.month.ago, limitB = Time.now)
-    group_by_day(:date, range: limitA..limitB).sum(:quantity)
+    group_by_day(:date, range: limitA..limitB).sum(:total)
   end
 
   def self.expenses_by_month
