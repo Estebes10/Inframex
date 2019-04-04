@@ -46,22 +46,12 @@ class Expense < ApplicationRecord
             presence: {with: true, message: "no puede estar vacío"},
             length:   { maximum: 256, message: "demasiado largo" }
 
-  def self.expenses_per_day_by_range(limitA = Date.today - 1.month, limitB = Date.today)
-    aux = where('date BETWEEN ? AND ?', limitA, limitB).group(:date).order(:date).sum(:quantity)
-    expenses = []
-    aux.each do |key, value|
-      expenses.push([key, value.to_f])
-    end
-    expenses
+  def self.expenses_per_day_by_range(limitA = 1.month.ago, limitB = Time.now)
+    group_by_day(:date, range: limitA..limitB).sum(:quantity)
   end
 
   def self.expenses_by_month
-    expenses_by_month = []
-    aux = group_by_month(:date, format: "%b %Y").sum(:total)
-    aux.each do |key, value|
-      expenses_by_month.push([key, value.to_f])
-    end
-    expenses_by_month
+    group_by_month(:date, format: "%b %Y").sum(:total)
   end
 
   def supplier_name

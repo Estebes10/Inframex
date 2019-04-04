@@ -118,18 +118,18 @@
             </div>
           </div>
           <!-- TERMINA GASTOS POR SUBCATEGORIA -->
-          <!-- INICIA GASTOS/PRESUPUESTOS POR PROYECTOS -->
+          <!-- INICIA GASTOS/ESTIMACIONES POR PROYECTOS -->
           <div class="masonry-item col-lg-6 pB-15">
             <div class="bgc-white">
               <div class="layers">
                 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-                  <h5 class="float-left fsz-md">Presupuesto/Gastos por proyecto</h5>
+                  <h5 class="float-left fsz-md">Estimación/Gastos por proyecto</h5>
                 </div>
                 <div class="layer w-100 p-20">
                   <%= bar_chart [
                     {name: "Gastos", data: @query[:expenses_per_project]},
-                    {name: "Presupuesto", data: @query[:estimated_costs]}
-                  ], download: {filename: "presupuestos_gastos"},
+                    {name: "Estimación", data: @query[:estimated_costs]}
+                  ], download: {filename: "estimaciones_gastos"},
                   prefix: "$",
                   thousands: ",",
                   decimal: ".",
@@ -139,7 +139,7 @@
               </div>
             </div>
           </div>
-          <!-- TERMINA GASTOS/PRESUPUESTOS POR PROYECTOS -->
+          <!-- TERMINA GASTOS/ESTIMACIONES POR PROYECTOS -->
           <!-- INICIA GASTOS GENERALES POR PROVEEDORES -->
           <div class="masonry-item col-lg-6 pB-15">
             <div class="bgc-white">
@@ -165,7 +165,7 @@
             <div class="bgc-white">
               <div class="layers">
                 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-                  <h5 class="float-left fsz-md">Gastos generales por día (ultimos 24 dias)</h5>
+                  <h5 class="float-left fsz-md">Gastos generales por día (ultimo mes)</h5>
                 </div>
                 <div class="layer w-100 p-20">
                   <%= line_chart @query[:expenses_per_day_by_range],
