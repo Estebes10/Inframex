@@ -32,6 +32,24 @@ class User < ApplicationRecord
   # validates :role_id, presence: true
   validates :status, inclusion: { in: [ true, false ] }
 
+  def self.total_active_users
+    self.where(status: true).count
+  end
+
+  def self.total_inactive_users
+    self.where(status: false).count
+  end
+
+  def self.user_by_role
+    roles = Hash.new
+    roles_aux = User.group(:role_id).count(:id)
+    roles_aux.each do |key, value|
+      name = Role.find(key).name
+      roles[name] = value
+    end
+    roles
+  end
+
   def birthday_valid
     errors.add(:birthday, 'no válida') if birthday.present? && birthday >= Date.today
   end

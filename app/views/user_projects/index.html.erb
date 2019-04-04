@@ -1,95 +1,115 @@
+<% provide(:title, 'Usuarios del Proyecto') %>
 <% if has_privilege(current_user, "userproject_1") %>
 <div class="masonry-item col-md-12">
-  <div class="bgc-white">
+  <div class="bgc-grey-300">
     <div class="layers">
-      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-        <h5 class="float-left fsz-md">Usuarios del Proyecto</h5>
-        <% if has_privilege(current_user, "userproject_2") %>
-          <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15" style="padding-bottom: 0px !important;">
+        <% if has_privilege(current_user, "project_1") %>
+          <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                      <i class="ti-arrow-left"></i>
+                    </button>'.html_safe,
+                      projects_path
+          %>
+        <% end %>
+        <h5 class="float-left pL-15">Proyecto - <%= @project.name %> - <%= @project.code%></h5>
+        <%= render 'layouts/tabs' %>
+      </div>
+      <div class="layer w-100 pT-20 pB-20">
+        <div class="masonry-item col-md-12">
+          <div class="bgc-white">
+            <div class="layers">
+              <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                <h5 class="float-left fsz-md">Usuarios del Proyecto</h5>
+                <% if has_privilege(current_user, "userproject_2") %>
+                  <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
                     id="new-user-button">
                     <i class="ti-plus"></i>
                     Agregar Usuarios al Proyecto
                   </button>'.html_safe,
-                      new_project_user_project_url(@project), data: {remote: 'true'}
-          %>
-        <% end %>
-      </div>
-      <div class="layer w-100 p-20 text-center">
-        <div class="table-responsive">
-          <table class="table table-hover datatable" id="users-projects-datatable" role="datatable">
-          <thead>
-          <tr>
-            <th>Nombre Completo</th>
-            <th>Email</th>
-            <th>Teléfono</th>
-            <th>Rol</th>
-            <% if has_privilege(current_user, "user_6") %>
-              <th>Estatus</th>
-            <% end %>
-            <% if has_privilege(current_user, "user_1") or has_privilege(current_user, "userproject_3") %>
-            <th>Acciones</th>
-            <% end %>
-          </tr>
-          </thead>
-          <tbody>
-          <% @users.each do |a| %>
-            <tr>
-              <% if has_privilege(current_user, "user_1") %>
-              <td><%= link_to a.name + ' ' + a.lastName, {:controller => :users, :action => 'show', :id => a.id} -%></td>
-              <% else %>
-                <td><%= a.name + ' ' + a.lastName -%></td>
-              <% end %>
-              <td><%= a.email-%></td>
-              <td><%= a.phone-%></td>
-              <td><%= if a.role.present? then a.role.name end -%></td>
-              <!-- Where status is -->
-              <% if has_privilege(current_user, "user_6") %>
-                <td>
-                  <% if has_privilege(current_user, "user_5") %>
-                    <label class="switch">
-                      <input class="activate-switch status-user"
-                             id="status-users-<%= "#{a.id}" %>"
-                             data-id="<%= "#{a.id}" %>"
-                             name="users"
-                             type="checkbox"
-                             <%= if (a.status)
-                                   "checked"
-                                 end %>>
-                      <span class="slider round"></span>
-                    </label>
-                  <% else %>
-                    <label class="switch">
-                      <input class="activate-switch status-user"
-                             type="checkbox"
-                             <%= if (a.status)
-                                   "checked"
-                                 end %> disabled>
-                      <span class="slider round"></span>
-                    </label>
-                  <% end %>
-                </td>
-              <% end %>
+                              new_project_user_project_url(@project), data: {remote: 'true'}
+                  %>
+                <% end %>
+              </div>
+              <div class="layer w-100 p-20 text-center">
+                <div class="table-responsive">
+                  <table class="table table-hover datatable" id="users-projects-datatable" role="datatable">
+                    <thead>
+                    <tr>
+                      <th>Nombre Completo</th>
+                      <th>Email</th>
+                      <th>Teléfono</th>
+                      <th>Rol</th>
+                      <% if has_privilege(current_user, "user_6") %>
+                        <th>Estatus</th>
+                      <% end %>
+                      <% if has_privilege(current_user, "user_1") or has_privilege(current_user, "userproject_3") %>
+                        <th>Acciones</th>
+                      <% end %>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% @users.each do |a| %>
+                      <tr>
+                        <% if has_privilege(current_user, "user_1") %>
+                          <td><%= link_to a.name + ' ' + a.lastName, {:controller => :users, :action => 'show', :id => a.id} -%></td>
+                        <% else %>
+                          <td><%= a.name + ' ' + a.lastName -%></td>
+                        <% end %>
+                        <td><%= a.email-%></td>
+                        <td><%= a.phone-%></td>
+                        <td><%= if a.role.present? then a.role.name end -%></td>
+                        <!-- Where status is -->
+                        <% if has_privilege(current_user, "user_6") %>
+                          <td>
+                            <% if has_privilege(current_user, "user_5") %>
+                              <label class="switch">
+                                <input class="activate-switch status-user"
+                                       id="status-users-<%= "#{a.id}" %>"
+                                       data-id="<%= "#{a.id}" %>"
+                                       name="users"
+                                       type="checkbox"
+                                       <%= if (a.status)
+                                             "checked"
+                                           end %>>
+                                <span class="slider round"></span>
+                              </label>
+                            <% else %>
+                              <label class="switch">
+                                <input class="activate-switch status-user"
+                                       type="checkbox"
+                                       <%= if (a.status)
+                                             "checked"
+                                           end %> disabled>
+                                <span class="slider round"></span>
+                              </label>
+                            <% end %>
+                          </td>
+                        <% end %>
 
-              <td>
-                <% if has_privilege(current_user, "user_1") %>
-                  <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                        <td>
+                          <% if has_privilege(current_user, "user_1") %>
+                            <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
                       <i class="ti-eye icon-white" aria-hidden="true"></i>
                       </button>').html_safe, {:controller => :users, action: :show, :id => a.id } %>
-                <% end %>
+                          <% end %>
 
-                <% if has_privilege(current_user, "userproject_3") %>
-                <button type="button" class="btn btn-outline-danger btn-circle delete-user-project"
-                        data-user-id="<%= a.id %>"
-                        data-project-id="<%= @project.id %>">
-                  <i class="ti-trash" aria-hidden="true"></i>
-                </button>
-                <% end %>
-              </td>
-            </tr>
+                          <% if has_privilege(current_user, "userproject_3") %>
+                            <button type="button" class="btn btn-outline-danger btn-circle delete-user-project"
+                                    data-user-id="<%= a.id %>"
+                                    data-project-id="<%= @project.id %>">
+                              <i class="ti-trash" aria-hidden="true"></i>
+                            </button>
+                          <% end %>
+                        </td>
+                      </tr>
 
-          <% end %>
-          </tbody>
-        </table>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

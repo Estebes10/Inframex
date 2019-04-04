@@ -45,6 +45,66 @@ class Project < ApplicationRecord
 
   validates :status, inclusion: { in: [ true, false ] }
 
+  def self.progress_by_project
+    progresses = []
+    Project.all.each do |project|
+      progresses.push([project.name, project.get_project_progress_100])
+    end
+    progresses
+  end
+
+  def self.total_blogs_per_project
+    aux = joins(:blogs).select('projects.name').group('projects.name').order('count_projects_id').count('projects.id')
+    blogs_per_project = []
+    aux.each do |key, value|
+      blogs_per_project.push([key, value.to_i])
+    end
+    blogs_per_project
+  end
+
+  def self.get_total_expenses_per_project
+    expense_per_project = []
+    estimated_costs = []
+    Project.all.each do |project|
+      total = 0
+      project.blogs.each do |blog|
+        total = total + blog.sum_all_expenses
+      end
+      estimated_costs.push([project.name, project.get_estimated_cost.to_f])
+      expense_per_project.push([project.name, total.to_f])
+    end
+    return expense_per_project, estimated_costs
+  end
+
+  def self.top_suppliers
+    suppliers = []
+    aux = Supplier.joins(:expenses).select('suppliers.name, expenses.total').group(:name).order('sum_total DESC').limit(10).sum(:total)
+    aux.each do |key, value|
+      suppliers.push([key, value.to_f])
+    end
+    suppliers
+  end
+
+  def self.global_expenses_per_category
+    categories = Hash.new
+    Category.all.each do |category|
+      total = 0
+      category.concepts.each do |concept|
+        total = total + concept.sum_all_expenses
+      end
+      categories[category.name] = total.to_f
+    end
+    categories
+  end
+
+  def self.global_expenses_per_subcategory
+    subcategories = Hash.new
+    Subcategory.all.each do |subcategory|
+      subcategories[subcategory.name] = subcategory.get_total_expenses.to_f
+    end
+    subcategories
+  end
+
   def sum_all_concepts_weight
     concepts.sum(:weight)
   end
@@ -75,4 +135,48 @@ class Project < ApplicationRecord
     self.get_project_progress * 100
   end
 
+  def get_estimated_cost
+    concepts.sum(:total)
+  end
+
+  def get_total_project_expenses
+    concepts.joins(:expenses).sum("expenses.total")
+  end
+
+  def get_expenses_by_concept
+    concepts.joins(:expenses)
+        .select("concepts.code")
+        .group("concepts.code")
+        .sum("expenses.total").sort_by {|_key, value| value}
+  end
+
+  def get_expenses_by_month
+    concepts.joins(:expenses)
+        .group_by_month("expenses.date")
+        .sum(:total)
+  end
+
+  def get_expenses_by_day
+    concepts.joins(:expenses)
+        .group_by_day("expenses.date")
+        .sum(:total)
+  end
+
+  def get_expenses_by_supplier
+    concepts.joins(expenses: :supplier)
+        .select("suppliers.name")
+        .group("suppliers.name").sum("expenses.total").sort_by {|_key, value| value}
+  end
+
+  def get_expenses_by_subcategory
+    concepts.joins(expenses: :subcategory)
+        .select("subcategories.name")
+        .group("subcategories.name").sum("expenses.total").sort_by {|_key, value| value}
+  end
+
+  def get_expenses_by_category
+    concepts.joins(:expenses).joins(:category)
+        .select("categories.name")
+        .group("categories.name").sum("expenses.total").sort_by {|_key, value| value}
+  end
 end

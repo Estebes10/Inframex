@@ -30,6 +30,7 @@ class ConceptsController < ApplicationController
   before_action :set_categories, only: [:show, :new, :index, :edit]
 
   def index
+    @tabs = "concepts"
   end
 
   def show

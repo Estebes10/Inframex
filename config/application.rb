@@ -38,6 +38,7 @@ module Inframex
     config.generators.system_tests = nil
 
     config.time_zone = 'Mexico City'
-    config.active_record.default_timezone = :local
+    # config.active_record.default_timezone = :local
+    config.active_record.default_timezone = :utc
   end
 end

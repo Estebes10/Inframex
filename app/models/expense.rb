@@ -46,6 +46,14 @@ class Expense < ApplicationRecord
             presence: {with: true, message: "no puede estar vacío"},
             length:   { maximum: 256, message: "demasiado largo" }
 
+  def self.expenses_per_day_by_range(limitA = 1.month.ago, limitB = Time.now)
+    group_by_day(:date, range: limitA..limitB).sum(:total)
+  end
+
+  def self.expenses_by_month
+    group_by_month(:date, format: "%b %Y").sum(:total)
+  end
+
   def supplier_name
     supplier.try(:name)
   end
