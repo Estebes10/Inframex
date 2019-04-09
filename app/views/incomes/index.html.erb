@@ -1,0 +1,114 @@
+<% provide(:title, 'Ingresos') %>
+<% if has_privilege(current_user, "income_1") %>
+<div class="masonry-item col-md-12">
+  <div class="bgc-grey-300">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15" style="padding-bottom: 0px !important;">
+        <% if has_privilege(current_user, "project_1") %>
+          <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                      <i class="ti-arrow-left"></i>
+                    </button>'.html_safe,
+                      projects_path
+          %>
+        <% end %>
+        <h5 class="float-left pL-15">Proyecto - <%= @project.name %> - <%= @project.code%></h5>
+        <%= render 'layouts/tabs' %>
+      </div>
+      <div class="layer w-100 pT-20 pB-20">
+        <div class="masonry-item col-md-12">
+          <div class="bgc-white">
+            <div class="layers">
+              <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
+                <h5 class="float-left pL-15 fsz-md">Registro de Ingresos</h5>
+                <% if has_privilege(current_user, "income_2") %>
+                  <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5"
+                        id="new-blog-button"">
+                        <i class="ti-plus"></i>
+                        Registrar nuevo ingreso
+                      </button>'.html_safe,
+                              new_project_income_path(@project)
+                  %>
+                <% end %>
+              </div>
+              <div class="layer w-100 p-20 text-center">
+                <% if @incomes.count == 0 %>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p class="lead">Actualmente no hay registros de ingresos en este proyecto.</p>
+                    </div>
+                  </div>
+                <% else %>
+                  <div class="table-responsive">
+                    <table class="table table-hover datatable" id="incomes-datatable" role="datatable">
+                      <thead>
+                      <tr class="tableHead">
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Tiene I.V.A.</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                        <th>Método de pago</th>
+                        <th>Acciones</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @incomes.each do |a| %>
+                        <tr>
+                          <td><%= a.name-%></td>
+                          <td><%= (a.quantity).round(3)-%></td>
+                          <td>
+                            <label class="switch">
+                              <input class="activate-switch"
+                                     type="checkbox"
+                                     <%= if (a.iva)
+                                           "checked"
+                                         end %> disabled>
+                              <span class="slider round"></span>
+                            </label>
+                          </td>
+                          <td><%= number_to_currency(a.total)-%></td>
+                          <td><%= a.date.strftime("%d/%m/%Y")-%></td>
+                          <td><%= a.payment_method-%></td>
+                          <td>
+                            <% if has_privilege(current_user, "concept_1") %>
+                              <%= link_to raw('<button type="button" class="btn btn-outline-primary btn-circle">
+                                    <i class="ti-eye icon-white" aria-hidden="true"></i>
+                                    </button>').html_safe, project_income_path(project_id: @project.id, id: a.id) %>
+                            <% end %>
+
+                            <% if has_privilege(current_user, "income_3") %>
+                              <%= link_to raw('<button type="button" class="btn btn-outline-warning btn-circle">
+                    <i class="ti-pencil" aria-hidden="true"></i>
+                   </button>').html_safe,  {controller: :incomes, action: :edit, :id => a.id, :project_id => @project.id}%>
+                            <% end %>
+
+                            <% if has_privilege(current_user, "income_4") %>
+                              <button type="button" class="btn btn-outline-danger btn-circle delete-income-ajax"
+                                      data-income-id="<%= a.id %>"
+                                      data-project-id="<%= @project.id %>">
+                                <i class="ti-trash" aria-hidden="true"></i>
+                              </button>
+                            <% end %>
+                          </td>
+                        </tr>
+                      <% end %>
+                      </tbody>
+                      <tfooter>
+                        <tr class="bgc-blue-grey-900">
+                          <td class="c-white text-left" colspan="3"><strong>Total de Ingresos</strong></td>
+                          <td class="c-white"><strong><%= number_to_currency(@project.sum_incomes) %></strong></td>
+                          <td colspan="3"></td>
+                        </tr>
+                      </tfooter>
+                    </table>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

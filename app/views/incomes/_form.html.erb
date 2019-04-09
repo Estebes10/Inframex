@@ -1,0 +1,82 @@
+<%= form_for [@project, @income] do |f| %>
+  <div class="row">
+    <% if !@read_only %>
+      <div class="col-md-12">
+        <p>Los campos marcados con '*' son obligatorios. </p>
+      </div>
+    <% end %>
+    <div class="col-md-6 mT-15">
+      <%= f.label :name, "#{@required_str}Nombre del ingreso:" %>
+      <%= f.text_field :name, class:"form-control", required: 'true', placeholder: "e.g. Pago del mes", readonly: @read_only %>
+    </div>
+
+    <div class="col-md-6 mT-15">
+      <%= f.label :date, "#{@required_str}Fecha: " %>
+      <%= f.text_field :date,
+                       class: 'form-control datepicker',
+                       'data-behaviour' => 'datepicker',
+                       required: 'true', start_year: 2010,
+                       :value => @income.date.strftime('%d/%m/%Y'),
+                       'data-date-format' => "dd/mm/yyyy",
+                       readonly: @read_only %>
+    </div>
+
+    <div class="col-md-6 mT-15">
+      <%= f.label :quantity, "#{@required_str}Cantidad:" %>
+      <%= f.number_field :quantity,
+                         class: 'form-control',
+                         required: 'true',
+                         placeholder: "e.g. 2500.35",
+                         step: :any,
+                         readonly: @read_only %>
+    </div>
+
+    <% if !@read_only %>
+      <div class="col-md-6 mT-15">
+        <label>Agregar I.V.A:</label>
+        <div class="row">
+          <div class="col-md-2 col-sm-2" align="center">
+            <label class="switch">
+              <% @read_only ? @var = "return false;" : @var = ""%>
+              <%= f.check_box :iva, onclick: @var %>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-md-6 mT-15">
+        <label>Agregar I.V.A:</label>
+        <div class="row">
+          <div class="col-md-2 col-sm-2" align="center">
+            <label class="switch">
+              <% @read_only ? @var = "return false;" : @var = ""%>
+              <%= f.check_box :iva, onclick: @var %>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="col-md-6 mT-15">
+      <%= f.label :payment_method, "#{@required_str}Método de pago:" %>
+      <%= f.select(:payment_method, options_for_select(["Efectivo", "Tarjeta de Crédito", "Tarjeta de Débito", "Cheque", "Transferencia Electrónica"], @income_payment),
+                     {:include_blank => 'Seleccione un método de pago'},
+                     {:class => 'form-control', :required => 'true', :disabled => @read_only}) %>
+    </div>
+
+    <div class="col-md-6 mT-15">
+      <%= f.label :person, "Persona:" %>
+      <%= f.text_field :person, class:"form-control", placeholder: "e.g. Juan Bernardo Estebes Gómez", readonly: @read_only %>
+    </div>
+
+  </div>
+  <% if !@read_only %>
+    <div id="form-footer">
+      <hr>
+      <%= link_to '<button type="button" class="btn btn-outline-danger">Cancelar</button>'.html_safe, :back %>
+      <%= f.submit "Guardar", class: 'btn btn-primary save-button' %>
+    </div>
+  <% end %>
+<% end %>

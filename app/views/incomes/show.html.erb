@@ -1,0 +1,31 @@
+<% provide(:title, 'Ver Ingreso') %>
+<div class="masonry-item col-md-10 offset-md-1">
+  <div class="bgc-white">
+    <div class="layers">
+      <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-15">
+        <% if has_privilege(current_user, "income_1") %>
+        <%= link_to '<button type="button" class="btn btn-outline-light btn-circle float-left">
+                      <i class="ti-arrow-left"></i>
+                    </button>'.html_safe,
+                    project_incomes_path(@project)
+        %>
+        <% end %>
+        <h5 class="float-left pL-15"><%= @income.name %></h5>
+        <% if has_privilege(current_user, "income_3") %>
+        <%= link_to '<button type="button" class="btn btn-outline-light float-right btn-sm mR-5">
+                      <i class="ti-pencil"></i>
+                    </button>'.html_safe,
+                    edit_project_income_path(:project_id => @project.id, :id => @income.id)
+        %>
+        <% end %>
+        <button type="button" class="btn btn-outline-light float-right delete-income btn-sm mR-5"
+                data-income-id="<%= @income.id %>" data-project-id="<%= @project.id %>">
+          <i class="ti-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="layer w-100 p-20 text-center">
+        <%= render "form" %>
+    </div>
+    </div>
+  </div>
+</div>

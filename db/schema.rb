@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_035112) do
+ActiveRecord::Schema.define(version: 2019_04_09_015851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,18 @@ ActiveRecord::Schema.define(version: 2019_03_25_035112) do
     t.index ["concept_id"], name: "index_expenses_on_concept_id"
     t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
     t.index ["supplier_id"], name: "index_expenses_on_supplier_id"
+  end
+
+  create_table "incomes", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "name", limit: 256, null: false
+    t.decimal "quantity", null: false
+    t.boolean "iva", default: false, null: false
+    t.decimal "total", precision: 15, scale: 4, null: false
+    t.string "payment_method", limit: 256, null: false
+    t.string "person", limit: 256
+    t.date "date", null: false
+    t.index ["project_id"], name: "index_incomes_on_project_id"
   end
 
   create_table "job_progresses", force: :cascade do |t|
@@ -186,6 +198,7 @@ ActiveRecord::Schema.define(version: 2019_03_25_035112) do
   add_foreign_key "expenses", "concepts"
   add_foreign_key "expenses", "subcategories"
   add_foreign_key "expenses", "suppliers"
+  add_foreign_key "incomes", "projects"
   add_foreign_key "job_progresses", "blogs"
   add_foreign_key "job_progresses", "jobs"
   add_foreign_key "jobs", "concepts"
