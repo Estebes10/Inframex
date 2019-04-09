@@ -85,7 +85,7 @@ class IncomesController < ApplicationController
       flash[:success] = ' Se ha eliminado ingreso correctamente'
       redirect_to project_incomes_path(@project)
     else
-      flash.now[:error] = ' No se ha podido eliminar el concepto'
+      flash.now[:error] = ' No se ha podido eliminar el ingreso'
       render :show
     end
   end
