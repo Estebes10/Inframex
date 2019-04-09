@@ -1,3 +1,3 @@
-40.times do
+20.times do
   FactoryBot.create(:supplier)
 end

@@ -1,3 +1,3 @@
-10.times do
+5.times do
   FactoryBot.create(:project)
 end
