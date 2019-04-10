@@ -106,6 +106,10 @@ class Project < ApplicationRecord
     subcategories
   end
 
+  def self.global_incomes
+    joins(:incomes).group('projects.name').sum('incomes.total')
+  end
+
   def sum_all_concepts_weight
     concepts.sum(:weight)
   end

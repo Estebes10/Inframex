@@ -101,6 +101,7 @@ class ProjectsController < ApplicationController
     @query[:expenses_per_day_by_range] = Expense.expenses_per_day_by_range
     @query[:top_suppliers] = Project.top_suppliers
     @query[:expenses_by_month] = Expense.expenses_by_month
+    @query[:incomes_per_project] = Project.global_incomes
   end
 
   def reports

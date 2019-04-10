@@ -56,7 +56,7 @@
             </div>
 
             <div class="row">
-              <div class='col-sm-6 pB-15'>
+              <div class='col-sm-4 pB-15'>
                 <div class="layers bd bgc-white p-20">
                   <div class="layer w-100 mB-10">
                     <h6 class="lh-1">Costo Total Estimado de Proyecto</h6>
@@ -72,7 +72,7 @@
                   </div>
                 </div>
               </div>
-              <div class='col-sm-6 pB-15'>
+              <div class='col-sm-4 pB-15'>
                 <div class="layers bd bgc-white p-20">
                   <div class="layer w-100 mB-10">
                     <h6 class="lh-1">Gasto Total Real de Proyecto</h6>
@@ -82,6 +82,23 @@
                       <div class="peer float-right">
                         <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">
                           <%= number_to_currency(@project.get_total_project_expenses) %>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class='col-sm-4 pB-15'>
+                <div class="layers bd bgc-white p-20">
+                  <div class="layer w-100 mB-10">
+                    <h6 class="lh-1">Ingreso Total</h6>
+                  </div>
+                  <div class="layer w-100">
+                    <div class="peers ai-sb fxw-nw d-inline">
+                      <div class="peer float-right">
+                        <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500 float-right">
+                          <%= number_to_currency(@project.sum_incomes) %>
                         </span>
                       </div>
                     </div>
