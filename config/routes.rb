@@ -94,7 +94,7 @@ Rails.application.routes.draw do
   delete '/role/:idRole/privilege/:idPrivilege',  to: 'roleprivileges#destroy', as: :delete_roleprivileges
 
   # errors
-  match '/404', :to => 'errors#not_found', :via => :all
-  match '/500', :to => 'errors#internal_server_error', :via => :all
-  match '*path' => redirect('/404'), via: :get
+  # match '/404', :to => 'errors#not_found', :via => :all
+  # match '/500', :to => 'errors#internal_server_error', :via => :all
+  # match '*path' => redirect('/404'), via: :get
 end

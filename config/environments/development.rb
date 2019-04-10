@@ -48,9 +48,11 @@ Rails.application.configure do
     password: ENV['PASSWORD_EMAIL'],
     enable_starttls_auto: true
   }
-  config.action_mailer.default_url_options = { host: "localhost:3000" }
+  config.action_mailer.default_url_options = { host: "http://localhost:3000" }
+  config.action_controller.default_url_options = { host: "http://localhost:3000" }
   config.action_mailer.asset_host = 'http://localhost:3000'
-  config.action_controller.asset_host = 'http://localhost:3000'
+  config.action_controller.asset_host = 'http://localhost:3000/'
+  config.default_url_options = { host: "localhost:3000" }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
