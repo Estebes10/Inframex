@@ -112,10 +112,10 @@ ActiveRecord::Schema.define(version: 2019_04_09_015851) do
 
   create_table "jobs", force: :cascade do |t|
     t.string "name", limit: 256, null: false
-    t.decimal "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "concept_id"
+    t.decimal "quantity"
     t.decimal "weight", null: false
     t.string "unity", null: false
     t.index ["concept_id"], name: "index_jobs_on_concept_id"

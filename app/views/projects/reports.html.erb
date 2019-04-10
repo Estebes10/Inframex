@@ -90,6 +90,25 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class='col-sm-6 pB-15'>
+                <div class="layers bd bgc-white p-20">
+                  <div class="layer w-100 mB-10">
+                    <h6 class="lh-1">Ingreso total de Proyecto</h6>
+                  </div>
+                  <div class="layer w-100">
+                    <div class="peers ai-sb fxw-nw d-inline">
+                      <div class="peer float-right">
+                        <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500 float-right">
+                          <%= number_to_currency(@project.sum_incomes) %>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div class="masonry-item col-lg-6 pB-15">
