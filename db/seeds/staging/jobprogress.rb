@@ -1,3 +1,3 @@
-1000.times do
+500.times do
   FactoryBot.create(:job_progress)
 end
