@@ -35,7 +35,7 @@ function deleteIncomeAjax(incomeId, projectId, deleteButton) {
         }).then(function (isConfirm) {
             spinner.classList.add('fadeOut');
             swal({
-                title: "¡Eliminada!",
+                title: "¡Eliminado!",
                 text: "El ingreso se ha eliminado correctamente",
                 type: "success",
                 timer: 1500,
