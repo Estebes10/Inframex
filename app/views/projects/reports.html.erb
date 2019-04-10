@@ -56,16 +56,18 @@
             </div>
 
             <div class="row">
+              <% estimated_cost = @project.get_estimated_cost %>
+              <% total_expenses = @project.get_total_project_expenses %>
               <div class='col-sm-6 pB-15'>
                 <div class="layers bd bgc-white p-20">
                   <div class="layer w-100 mB-10">
-                    <h6 class="lh-1">Costo Total Estimado de Proyecto</h6>
+                    <h6 class="lh-1">Costo Total Proyectado</h6>
                   </div>
                   <div class="layer w-100">
                     <div class="peers ai-sb fxw-nw d-inline">
                       <div class="peer float-right">
-                        <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500 float-right">
-                          <%= number_to_currency(@project.get_estimated_cost) %>
+                        <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500 float-right">
+                          <%= number_to_currency(estimated_cost) %>
                         </span>
                       </div>
                     </div>
@@ -75,13 +77,14 @@
               <div class='col-sm-6 pB-15'>
                 <div class="layers bd bgc-white p-20">
                   <div class="layer w-100 mB-10">
-                    <h6 class="lh-1">Gasto Total Real de Proyecto</h6>
+                    <h6 class="lh-1">Gasto Total</h6>
                   </div>
                   <div class="layer w-100">
                     <div class="peers ai-sb fxw-nw d-inline">
                       <div class="peer float-right">
-                        <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">
-                          <%= number_to_currency(@project.get_total_project_expenses) %>
+                        <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15
+                          <%= total_expenses < estimated_cost ? 'bgc-green-50 c-green-500': 'bgc-red-50 c-red-500'%>">
+                          <%= number_to_currency(total_expenses) %>
                         </span>
                       </div>
                     </div>
@@ -207,7 +210,7 @@
             <div class="bgc-white">
               <div class="layers">
                 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-                  <h5 class="float-left fsz-md">Estimación vs Gasto Real por Concepto</h5>
+                  <h5 class="float-left fsz-md">Proyección vs Gasto Real por Concepto</h5>
                 </div>
                 <div class="layer w-100">
                   <% @project.concepts.each do |c| %>
@@ -225,7 +228,7 @@
                           </div>
                           <div class="peer float-right">
                     <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">
-                      Estimado: <%= number_to_currency(c.total) %>
+                      Proyectado: <%= number_to_currency(c.total) %>
                     </span>
                           </div>
                         </div>

@@ -42,11 +42,12 @@
     padding: 85px 5px 5px;
   }
 
-  background: {
-    image: image-url("login.jpg") !important;
-    position: top !important;
-    repeat: repeat-y !important;
-  }
+  // Code to add background image to main content container
+  //background: {
+  //  image: image-url("login.jpg") !important;
+  //  position: top !important;
+  //  repeat: repeat-y !important;
+  //}
 }
 
 .remain-height {
