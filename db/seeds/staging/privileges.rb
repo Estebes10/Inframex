@@ -464,6 +464,32 @@ if !Privilege.find_by(name: 'Consultar')
                                          description: 'Consultar reportes de proyecto',
                                          str_id: 'project_8',
                                          module_name: 'Proyectos'
+                                     },
+                                     # Privilegios de Ingresos
+                                     {
+                                         name: 'Consultar',
+                                         description: 'Consultar los ingresos y entrar a cada uno',
+                                         str_id: 'income_1',
+                                         module_name: 'Ingresos'
+                                     },
+                                     {
+                                         name: 'Crear',
+                                         description: 'Crear un nuevo ingreso en el sistema',
+                                         str_id: 'income_2',
+                                         module_name: 'Ingresos'
+                                     },
+                                     {
+                                         name: 'Editar',
+                                         description: 'Editar ingreso en el sistema',
+                                         str_id: 'income_3',
+                                         module_name: 'Ingresos'
+                                     },
+                                     #76
+                                     {
+                                         name: 'Eliminar',
+                                         description: 'Eliminar ingreso del sistema',
+                                         str_id: 'income_4',
+                                         module_name: 'Ingresos'
                                      }
                                  ]
   )
