@@ -4,6 +4,7 @@ class Project < ApplicationRecord
 
   has_many :blogs, dependent:   :destroy
   has_many :concepts, dependent:   :destroy
+  has_many :incomes, dependent: :destroy
 
   has_one_attached :image
 
@@ -105,8 +106,16 @@ class Project < ApplicationRecord
     subcategories
   end
 
+  def self.global_incomes
+    joins(:incomes).group('projects.name').sum('incomes.total')
+  end
+
   def sum_all_concepts_weight
     concepts.sum(:weight)
+  end
+
+  def sum_incomes
+    incomes.sum(:total)
   end
 
   def get_category_progress(category_id)

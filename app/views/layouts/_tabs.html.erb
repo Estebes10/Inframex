@@ -40,6 +40,16 @@
       <% end %>
     <% end %>
 
+    <% if has_privilege(current_user, "income_1") %>
+      <% if @tabs == "incomes"%>
+        <a class="bdB nav-item nav-link active c-white" id="nav-incomes-tab" >
+          Ingresos
+        </a>
+      <% else %>
+        <%= link_to "Ingresos", project_incomes_path(@project), :class => "bdB nav-item nav-link c-white", :id => "nav-incomes-tab" %>
+      <% end %>
+    <% end %>
+
     <% if has_privilege(current_user, "expenses_1") %>
       <% if @tabs == "expenses"%>
         <a class="bdB nav-item nav-link active c-white" id="nav-expenses-tab" >

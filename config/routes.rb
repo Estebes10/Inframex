@@ -65,6 +65,11 @@ Rails.application.routes.draw do
       resources :jobs
     end
 
+    resources :incomes, except: :destroy
+
+    #delete for incomes
+    delete 'incomes/:id', to: 'incomes#destroy', as: :destroy_income
+    delete 'incomes/:id/ajax', to: 'incomes#destroy_ajax', as: :destroy_ajax_income
     #delete for concepts
     delete 'concepts/:id', to: 'concepts#destroy', as: :destroy_concept
     delete 'concepts/:id/ajax', to: 'concepts#destroy_ajax', as: :destroy_ajax_concept

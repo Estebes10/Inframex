@@ -124,7 +124,7 @@ class BlogsController < ApplicationController
   def destroy
     if @blog.destroy
       flash[:success] = ' Se ha eliminado la bitácora correctamente'
-      redirect_to project_path(@project , :anchor => "nav-blogs")
+      redirect_to project_blogs_path(@project)
     else
       flash.now[:error] = ' No se ha podido eliminar la bitácora'
       render :show
