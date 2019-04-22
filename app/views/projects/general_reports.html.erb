@@ -123,14 +123,15 @@
             <div class="bgc-white">
               <div class="layers">
                 <div class="bgc-blue-grey-600 c-white d-inline layer w-100 p-10">
-                  <h5 class="float-left fsz-md">Estimación/Gastos por proyecto</h5>
+                  <h5 class="float-left fsz-md">Gastos/Proyección/Ingresos por proyecto</h5>
                 </div>
                 <div class="layer w-100 p-20">
                   <%= bar_chart [
                     {name: "Gastos", data: @query[:expenses_per_project]},
-                    {name: "Estimación", data: @query[:estimated_costs]},
+                    {name: "Proyección", data: @query[:estimated_costs]},
                     {name: "Ingresos", data: @query[:incomes_per_project]}
-                  ], download: {filename: "estimaciones_gastos"},
+                  ],
+                  download: {filename: "gastos_proyecciones_ingresos"},
                   prefix: "$",
                   thousands: ",",
                   decimal: ".",
@@ -170,12 +171,12 @@
                 </div>
                 <div class="layer w-100 p-20">
                   <%= line_chart @query[:expenses_per_day_by_range],
+                  library: { hAxis: { format: 'dd/MM' } },
                   download: {filename: "gastos_generales_ultimos_24_dias"},
                   prefix: "$",
                   thousands: ",",
                   decimal: ".",
                   messages: {empty: "Sin datos"},
-                  discrete: true,
                   min: 0 %>
                 </div>
               </div>

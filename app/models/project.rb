@@ -160,15 +160,16 @@ class Project < ApplicationRecord
   end
 
   def get_expenses_by_month
-    concepts.joins(:expenses)
+    blogs.joins(:expenses)
         .group_by_month("expenses.date")
         .sum(:total)
   end
 
   def get_expenses_by_day
-    concepts.joins(:expenses)
-        .group_by_day("expenses.date")
-        .sum(:total)
+    blogs.joins(:expenses)
+        .group("expenses.date").order("expenses.date").sum(:total)
+        #.group_by_day("expenses.date")
+        #.sum(:total)
   end
 
   def get_expenses_by_supplier
