@@ -83,7 +83,7 @@
                     <div class="peers ai-sb fxw-nw d-inline">
                       <div class="peer float-right">
                         <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15
-                          <%= total_expenses < estimated_cost ? 'bgc-green-50 c-green-500': 'bgc-red-50 c-red-500'%>">
+                          <%= total_expenses <= estimated_cost ? 'bgc-green-50 c-green-500': 'bgc-red-50 c-red-500'%>">
                           <%= number_to_currency(total_expenses) %>
                         </span>
                       </div>
@@ -240,7 +240,7 @@
                         <div class="peers ai-sb fxw-nw d-inline">
                           <div class="peer float-right pL-20">
                             <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15
-                              <%= c_expenses < c.total ? 'bgc-green-50 c-green-500': 'bgc-red-50 c-red-500'%>">
+                              <%= c_expenses <= c.total ? 'bgc-green-50 c-green-500': 'bgc-red-50 c-red-500'%>">
                               Gastado: <%= number_to_currency(c_expenses) %>
                             </span>
                           </div>

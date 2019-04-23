@@ -67,7 +67,7 @@
                             </label>
                           </td>
                           <td><%= number_to_currency(a.total)-%></td>
-                          <td><%= a.date.strftime("%d/%m/%Y")-%></td>
+                          <td data-sort="<%= a.date.strftime("%Y%m%d%H%M%s") %>"><%= a.date.strftime("%d/%m/%Y")-%></td>
                           <td><%= a.payment_method-%></td>
                           <td>
                             <% if has_privilege(current_user, "income_1") %>
