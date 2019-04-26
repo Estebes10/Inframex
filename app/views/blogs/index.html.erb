@@ -59,7 +59,7 @@
                       <tbody>
                       <% @blogs.each do |blog| %>
                         <tr>
-                          <td><%= blog.date.strftime("%d/%m/%Y") %></td>
+                          <td data-sort="<%= blog.date.strftime("%Y%m%d%H%M%s") %>"><%= blog.date.strftime("%d/%m/%Y") %></td>
                           <td><%= blog.name %></td>
                           <td class="text-truncate text-truncate" style="max-width: 150px;"> <%= blog.description %></td>
                           <% if !has_privilege(current_user, "blog_7") %>
