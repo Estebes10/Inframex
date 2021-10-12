@@ -191,7 +191,9 @@ GEM
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
-    mimemagic (0.3.3)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.9.2)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
@@ -211,7 +213,8 @@ GEM
     pg (1.1.4-x64-mingw32)
     popper_js (1.14.5)
     public_suffix (3.0.3)
-    puma (3.12.0)
+    puma (5.5.1)
+      nio4r (~> 2.0)
     rack (2.0.6)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -371,7 +374,7 @@ DEPENDENCIES
   particles-js-rails (~> 2.0)
   pg
   popper_js (~> 1.14)
-  puma (~> 3.11)
+  puma (~> 5.5)
   rails (~> 5.2.1)
   rails-autocomplete
   rails-controller-testing
